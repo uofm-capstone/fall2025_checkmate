@@ -1,0 +1,382 @@
+<style>
+    .sidebar {
+        background-color: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+        min-height: 100vh;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+    }
+
+    .sidebar .bi {
+        vertical-align: middle;
+    }
+
+    .sidebar .btn-toggle-nav li {
+        margin-bottom: 0.5rem; /* Adjust the margin between buttons as needed */
+    }
+
+    .sidebar .btn-toggle-nav button {
+        background-color: #28a0ad;
+        color: #fff;
+        padding: 0.25rem 0.5rem; /* Reduce the padding to make buttons smaller */
+        font-size: 14px;
+        white-space: nowrap;
+        width: 10%; /* Set the width to 100% to make all buttons the same length */
+        text-align: center; /* Center the text in the button */
+        border-top: 1px solid gray; /* Add top border */
+        border-bottom: 1px solid gray; /* Add bottom border */
+    }
+
+    /*TODO: Might remove since its not really used*/
+    .sidebar .btn-toggle-nav button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+<div class="container-fluid">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <%= render 'shared/team_sprint_dropdowns' %>
+      <!-- User dropdown (rest of the navbar) -->
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <button type="button" class="btn btn-floating btn-lg" id="btn-back-to-top">
+    <%= image_tag "arrow-up.svg", style: "height:32px"%>
+  </button>
+  <div class="row">
+    <div class="col-2 sidebar">
+      <div>
+        <h1 class="ml-2 mt-2" style="position:fixed;">
+          <%= link_to semester_path(@semester), class: "", style: "position:fixed;" do %>
+            <i class="bi bi-arrow-return-left" style="font-size: 32px;"></i>
+          <% end %>
+        </h1>
+        <br>
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small mt-5" style="position:fixed;">
+          <li class="border-top my-3" style="position:fixed;"></li>
+          <li class="mb-2"><button id="btn-jump-to-tms" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Student Scores</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-cs" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Client Scores</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-tmr" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Team Reflections</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-sqq" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Peer Evaluation</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-cqq" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Client Evaluation</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-gc" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Github Commits</button></li>
+          <br>
+          <br>
+          <li class="mb-2"><button id="btn-jump-to-ghc" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Github Commits</button></li>
+          <br>
+        </ul>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="rounded border p-3 bg-light">
+        <% unless @flags.include?("student blank") %>
+          <div>
+            <h1 id="team-member-scores" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;"> Student Scores</h1>
+            <div>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th>Average Score</th>
+                  <th>Average Score (excluding self)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% if @self_submitted_names.present? %>
+                <% @self_submitted_names.each do |name| %>
+                  <tr>
+                    <!-- Output the name -->
+                    <th><%= name[0] %></th>
+              
+                    <!-- Check if the second to last item is a String or less than 4 -->
+                    <!-- Apply 'text-white bg-danger' class if the condition is true -->
+                    <td class="<%= 'text-white bg-danger' if name[-2].is_a?(String) || name[-2].to_f < 4 %>">
+                      <%= name[-2] %>
+                    </td>
+              
+                    <!-- Check if the last item is not a String and is less than 4 -->
+                    <!-- Apply 'text-white bg-danger' class if the condition is true -->
+                    <td class="<%= 'text-white bg-danger' if name.last.is_a?(String) && name.last.to_f < 4 %>">
+                      <%= name.last %>
+                    </td>
+                  </tr>
+                <% end %>
+                <% else %>
+                  <!-- Handle the case where @self_submitted_names is nil or empty -->
+                  <tr>
+                    <td colspan="2" >No data available</td>
+                    <td colspan="3" >No data available</td>
+                  </tr>
+                <% end %>
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+<!--        <br>-->
+
+      <!-- Client Scores Section -->
+      <% if @cliSurvey.blank? %>
+        <!-- If there's no survey data, this message will display -->
+        <div class="d-flex justify-content-center mt-4 mb-4">
+          <div class="card w-50 border-danger">
+            <div class="card-body bg-danger text-white">
+              <p class="card-text text-center">
+                <strong>Attention:</strong> Client survey response is not available. Please check if the client has submitted their survey or confirm there are no issues with the CSV file.
+              </p>
+            </div>
+          </div>
+        </div>
+      <% else %>
+
+      <%# Check if any responses have a value of '0', indicating a missing response %>
+        <%# First, define the expected keys %>
+        <% expected_keys = ['q2_1', 'q2_2', 'q2_3', 'q2_4', 'q2_5', 'q2_6'].map(&:to_sym) %>
+
+        <%# Then, check if any expected key is missing in the survey response %>
+        <% missing_responses = expected_keys.any? { |key| !@cliSurvey[0].has_key?(key) } %>
+        <% Rails.logger.debug "Missing responses: #{missing_responses}" %>
+
+        <%# Collect the keys of the missing responses %>
+        <% missing_keys = expected_keys.reject { |key| @cliSurvey[0].has_key?(key) } %>
+        <% Rails.logger.debug "Missing responses: #{missing_keys.any?}" %>
+
+        <!-- If there's survey data, it should display in this section -->
+        <h2 id="client-scores">Client Scores</h2>
+
+        <%# Display a message if missing responses are detected %>
+        <% if missing_responses %>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="card w-50 border-danger">
+                <div class="card-body bg-danger text-white">
+                  <p class="card-text text-center">
+                    <strong>Note:</strong> One or more client responses are missing for sprint <strong><%= @sprint %></strong> of team <strong><%= @team %></strong>: <strong><%= missing_keys.join(', ') %></strong>. Please review your CSV file for completeness.
+                  </p>
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <%Rails.logger.debug "missing_responses : #{missing_responses}"%>
+        
+
+        <table class="table">
+          <%# Debug the structure of @cliSurvey[0] to ensure it's as expected %>
+            <% Rails.logger.debug "@cliSurvey[0]: #{@cliSurvey[0]}" %>
+            <%# Iterate over the full questions %>
+            <% @full_questions.each do |code, full_question| %>
+              <%# Convert the code to a lowercase symbol before checking %>
+              <% sym_code = code.downcase.to_sym %>
+              <% if @cliSurvey[0].has_key?(sym_code) %>
+                <%# Access the response using the symbolized and lowercased code %>
+                <% response = @cliSurvey[0][sym_code] %>
+                <% Rails.logger.debug "Response for #{sym_code}: #{response}" %>
+                <tr>
+                  <th><%= full_question %></th>
+                  <td class="<%= 'text-white bg-danger' if response.blank? || !['exceeded expectations', 'met expectations'].include?(response.strip.downcase) %>">
+                    <%= response.present? ? response.strip.downcase.titleize : 'Not answered' %>
+                  </td>
+                </tr>
+              <% else %>
+                <% Rails.logger.debug "No response found for #{sym_code}" %>
+              <% end %>
+            <% end %>
+            <tr>
+              <th>Clients average score</th>
+              <td class="<%= 'text-white bg-danger' if get_client_score(@semester, @team, @sprint).to_f < 2 %>">
+                <%= get_client_score(@semester, @team, @sprint) %>
+              </td>
+            </tr>
+          </table>
+          
+        </div>
+       
+      <% end %>
+      <!-- End of Client Scores Section -->
+
+
+        <br>
+        <% unless @flags.include?("student blank") %>
+          <div id="team-member-responses">
+            <div class="d-flex justify-content-between">
+              <h1 style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Team Reflections</h1>
+              <button class="btn btn-outline btn-primary expand-all" id="expand-collapse-btn" style="font-size: 15px; padding: 4px 8px;" type="button" data-toggle="collapse" data-target="<% @student_survey.each do |s| %>#<%= "#{s[:q1]}Collapse" %> <%end%>" aria-expanded="false" aria-controls="<% @student_survey.each do |s| %><%= "#{s[:q1]}Collapse" %> <%end%>">
+                Expand All
+              </button>
+            </div>
+            <div>
+              <% @student_survey.each do |s| %>
+                <div class="mb-2">
+                  <button class="btn btn-secondary w-100" type="button" data-toggle="collapse" data-target=<%="##{s[:q1]}Collapse"%> aria-expanded="false" aria-controls=<%="#{s[:q1]}Collapse"%>><%="#{s[:q1]}'s Responses"%></button>
+                  <div class="collapse multi-collapse" id=<%="#{s[:q1]}Collapse"%>>
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th><%= s[:q1] %></th>
+                        <th><%= s[:q10] %></th>
+                        <th><%= s[:q13_2_text] if s[:q13_2_text] %></th>
+                        <th><%= s[:q23_2_text] if s[:q23_2_text] %></th>
+                        <th><%= s[:q24_2_text] if s[:q24_2_text] %></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <% row_titles = [
+                        "Attends group meetings and arrives on time",
+                        "Does high quality work",
+                        "Completes their work on time",
+                        "Does a fair share of the team's work",
+                        "Communicates effectively and respectfully with their teammates",
+                        "Choose one additional category"
+                      ]
+                         columns = [:q11, :q21, :q15, :q16, :q25]
+                      %>
+                      <% row_titles.each_with_index do |row_title, row_idx| %>
+                        <tr>
+                          <th><%= row_title %></th>
+                          <% columns.each do |col| %>
+                            <% if s["#{col}_#{row_idx + 1}".to_sym].present? %>
+                              <%= render_cell(s["#{col}_#{row_idx + 1}".to_sym], row_idx == 5 ? s["#{col}_#{row_idx + 1}_text".to_sym] : nil) %>
+                            <% else %>
+                              <td></td>
+                            <% end %>
+                          <% end %>
+                        </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <br>
+          <div>
+            <h1 id="student-qualitative-questions" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Peer Evaluation</h1>
+            <div>
+              <%= render_table(1, :q4) %>
+              <%= render_table(2, :q5) %>
+              <%= render_table(3, :q6) %>
+              <%= render_table(4, :q7) %>
+              <%= render_table(5, :q8) %>
+              <%= render_table(6, :q18) %>
+              <%= render_table(7, :q19) %>
+              <%= render_table(8, :q20) %>
+            </div>
+          </div>
+        <% end %>
+        <br>
+        <% unless @flags.include?("client blank") || @cliSurvey.blank? %>
+          <div>
+            <h1 id="client-qualitative-questions" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Client Evaluation</h1>
+            <div>
+              <%= render_client_table(9, :q4) %>
+              <%= render_client_table(10, :q5) %>
+              <%= render_client_table(11, :q6) %>
+              <%= render_client_table(12, :q7) %>
+            </div>
+          </div>
+        <% end %>
+        <br>
+
+        <!-- This section starts the integration of Github API -->
+        <div>
+          <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+          
+          <!-- Form to collect repo and sprint info -->
+          <div id="github-repo-form">
+
+            <!-- Style to align the input boxes for the request form -->
+            <style>
+              label {
+                display: block;
+                text-align: left;
+              }
+
+              input {
+                display: block;
+                margin-bottom: 10px;
+              }
+
+              #github-repo-form {
+                width: 300px;
+              }
+            </style>
+
+            <form id="github-form">
+
+              <!-- Name of Repo Owner -->
+              <label for="repo-owner">Repository Owner: </label>
+              <input type="text" placeholder="Repo Owner" id="repo-owner" required>
+
+              <!-- Name of Repo -->
+              <label for="repo-name">Repository Name: </label>
+              <input type="text" placeholder="Repo Name" id="repo-name" required>
+
+              <!-- Fine-grain Access Token From Github -->
+              <label for="access-token">Github Access Token: </label>
+              <input type="text" placeholder="Fine-grain Token" id="access-token" required>
+
+              <!-- Sprint Start Date -->
+              <label for="start-date">Sprint Start Date: </label>
+              <input type="text" placeholder="YYYY-MM-DD" id="start-date" required>
+
+              <!-- Sprint End Date -->
+              <label for="end-date">Sprint End Date: </label>
+              <input type="text" placeholder="YYYY-MM-DD" id="end-date" required>
+              
+              <button type="submit">Get Commit Info</button>
+            </form>
+          </div>
+
+          <!-- Element for where the response is placed -->
+          <div id="commit-list">
+          </div>
+          <div id="commit-table">
+            <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+              <thead>
+                <tr>
+                    <th>Author</th>
+                    <th>Number of Commits</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <!-- Commit data will be populated here -->
+              </tbody>
+            </table>
+
+            <div>
+              <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+              <canvas id="myChart"></canvas>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Allows the data from the github request to be shown -->
+<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+<%= javascript_include_tag 'octokit', type: "module" %>

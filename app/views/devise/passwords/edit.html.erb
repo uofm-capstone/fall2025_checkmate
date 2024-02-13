@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+    <div class="d-flex flex-column">
+      <div>
+        <h1>Change Password</h1>
+      </div>
+      <div class="text-center">
+        <p>Please enter your new password</p>
+      </div>
+
+      <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.hidden_field :reset_password_token %>
+
+        <div class="field">
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <% end %>
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+        </div>
+
+        <div class="field">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+
+        <div class="actions text-center mb-2">
+          <%= f.submit "Confirm", class:"btn btn-secondary btn-lg"%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

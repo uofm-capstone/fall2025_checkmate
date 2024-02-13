@@ -1,0 +1,216 @@
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
+  <title></title>
+</head>
+<style>
+    .optional {
+        font-size: 0.7em; /* adjust the font size as needed */
+        font-style: italic;
+        transform: skew(-1deg); /* adjust the skew angle as needed */
+        display: inline-block; /* ensure the span is only as wide as its content */
+    }
+
+    .dropdown-container {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: top;
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .card {
+        border-radius: 5px;
+        font-weight: 500;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        margin-bottom: 12px;
+    }
+
+    .summer-card {
+        background-color: #FFE78F;
+        border: 1px solid #FFD700;
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.1);
+    }
+
+    .spring-card {
+        background-color: #C8F2C2;
+        border: 1px solid #98FB98;
+        box-shadow: 0 4px 8px rgba(152, 251, 152, 0.1);
+    }
+
+    .fall-card {
+        background-color: #FFC8B2;
+        border: 1px solid #FFA07A;
+        box-shadow: 0 4px 8px rgba(255, 160, 122, 0.1);
+    }
+
+    .timestamp {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .card:hover .timestamp {
+        color: #555;
+    }
+    h3 {
+        animation-duration: 1s;
+        animation-name: slideInFromLeft;
+    }
+
+    .card {
+        animation-duration: 1s;
+        animation-name: fadeIn;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInFromLeft {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .hr-separator {
+        border: none;
+        border-top: 2px solid #ccc;
+        margin: 20px 0;
+    }
+</style>
+<body>
+  <div class="container">
+      <div class="row">
+          <div class="col-2 sticky-top h-100">
+              <div>
+                <div class="text-center">
+                  <div class="d-inline-block mx-auto" style="margin-left: 50px;">
+                    <%= image_tag 'Homepage.png', class: 'w-100', style: 'max-width: 25rem;'%>
+                    <button href="#" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#newSemesterModal">
+                      New Semester
+                    </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        <div class="col-10 justify-content-center align-items-center text-center">
+          <h3>Select Semester</h3>
+          <div class="row">
+            <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
+            <% grouped_semesters.each_with_index do |(year, semesters), index| %>
+              <% sorted_semesters = semesters.sort_by { |s| s.semester == 'Fall' ? 0 : s.semester == 'Summer' ? 1 : 2 } %>
+
+              <% sorted_semesters.each_with_index do |s, semester_index| %>
+                <% card_class = case s.semester
+                                when 'Summer' then 'summer-card'
+                                when 'Spring' then 'spring-card'
+                                when 'Fall' then 'fall-card'
+                                else ''
+                                end %>
+                <div class="col-md-12">
+                  <%= link_to semester_path(s), class: 'text-decoration-none' do %>
+                    <div class="card mb-4 <%= card_class %>">
+                      <div class="card-body">
+                        <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
+                        <p class="timestamp">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+
+                <!-- Add the line separator between years, except for the last year -->
+                <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
+                  <div class="col-md-12">
+                    <hr class="hr-separator">
+                  </div>
+                <% end %>
+              <% end %>
+
+            <% end %>
+          </div>
+        </div>
+
+
+
+      </div>
+  </div>
+  <div class="modal fade" id="newSemesterModal" tabindex="-1" aria-labelledby="newSemesterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newSemesterModalLabel">New Semester</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= bootstrap_form_with model: @semester, url: semesters_path, method: :post, local: true do |f| %>
+            <%= f.hidden_field :semester %>
+            <%= f.hidden_field :year %>
+            <div class="form-outline mb-4">
+              <div class="dropdown-container">
+                <% semester_array = %w[Fall Spring Summer] %>
+                <%= select_tag :semester, options_for_select(semester_array), class: 'form-control form-control-lg', id: 'semester' %>
+              </div>
+              <div class="dropdown-container">
+                <%= select_tag :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), class: 'form-control form-control-lg', id: 'year' %>
+              </div>
+
+            </div>
+            <hr>
+            <h5>Upload Survey CSVs <span class="optional">(optional)</span></h5>
+            <div class="form-outline mb-4">
+              <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'client_csv' %>
+            </div>
+            <div class="form-outline mb-4">
+              <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-center mb-5">
+              <%= f.submit "Submit", class: "btn btn-success btn-block gradient-custom-4 text-white" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      $(document).ready(function() {
+          $('#semester').change(function() {
+              $('input[name="semester[semester]"]').val($(this).val());
+          });
+
+          $('#year').change(function() {
+              $('input[name="semester[year]"]').val($(this).val());
+          });
+      });
+  </script>
+</body>
+

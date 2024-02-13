@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "@hotwired/turbo": "^7.3.0",
+    "@rails/activestorage": "^7.0.4-3",
+    "@rails/ujs": "^7.0.4-3",
+    "bootstrap": "^5.2.3",
+    "jquery": "^3.6.4",
+    "octokit": "^3.1.1"
+  },
+  "name": "tag",
+  "description": "# Tool-Assisted Grading (TAG) TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrhosier42/tag.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrhosier42/tag/issues"
+  },
+  "homepage": "https://github.com/mrhosier42/tag#readme"
+}

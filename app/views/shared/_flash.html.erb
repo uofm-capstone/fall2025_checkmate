@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="mt-5 pt-4">
+    <div id="flash-message-success">
+      <% if flash[:notice] && !flash[:notice].blank? %>
+        <div class="alert alert-info w-50 mx-auto" role="alert">
+          <% if flash[:notice].is_a?(Array) %>
+            <% flash[:notice].each do |notice| %>
+              <p><%= notice %></p>
+            <% end %>
+          <% else %>
+            <%= flash[:notice] %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if flash[:alert] && !flash[:alert].blank? %>
+      <div class="alert alert-warning w-50 mx-auto" role="alert">
+        <% if flash[:alert].is_a?(Array) %>
+          <% flash[:alert].each do |alert| %>
+            <p><%= alert %></p>
+          <% end %>
+        <% else %>
+          <%= flash[:alert] %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<script>
+    $(document).ready(function(){
+        setTimeout(function() {
+            $('.alert').fadeOut(1000, function(){
+                $(this).remove();
+            });
+        }, 2000);
+    });
+</script>

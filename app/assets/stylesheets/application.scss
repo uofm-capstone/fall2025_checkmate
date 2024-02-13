@@ -1,0 +1,187 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+//@import "~bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap";
+@import "rails_bootstrap_forms";
+
+body {
+    padding-top: 4rem;
+  }
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+.bg-color1 {
+  background-color: #0D3182;
+}
+
+.bg-color2 {
+  background-color: #888C8F;
+}
+
+.box-cont {
+  max-width: 300;
+}
+
+.lnk-blue:hover,
+.lnk-blue:focus {
+  color: #0D3182;
+}
+
+.btn-t {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, .65);
+  background-color: transparent;
+}
+.btn-t:hover,
+.btn-t:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #2b3c6451;
+}
+
+.btn-t::before {
+  width: 1.25em;
+  line-height: 0;
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.btn-toggle {
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, .65);
+  background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #2b3c6451;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(0, 0, 0, .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: #2b3c6451;
+}
+
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  }
+
+ // ADDED: styling for creating new semester list
+html {
+  scroll-padding-top: 65px;
+}
+.semester-list {
+  margin-top: 20px;
+}
+
+.year-header {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.semester-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.semester-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.semester-link {
+  margin-left: 10px;
+}
+
+//styling on homepage around the "creating new semester or select existing list of semesters"
+.box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+}
+// END
+
+.semester-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.semester-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.semester-link {
+  margin-left: 10px;
+}
+
+.semester-link a {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.semester-link-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 150px;
+}
+
+.lnk-blue {
+  width: 100%;
+  text-align: center;
+}

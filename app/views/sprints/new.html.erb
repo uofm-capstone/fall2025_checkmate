@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+        <div class="d-flex flex-column">
+            <h1>Create Sprint</h1>
+            <div>
+                <%= bootstrap_form_with model: @sprint, url: semesters_sprints_url_path(@semester), method: :post, local: true do |f| %>
+                <div class="nested-fields mb-2">
+                    <div>
+                        <%= f.text_field :name %>
+                        <%= f.date_field :start_date%>
+                        <%= f.date_field :end_date%>
+                        <%= f.submit %>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+            <%= link_to 'Cancel', semester_sprints_path(@semester), class: 'btn btn-outline-secondary' %>
+        </div>
+    </div>
+</div>

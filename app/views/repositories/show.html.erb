@@ -1,0 +1,250 @@
+<head>
+    <%= stylesheet_link_tag "new.css" %>
+    <style>
+        table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+
+        th, td {
+        padding: 10px;
+        }
+</style>
+</head>
+
+<div class="container">
+    <h1 style = "color:  #0D3182"><%= link_to semester_path(@semester), class: "" do %><%= image_tag "arrow-left-circle-fill.svg", class:"mr-1", style: "height:32px"%><% end %><%="Team #{@repo.team}'s Metrics from #{@sprint.name}"%></h1>
+    <p style = "text-align:center"><%="From #{@sprint.start_date.strftime("%m/%d/%Y")} to #{@sprint.end_date.strftime("%m/%d/%Y")}"%></p>
+    <h2 style = "color:  #0D3182"> GitHub Commits</h2>
+    <p>
+        <%begin%>
+            <%#Chart Kick and Group Date are the two gems required to make this chart work, I believe. %>
+            <%=line_chart @commits_array.group_by{|commit| if commit[%Q(author)] then commit[%Q(author)][%Q(login)] else commit[%Q(commit)][%Q(author)][%Q(name)] end}.map{|k,v| {name: k, data: v.map{|hash| hash[%Q(commit)][%Q(author)][%Q(date)] }.group_by_day(series: true){|date| date}.map { |k, vs| [k, vs.size] }.to_h}}, adapter: "chartjs" %>
+        <%rescue => exception%>
+            <p><span style="background-color: yellow">Could not retrieve commit timeline. This repository may not have any commits for this time range yet.</span></p>
+        <%end%>
+    </p>
+    <p>
+    <h2 style = "color:  #0D3182"> Pull Requests</h2>
+        <%begin%>
+        <%#Some tedious rearranging of API data to get metrics. Not sure if there's a good way to avoid this%>
+        <%@contributors_array.map!{|contributor| contributor[%Q(login)]}.sort!%>
+        <table>
+            <tr>
+                <th></th>
+                <%@contributors_array.each do |contributor|%> 
+                    <th><%=contributor%></th>
+                <%end%>
+            </tr>
+            <tr>
+                <th>Pull Requests Reviewed</th>
+                <%@contributors_array.each do |contributor|%>
+                    <%num = 0%>
+                    <% @pullrequests_review.each do |item| %>
+                        <% item.each do |review| %>
+                        <% if review["login"] == contributor%>
+                                <% num += 1 %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                    <td>
+                        <%=num%>
+                    </td>
+                <%end%>
+            </tr>
+
+            <tr>
+                <th>Pull Requests Assigned</th>
+                <%grouped_pullrequests =  @pr_assigned_array.group_by {|pr| if pr[%Q(assignees)].is_a?(Array) then pr[%Q(assignees)].map {|assignee| assignee[%Q(login)]} end}.transform_values! { |values| values.count} %>  
+                <%@contributors_array.each do |contributor|%>
+                    <%num = 0%>
+                    <%info = grouped_pullrequests.find_all{|group| group[0].include? %Q(#{contributor})}%>
+                    <%if info%>
+                        <%info.each do |addend|%>
+                            <%if addend[1]%>
+                                <%num = num + addend[1]%>
+                            <%end%>
+                        <%end%>
+                    <%end%>
+                    <td>
+                        <%=num%>
+                    </td>
+                <%end%>
+            </tr>
+
+        </table>
+        <%rescue => exception %>
+            <p><span style="background-color: red; color: white"><%=@contributors_array%></span></p>
+        <%end%>
+    </p>
+    <p>
+    <% @colors = ['blue', 'orange', 'green', 'red', 'yellow', 'purple']%>
+    <% @colors2 = ['background-color: blue;', 'background-color: orange;', 'background-color: green;', 'background-color: red;', 'background-color: yellow;', 'background-color: purple;']%>
+    <%begin%>
+        <div class='parent'>
+        <%@contrib.each_index do |z|%>
+                <div class='child' style= <%=raw @colors2[z].to_json%>><%= @contrib[z] %></div>
+        <%end%>
+        </div>
+    <%end%>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/gantt/modules/gantt.js"></script>
+    <script src="https://code.highcharts.com/gantt/modules/exporting.js"></script>
+    <div id="container"></div>
+
+    <%= javascript_tag do %>
+    let day = 1000 * 60 * 60 * 24;
+    var chart = Highcharts.ganttChart('container', {
+    chart: {
+        events: {
+        load() {
+            let chart = this;
+            chart.series[0].points[0].graphic.translate(0, -25);
+            chart.series[0].points[1].graphic.translate(0, -25);
+            chart.series[1].points[0].graphic.translate(0, -25);
+            chart.series[1].points[1].graphic.translate(0, -25);
+            chart.series[2].points[0].graphic.translate(0, -25);
+            chart.series[2].points[1].graphic.translate(0, -25);
+        }
+        }
+    },
+
+    title: {
+        text: 'Github Issues'
+    },xAxis: [{
+            <% mod = @sprint.start_date.strftime('%m').to_i - 1 %>
+            <% mod2 = @sprint.end_date.strftime('%m').to_i - 1 %>
+            min: Date.UTC(<%=raw @sprint.start_date.strftime('%Y').to_json %>, <%=raw mod.to_json %>, <%=raw @sprint.start_date.strftime('%d').to_json %>, <%=raw @sprint.start_date.strftime('%H').to_json %>),
+            max: Date.UTC(<%=raw @sprint.end_date.strftime('%Y').to_json %>, <%=raw mod2.to_json %>, <%=raw @sprint.end_date.strftime('%d').to_json %>, <%=raw @sprint.start_date.strftime('%H').to_json %>),
+        }, {
+        dateTimeLabelFormats: {
+            week: 'Week of %b %e, %Y',
+        }
+    }],
+    yAxis: {
+        <% @contrib.push("") %>
+        categories: <%=raw @contrib.to_json %>,
+        uniqueNames: true,
+        //className: "highcharts-label-icon",
+        breaks: [{
+        breakSize: 0.5,
+        from: 0,
+        to: 0,
+        },
+            {
+        breakSize: 0.5,
+        from: 1,
+        to: 1,
+        
+        },
+        {
+        breakSize: 0.5,
+        from: 2,
+        to: 2, 
+        },{
+        breakSize: 0.5,
+        from: 3,
+        to: 3, 
+        },{
+        breakSize: 0.5,
+        from: 4,
+        to: 4, 
+        },{
+        breakSize: 0.5,
+        from: 5,
+        to: 5, 
+        },]
+        
+
+    },
+    
+    series: [
+        <%begin%>
+            <% stack = 0 %>
+            
+            <%@contrib.each_index do |j|%>
+                {
+                name: <%=raw j.to_json %>,
+                data: [
+                <% i = 0 %>
+                <%@issue_titles.each_index do |i|%>
+                    <%if @issue_login[i] == @contrib[j] %>
+                        {
+                        <% temp = @issue_created[i].strftime('%m').to_i - 1 %>
+                        <% temp2 = @issue_closed[i].strftime('%m').to_i - 1 %>
+                        name: <%=raw @issue_titles[i].to_json %>,
+                        <%if stack == 0 %>
+                            y: <%= raw (@contrib.index(@issue_login[i])).to_json %>,
+                            <% stack = 1%>
+                        <%else%>
+                            y: <%= raw (@contrib.index(@issue_login[i])+0.5).to_json %>,
+                            <% stack = 0%>
+                        <%end%>
+                        start: Date.UTC(<%=raw @issue_created[i].strftime('%Y').to_json %>, <%=raw temp.to_json %>, <%=raw @issue_created[i].strftime('%d').to_json %>, <%=raw @issue_created[i].strftime('%m').to_json %> ),
+                        end: Date.UTC(<%=raw @issue_closed[i].strftime('%Y').to_json %>, <%=raw temp2.to_json %>, <%=raw @issue_closed[i].strftime('%d').to_json %>, <%=raw @issue_closed[i].strftime('%H').to_json %>),
+                        opacity: 0.8,
+                        color: <%=raw @colors[j].to_json %>
+                        },
+                    <%end%>
+                <%end%>
+                ]
+                },
+            <%end%>
+        <%end%>
+        ]
+    });
+    <%end%>
+
+    <h2 style = "color:  #0D3182"> Issues </h2>
+        <%begin%>
+        <% @contrib.pop() %>
+        <%temp = 0%>
+        <table>
+        <tr>
+            <th></th>
+            <%@contrib.each do |con|%>
+                <th><%= con %></th>
+            <%end%>
+        </tr>
+        <tr>
+            <th>Issues assigned</th>
+            <%@contrib.each do |user| %>
+                <%temp = 0%>
+                <%@issue_login.each do |log|%>
+                    <% if user == log%>
+                        <% temp = temp + 1%>
+                    <%end%>
+                <%end%>
+                <td><%= temp %></td>
+            <%end%>
+        <tr>
+        </table>
+        <br>
+        <table>
+        <tr>
+            <th>Titles</th>
+            <th>Date Created</th>
+            <th>Date Closed</th>
+            <th>Assignee</th>
+        </tr>
+        <%@issue_titles.each_index do |i|%>
+            <tr>
+                <th><%= @issue_titles[i]%></th>
+                <td><%= @issue_created[i].strftime("%m/%d/%Y")%></td>
+                <td><%= @issue_closed[i].strftime("%m/%d/%Y")%></td>
+                <td><%= @issue_login[i]%></td>
+            </tr>
+        <%end%>
+        </table>
+        <%end%>
+    </p>
+
+    <h2 style = "color:  #0D3182">Note</h2>
+    <ul>
+        <li>Pull request metrics are for PRs that have been merged during this sprint.</li>
+        <li>A pull request review indicates that the user actually reviewed code for the PR, not just that their review was requested. A user will typically review other team member's PRs, not the ones that he/she is assigned to.</li>
+            <ul><li><mark style="background-color: yellow">In summary, "reviewed" means they did quality assurance for the PR.</mark></li></ul>
+        <li>If a pull request is "assigned" to someone, that typically means that they were the one who initiated the PR, or at least contributed a significant portion of code to it. A Pull Request may be assigned to more than one person; in that case it will count as 1 PR for each person it is assigned to.</li>
+            <ul><li><mark style="background-color: yellow">In summary, "assigned" <em>typically</em> means they did the coding.</mark></li></ul>
+    </ul>
+</div>

@@ -1,0 +1,39 @@
+<section class="vh-100 bg-image" style="background-image: url('<%= asset_path('background/cap.jpg') %>');">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">New Semester</h2>
+              <%= bootstrap_form_with(model: @semester, url: semesters_path, method: :post, local: true) do |f| %>
+                <div class="form-outline mb-4">
+                  <% semester_array = %w[Fall Spring Summer] %>
+                  <%= f.select :semester, semester_array, {}, class: 'form-control form-control-lg', id: 'semester' %>
+                  <%= f.select :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), {}, class: 'form-control form-control-lg', id: 'year' %>
+                </div>
+                <fieldset class="ml-2 mb-4">
+                  <legend>Sprints:</legend>
+                  <%= f.fields_for :sprints do |sprints_form| %>
+                    <%= render partial: "semesters/sprint_fields", locals: { f: sprints_form } %>
+                  <% end %>
+                </fieldset>
+                <div class="form-outline mb-4">
+                  <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
+                </div>
+
+                <div class="d-flex justify-content-center mb-5">
+                  <%= f.submit "Submit", class: "btn btn-success btn-block btn-lg gradient-custom-4 text-body" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
