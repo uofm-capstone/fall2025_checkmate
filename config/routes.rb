@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   # resources :sprints
 
+
+  # Student List Add controller
+  post '/import/home', to: 'student_list_add#import_home'
+
+  
   # Semester controller
   get 'semesters', to: 'semesters#home', as: 'semesters'
   post 'semesters', to: 'semesters#create'

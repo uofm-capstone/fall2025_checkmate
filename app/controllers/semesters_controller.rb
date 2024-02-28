@@ -12,6 +12,9 @@ class SemestersController < ApplicationController
     include ClientScoreHelper
     include ClientDisplayHelper
     include ClientSurveyPatternsHelper
+
+
+    
     
     def home
         @semesters = Semester.order(:year)
