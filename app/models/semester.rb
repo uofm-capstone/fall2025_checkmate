@@ -12,6 +12,7 @@ class Semester < ApplicationRecord
 
     has_one_attached :student_csv
     has_one_attached :client_csv
+    
 
     has_many :sprints, inverse_of: :semester
     accepts_nested_attributes_for :sprints, allow_destroy: true, reject_if: :all_blank

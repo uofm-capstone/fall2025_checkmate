@@ -1,0 +1,18 @@
+<h1>classlist</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @student_list_add.each do |student| %>
+      <tr>
+        <td><%= student[:name] %></td>
+        <td><%= student[:role] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
