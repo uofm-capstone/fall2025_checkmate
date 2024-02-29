@@ -12,6 +12,10 @@ Hitham W.S Rizeq
 * Week 2:
 * https://docs.google.com/spreadsheets/d/1ORxyuffng5yyver_pzqf8FWHtdWZdBlKqOAZR6xUFfw/edit#gid=0
 
+* Week 3:
+* https://docs.google.com/spreadsheets/d/1xwsYZPfAxMCCNKX2qNkzIQ_GLDowufxFmfa5vEpBnE8/edit#gid=0
+
+
 ## Sprint 2 goals
 * Making students names constients
 * Fixing the students grading scale
