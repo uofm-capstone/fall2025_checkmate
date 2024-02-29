@@ -29,10 +29,10 @@ Hitham W.S Rizeq
 * We also made a test csv for github, and attempted to automate the process of getting the commits graph for the teams.
 
 ## Purav Patel Code branch
-* My Code is in the fix-grading branch and I have not complited the code so I have not push it to main.
+* My Code is in the fix-grading branch and I have not completed the code so I have not push it to main.
 
 ## Naitik Kaythwal Code branch
-* My code is in the name_consistency and I have not complited the code so I have not push it to main.
+* My code is in the name_consistency and I have not completed the code so I have not push it to main.
 
 ## Hitham W.S Rize Code branch
 * My code is pushed to the main branch from adding student list branch.
