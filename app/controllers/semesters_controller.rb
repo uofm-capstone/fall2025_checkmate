@@ -229,34 +229,30 @@ class SemestersController < ApplicationController
                             end
                             name.push(name_to_add)
                         end
-                        
-                        # Assuming 'name[1]' contains self scores and 'name[2]' contains peer scores
-                        self_scores = name[1].compact
-                        peer_scores = name[2].compact
-                        
-                        # Combine self and peer scores for total score calculation
-                        combined_scores = self_scores + peer_scores
-                        
-                        # Calculate the average score
-                        average_combined_score = if combined_scores.any?
-                                                    (combined_scores.sum.to_f / combined_scores.size).round(1)
-                                                elsif peer_scores.any?
-                                                    (peer_scores.sum.to_f / peer_scores.size).round(1)
-                                                else
-                                                    "*Did not submit survey*"
-                                                end
-                        
-                        # Calculate the average peer score separately, for clarity
-                        average_peer_score = peer_scores.any? ? (peer_scores.sum.to_f / peer_scores.size).round(1) : "*Did not submit survey*"
-                        
-                        # Append the calculated averages to the name array
-                        name.push(average_combined_score)
-                        name.push(average_peer_score)
 
+                        self_scores = name[1].compact
+
+                        # Remove any nil elements from self_scores and peer_scores arrays to ensure accurate calculations
+                        name[1].compact!
+                        name[2].compact!
+
+                        # combine both name[1] + name[2]
+                        including_self_scores = name[1] + name[2]
+                        
+                        # Check if there are any scores present (self or peer) to calculate the average including self
+                        if including_self_scores.present?
+                            name.push((including_self_scores.sum / including_self_scores.size.to_f).round(1))
+                        elsif name[2].present?
+                            name.push((name[2].sum / name[2].size.to_f).round(1))
+                        else
+                            name.push("*Did not submit survey*")
+                        end
+                        
+                        name.push((name[2].sum / name[2].size.to_f).round(1))
                       
-                        # Rails.logger.debug("DEBUGGGGGG #{name[-2]}")
-                      #  Rails.logger.debug("NAMEE ADD")
-                      #Rails.logger.debug("#{self_scores}")
+                    #     Rails.logger.debug("DEBUGGGGGG #{name[-2]}")
+                    #    Rails.logger.debug("NAMEE ADD")
+                    #   Rails.logger.debug("#{self_scores}")
                        
                       
                       # stores the flags for the team
