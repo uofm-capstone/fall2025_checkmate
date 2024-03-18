@@ -155,10 +155,14 @@ class SemestersController < ApplicationController
                         puts "student blank"
                     end
 
-                    if @student_survey[0] then @self_submitted_names = [[@student_survey[0][:q1]],[@student_survey[0][:q10]]] end
-                    if @student_survey[0] and @student_survey[0][:q13_2_text] then @self_submitted_names.push([@student_survey[0][:q13_2_text]]) end
-                    if @student_survey[0] and @student_survey[0][:q23_2_text] then @self_submitted_names.push([@student_survey[0][:q23_2_text]]) end
-                    if @student_survey[0] and @student_survey[0][:q24_2_text] then @self_submitted_names.push([@student_survey[0][:q24_2_text]]) end
+                    @self_submitted_names = []
+                    if @student_survey.any?
+                        @self_submitted_names.push([@student_survey[0][:q1]], [@student_survey[0][:q10]])
+                        additional_keys = [:q13_2_text, :q23_2_text, :q24_2_text]
+                        additional_keys.each do |key|
+                            @self_submitted_names.push([@student_survey[0][key]]) if @student_survey[0][key]
+                        end
+                    end
 
                     if @self_submitted_names then @self_submitted_names.each do |name|
                         white = Text::WhiteSimilarity.new
@@ -199,40 +203,27 @@ class SemestersController < ApplicationController
                                 self_scores = nil
                             end
 
-                            if scores
-                                scores.map!{ |score|
-                                    if score=="Always"
-                                        5
-                                    elsif score=="Most of the time"
-                                        4
-                                    elsif score=="About half the time"
-                                        3
-                                    elsif score=="Sometimes"
-                                        2
-                                    elsif score=="Never"
-                                        1
-                                    else
-                                        0
-                                    end
-                                }
-                            end
-                            if self_scores
-                                self_scores.map!{ |score|
-                                    if score=="Always"
-                                        5
-                                    elsif score=="Most of the time"
-                                        4
-                                    elsif score=="About half the time"
-                                        3
-                                    elsif score=="Sometimes"
-                                        2
-                                    elsif score=="Never"
-                                        1
-                                    else
-                                        0 
-                                    end
-                                }
-                            end
+                            scores&.map! do |score|
+                                case score
+                                when 'Always' then 5
+                                when 'Most of the time' then 4
+                                when 'About half the time' then 3
+                                when 'Sometimes' then 2
+                                when 'Never' then 1
+                                else 0
+                                end
+                              end
+                              
+                              self_scores&.map! do |score|
+                                case score
+                                when 'Always' then 5
+                                when 'Most of the time' then 4
+                                when 'About half the time' then 3
+                                when 'Sometimes' then 2
+                                when 'Never' then 1
+                                else 0
+                                end
+                              end
                             if self_scores
                                 name[1] = name[1] + self_scores
                             end
@@ -242,11 +233,16 @@ class SemestersController < ApplicationController
                             name.push(name_to_add)
                         end
 
-                        
+                        self_scores = name[1].compact
+
+                        # Remove any nil elements from self_scores and peer_scores arrays to ensure accurate calculations
                         name[1].compact!
                         name[2].compact!
+
+                        # combine both name[1] + name[2]
                         including_self_scores = name[1] + name[2]
                         
+                        # Check if there are any scores present (self or peer) to calculate the average including self
                         if including_self_scores.present?
                             name.push((including_self_scores.sum / including_self_scores.size.to_f).round(1))
                         elsif name[2].present?
@@ -257,9 +253,9 @@ class SemestersController < ApplicationController
                         
                         name.push((name[2].sum / name[2].size.to_f).round(1))
                       
-                        # Rails.logger.debug("DEBUGGGGGG #{name[-2]}")
-                      #  Rails.logger.debug("NAMEE ADD")
-                      #Rails.logger.debug("#{self_scores}")
+                    #     Rails.logger.debug("DEBUGGGGGG #{name[-2]}")
+                    #    Rails.logger.debug("NAMEE ADD")
+                    #   Rails.logger.debug("#{self_scores}")
                        
                       
                       # stores the flags for the team
@@ -279,30 +275,12 @@ class SemestersController < ApplicationController
                 end
 
                 # check if students' questions are empty (without any responses)
-                @student_survey.each do |s|
-                    if s[:q4] != nil
-                        @not_empty_questions.append(1)
-                    end
-                    if s[:q5] != nil
-                        @not_empty_questions.append(2)
-                    end
-                    if s[:q6] != nil
-                        @not_empty_questions.append(3)
-                    end
-                    if s[:q7] != nil
-                        @not_empty_questions.append(4)
-                    end
-                    if s[:q8] != nil
-                        @not_empty_questions.append(5)
-                    end
-                    if s[:q18] != nil
-                        @not_empty_questions.append(6)
-                    end
-                    if s[:q19] != nil
-                        @not_empty_questions.append(7)
-                    end
-                    if s[:q20] != nil
-                        @not_empty_questions.append(8)
+                question_keys = {
+                                q4: 1, q5: 2, q6: 3, q7: 4, q8: 5, q18: 6, q19: 7, q20: 8
+                                }
+                @student_survey.each do |survey|
+                    question_keys.each do |key, value|
+                        @not_empty_questions.append(value) unless survey[key].nil?
                     end
                 end
             end
@@ -326,6 +304,9 @@ class SemestersController < ApplicationController
 
         render :team
     end
+
+
+      
 
     def get_flags(semester, sprint, team)
         # stores all the flags for the team

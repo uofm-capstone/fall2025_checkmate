@@ -70,8 +70,15 @@ module TeamsHelper
         thead + tbody
       end
   end
-
- 
+# New added 
+  # def render_average_score(student_name, scores)
+  #   if scores[:average_including_self]
+  #     content_tag :p, "#{student_name}'s Average Score (Including Self): #{scores[:average_including_self].round(2)}"
+  #   end
+  #   if scores[:average_excluding_self]
+  #     content_tag :p, "#{student_name}'s Average Score (Excluding Self): #{scores[:average_excluding_self].round(2)}"
+  #   end
+  # end
 
   
 end
