@@ -17250,3 +17250,548 @@ Processing by StudentListAddController#import_home as HTML
 Completed 200 OK in 30ms (Views: 12.4ms | ActiveRecord: 0.5ms | Allocations: 15262)
 
 
+Started GET "/" for ::1 at 2024-03-20 07:32:41 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (9.0ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 98.4ms | Allocations: 57643)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 895)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 468)
+  Rendered layout layouts/application.html.erb (Duration: 105.0ms | Allocations: 70098)
+Completed 200 OK in 148ms (Views: 100.1ms | ActiveRecord: 31.6ms | Allocations: 87862)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-20 07:32:43 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.6ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (3.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (1.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (1.4ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 11:38,3/2/2023 11:44,IP Address,76.138.105.131,100,352,TRUE,3/2/2023 11:44,R_1F49rS5c8IsZb8P,,,,,35.1512,-89.972,anonymous,EN,PeerPresents,Julio Barajas,Sprint 2,Exceeded expectations,Met Expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Exceeded expectations,"All team members local environment set up and ready to begin programming, as well as having a good grasp on existing wireframes. ",Elliot finished setting up his environment and has done the most investigation related to this. He also has been helping other team member and documenting all the commands he’s been running to get everything set up and has been communicating with me clearly for the team on the progress they’ve been making as well as any concerns.,,All team members have been making clear progress
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 11:38,3/2/2023 11:44,IP Address,76.138.105.131,100,352,TRUE,3/2/2023 11:44,R_1F49rS5c8IsZb8P,,,,,35.1512,-89.972,anonymous,EN,PeerPresents,Julio Barajas,Sprint 2,Exceeded expectations,Met Expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Exceeded expectations,"All team members local environment set up and ready to begin programming, as well as having a good grasp on existing wireframes. ",Elliot finished setting up his environment and has done the most investigation related to this. He also has been helping other team member and documenting all the commands he’s been running to get everything set up and has been communicating with me clearly for the team on the progress they’ve been making as well as any concerns.,,All team members have been making clear progress
+
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 11:30,3/2/2023 11:36,IP Address,172.59.88.79,100,368,TRUE,3/2/2023 11:37,R_rdm0eJu7uuDBD1v,,,,,35.1431,-90.0492,anonymous,EN,Metro Alarms Office,Metro Alarm Office ,Sprint 2,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Exceeded expectations,I expect the team to be ready with a timeline on when they will be finished with tasks we discussed for this sprint,,,
+
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 11:30,3/2/2023 11:36,IP Address,172.59.88.79,100,368,TRUE,3/2/2023 11:37,R_rdm0eJu7uuDBD1v,,,,,35.1431,-90.0492,anonymous,EN,Metro Alarms Office,Metro Alarm Office ,Sprint 2,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Exceeded expectations,I expect the team to be ready with a timeline on when they will be finished with tasks we discussed for this sprint,,,
+
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 10:01,3/1/2023 11:38,IP Address,141.225.10.165,100,5852,TRUE,3/1/2023 11:38,R_30iblGlw0QGOuUM,,,,,35.0644,-89.6759,anonymous,EN,GA Support,Michelle Peterson,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Right after Spring Break,"So far Noah and Anton have been attentive, available, and interested in all the information and feedback I have given. ","Not at all - these interactions have all been very attentive and personable whether in email, teams, or in person.",I would have Katie do one of these surveys - She has more input regarding the technical side and how they are handling that of this that may be valuable.
+
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 10:01,3/1/2023 11:38,IP Address,141.225.10.165,100,5852,TRUE,3/1/2023 11:38,R_30iblGlw0QGOuUM,,,,,35.0644,-89.6759,anonymous,EN,GA Support,Michelle Peterson,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Right after Spring Break,"So far Noah and Anton have been attentive, available, and interested in all the information and feedback I have given. ","Not at all - these interactions have all been very attentive and personable whether in email, teams, or in person.",I would have Katie do one of these surveys - She has more input regarding the technical side and how they are handling that of this that may be valuable.
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 10:01,3/1/2023 11:38,IP Address,141.225.10.165,100,5852,TRUE,3/1/2023 11:38,R_30iblGlw0QGOuUM,,,,,35.0644,-89.6759,anonymous,EN,GA Support,Michelle Peterson,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Right after Spring Break,"So far Noah and Anton have been attentive, available, and interested in all the information and feedback I have given. ","Not at all - these interactions have all been very attentive and personable whether in email, teams, or in person.",I would have Katie do one of these surveys - She has more input regarding the technical side and how they are handling that of this that may be valuable.
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 12:07,3/1/2023 12:09,IP Address,141.225.245.10,100,144,TRUE,3/1/2023 12:09,R_1esXtMDjwKhVBzl,,,,,35.1063,-89.941,anonymous,EN,Child Impact Statements,Leah Windsor,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Updata for additional websites/APIs,Both Eric and Kita are wonderful! ,n/a,I'm so glad my project got chosen again!
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 12:07,3/1/2023 12:09,IP Address,141.225.245.10,100,144,TRUE,3/1/2023 12:09,R_1esXtMDjwKhVBzl,,,,,35.1063,-89.941,anonymous,EN,Child Impact Statements,Leah Windsor,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Updata for additional websites/APIs,Both Eric and Kita are wonderful! ,n/a,I'm so glad my project got chosen again!
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:20,3/2/2023 12:53,IP Address,73.59.246.104,100,1926,TRUE,3/2/2023 12:53,R_2t0bUBuagkPvPEw,,,,,35.1387,-90.0095,anonymous,EN,Youdle,Kontji Anthony,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"We are working to implement typescript text into API calls. Also, to convert Java script to type script. ",Jason goes above and beyond by taking on project management role and communicating to Youdle for the entire U of M team. Thomas excels at identifying specific errors and offering solutions and he’s also a great communicator.,"Everyone is doing well communicating expectations, express road blocks and are problem-solving. They all arrive early for every meeting. ",We are extremely delighted with the students. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:20,3/2/2023 12:53,IP Address,73.59.246.104,100,1926,TRUE,3/2/2023 12:53,R_2t0bUBuagkPvPEw,,,,,35.1387,-90.0095,anonymous,EN,Youdle,Kontji Anthony,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"We are working to implement typescript text into API calls. Also, to convert Java script to type script. ",Jason goes above and beyond by taking on project management role and communicating to Youdle for the entire U of M team. Thomas excels at identifying specific errors and offering solutions and he’s also a great communicator.,"Everyone is doing well communicating expectations, express road blocks and are problem-solving. They all arrive early for every meeting. ",We are extremely delighted with the students. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:20,3/2/2023 12:53,IP Address,73.59.246.104,100,1926,TRUE,3/2/2023 12:53,R_2t0bUBuagkPvPEw,,,,,35.1387,-90.0095,anonymous,EN,Youdle,Kontji Anthony,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"We are working to implement typescript text into API calls. Also, to convert Java script to type script. ",Jason goes above and beyond by taking on project management role and communicating to Youdle for the entire U of M team. Thomas excels at identifying specific errors and offering solutions and he’s also a great communicator.,"Everyone is doing well communicating expectations, express road blocks and are problem-solving. They all arrive early for every meeting. ",We are extremely delighted with the students. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:20,3/2/2023 12:53,IP Address,73.59.246.104,100,1926,TRUE,3/2/2023 12:53,R_2t0bUBuagkPvPEw,,,,,35.1387,-90.0095,anonymous,EN,Youdle,Kontji Anthony,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"We are working to implement typescript text into API calls. Also, to convert Java script to type script. ",Jason goes above and beyond by taking on project management role and communicating to Youdle for the entire U of M team. Thomas excels at identifying specific errors and offering solutions and he’s also a great communicator.,"Everyone is doing well communicating expectations, express road blocks and are problem-solving. They all arrive early for every meeting. ",We are extremely delighted with the students. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 22:34,3/2/2023 22:37,IP Address,174.202.192.145,100,190,TRUE,3/2/2023 22:37,R_3gUFmYK2kCQ8WvC,,,,,35.1431,-90.0492,anonymous,EN,Dapper Duck Games,Joel Gerber,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,At the next meeting I hope to see a start on adding gamepad support and the start of refactoring the achievements. ,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 22:34,3/2/2023 22:37,IP Address,174.202.192.145,100,190,TRUE,3/2/2023 22:37,R_3gUFmYK2kCQ8WvC,,,,,35.1431,-90.0492,anonymous,EN,Dapper Duck Games,Joel Gerber,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,At the next meeting I hope to see a start on adding gamepad support and the start of refactoring the achievements. ,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 22:34,3/2/2023 22:37,IP Address,174.202.192.145,100,190,TRUE,3/2/2023 22:37,R_3gUFmYK2kCQ8WvC,,,,,35.1431,-90.0492,anonymous,EN,Dapper Duck Games,Joel Gerber,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,At the next meeting I hope to see a start on adding gamepad support and the start of refactoring the achievements. ,,,
+
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:02,3/2/2023 12:03,IP Address,141.225.245.10,100,77,TRUE,3/2/2023 12:03,R_2AGxWLt0hD369xR,,,,,35.1063,-89.941,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Training a better model for autonomous driving and getting ready to investigate the wormhole attack scenario.,They have already finished learning the background of the autonomous driving system and deployed the actual hardware to train the model.,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:02,3/2/2023 12:03,IP Address,141.225.245.10,100,77,TRUE,3/2/2023 12:03,R_2AGxWLt0hD369xR,,,,,35.1063,-89.941,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Training a better model for autonomous driving and getting ready to investigate the wormhole attack scenario.,They have already finished learning the background of the autonomous driving system and deployed the actual hardware to train the model.,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:02,3/2/2023 12:03,IP Address,141.225.245.10,100,77,TRUE,3/2/2023 12:03,R_2AGxWLt0hD369xR,,,,,35.1063,-89.941,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Training a better model for autonomous driving and getting ready to investigate the wormhole attack scenario.,They have already finished learning the background of the autonomous driving system and deployed the actual hardware to train the model.,,
+
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/2/2023 12:54,3/2/2023 12:56,IP Address,141.225.177.11,100,170,TRUE,3/2/2023 12:56,R_3j0ZRqVBNI1lewE,,,,,35.2083,-89.8058,anonymous,EN,Ears,Debbie Moncrieff,Sprint 2,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,They are planning to launch the web-based software and test users on it,All three of the team members are doing an excellent job meeting the goals,I do not have any concerns,No
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/17/2023 15:19,3/17/2023 15:19,Survey Preview,,100,40,TRUE,3/17/2023 15:19,R_24xaiwZV5YKTWln,,,,,35.1512,-89.972,preview,EN,3D Cars,test-test-123,Sprint 2,Did not meet expectations,Exceeded expectations,Met Expectations,Did not meet expectations,Met Expectations,Met Expectations,13r13r13,1i3fi1o3nfoin1,1oinubnciu1,1u3beciubu
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/17/2023 15:19,3/17/2023 15:19,Survey Preview,,100,40,TRUE,3/17/2023 15:19,R_24xaiwZV5YKTWln,,,,,35.1512,-89.972,preview,EN,3D Cars,test-test-123,Sprint 2,Did not meet expectations,Exceeded expectations,Met Expectations,Did not meet expectations,Met Expectations,Met Expectations,13r13r13,1i3fi1o3nfoin1,1oinubnciu1,1u3beciubu
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 10:42,3/1/2023 11:05,IP Address,64.124.105.98,100,1371,TRUE,3/1/2023 11:05,R_3KwPcnQF6yfCnd0,,,,,35.1387,-90.0095,anonymous,EN,Div. of Correction,Terrie Bowie,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,"We are amazed at the work the team has done thus far, it has by far exceeded our expectations..",Each of them are doing an exceptional job by making sure we understand each step of the process.  They take the time to explain anything that we don't understand and make sure we are comfortable with everything before we proceed to the next step.,N/A,"All of the team members are knowledgeable and helpful.  They understand that we are a government entity and realize some of the information needed requires additional permissions.  But, they are not letting this stop or slow them down, they are continually thinking of other ways to make it work, just in case the request is denied. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 2: 3/1/2023 10:42,3/1/2023 11:05,IP Address,64.124.105.98,100,1371,TRUE,3/1/2023 11:05,R_3KwPcnQF6yfCnd0,,,,,35.1387,-90.0095,anonymous,EN,Div. of Correction,Terrie Bowie,Sprint 2,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,"We are amazed at the work the team has done thus far, it has by far exceeded our expectations..",Each of them are doing an exceptional job by making sure we understand each step of the process.  They take the time to explain anything that we don't understand and make sure we are comfortable with everything before we proceed to the next step.,N/A,"All of the team members are knowledgeable and helpful.  They understand that we are a government entity and realize some of the information needed requires additional permissions.  But, they are not letting this stop or slow them down, they are continually thinking of other ways to make it work, just in case the request is denied. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/28/2023 16:01,3/28/2023 16:18,IP Address,76.138.105.131,100,994,TRUE,3/28/2023 16:18,R_Tjyy74b8eZgvtO9,,,,,35.1512,-89.972,anonymous,EN,PeerPresents,Julio Barajas,Sprint 3,Exceeded expectations,Met Expectations,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,"Progress with the graph page, contributions to graph functionality and getting the add graph button working. More general questions about react. ",,"Andre has not been present for a couple meetings, he has been working and contributing to the group discussions when present.","Group is making progress and trying, I think they could be a bit more confident in asking questions especially outside of our meetings I'd love to help them more, but it can be sometimes be hard to gauge what in particular they are struggling with."
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 11:50,3/30/2023 12:05,IP Address,141.225.245.75,100,902,TRUE,3/30/2023 12:05,R_3PGYInYcZ5u2SaE,,,,,35.1063,-89.941,anonymous,EN,Metro Alarms Office,Metro Alarm Office,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Did not meet expectations,Did not meet expectations,Met Expectations,,,Matiwos did not follow the githut procedure and push code directly to the main branch multiple times.,
+
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 11:50,3/30/2023 12:05,IP Address,141.225.245.75,100,902,TRUE,3/30/2023 12:05,R_3PGYInYcZ5u2SaE,,,,,35.1063,-89.941,anonymous,EN,Metro Alarms Office,Metro Alarm Office,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Did not meet expectations,Did not meet expectations,Met Expectations,,,Matiwos did not follow the githut procedure and push code directly to the main branch multiple times.,
+
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (2.5ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 3
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 4/3/2023 11:42,4/3/2023 11:43,IP Address,107.217.156.213,100,74,TRUE,4/3/2023 11:43,R_3k7YGUUi2HqgEvU,,,,,35.1387,-90.0095,anonymous,EN,Child Impact Statements,Leah Windosr,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"update on thinkaloud, uploaded covid data, implemented wireframes for url, redirected to new url",,,the students seem really busy...
+
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 4/3/2023 11:42,4/3/2023 11:43,IP Address,107.217.156.213,100,74,TRUE,4/3/2023 11:43,R_3k7YGUUi2HqgEvU,,,,,35.1387,-90.0095,anonymous,EN,Child Impact Statements,Leah Windosr,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,"update on thinkaloud, uploaded covid data, implemented wireframes for url, redirected to new url",,,the students seem really busy...
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.6ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 12:28,3/30/2023 12:34,IP Address,76.143.90.7,100,339,TRUE,3/30/2023 12:34,R_2qsET4OFbgsIWHI,,,,,29.7646,-95.3657,anonymous,EN,Youdle,Kontji Anthony,Sprint 3,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,We will discuss outputs for our Shopify projects. ,"Again, Thomas and Jason went above and beyond. Thomas solved a critical error that helped propel the project forward and Jason built a framework to store our outputs without having to be asked. ",Everyone is doing great!,This has been such a joy and exceeded our expectations. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 12:28,3/30/2023 12:34,IP Address,76.143.90.7,100,339,TRUE,3/30/2023 12:34,R_2qsET4OFbgsIWHI,,,,,29.7646,-95.3657,anonymous,EN,Youdle,Kontji Anthony,Sprint 3,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,We will discuss outputs for our Shopify projects. ,"Again, Thomas and Jason went above and beyond. Thomas solved a critical error that helped propel the project forward and Jason built a framework to store our outputs without having to be asked. ",Everyone is doing great!,This has been such a joy and exceeded our expectations. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 12:28,3/30/2023 12:34,IP Address,76.143.90.7,100,339,TRUE,3/30/2023 12:34,R_2qsET4OFbgsIWHI,,,,,29.7646,-95.3657,anonymous,EN,Youdle,Kontji Anthony,Sprint 3,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,We will discuss outputs for our Shopify projects. ,"Again, Thomas and Jason went above and beyond. Thomas solved a critical error that helped propel the project forward and Jason built a framework to store our outputs without having to be asked. ",Everyone is doing great!,This has been such a joy and exceeded our expectations. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 12:28,3/30/2023 12:34,IP Address,76.143.90.7,100,339,TRUE,3/30/2023 12:34,R_2qsET4OFbgsIWHI,,,,,29.7646,-95.3657,anonymous,EN,Youdle,Kontji Anthony,Sprint 3,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,We will discuss outputs for our Shopify projects. ,"Again, Thomas and Jason went above and beyond. Thomas solved a critical error that helped propel the project forward and Jason built a framework to store our outputs without having to be asked. ",Everyone is doing great!,This has been such a joy and exceeded our expectations. 
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 3
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 14:00,3/30/2023 14:03,IP Address,149.159.247.24,100,184,TRUE,3/30/2023 14:03,R_2dsvTYa8wm4bl3a,,,,,39.7668,-86.4013,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Set up a proxy web server and familiarize with mtmproxy.,The team members are on track. ,,
+
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 14:00,3/30/2023 14:03,IP Address,149.159.247.24,100,184,TRUE,3/30/2023 14:03,R_2dsvTYa8wm4bl3a,,,,,39.7668,-86.4013,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Set up a proxy web server and familiarize with mtmproxy.,The team members are on track. ,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 3/30/2023 14:00,3/30/2023 14:03,IP Address,149.159.247.24,100,184,TRUE,3/30/2023 14:03,R_2dsvTYa8wm4bl3a,,,,,39.7668,-86.4013,anonymous,EN,Donkey Cars,Myounggyu Won,Sprint 3,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Set up a proxy web server and familiarize with mtmproxy.,The team members are on track. ,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 3
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 3
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 3: 4/13/2023 11:16,4/13/2023 11:22,IP Address,174.202.195.62,100,356,TRUE,4/13/2023 11:22,R_Z3Q0DeRHdXy05c5,,,,,35.1431,-90.0492,anonymous,EN,Div. of Correction,Terrie Bowie ,Sprint 3,Exceeded expectations,Exceeded expectations,Exceeded expectations,,Exceeded expectations,Exceeded expectations,More functionality from the APP,All of the guys have done a wonderful job working with us and Shelby County ITS team. Working through the security issues and requirements.,N/A,N/A
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 4/26/2023 20:10,4/26/2023 20:18,IP Address,76.138.105.131,100,476,TRUE,4/26/2023 20:18,R_9XHc50MbNczhpG9,,,,,35.1512,-89.972,anonymous,EN,PeerPresents,Julio Barajas,Sprint 4,Exceeded expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Met Expectations,Met Expectations,A working data page that display appropriate data needed for basic functionality.,"At our last meeting Elliot and Chris exceeded the goals we had set up at our previous meeting and made significant strides in getting the data page to a functional state, and have proven to be working hard despite all the errors they have encountered. ","Andre hasn’t contributed as much as other team members, his contributions explained to me at meetings have been small or often hasn’t had a chance to make very many contributions. He does seem to be very busy with other classes but I think he could’ve done a bit more to help out other members.",
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 4/26/2023 20:10,4/26/2023 20:18,IP Address,76.138.105.131,100,476,TRUE,4/26/2023 20:18,R_9XHc50MbNczhpG9,,,,,35.1512,-89.972,anonymous,EN,PeerPresents,Julio Barajas,Sprint 4,Exceeded expectations,Exceeded expectations,Met Expectations,Exceeded expectations,Met Expectations,Met Expectations,A working data page that display appropriate data needed for basic functionality.,"At our last meeting Elliot and Chris exceeded the goals we had set up at our previous meeting and made significant strides in getting the data page to a functional state, and have proven to be working hard despite all the errors they have encountered. ","Andre hasn’t contributed as much as other team members, his contributions explained to me at meetings have been small or often hasn’t had a chance to make very many contributions. He does seem to be very busy with other classes but I think he could’ve done a bit more to help out other members.",
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/1/2023 18:56,5/1/2023 19:00,IP Address,76.138.111.135,100,266,TRUE,5/1/2023 19:00,R_O1dKoJt4F6D0MEx,,,,,35.1431,-90.0492,anonymous,EN,Metro Alarms Office,Metro Alarm Office,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/1/2023 18:56,5/1/2023 19:00,IP Address,76.138.111.135,100,266,TRUE,5/1/2023 19:00,R_O1dKoJt4F6D0MEx,,,,,35.1431,-90.0492,anonymous,EN,Metro Alarms Office,Metro Alarm Office,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/10/2023 14:16,5/10/2023 14:17,IP Address,141.225.10.193,100,81,TRUE,5/10/2023 14:18,R_3EsUd4bzOzk2wgs,,,,,35.1499,-90.0558,anonymous,EN,GA Support,Michelle Peterson,Sprint 4,Exceeded expectations,Exceeded expectations,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,The team concluded their Capstone presentation. We will not be meeting further. I am not sure when the program will be finalized for testing. ,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/10/2023 14:16,5/10/2023 14:17,IP Address,141.225.10.193,100,81,TRUE,5/10/2023 14:18,R_3EsUd4bzOzk2wgs,,,,,35.1499,-90.0558,anonymous,EN,GA Support,Michelle Peterson,Sprint 4,Exceeded expectations,Exceeded expectations,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,The team concluded their Capstone presentation. We will not be meeting further. I am not sure when the program will be finalized for testing. ,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/10/2023 14:16,5/10/2023 14:17,IP Address,141.225.10.193,100,81,TRUE,5/10/2023 14:18,R_3EsUd4bzOzk2wgs,,,,,35.1499,-90.0558,anonymous,EN,GA Support,Michelle Peterson,Sprint 4,Exceeded expectations,Exceeded expectations,Met Expectations,Met Expectations,Exceeded expectations,Met Expectations,The team concluded their Capstone presentation. We will not be meeting further. I am not sure when the program will be finalized for testing. ,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/1/2023 9:18,5/1/2023 12:24,IP Address,107.217.156.213,100,11155,TRUE,5/1/2023 12:24,R_31bFIXVS5l5i9Y2,,,,,35.1387,-90.0095,anonymous,EN,Child Impact Statements,Leah Windsor,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,A finished Child Impact Statement site,,,"The team this semester has seemed less invested and organized than previous teams. In the past, there has been a clearly defined point person, and everyone on the team seemed to be very involved. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/1/2023 9:18,5/1/2023 12:24,IP Address,107.217.156.213,100,11155,TRUE,5/1/2023 12:24,R_31bFIXVS5l5i9Y2,,,,,35.1387,-90.0095,anonymous,EN,Child Impact Statements,Leah Windsor,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,A finished Child Impact Statement site,,,"The team this semester has seemed less invested and organized than previous teams. In the past, there has been a clearly defined point person, and everyone on the team seemed to be very involved. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 4
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 4
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/2/2023 16:10,5/2/2023 16:16,IP Address,141.225.245.11,100,390,TRUE,5/2/2023 16:17,R_1o1LS3C2iV86rAh,,,,,35.1387,-90.0095,anonymous,EN,Donkey Cars,,Sprint 4,Met Expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Met Expectations,,,,"The team thoroughly analyzed the Donkey Car software and hardware platform, as well as the Man-in-the-Middle (MITM) attack tool, dedicating a significant amount of time to this process. Subsequently, they successfully applied the MITM attack scenario to the Donkey Car. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/2/2023 16:10,5/2/2023 16:16,IP Address,141.225.245.11,100,390,TRUE,5/2/2023 16:17,R_1o1LS3C2iV86rAh,,,,,35.1387,-90.0095,anonymous,EN,Donkey Cars,,Sprint 4,Met Expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Met Expectations,,,,"The team thoroughly analyzed the Donkey Car software and hardware platform, as well as the Man-in-the-Middle (MITM) attack tool, dedicating a significant amount of time to this process. Subsequently, they successfully applied the MITM attack scenario to the Donkey Car. "
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/2/2023 16:10,5/2/2023 16:16,IP Address,141.225.245.11,100,390,TRUE,5/2/2023 16:17,R_1o1LS3C2iV86rAh,,,,,35.1387,-90.0095,anonymous,EN,Donkey Cars,,Sprint 4,Met Expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Met Expectations,,,,"The team thoroughly analyzed the Donkey Car software and hardware platform, as well as the Man-in-the-Middle (MITM) attack tool, dedicating a significant amount of time to this process. Subsequently, they successfully applied the MITM attack scenario to the Donkey Car. "
+
+[36m  Disk Storage (1.3ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+No Matching Row Found for Sprint: Sprint 4
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/4/2023 15:01,5/4/2023 15:01,IP Address,141.225.10.214,100,24,TRUE,5/4/2023 15:01,R_2wyprCLBUHVTBjX,,,,,35.1499,-90.0558,anonymous,EN,3D Cars,Weizi Li,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/4/2023 15:01,5/4/2023 15:01,IP Address,141.225.10.214,100,24,TRUE,5/4/2023 15:01,R_2wyprCLBUHVTBjX,,,,,35.1499,-90.0558,anonymous,EN,3D Cars,Weizi Li,Sprint 4,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,Met Expectations,,,,
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: ajma5y1wl5kf0vput26795fyd8ni[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/4/2023 11:09,5/4/2023 11:11,IP Address,64.124.105.98,100,132,TRUE,5/4/2023 11:11,R_XnD2fgkSlbgObx7,,,,,35.1431,-90.0492,anonymous,EN,Div. of Correction,Terrie Bowie,Sprint 4,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,A completed app,Each team member did an exceptional job,NA,"All of the students were very knowledgeable, respectful, and eager to get the job done."
+
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cy61l2dorlgeb59aur5ro681gxxp[0m
+Best Matching Row Found for Sprint: Sprint 4: 5/4/2023 11:09,5/4/2023 11:11,IP Address,64.124.105.98,100,132,TRUE,5/4/2023 11:11,R_XnD2fgkSlbgObx7,,,,,35.1431,-90.0492,anonymous,EN,Div. of Correction,Terrie Bowie,Sprint 4,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,Exceeded expectations,A completed app,Each team member did an exceptional job,NA,"All of the students were very knowledgeable, respectful, and eager to get the job done."
+
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 10.1ms | Allocations: 23257)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 15.5ms | Allocations: 34381)
+Completed 200 OK in 1085ms (Views: 15.8ms | ActiveRecord: 14.6ms | Allocations: 5903003)
+
+
+Started GET "/semesters" for ::1 at 2024-03-20 07:32:57 -0500
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 10.2ms | Allocations: 5385)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 396)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 25.7ms | Allocations: 16264)
+Completed 200 OK in 36ms (Views: 26.4ms | ActiveRecord: 1.1ms | Allocations: 18139)
+
+
+Started POST "/semesters" for ::1 at 2024-03-20 07:34:09 -0500
+Processing by SemestersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "semester"=>"Fall", "year"=>"2024", "client_csv"=>#<ActionDispatch::Http::UploadedFile:0x000000010b2550b0 @tempfile=#<Tempfile:/var/folders/rj/qvp3193x6570fbg8sc0vz99c0000gp/T/RackMultipart20240320-26590-9gz8tq.csv>, @content_type="text/csv", @original_filename="Spring 2024 Capstone Client Evaluation_February 16, 2024_15.44.csv", @headers="Content-Disposition: form-data; name=\"client_csv\"; filename=\"Spring 2024 Capstone Client Evaluation_February 16, 2024_15.44.csv\"\r\nContent-Type: text/csv\r\n">, "student_csv"=>#<ActionDispatch::Http::UploadedFile:0x000000010b255060 @tempfile=#<Tempfile:/var/folders/rj/qvp3193x6570fbg8sc0vz99c0000gp/T/RackMultipart20240320-26590-aunj8j.csv>, @content_type="text/csv", @original_filename="Spring 2024 Capstone Sprint Reflection_February 16, 2024_15.43.csv", @headers="Content-Disposition: form-data; name=\"student_csv\"; filename=\"Spring 2024 Capstone Sprint Reflection_February 16, 2024_15.43.csv\"\r\nContent-Type: text/csv\r\n">, "commit"=>"Submit"}
+  [1m[36mUser Load (5.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[31mUnpermitted parameters: :authenticity_token, :client_csv, :student_csv, :commit. Context: { controller: SemestersController, action: create, request: #<ActionDispatch::Request:0x000000010b991040>, params: {"authenticity_token"=>"[FILTERED]", "semester"=>"Fall", "year"=>"2024", "client_csv"=>#<ActionDispatch::Http::UploadedFile:0x000000010b2550b0 @tempfile=#<Tempfile:/var/folders/rj/qvp3193x6570fbg8sc0vz99c0000gp/T/RackMultipart20240320-26590-9gz8tq.csv>, @content_type="text/csv", @original_filename="Spring 2024 Capstone Client Evaluation_February 16, 2024_15.44.csv", @headers="Content-Disposition: form-data; name=\"client_csv\"; filename=\"Spring 2024 Capstone Client Evaluation_February 16, 2024_15.44.csv\"\r\nContent-Type: text/csv\r\n">, "student_csv"=>#<ActionDispatch::Http::UploadedFile:0x000000010b255060 @tempfile=#<Tempfile:/var/folders/rj/qvp3193x6570fbg8sc0vz99c0000gp/T/RackMultipart20240320-26590-aunj8j.csv>, @content_type="text/csv", @original_filename="Spring 2024 Capstone Sprint Reflection_February 16, 2024_15.43.csv", @headers="Content-Disposition: form-data; name=\"student_csv\"; filename=\"Spring 2024 Capstone Sprint Reflection_February 16, 2024_15.43.csv\"\r\nContent-Type: text/csv\r\n">, "commit"=>"Submit", "controller"=>"semesters", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mSemester Create (7.7ms)[0m  [1m[32mINSERT INTO "semesters" ("year", "semester", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["year", 2024], ["semester", "Fall"], ["created_at", "2024-03-20 12:34:09.106903"], ["updated_at", "2024-03-20 12:34:09.106903"]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Load (2.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Create (2.5ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "byte_size", "checksum", "created_at", "service_name") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "puc6vsfiamk6cpk1ehpt3m6w1zne"], ["filename", "Spring 2024 Capstone Sprint Reflection_February 16, 2024_15.43.csv"], ["content_type", "text/csv"], ["metadata", "{\"identified\":true}"], ["byte_size", 7982], ["checksum", "Mh2Tuh+oZ6nOhTrYHjhKgw=="], ["created_at", "2024-03-20 12:34:09.129627"], ["service_name", "local"]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Attachment Create (3.1ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "student_csv"], ["record_type", "Semester"], ["record_id", 2], ["blob_id", 3], ["created_at", "2024-03-20 12:34:09.133999"]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Load (0.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "byte_size", "checksum", "created_at", "service_name") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["key", "iewezq2gv7revku2yw26aosz81x8"], ["filename", "Spring 2024 Capstone Client Evaluation_February 16, 2024_15.44.csv"], ["content_type", "text/csv"], ["metadata", "{\"identified\":true}"], ["byte_size", 3247], ["checksum", "L6Ka5EtuG6kuoMeaZXbPQQ=="], ["created_at", "2024-03-20 12:34:09.140448"], ["service_name", "local"]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "client_csv"], ["record_type", "Semester"], ["record_id", 2], ["blob_id", 4], ["created_at", "2024-03-20 12:34:09.141129"]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mSemester Update (0.9ms)[0m  [1m[33mUPDATE "semesters" SET "updated_at" = $1 WHERE "semesters"."id" = $2[0m  [["updated_at", "2024-03-20 12:34:09.141840"], ["id", 2]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mTRANSACTION (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+[36m  Disk Storage (1.0ms) [0m[32mUploaded file to key: iewezq2gv7revku2yw26aosz81x8 (checksum: L6Ka5EtuG6kuoMeaZXbPQQ==)[0m
+[36m  Disk Storage (0.4ms) [0m[32mUploaded file to key: puc6vsfiamk6cpk1ehpt3m6w1zne (checksum: Mh2Tuh+oZ6nOhTrYHjhKgw==)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Update (0.1ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 3]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mActiveStorage::Blob Update (0.1ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = $1 WHERE "active_storage_blobs"."id" = $2[0m  [["metadata", "{\"identified\":true,\"analyzed\":true}"], ["id", 4]]
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/semesters_controller.rb:59:in `create'
+Redirected to http://localhost:3000/semesters/2
+Completed 302 Found in 98ms (ActiveRecord: 27.5ms | Allocations: 24335)
+
+
+Started GET "/semesters/2" for ::1 at 2024-03-20 07:34:09 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 8.6ms | Allocations: 8633)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 35)
+  Rendered layout layouts/application.html.erb (Duration: 18.0ms | Allocations: 19769)
+Completed 200 OK in 37ms (Views: 18.3ms | ActiveRecord: 1.1ms | Allocations: 85565)
+
+
+Started GET "/semesters/2/team?team=TAG+Team" for ::1 at 2024-03-20 07:34:16 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"2"}
+  [1m[36mUser Load (11.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:126:in `team'
+  [1m[36mActiveStorage::Attachment Load (1.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 1.0ms | Allocations: 729)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 13.6ms | Allocations: 13178)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  Rendered shared/_navbar.html.erb (Duration: 0.8ms | Allocations: 833)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 31.4ms | Allocations: 24290)
+Completed 200 OK in 99ms (Views: 33.8ms | ActiveRecord: 14.6ms | Allocations: 60437)
+
+
+Started GET "/semesters/2/team?team=TAG+Team" for ::1 at 2024-03-20 07:46:43 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"2"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (1.6ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:126:in `team'
+  [1m[36mActiveStorage::Attachment Load (1.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 1.7ms | Allocations: 389)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 12.4ms | Allocations: 10474)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 833)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 28.0ms | Allocations: 21622)
+Completed 200 OK in 129ms (Views: 28.5ms | ActiveRecord: 28.8ms | Allocations: 60672)
+
+
+Started GET "/semesters/2" for ::1 at 2024-03-20 07:46:50 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (4.6ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 15.6ms | Allocations: 8633)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.2ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 23.4ms | Allocations: 19758)
+Completed 200 OK in 105ms (Views: 23.8ms | ActiveRecord: 7.8ms | Allocations: 85579)
+
+
+Started GET "/semesters/2/team?team=TAG+Team" for ::1 at 2024-03-20 07:47:30 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"2"}
+  [1m[36mUser Load (8.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:126:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.9ms | Allocations: 389)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 12.0ms | Allocations: 10509)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  Rendered shared/_navbar.html.erb (Duration: 1.8ms | Allocations: 833)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 28.6ms | Allocations: 21593)
+Completed 200 OK in 80ms (Views: 29.1ms | ActiveRecord: 10.2ms | Allocations: 57638)
+
+
+Started GET "/semesters/2/team?sprint=Sprint+2&team=TAG+Team" for ::1 at 2024-03-20 07:47:34 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 2", "team"=>"TAG Team", "semester_id"=>"2"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:126:in `team'
+  [1m[36mActiveStorage::Attachment Load (17.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: puc6vsfiamk6cpk1ehpt3m6w1zne[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 2], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:7:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: iewezq2gv7revku2yw26aosz81x8[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.5ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 5.0ms | Allocations: 5203)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 833)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 12.9ms | Allocations: 16482)
+Completed 200 OK in 75ms (Views: 13.4ms | ActiveRecord: 19.7ms | Allocations: 52068)
+
+
