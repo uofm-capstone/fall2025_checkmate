@@ -19,6 +19,7 @@ Hitham W.S Rizeq
 * Automating github process, correctly parsing csv files with appropriate information, finding a way to get authentication keys from the users.
 * Add new flags to the website so it is easier for the TA's to grade the teams and students. 
 * Hitham's goals
+* Making the student lists permenant on the website, so the TA'S do not need to upload a csv file.
 
 ## Purav Patel Code branch
 * My code is in adding_flags, and I have not completed the code so I have not push it to main.
@@ -26,5 +27,5 @@ Hitham W.S Rizeq
 ## Naitik Kaythwal Code branch
 * My code is in the git_info and I have not completed the code so I have not push it to main.
 
-## Hitham W.S Rize Code branch
-* TBA
+## Hitham W.S Rizeq Code branch
+* My code is not finished yet and also the work i have so far need to be reviewed by the sponsor.
