@@ -18,7 +18,6 @@ Hitham W.S Rizeq
 ## Sprint 3 goals
 * Automating github process, correctly parsing csv files with appropriate information, finding a way to get authentication keys from the users.
 * Add new flags to the website so it is easier for the TA's to grade the teams and students. 
-* Hitham's goals
 * Making the student lists permenant on the website, so the TA'S do not need to upload a csv file.
 
 ## Purav Patel Code branch
