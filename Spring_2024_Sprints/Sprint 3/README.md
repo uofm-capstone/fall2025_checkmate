@@ -17,11 +17,11 @@ Hitham W.S Rizeq
 
 ## Sprint 3 goals
 * Automating github process, correctly parsing csv files with appropriate information, finding a way to get authentication keys from the users.
-* Purav's goals
+* Add new flags to the website so it is easier for the TA's to grade the teams and students. 
 * Hitham's goals
 
 ## Purav Patel Code branch
-* TBA
+* My code is in adding_flags, and I have not completed the code so I have not push it to main.
 
 ## Naitik Kaythwal Code branch
 * My code is in the git_info and I have not completed the code so I have not push it to main.
