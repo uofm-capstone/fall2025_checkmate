@@ -327,7 +327,7 @@
               <!-- Sprint Number -->
               <label for="sprint-number">Sprint Number: </label>
               <select id="sprint-number" onchange="updateDates()" required>
-                  <option value=" " selected> </option>
+                  <option value="0" selected>Choose Sprint Number</option>
                   <option value="1">Sprint 1</option>
                   <option value="2">Sprint 2</option>
                   <option value="3">Sprint 3</option>
@@ -335,7 +335,12 @@
               </select>
               <!-- Team Name -->
               <label for="team-name">Team Name: </label>
-              <input type="text" placeholder="Team Name" id="team-name" required>
+              <select id="team-name" required>
+                <option value="" selected>Choose Team Name</option>
+                <% @team_names.each do |team| %>
+                  <option value="<%= team %>"><%= team %></option>
+                <% end %>
+              </select>
 
               <!-- Name of Repo Owner -->
               <label for="repo-owner">Repository Owner: </label>
@@ -363,20 +368,44 @@
 
           <script>
             const sprintDates = {
-            "1": { start: '<%= @start_dates["start_date_sprint_1"] %>', end: '<%= @end_dates["end_date_sprint_1"] %>' },
-            "2": { start: '<%= @start_dates["start_date_sprint_2"] %>', end: '<%= @end_dates["end_date_sprint_2"] %>' },
-            "3": { start: '<%= @start_dates["start_date_sprint_3"] %>', end: '<%= @end_dates["end_date_sprint_3"] %>' },
-            "4": { start: '<%= @start_dates["start_date_sprint_4"] %>', end: '<%= @end_dates["end_date_sprint_4"] %>' }
-          };
-
+              "1": { start: '<%= @start_dates["start_date_sprint_1"] %>', end: '<%= @end_dates["end_date_sprint_1"] %>' },
+              "2": { start: '<%= @start_dates["start_date_sprint_2"] %>', end: '<%= @end_dates["end_date_sprint_2"] %>' },
+              "3": { start: '<%= @start_dates["start_date_sprint_3"] %>', end: '<%= @end_dates["end_date_sprint_3"] %>' },
+              "4": { start: '<%= @start_dates["start_date_sprint_4"] %>', end: '<%= @end_dates["end_date_sprint_4"] %>' }
+            };
 
             function updateDates() {
-                const selectedSprint = document.getElementById('sprint-number').value;
-                document.getElementById('start-date').value = sprintDates[selectedSprint].start;
-                document.getElementById('end-date').value = sprintDates[selectedSprint].end;
+              const selectedSprint = document.getElementById('sprint-number').value;
+              document.getElementById('start-date').value = sprintDates[selectedSprint].start;
+              document.getElementById('end-date').value = sprintDates[selectedSprint].end;
             }
 
-        </script>
+            // Assuming @team_names, @repo_owners, @repo_names, and @access_tokens are arrays
+            const repoDetails = {};
+            <% @team_names.each do |team_name| %>
+              repoDetails['<%= team_name %>'] = {
+                repo_owner: '<%= @repo_owners[team_name] %>',
+                repo_name: '<%= @repo_names[team_name] %>',
+                access_token: '<%= @access_tokens[team_name] %>'
+              };
+            <% end %>
+
+            function updateTeams(){
+              // Update the repository details based on the selected team name
+              const selectedTeamName = document.getElementById('team-name').value;
+              const selectedTeamDetails = repoDetails[selectedTeamName];
+              document.getElementById('repo-owner').value = selectedTeamDetails.repo_owner;
+              document.getElementById('repo-name').value = selectedTeamDetails.repo_name;
+              document.getElementById('access-token').value = selectedTeamDetails.access_token;
+            }
+
+            // Event listener to call updateTeams() when the team name is changed
+            document.getElementById('team-name').addEventListener('change', updateTeams);
+          </script>
+
+
+
+
 
 
           

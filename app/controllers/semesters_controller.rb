@@ -293,10 +293,7 @@ class SemestersController < ApplicationController
         @full_questions = client_data[:full_questions]
         @cliSurvey = client_data[:cliSurvey]
         @flags = flags
-        @start_dates, @end_dates = get_sprint_dates()
-
-
-
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens = get_git_info()
 
 
         render :team
