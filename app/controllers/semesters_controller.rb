@@ -36,6 +36,8 @@ class SemestersController < ApplicationController
         end
         @repos = current_user.repositories
         @sprints = @semester.sprints
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens = get_git_info()
+
         render :show
     end
 
