@@ -117,72 +117,66 @@
         </div>
         <!-- This section starts the integration of Github API -->
         <div>
-          <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+          <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem; text-align: center;">Github Commits</h1>
           
           <!-- Form to collect repo and sprint info -->
           <div id="github-repo-form">
 
-            <!-- Style to align the input boxes for the request form -->
-            <style>
-              label {
-                display: block;
-                text-align: left;
-              }
+              <!-- Style to align the input boxes for the request form -->
+              <style>
+                  label {
+                      display: inline-block;
+                      text-align: center;
+                  }
 
-              input {
-                display: block;
-                margin-bottom: 10px;
-              }
+                  input {
+                      display: block;
+                      margin-bottom: 10px;
+                  }
+              </style>
 
-              #github-repo-form {
-                width: 300px;
-              }
-            </style>
+              <div style="text-align: center;">
+                  <form id="github-form">
+                      <!-- Team Name and Sprint Number -->
+                      <div style="display: inline-block; text-align: center;">
+                          <label for="team-name" style="margin-right: 10px;">Team </label>
+                          <select id="team-name" required style="margin-right: 20px;">
+                              <option value="" selected>Choose Team Name</option>
+                              <% @team_names.each do |team| %>
+                              <option value="<%= team %>"><%= team %></option>
+                              <% end %>
+                          </select>
 
-            <form id="github-form">
+                          <label for="sprint-number" style="margin-right: 10px;">Sprint: </label>
+                          <select id="sprint-number" onchange="updateDates()" required style="margin-right: 20px;">
+                              <option value="0" selected>Choose Sprint Number</option>
+                              <option value="1">Sprint 1</option>
+                              <option value="2">Sprint 2</option>
+                              <option value="3">Sprint 3</option>
+                              <option value="4">Sprint 4</option>
+                          </select>
+                      </div>
 
-              <!-- Team Name -->
-              <label for="team-name">Team Name: </label>
-              <select id="team-name" required>
-                <option value="" selected>Choose Team Name</option>
-                <% @team_names.each do |team| %>
-                  <option value="<%= team %>"><%= team %></option>
-                <% end %>
-              </select>
-              
-              <!-- Sprint Number -->
-              <label for="sprint-number">Sprint Number: </label>
-              <select id="sprint-number" onchange="updateDates()" required>
-                  <option value="0" selected>Choose Sprint Number</option>
-                  <option value="1">Sprint 1</option>
-                  <option value="2">Sprint 2</option>
-                  <option value="3">Sprint 3</option>
-                  <option value="4">Sprint 4</option>
-              </select>
+                      <!-- Hidden inputs for repo info -->
+                      <label for="repo-owner" style="display: none;">Repository Owner: </label>
+                      <input type="text" placeholder="Repo Owner" id="repo-owner" style="display: none;" required>
 
-              <!-- Name of Repo Owner -->
-            <label for="repo-owner" style="display: none;">Repository Owner: </label>
-            <input type="text" placeholder="Repo Owner" id="repo-owner" style="display: none;" required>
+                      <label for="repo-name" style="display: none;">Repository Name: </label>
+                      <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
 
-            <!-- Name of Repo -->
-            <label for="repo-name" style="display: none;">Repository Name: </label>
-            <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
+                      <label for="access-token" style="display: none;">Github Access Token: </label>
+                      <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
 
-            <!-- Fine-grain Access Token From Github -->
-            <label for="access-token" style="display: none;">Github Access Token: </label>
-            <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
+                      <label for="start-date" style="display: none;">Sprint Start Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" required>
 
-            <!-- Sprint Start Date -->
-            <label for="start-date" style="display: none;">Sprint Start Date: </label>
-            <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" required>
+                      <label for="end-date" style="display: none;">Sprint End Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
 
-            <!-- Sprint End Date -->
-            <label for="end-date" style="display: none;">Sprint End Date: </label>
-            <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
+                      <button type="submit" style="display: block; margin: 20px auto;">Get Commit Info</button>
+                  </form>
+              </div>
 
-              
-              <button type="submit">Get Commit Info</button>
-            </form>
           </div>
 
           <script>
@@ -226,7 +220,7 @@
           <!-- Element for where the response is placed -->
           <div id="commit-list">
           </div>
-          <div id="commit-table">
+          <div id="commit-table" style= "text-align: center;>
             <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
               <thead>
                 <tr>
@@ -240,7 +234,6 @@
             </table>
 
             <div>
-              <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
               <canvas id="myChart"></canvas>
             </div>
 

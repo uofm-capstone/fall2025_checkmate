@@ -14531,3 +14531,634 @@ No Matching Row Found for Sprint: Sprint 1
 Completed 200 OK in 53ms (Views: 15.1ms | ActiveRecord: 0.9ms | Allocations: 91966)
 
 
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:10:12 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.8ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 82.9ms | Allocations: 64506)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 867)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 467)
+  Rendered layout layouts/application.html.erb (Duration: 88.8ms | Allocations: 76641)
+Completed 200 OK in 170ms (Views: 93.8ms | ActiveRecord: 21.1ms | Allocations: 183237)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:10:51 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.7ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 12.3ms | Allocations: 14308)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 19.7ms | Allocations: 26447)
+Completed 200 OK in 94ms (Views: 21.6ms | ActiveRecord: 2.9ms | Allocations: 93897)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:11:03 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.6ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.6ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 9.2ms | Allocations: 14309)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 16.5ms | Allocations: 26449)
+Completed 200 OK in 100ms (Views: 18.8ms | ActiveRecord: 3.2ms | Allocations: 93858)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:11:21 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (12.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 8.8ms | Allocations: 14309)
+  Rendered shared/_navbar.html.erb (Duration: 0.9ms | Allocations: 820)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 433)
+  Rendered layout layouts/application.html.erb (Duration: 17.2ms | Allocations: 26464)
+Completed 200 OK in 76ms (Views: 19.2ms | ActiveRecord: 13.0ms | Allocations: 93991)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:11:27 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (11.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.6ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 13.4ms | Allocations: 14304)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 19.6ms | Allocations: 26448)
+Completed 200 OK in 73ms (Views: 21.3ms | ActiveRecord: 13.4ms | Allocations: 93908)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:12:44 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (1.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.8ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 17.1ms | Allocations: 14313)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 24.0ms | Allocations: 26452)
+Completed 200 OK in 91ms (Views: 25.8ms | ActiveRecord: 4.0ms | Allocations: 93933)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:12:57 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 7.6ms | Allocations: 14311)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 26450)
+Completed 200 OK in 66ms (Views: 16.4ms | ActiveRecord: 1.2ms | Allocations: 93865)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:12:58 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.1ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 4.4ms | Allocations: 12773)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 8.4ms | Allocations: 23660)
+Completed 200 OK in 36ms (Views: 9.5ms | ActiveRecord: 0.8ms | Allocations: 90600)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:12:59 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 10.6ms | Allocations: 12773)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | Allocations: 23659)
+Completed 200 OK in 55ms (Views: 17.8ms | ActiveRecord: 1.3ms | Allocations: 90531)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:13:03 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 8.7ms | Allocations: 14310)
+  Rendered shared/_navbar.html.erb (Duration: 0.8ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 15.8ms | Allocations: 26447)
+Completed 200 OK in 73ms (Views: 17.7ms | ActiveRecord: 2.2ms | Allocations: 93911)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:15:18 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.8ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 10.9ms | Allocations: 14311)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 19.0ms | Allocations: 26448)
+Completed 200 OK in 90ms (Views: 20.6ms | ActiveRecord: 5.2ms | Allocations: 93945)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:15:25 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 8.0ms | Allocations: 14313)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | Allocations: 26453)
+Completed 200 OK in 79ms (Views: 15.7ms | ActiveRecord: 1.9ms | Allocations: 93904)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:15:32 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 7.0ms | Allocations: 14311)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 13.6ms | Allocations: 26449)
+Completed 200 OK in 73ms (Views: 15.2ms | ActiveRecord: 2.1ms | Allocations: 93889)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:15:41 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 6.8ms | Allocations: 14309)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 13.3ms | Allocations: 26446)
+Completed 200 OK in 68ms (Views: 14.9ms | ActiveRecord: 2.1ms | Allocations: 93923)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:16:07 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.6ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 13.7ms | Allocations: 14309)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 21.7ms | Allocations: 26446)
+Completed 200 OK in 93ms (Views: 23.9ms | ActiveRecord: 2.0ms | Allocations: 93849)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:16:09 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 7.7ms | Allocations: 12773)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 14.4ms | Allocations: 23659)
+Completed 200 OK in 55ms (Views: 14.8ms | ActiveRecord: 1.6ms | Allocations: 90478)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:16:15 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 5.5ms | Allocations: 14314)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | Allocations: 26457)
+Completed 200 OK in 70ms (Views: 11.6ms | ActiveRecord: 1.3ms | Allocations: 93877)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:16:16 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.1ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 6.9ms | Allocations: 12773)
+  Rendered shared/_navbar.html.erb (Duration: 0.2ms | Allocations: 387)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 13.0ms | Allocations: 23659)
+Completed 200 OK in 48ms (Views: 13.3ms | ActiveRecord: 1.0ms | Allocations: 90480)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:16:54 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.7ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 20.5ms | Allocations: 14309)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 817)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 29.0ms | Allocations: 26446)
+Completed 200 OK in 102ms (Views: 33.4ms | ActiveRecord: 3.3ms | Allocations: 93863)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:18:49 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.8ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 10.0ms | Allocations: 14305)
+  Rendered shared/_navbar.html.erb (Duration: 0.7ms | Allocations: 820)
+  Rendered shared/_flash.html.erb (Duration: 0.6ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | Allocations: 26456)
+Completed 200 OK in 72ms (Views: 19.5ms | ActiveRecord: 2.2ms | Allocations: 93924)
+
+
+Started GET "/semesters/1" for ::1 at 2024-03-25 18:20:00 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:26:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:98:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 8.1ms | Allocations: 14363)
+  Rendered shared/_navbar.html.erb (Duration: 0.6ms | Allocations: 829)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 433)
+  Rendered layout layouts/application.html.erb (Duration: 16.0ms | Allocations: 26516)
+Completed 200 OK in 99ms (Views: 16.8ms | ActiveRecord: 27.6ms | Allocations: 114839)
+
+
