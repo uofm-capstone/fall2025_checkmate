@@ -1,5 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
-
 <style>
     .sidebar {
         background-color: #f8f9fa;
@@ -326,9 +324,6 @@
 
             <form id="github-form">
 
-              <div class="form-outline mb-4">
-                <input type="file" id="git_csv" accept="text/csv" class="form-control form-control" onchange="handleFile(this)">
-              </div>
               <!-- Sprint Number -->
               <label for="sprint-number">Sprint Number: </label>
               <select id="sprint-number" onchange="updateDates()" required>
@@ -368,11 +363,12 @@
 
           <script>
             const sprintDates = {
-                "1": { start: "30/01/24", end: "08/02/24" },
-                "2": { start: "08/02/24", end: "29/02/24" },
-                "3": { start: "29/02/24", end: "28/03/24" },
-                "4": { start: "28/03/24", end: "30/04/24" }
-            };
+            "1": { start: '<%= @start_dates["start_date_sprint_1"] %>', end: '<%= @end_dates["end_date_sprint_1"] %>' },
+            "2": { start: '<%= @start_dates["start_date_sprint_2"] %>', end: '<%= @end_dates["end_date_sprint_2"] %>' },
+            "3": { start: '<%= @start_dates["start_date_sprint_3"] %>', end: '<%= @end_dates["end_date_sprint_3"] %>' },
+            "4": { start: '<%= @start_dates["start_date_sprint_4"] %>', end: '<%= @end_dates["end_date_sprint_4"] %>' }
+          };
+
 
             function updateDates() {
                 const selectedSprint = document.getElementById('sprint-number').value;
@@ -380,16 +376,6 @@
                 document.getElementById('end-date').value = sprintDates[selectedSprint].end;
             }
 
-            function handleFile(input) {
-                const file = input.files[0];
-                const reader = new FileReader();
-
-                reader.onload = function () {
-                    // Your code to handle the uploaded CSV file
-                };
-
-                reader.readAsText(file);
-            }
         </script>
 
 

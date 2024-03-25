@@ -1,41 +1,73 @@
 module ClientDisplayHelper
+
+    def get_sprint_dates()
+      # Read CSV data from the file
+      csv = CSV.read('/Users/naitik/Downloads/Github Info.csv', headers: true)
+
+      # Initialize dictionaries to hold start and end dates for each sprint
+      start_dates = {}
+      end_dates = {}
+
+      # Iterate over each row in the CSV data
+      csv.each do |row|
+        sprint_number = row["Sprint Number"]
+        start_date = row["Sprint Start Date"]
+        end_date = row["Sprint End Date"]
+        team_name = row["Team Name"]
+        repo_owner = row["Repository Owner"]
+        repo_name = row["Repository Name"]
+        git_token = row["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"]
+
+
+        # Check if sprint number, start date, and end date are present
+        if sprint_number && start_date && end_date
+          # Add start and end dates to the respective dictionaries
+          start_dates["start_date_sprint_#{sprint_number.split(' ')[1]}"] = start_date
+          end_dates["end_date_sprint_#{sprint_number.split(' ')[1]}"] = end_date
+        end
+      end
+
+      # Return the dictionaries of start and end dates
+      return start_dates, end_dates
+    end
+
     def process_client_data(semester, team, sprint)
       client_data = {}
       flags = []
-  
+
       begin
         semester.client_csv.open do |tempClient|
           client_data_raw = SmarterCSV.process(tempClient.path)
           full_questions = extract_full_questions(tempClient.path)
-          
+
           @client_question_titles = client_data_raw[0].select { |key, _| key.to_s.start_with?('q') }
 
 
           max_similarity = 0
           best_matching_team = nil
-  
+
           client_data_raw.each do |client_survey|
-            
+
             next if client_survey[:q1_team].blank? || client_survey[:q1_team].start_with?('{')
             next if client_survey[:q3].blank?
-  
+
             similarities = compare_strings(team, client_survey[:q1_team])
             avg_similarity = (similarities[:jaro_winkler] + similarities[:levenshtein]) / 2.0
-  
+
             if avg_similarity > max_similarity
               max_similarity = avg_similarity
               best_matching_team = client_survey[:q1_team]
             end
           end
-  
+
           cliSurvey = client_data_raw.find_all { |survey| survey[:q1_team] == best_matching_team && survey[:q3] == sprint }
           cliSurvey.map! { |survey| survey.select { |key, _| key.to_s.start_with?('q') } }
-          
-  
+
+
           if cliSurvey.blank?
             flags.append("client blank")
           end
-  
+
           client_data = {
             full_questions: full_questions,
             cliSurvey: cliSurvey
@@ -45,12 +77,12 @@ module ClientDisplayHelper
         Rails.logger.debug("DEBUG: Exception processing client CSV: #{e}")
         flags.append("client csv error")
       end
-  
+
       [client_data, flags]
     end
-  
+
     private
-  
+
     #helps display the questions from the second roll in the CSV
     def extract_full_questions(csv_path)
       csv = CSV.read(csv_path, headers: true)
@@ -59,5 +91,7 @@ module ClientDisplayHelper
       Hash[question_headers.zip(full_questions)]
     end
 
-   
+
+
+
 end

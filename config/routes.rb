@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Student List Add controller
   post '/import/home', to: 'student_list_add#import_home'
 
-  
+
   # Semester controller
   get 'semesters', to: 'semesters#home', as: 'semesters'
   post 'semesters', to: 'semesters#create'
@@ -22,10 +22,12 @@ Rails.application.routes.draw do
   get 'semesters/:semester_id/sprints', to: 'sprints#index', as: 'semester_sprints'
   post 'semesters/:semester_id/sprints', to: 'sprints#create'
   get 'semesters/:semester_id/sprints/new', to: "sprints#new", as: 'new_semester_sprint'
+  get 'sprint_dates', to: 'sprint#get_sprint_dates'
   get 'semesters/:semester_id/sprints/:id', to: 'sprints#show', as: 'semester_sprint'
   patch 'semesters/:semester_id/sprints/:id', to: 'sprints#update'
   delete 'semesters/:semester_id/sprints/:id', to: 'sprints#destroy'
   put 'semesters/:semester_id/sprints/:id', to: 'sprints#update'
   get 'semesters/:semester_id/sprints/:id/edit', to: 'sprints#edit', as: 'edit_semester_sprint'
+
 
 end
