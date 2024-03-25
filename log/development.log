@@ -8364,3 +8364,52 @@ No Matching Row Found for Sprint: Sprint 1
 Completed 200 OK in 57ms (Views: 27.3ms | ActiveRecord: 1.9ms | Allocations: 63679)
 
 
+Started GET "/semesters/1/team?team=TAG+Team" for ::1 at 2024-03-25 16:39:12 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:126:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.8ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:96:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: 1pkfhlsp5t6amq2njrvng67qy1nd[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:59:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:59:in `process_client_data'
+[36m  Disk Storage (1.9ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.7ms | Allocations: 936)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: l66m3s6sfu2zm6weld1s0r6bfzdp[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 65.0ms | Allocations: 56670)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  Rendered shared/_navbar.html.erb (Duration: 0.9ms | Allocations: 1359)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 467)
+  Rendered layout layouts/application.html.erb (Duration: 73.4ms | Allocations: 69470)
+Completed 200 OK in 154ms (Views: 78.7ms | ActiveRecord: 22.9ms | Allocations: 143472)
+
+
