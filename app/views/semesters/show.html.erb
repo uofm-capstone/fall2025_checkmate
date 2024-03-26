@@ -147,19 +147,18 @@
                               <% end %>
                           </select>
 
-                          <label for="sprint-number" style="margin-right: 10px;">Sprint: </label>
+                          <label for="sprint-number" style="margin-right: 10px;">Sprint</label>
                           <select id="sprint-number" onchange="updateDates()" required style="margin-right: 20px;">
-                              <option value="0" selected>Choose Sprint Number</option>
-                              <option value="1">Sprint 1</option>
-                              <option value="2">Sprint 2</option>
-                              <option value="3">Sprint 3</option>
-                              <option value="4">Sprint 4</option>
+                              <option value="" selected>Choose Sprint Number</option>
+                              <% @sprint_numbers.each do |sprint| %>
+                              <option value="<%= sprint %>"><%= sprint %></option>
+                              <% end %>
                           </select>
                       </div>
 
                       <!-- Hidden inputs for repo info -->
                       <label for="repo-owner" style="display: none;">Repository Owner: </label>
-                      <input type="text" placeholder="Repo Owner" id="repo-owner" style="display: none;" required>
+                      <input type="text" placeholder="Repo Owner" id="repo-owner"  style="display: none;" required>
 
                       <label for="repo-name" style="display: none;">Repository Name: </label>
                       <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
@@ -168,7 +167,7 @@
                       <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
 
                       <label for="start-date" style="display: none;">Sprint Start Date: </label>
-                      <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" required>
+                      <input type="text" placeholder="YYYY-MM-DD" id="start-date"  style="display: none;" required>
 
                       <label for="end-date" style="display: none;">Sprint End Date: </label>
                       <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
@@ -180,17 +179,21 @@
           </div>
 
           <script>
-            const sprintDates = {
-              "1": { start: '<%= @start_dates["start_date_sprint_1"] %>', end: '<%= @end_dates["end_date_sprint_1"] %>' },
-              "2": { start: '<%= @start_dates["start_date_sprint_2"] %>', end: '<%= @end_dates["end_date_sprint_2"] %>' },
-              "3": { start: '<%= @start_dates["start_date_sprint_3"] %>', end: '<%= @end_dates["end_date_sprint_3"] %>' },
-              "4": { start: '<%= @start_dates["start_date_sprint_4"] %>', end: '<%= @end_dates["end_date_sprint_4"] %>' }
-            };
 
-            function updateDates() {
+            const sprintDates = {};
+            <% @sprint_numbers.each do |sprint_number| %>
+              sprintDates['<%= sprint_number %>'] = {
+                start_date: '<%= @start_dates[sprint_number] %>',
+                end_date: '<%= @end_dates[sprint_number] %>',
+              };
+            <% end %>
+
+            function updateDates(){
+              // Update the repository details based on the selected team name
               const selectedSprint = document.getElementById('sprint-number').value;
-              document.getElementById('start-date').value = sprintDates[selectedSprint].start;
-              document.getElementById('end-date').value = sprintDates[selectedSprint].end;
+              const selectedSprintDetails = sprintDates[selectedSprint];
+              document.getElementById('start-date').value = selectedSprintDetails.start_date;
+              document.getElementById('end-date').value = selectedSprintDetails.end_date;
             }
 
             // Assuming @team_names, @repo_owners, @repo_names, and @access_tokens are arrays
@@ -214,6 +217,8 @@
 
             // Event listener to call updateTeams() when the team name is changed
             document.getElementById('team-name').addEventListener('change', updateTeams);
+            document.getElementById('sprint-number').addEventListener('change', updateDates);
+
           </script>
           
 

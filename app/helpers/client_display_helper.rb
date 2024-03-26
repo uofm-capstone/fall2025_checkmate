@@ -2,7 +2,7 @@ module ClientDisplayHelper
 
     def get_git_info()
       # Read CSV data from the file
-      csv = CSV.read('/Users/naitik/Downloads/Github Info.csv', headers: true)
+      csv = CSV.read('Github Info.csv', headers: true)
 
       # Initialize dictionaries to hold start and end dates for each sprint
       start_dates = {}
@@ -13,6 +13,7 @@ module ClientDisplayHelper
       repo_names = {}
       access_tokens = {}
       team_names = []
+      sprint_numbers = []
 
       # Iterate over each row in the CSV data
       csv.each do |row|
@@ -25,6 +26,7 @@ module ClientDisplayHelper
         git_token = row["Github Access Token"]
 
         team_names << team_name if team_name
+        sprint_numbers << sprint_number if sprint_number
 
         # Check if team name is present
         if team_name
@@ -44,11 +46,14 @@ module ClientDisplayHelper
           # Add start and end dates to the respective dictionaries
           start_dates["start_date_sprint_#{sprint_number.split(' ')[1]}"] = start_date
           end_dates["end_date_sprint_#{sprint_number.split(' ')[1]}"] = end_date
+
+          start_dates["Sprint #{sprint_number.split(' ')[1]}"] = start_dates["start_date_sprint_#{sprint_number.split(' ')[1]}"]
+          end_dates["Sprint #{sprint_number.split(' ')[1]}"] =  end_dates["end_date_sprint_#{sprint_number.split(' ')[1]}"]
         end
       end
 
       # Return the dictionaries of start and end dates along with dictionaries of repo owners, repo names, and git tokens
-      return start_dates, end_dates, team_names, repo_owners, repo_names, access_tokens
+      return start_dates, end_dates, team_names, repo_owners, repo_names, access_tokens, sprint_numbers
     end
 
     def process_client_data(semester, team, sprint)

@@ -75,9 +75,7 @@
           <br>
           <li class="mb-2"><button id="btn-jump-to-cqq" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Client Evaluation</button></li>
           <br>
-          <br>
-          <li class="mb-2"><button id="btn-jump-to-gc" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Github Commits</button></li>
-          <br>
+          
           <br>
           <li class="mb-2"><button id="btn-jump-to-ghc" class="ml-0 btn btn-t d-inline-flex rounded border-0" style="position:fixed;">Github Commits</button></li>
           <br>
@@ -297,9 +295,92 @@
           </div>
         <% end %>
         <br>
+
+        <!-- This section starts the integration of Github API -->
+        <div>
+          
+          <!-- Form to collect repo and sprint info -->
+          <div id="github-repo-form">
+
+            <!-- Style to align the input boxes for the request form -->
+            <style>
+              label {
+                display: block;
+                text-align: left;
+              }
+
+              input {
+                display: block;
+                margin-bottom: 10px;
+              }
+
+              
+            </style>
+
+            <form id="github-form">
+              <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+
+
+              <!-- Team Name -->
+              <label for="team-name" style="display: none;">Team Name: </label>
+              <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly>
+
+              <!-- Sprint Number -->
+              <label for="sprint-number" style="display: none;">Sprint Number: </label>
+              <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly>
+
+              <!-- Name of Repo Owner -->
+              <label for="repo-owner" style="display: none;">Repository Owner: </label>
+              <input type="text" placeholder="Repo Owner" id="repo-owner" style="display: none;" value="<%= @repo_owners[@team] %>" readonly required>
+
+              <!-- Name of Repo -->
+              <label for="repo-name" style="display: none;">Repository Name: </label>
+              <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" value="<%= @repo_names[@team] %>" readonly required>
+
+              <!-- Fine-grain Access Token From Github -->
+              <label for="access-token" style="display: none;">Github Access Token: </label>
+              <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" value="<%= @access_tokens[@team] %>" readonly required>
+
+              <!-- Sprint Start Date -->
+              <label for="start-date" style="display: none;">Sprint Start Date: </label>
+              <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" value = "<%= @start_dates[@sprint]%>" readonly required>
+
+              <!-- Sprint End Date -->
+              <label for="end-date" style="display: none;">Sprint End Date: </label>
+              <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value = "<%= @end_dates[@sprint]%>" readonly required>
+
+              <button type="submit">Get Commit Info</button>
+            </form>
+          
+
+          <!-- Element for where the response is placed -->
+          <div id="commit-list">
+          </div>
+          <div id="commit-table">
+            <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+              <thead>
+                <tr>
+                    <th>Author</th>
+                    <th>Number of Commits</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <!-- Commit data will be populated here -->
+              </tbody>
+            </table>
+
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
+<!-- Allows the data from the github request to be shown -->
+<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+<%= javascript_include_tag 'octokit', type: "module" %>
