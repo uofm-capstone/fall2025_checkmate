@@ -459,44 +459,25 @@ class SemestersController < ApplicationController
         return false
     end
 
-    require 'csv'
-
-    
-    
-    def classlist
-        @semester = Semester.find(params[:id])
-        filepath = Rails.root.join('lib', 'assets', 'Students_list.csv')
-        @students_info = []
-    
-        CSV.foreach(filepath, headers: true) do |row|
-          @students_info << {name: row['﻿Name'], role: row['Role']}
-        end
-      rescue ActiveRecord::RecordNotFound
-        redirect_to semesters_path, alert: 'Semester not found.'
-      end
-      # Any other actions should be defined here...
-    
-      # This method seems to be a utility method. If it's used in views or needs to be public, it's fine here.
-      # If it's only used within the controller, consider moving it inside the private section.
-      def unfinished_sprint(teams, flags, sprint)
+    def unfinished_sprint(teams, flags, sprint)
         teams.each do |t|
-          return false if flags[sprint][t] != ["student blank"]
+            if flags[sprint][t] != ["student blank"]
+                puts flags[sprint][t]
+                return false
+            end
         end
-        true
-      end
-    
-      private
-    
-      # Ensure all private methods are within this section.
-      def semester_params
+        return true
+    end
+
+    private
+
+    def semester_params
         params.permit(
           :semester, :year, sprints_attributes: [
-            :id, :_destroy, :start_date, :end_date
-          ],
+          :id, :_destroy, :start_date, :end_date
+        ],
           student_csv: [], client_csv: []
         )
-      end
-    
-      # Any other private utility methods should be defined below this point.
-    
     end
+
+end
