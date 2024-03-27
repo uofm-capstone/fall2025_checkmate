@@ -13,7 +13,7 @@ Hitham W.S Rizeq
 * [https://docs.google.com/spreadsheets/d/1ORxyuffng5yyver_pzqf8FWHtdWZdBlKqOAZR6xUFfw/edit#gid=0](https://docs.google.com/spreadsheets/d/1GXZlfFAnzuQ2Z4I_l8P6ZgETAWoBOzQz5GX40Tphytk/edit#gid=0)
 
 * Week 3:
-* TBA
+* https://docs.google.com/spreadsheets/d/13Ec6YcdlZLvTVMSr0fIbmvbf0UzuCEUoiE2kK5ZlxZU/edit#gid=0
 
 ## Sprint 3 goals
 * Automating github process, correctly parsing csv files with appropriate information, finding a way to get authentication keys from the users.
