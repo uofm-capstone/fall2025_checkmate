@@ -15,12 +15,12 @@
 
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="sprintDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Sprint <%= @sprint %>
+      <%= @sprint %>
     </a>
     <ul class="dropdown-menu" aria-labelledby="sprintDropdown">
       <% if @sprints.present? %>
         <% @sprints.each do |sprint| %>
-          <li><%= link_to "Sprint #{sprint}", semester_team_path(@semester, :team => @team, :sprint => sprint), class: "dropdown-item" %></li>
+          <li><%= link_to "#{sprint}", semester_team_path(@semester, :team => @team, :sprint => sprint), class: "dropdown-item" %></li>
         <% end %>
       <% end %>
 

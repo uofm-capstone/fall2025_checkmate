@@ -10,7 +10,17 @@
         <li class="nav-item">
           <%= render 'shared/team_sprint_dropdowns' if controller_name == 'semesters' && action_name == 'team' %>
         </li>
-
+        <%# Classlist dropdown addition %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarSemesterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Classlist
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarSemesterDropdown">
+            <% @semesters.each do |semester| %>
+              <li><%= link_to semester.name_for_select, semester_classlist_path(semester), class: "dropdown-item" %></li>
+            <% end %>
+          </ul>
+        </li>
         <%# User account or sign-in dropdown %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,7 +36,7 @@
             <% if user_signed_in? %>
               <li><%= link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item' %></li>
               <li>
-                <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+                <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </li>
             <% else %>
               <li><%= link_to 'Sign In', new_user_session_path, class: 'dropdown-item' %></li>
@@ -34,19 +44,8 @@
           </ul>
         </li>
 
-        <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
 
-        <%# Classlist dropdown addition %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarSemesterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Classlist
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarSemesterDropdown">
-            <% @semesters.each do |semester| %>
-              <li><%= link_to semester.name_for_select, semester_classlist_path(semester), class: "dropdown-item" %></li>
-            <% end %>
-          </ul>
-        </li>
+        
       </ul>
     </div>
   </div>
