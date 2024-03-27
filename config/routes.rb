@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   patch 'semesters/:id', to: 'semesters#update'
   delete 'semesters/:id', to: 'semesters#destroy'
   get 'semesters/:semester_id/team/', to: "semesters#team", as: 'semester_team'
+  get 'semesters/:id/classlist', to: 'semesters#classlist', as: 'semester_classlist' # <- Add this line
 
   # Sprint controller
   get 'semesters/:semester_id/sprints', to: 'sprints#index', as: 'semester_sprints'
@@ -31,3 +32,17 @@ Rails.application.routes.draw do
 
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+

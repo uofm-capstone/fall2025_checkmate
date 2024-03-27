@@ -23268,3 +23268,23 @@ Processing by SemestersController#team as HTML
 Completed 200 OK in 66ms (Views: 14.6ms | ActiveRecord: 1.7ms | Allocations: 52871)
 
 
+Started GET "/semesters/1/classlist" for ::1 at 2024-03-26 20:28:07 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SemestersController#classlist as HTML
+  Parameters: {"id"=>"1"}
+Completed 401 Unauthorized in 7ms (ActiveRecord: 0.0ms | Allocations: 6921)
+
+
+Started GET "/users/sign_in" for ::1 at 2024-03-26 20:28:07 -0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 5636.2ms | Allocations: 251102)
+  [1m[36mSemester Load (2.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:45
+  Rendered shared/_navbar.html.erb (Duration: 11.4ms | Allocations: 4862)
+  Rendered shared/_flash.html.erb (Duration: 0.9ms | Allocations: 460)
+  Rendered layout layouts/application.html.erb (Duration: 5654.4ms | Allocations: 267448)
+Completed 200 OK in 5673ms (Views: 5651.2ms | ActiveRecord: 14.7ms | Allocations: 281202)
+
+

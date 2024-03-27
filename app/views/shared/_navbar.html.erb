@@ -6,48 +6,54 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <%# Conditional rendering based on controller and action names %>
         <li class="nav-item">
           <%= render 'shared/team_sprint_dropdowns' if controller_name == 'semesters' && action_name == 'team' %>
         </li>
+
+        <%# User account or sign-in dropdown %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <% if user_signed_in? %>
               <i class="bi bi-person-circle me-1"></i>
-              <span class="text-white"><%= current_user.email %></span>
+              <%= current_user.email %>
             <% else %>
               <i class="bi bi-person-circle me-1"></i>
-              <span class="text-white">Sign In</span>
+              Sign In
             <% end %>
           </a>
           <ul class="dropdown-menu" aria-labelledby="userDropdown">
             <% if user_signed_in? %>
-              <li><%= link_to 'Edit Profile', edit_user_registration_path, method: :get, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item' %></li>
               <li>
-                <%= form_with url: destroy_user_session_path, method: :delete, id: "sign_out_form", class: "d-none" do |_| %>
-                <% end %>
-                <%= link_to 'Sign Out', '#', class: 'dropdown-item', id: 'sign_out_link', onclick: 'submitSignOutForm(event)' %>
+                <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </li>
             <% else %>
               <li><%= link_to 'Sign In', new_user_session_path, class: 'dropdown-item' %></li>
             <% end %>
           </ul>
+        </li>
 
+        <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+
+        <%# Classlist dropdown addition %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarSemesterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Classlist
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarSemesterDropdown">
+            <% @semesters.each do |semester| %>
+              <li><%= link_to semester.name_for_select, semester_classlist_path(semester), class: "dropdown-item" %></li>
+            <% end %>
+          </ul>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
 <style>
-    .navbar {
-        padding: 5px;
-    }
+  .navbar {
+    padding: 5px;
+  }
 </style>
-<script>
-    function submitSignOutForm(event) {
-        event.preventDefault();
-        const signOutForm = document.getElementById('sign_out_form');
-        if (signOutForm) {
-            signOutForm.submit();
-        }
-    }
-</script>
