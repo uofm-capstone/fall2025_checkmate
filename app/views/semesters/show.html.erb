@@ -69,10 +69,6 @@
                   Upload CSV
                 </button>
               </li>
-              <li class="mb-1">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importStudentCSVModal">
-                  Import Student CSV
-                </button>
               </li>
             </ul>
           </div>
@@ -144,28 +140,4 @@
     </div>
   </div>
 
-  <!-- Import CSV File Modal for student_list -->
- <div class="modal fade" id="importStudentCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="importCSVModalLabel">Import Student CSV File</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with(url: import_home_path, multipart: true, html: { class: "import-form" }) do |form| %>
-          <div class="form-group">
-            <%= form.label :file, 'Select CSV File', class: "import-file-label" %>
-            <%= form.file_field :file, accept: '.csv', class: "import-file-input" %>
-          </div>
-          <div class="d-flex justify-content-center mt-4">
-            <%= form.submit 'Import', class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white import-button" %>
-          </div>
-        <% end %>
-
-        <!-- Additional styling inside the modal body -->
-        <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
-      </div>
-    </div>
-  </div>
-</div>
+  
