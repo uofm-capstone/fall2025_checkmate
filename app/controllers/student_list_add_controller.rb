@@ -29,4 +29,4 @@ class StudentListAddController < ApplicationController
 
     render 'imported_data'
   end
-end
+# In semesters_controller.rb or classlists_controller.rb

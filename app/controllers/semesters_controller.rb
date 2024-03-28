@@ -16,8 +16,8 @@ class SemestersController < ApplicationController
     include ClientSurveyPatternsHelper
 
 
-    
-    
+
+
     def home
         @semesters = Semester.order(:year)
         render :home
@@ -38,6 +38,8 @@ class SemestersController < ApplicationController
         end
         @repos = current_user.repositories
         @sprints = @semester.sprints
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info()
+
         render :show
     end
 
@@ -119,8 +121,8 @@ class SemestersController < ApplicationController
         return @teams
     end
 
-    
-  
+
+
 
 
     def team
@@ -133,6 +135,7 @@ class SemestersController < ApplicationController
         @sprints = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
         # @sprint = params[:sprint]
         @sprint = params[:sprint] || @sprints.first
+
         @not_empty_questions = [] # check if questions are empty (without any responses)
 
         # stores all the flags for the team
@@ -211,7 +214,7 @@ class SemestersController < ApplicationController
                                 else 0
                                 end
                               end
-                              
+
                               self_scores&.map! do |score|
                                 case score
                                 when 'Always' then 5
@@ -239,7 +242,7 @@ class SemestersController < ApplicationController
 
                         # combine both name[1] + name[2]
                         including_self_scores = name[1] + name[2]
-                        
+
                         # Check if there are any scores present (self or peer) to calculate the average including self
                         if including_self_scores.present?
                             name.push((including_self_scores.sum / including_self_scores.size.to_f).round(1))
@@ -248,14 +251,14 @@ class SemestersController < ApplicationController
                         else
                             name.push("*Did not submit survey*")
                         end
-                        
+
                         name.push((name[2].sum / name[2].size.to_f).round(1))
-                      
+
                     #     Rails.logger.debug("DEBUGGGGGG #{name[-2]}")
                     #    Rails.logger.debug("NAMEE ADD")
                     #   Rails.logger.debug("#{self_scores}")
-                       
-                      
+
+
                       # stores the flags for the team
                         if name[-2].is_a?(String) && !@flags.include?("missing submit")
                             @flags.append("missing submit")
@@ -266,7 +269,8 @@ class SemestersController < ApplicationController
                         if name.last < 4 && !@flags.include?("low score")
                             @flags.append("low score")
                         end
-                    end end
+                    end
+                end
                 rescue => exception
                     # TODO: This displays when there's data displaying on the survey page for a sprint that does that data
                     # flash.now[:alert] = "Unable to process file"
@@ -288,20 +292,17 @@ class SemestersController < ApplicationController
         end
         
         client_data, flags = process_client_data(@semester, @team, @sprint)
+
         @full_questions = client_data[:full_questions]
         @cliSurvey = client_data[:cliSurvey]
         @flags = flags
-        # set_team_flags 
-       
-
-
-        #csv_path = get_csv_path
-       # @client_question_titles = extract_titles_from_csv(client_data)
-
-        
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info()
+# set_team_flags 
 
         render :team
     end
+
+
 
 
     def get_flags(semester, sprint, team)
@@ -455,25 +456,44 @@ class SemestersController < ApplicationController
         return false
     end
 
-    def unfinished_sprint(teams, flags, sprint)
-        teams.each do |t|
-            if flags[sprint][t] != ["student blank"]
-                puts flags[sprint][t]
-                return false
-            end
+    require 'csv'
+
+
+
+    def classlist
+        @semester = Semester.find(params[:id])
+        filepath = Rails.root.join('lib', 'assets', 'Students_list.csv')
+        @students_info = []
+
+        CSV.foreach(filepath, headers: true) do |row|
+          @students_info << {name: row['﻿Name'], role: row['Role']}
         end
-        return true
-    end
+      rescue ActiveRecord::RecordNotFound
+        redirect_to semesters_path, alert: 'Semester not found.'
+      end
+      # Any other actions should be defined here...
 
-    private
+      # This method seems to be a utility method. If it's used in views or needs to be public, it's fine here.
+      # If it's only used within the controller, consider moving it inside the private section.
+      def unfinished_sprint(teams, flags, sprint)
+        teams.each do |t|
+          return false if flags[sprint][t] != ["student blank"]
+        end
+        true
+      end
 
-    def semester_params
+      private
+
+      # Ensure all private methods are within this section.
+      def semester_params
         params.permit(
           :semester, :year, sprints_attributes: [
-          :id, :_destroy, :start_date, :end_date
-        ],
+            :id, :_destroy, :start_date, :end_date
+          ],
           student_csv: [], client_csv: []
         )
-    end
+      end
 
-end
+      # Any other private utility methods should be defined below this point.
+
+    end

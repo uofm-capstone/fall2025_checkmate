@@ -81,10 +81,6 @@
                   Upload CSV
                 </button>
               </li>
-              <li class="mb-1">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importStudentCSVModal">
-                  Import Student CSV
-                </button>
               </li>
             </ul>
           </div>
@@ -152,6 +148,136 @@
             <% end %>
           </div>
         </div>
+        <!-- This section starts the integration of Github API -->
+        <div>
+          <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem; text-align: center;">Github Commits</h1>
+          
+          <!-- Form to collect repo and sprint info -->
+          <div id="github-repo-form">
+
+              <!-- Style to align the input boxes for the request form -->
+              <style>
+                  label {
+                      display: inline-block;
+                      text-align: center;
+                  }
+
+                  input {
+                      display: block;
+                      margin-bottom: 10px;
+                  }
+              </style>
+
+              <div style="text-align: center;">
+                  <form id="github-form">
+                      <!-- Team Name and Sprint Number -->
+                      <div style="display: inline-block; text-align: center;">
+                          <label for="team-name" style="margin-right: 10px;">Team </label>
+                          <select id="team-name" required style="margin-right: 20px;">
+                              <option value="" selected>Choose Team Name</option>
+                              <% @team_names.each do |team| %>
+                              <option value="<%= team %>"><%= team %></option>
+                              <% end %>
+                          </select>
+
+                          <label for="sprint-number" style="margin-right: 10px;">Sprint</label>
+                          <select id="sprint-number" onchange="updateDates()" required style="margin-right: 20px;">
+                              <option value="" selected>Choose Sprint Number</option>
+                              <% @sprint_numbers.each do |sprint| %>
+                              <option value="<%= sprint %>"><%= sprint %></option>
+                              <% end %>
+                          </select>
+                      </div>
+
+                      <!-- Hidden inputs for repo info -->
+                      <label for="repo-owner" style="display: none;">Repository Owner: </label>
+                      <input type="text" placeholder="Repo Owner" id="repo-owner"  style="display: none;" required>
+
+                      <label for="repo-name" style="display: none;">Repository Name: </label>
+                      <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
+
+                      <label for="access-token" style="display: none;">Github Access Token: </label>
+                      <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
+
+                      <label for="start-date" style="display: none;">Sprint Start Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="start-date"  style="display: none;" required>
+
+                      <label for="end-date" style="display: none;">Sprint End Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
+
+                      <button type="submit" style="display: block; margin: 20px auto;">Get Commit Info</button>
+                  </form>
+              </div>
+
+          </div>
+
+          <script>
+
+            const sprintDates = {};
+            <% @sprint_numbers.each do |sprint_number| %>
+              sprintDates['<%= sprint_number %>'] = {
+                start_date: '<%= @start_dates[sprint_number] %>',
+                end_date: '<%= @end_dates[sprint_number] %>',
+              };
+            <% end %>
+
+            function updateDates(){
+              // Update the repository details based on the selected team name
+              const selectedSprint = document.getElementById('sprint-number').value;
+              const selectedSprintDetails = sprintDates[selectedSprint];
+              document.getElementById('start-date').value = selectedSprintDetails.start_date;
+              document.getElementById('end-date').value = selectedSprintDetails.end_date;
+            }
+
+            // Assuming @team_names, @repo_owners, @repo_names, and @access_tokens are arrays
+            const repoDetails = {};
+            <% @team_names.each do |team_name| %>
+              repoDetails['<%= team_name %>'] = {
+                repo_owner: '<%= @repo_owners[team_name] %>',
+                repo_name: '<%= @repo_names[team_name] %>',
+                access_token: '<%= @access_tokens[team_name] %>'
+              };
+            <% end %>
+
+            function updateTeams(){
+              // Update the repository details based on the selected team name
+              const selectedTeamName = document.getElementById('team-name').value;
+              const selectedTeamDetails = repoDetails[selectedTeamName];
+              document.getElementById('repo-owner').value = selectedTeamDetails.repo_owner;
+              document.getElementById('repo-name').value = selectedTeamDetails.repo_name;
+              document.getElementById('access-token').value = selectedTeamDetails.access_token;
+            }
+
+            // Event listener to call updateTeams() when the team name is changed
+            document.getElementById('team-name').addEventListener('change', updateTeams);
+            document.getElementById('sprint-number').addEventListener('change', updateDates);
+
+          </script>
+          
+
+          <!-- Element for where the response is placed -->
+          <div id="commit-list">
+          </div>
+          <div id="commit-table" style= "text-align: center;>
+            <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+              <thead>
+                <tr>
+                    <th>Author</th>
+                    <th>Number of Commits</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <!-- Commit data will be populated here -->
+              </tbody>
+            </table>
+
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -205,4 +331,13 @@
       </div>
     </div>
   </div>
+  
 </div>
+
+<!-- Allows the data from the github request to be shown -->
+<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+<%= javascript_include_tag 'octokit', type: "module" %>
+
+
+
