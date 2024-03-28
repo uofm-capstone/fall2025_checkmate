@@ -26,7 +26,7 @@ Hitham W.S Rizeq
 * We were able to create classlist to the project to help TA'S access the names easier, so the TA'S no longer need to upload CSV file to get access to the names.
 
 ## Purav Patel Code branch
-* My code is in adding_flags, and I have not completed the code so I have not push it to main.
+* My code is in adding_flags and I have pushed my code to main.
 
 ## Naitik Kaythwal Code branch
 * My code is in the github_new branch and I have pushed code to main. PR: [https://github.com/NaitikKaythwal/TAG_new/pull/12]([url](https://github.com/NaitikKaythwal/TAG_new/pull/12)).
