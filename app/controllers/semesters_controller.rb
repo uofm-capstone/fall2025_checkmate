@@ -6,6 +6,8 @@ class SemestersController < ApplicationController
     helper_method :get_flags
     helper_method :unfinished_sprint
 
+
+
     include PreprocessorHelper
     include TeamsHelper
     include SprintsHelper
@@ -284,12 +286,12 @@ class SemestersController < ApplicationController
             flash.now[:alert] = "This semester does not have any student survey"
             @flags.append("student blank")
         end
-
+        
         client_data, flags = process_client_data(@semester, @team, @sprint)
         @full_questions = client_data[:full_questions]
         @cliSurvey = client_data[:cliSurvey]
         @flags = flags
-        
+        # set_team_flags 
        
 
 
@@ -301,8 +303,6 @@ class SemestersController < ApplicationController
         render :team
     end
 
-    
-      
 
     def get_flags(semester, sprint, team)
         # stores all the flags for the team

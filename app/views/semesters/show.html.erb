@@ -37,10 +37,22 @@
       border-radius: 10px;
       padding: 20px;
     }
+
+    .top-warning {
+      position: fixed; /* or absolute */
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 1050; /* Ensure it's above other content; adjust as needed */
+      
+    }
   </style>
 </head>
 <body>
+
   <div class="container mt-3">
+
     <div class="d-flex">
       <div class="sidebar">
         <div>
@@ -79,6 +91,19 @@
         </div>
       </div>
       <div class="main-content">
+        <!-- Warning for No Student CSV Uploaded -->
+        <% unless @semester.student_csv.attached? %>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="card w-100 border-danger">
+                <div class="card-body bg-danger text-white">
+                  <p class="card-text text-center">
+                    <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
+                  </p>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
         <div class="row">
           <div class="mt-4 text-center">
             <% if team_exist(@teams) %>
@@ -101,6 +126,18 @@
                 </ul>
               </div>
               <p>Note: Hover over warning symbol to see more details</p>
+              <!-- Warning for No Client CSV Uploaded -->
+                <% unless @semester.client_csv.attached? %>
+                    <div class="d-flex justify-content-center mt-4 mb-4">
+                      <div class="card w-100 border-danger">
+                        <div class="card-body bg-danger text-white">
+                          <p class="card-text text-center">
+                            <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
               <table class="table">
                 <thead>
                   <tr>
