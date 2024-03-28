@@ -27,7 +27,7 @@ Hitham W.S Rizeq
 * My code is in adding_flags, and I have not completed the code so I have not push it to main.
 
 ## Naitik Kaythwal Code branch
-* My code is in the github_new and I have pushed code to main. PR: [https://github.com/NaitikKaythwal/TAG_new/pull/12]([url](https://github.com/NaitikKaythwal/TAG_new/pull/12)).
+* My code is in the github_new branch and I have pushed code to main. PR: [https://github.com/NaitikKaythwal/TAG_new/pull/12]([url](https://github.com/NaitikKaythwal/TAG_new/pull/12)).
 
 ## Hitham W.S Rizeq Code branch
 * My code is not finished yet and also the work i have so far need to be reviewed by the sponsor.
