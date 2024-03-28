@@ -21,7 +21,8 @@ Hitham W.S Rizeq
 * Making the student lists permenant on the website, so the TA'S do not need to upload a csv file.
 
 ## Sprint 3 accomplishments
-* Automated the github process, Added a main commits graph on the home page, added the functionality for the users to select the team's Name and sprint number to get the respective commits graph​, Added the commits graph to the respective team's respective sprint's page as well which derives its information from the main graph​. 
+* Automated the github process, Added a main commits graph on the home page, added the functionality for the users to select the team's Name and sprint number to get the respective commits graph​, Added the commits graph to the respective team's respective sprint's page as well which derives its information from the main graph​.
+* Added flags to check if the TA did not uploaded a student and client csv it will show them a Attaction warning to upload the files to see the data. Also added a icon button for the teams page flags using javascript to get the dropdown menu for the button.
 
 ## Purav Patel Code branch
 * My code is in adding_flags, and I have not completed the code so I have not push it to main.
