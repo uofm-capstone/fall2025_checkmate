@@ -23,8 +23,6 @@ Hitham W.S Rizeq
 ## Sprint 3 accomplishments
 * Automated the github process, Added a main commits graph on the home page, added the functionality for the users to select the team's Name and sprint number to get the respective commits graph​, Added the commits graph to the respective team's respective sprint's page as well which derives its information from the main graph​. 
 
-Fixed certain irregularities with the UI​
-
 ## Purav Patel Code branch
 * My code is in adding_flags, and I have not completed the code so I have not push it to main.
 
