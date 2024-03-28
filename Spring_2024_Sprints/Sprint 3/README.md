@@ -32,9 +32,9 @@ Hitham W.S Rizeq
 * My code is in the github_new branch and I have pushed code to main. PR: [https://github.com/NaitikKaythwal/TAG_new/pull/12]([url](https://github.com/NaitikKaythwal/TAG_new/pull/12)).
 
 ## Hitham W.S Rizeq Code branch
-* My code is on the github under this brnach , and my code is pushed
+* My code is on the github under studentlist_per , and my code is pushed
 * https://github.com/NaitikKaythwal/TAG_new/pull/11
-* 
+  
 
 ## Sprint 3 Demo Day Presentation
 * [https://livememphis-my.sharepoint.com/:p:/r/personal/pvpatel1_memphis_edu/_layouts/15/Doc.aspx?sourcedoc=%7B786B6969-0A21-4580-806C-EABB1CFDB894%7D&file=TAG%20Team%20Demo3.pptx&action=edit&mobileredirect=true](https://livememphis-my.sharepoint.com/:p:/g/personal/pvpatel1_memphis_edu/EWlpa3ghCoBFgGzquxz9uJQB2msfBM4z5Ukopgn7N3ZsAw?email=mmouree%40memphis.edu&e=bMJK4j)
