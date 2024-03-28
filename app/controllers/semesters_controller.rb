@@ -90,7 +90,6 @@ class SemestersController < ApplicationController
 
     def getTeams(semester)
         @teams = []
-
         begin
             # Downloads and temporarily store the student_csv file
             semester.student_csv.open do |tempfile|
@@ -136,9 +135,6 @@ class SemestersController < ApplicationController
 
         # stores all the flags for the team
         @flags = []
-
-    
-
 
         # Processes the student data first
         begin
@@ -305,7 +301,7 @@ class SemestersController < ApplicationController
         render :team
     end
 
-
+    
       
 
     def get_flags(semester, sprint, team)
