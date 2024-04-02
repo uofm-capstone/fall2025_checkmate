@@ -30165,3 +30165,1360 @@ Processing by SemestersController#home as HTML
 Completed 200 OK in 157ms (Views: 44.0ms | ActiveRecord: 41.3ms | Allocations: 21543)
 
 
+Started GET "/" for ::1 at 2024-04-02 06:31:24 -0500
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (2.8ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 140.5ms | Allocations: 84470)
+  Rendered shared/_navbar.html.erb (Duration: 0.9ms | Allocations: 1041)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 467)
+  Rendered layout layouts/application.html.erb (Duration: 147.9ms | Allocations: 97028)
+Completed 200 OK in 215ms (Views: 141.4ms | ActiveRecord: 51.6ms | Allocations: 114857)
+
+
+Started GET "/" for ::1 at 2024-04-02 06:31:28 -0500
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 7.7ms | Allocations: 6628)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 504)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 29.1ms | Allocations: 17617)
+Completed 200 OK in 41ms (Views: 33.1ms | ActiveRecord: 1.1ms | Allocations: 19439)
+
+
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:31:38 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (4.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.8ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.3ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 10.1ms | Allocations: 15585)
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 0.9ms | Allocations: 1120)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | Allocations: 26976)
+Completed 200 OK in 101ms (Views: 15.5ms | ActiveRecord: 18.2ms | Allocations: 115245)
+
+
+Started GET "/semesters/4" for ::1 at 2024-04-02 06:31:40 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (11.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 13.8ms | Allocations: 9311)
+  [1m[36mSemester Load (2.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 6.5ms | Allocations: 1117)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 36.5ms | Allocations: 20703)
+Completed 200 OK in 59ms (Views: 34.5ms | ActiveRecord: 14.7ms | Allocations: 25017)
+
+
+Started DELETE "/semesters/4" for ::1 at 2024-04-02 06:31:43 -0500
+Processing by SemestersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"4"}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:90:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/semesters_controller.rb:91:in `destroy'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:91:in `destroy'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 4], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:91:in `destroy'
+  [1m[36mSemester Destroy (8.6ms)[0m  [1m[31mDELETE FROM "semesters" WHERE "semesters"."id" = $1[0m  [["id", 4]]
+  ↳ app/controllers/semesters_controller.rb:91:in `destroy'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/semesters_controller.rb:91:in `destroy'
+Redirected to http://localhost:3000/semesters
+Completed 303 See Other in 27ms (ActiveRecord: 12.0ms | Allocations: 6306)
+
+
+Started GET "/semesters" for ::1 at 2024-04-02 06:31:43 -0500
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 5.8ms | Allocations: 6300)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 461)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 24)
+  Rendered layout layouts/application.html.erb (Duration: 15.7ms | Allocations: 17257)
+Completed 200 OK in 19ms (Views: 15.8ms | ActiveRecord: 0.7ms | Allocations: 19069)
+
+
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:31:46 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.9ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (1.8ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 9.8ms | Allocations: 12768)
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.2ms | Allocations: 1063)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 17.5ms | Allocations: 24103)
+Completed 200 OK in 70ms (Views: 17.7ms | ActiveRecord: 3.0ms | Allocations: 90590)
+
+
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:32:25 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.7ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 13.8ms | Allocations: 5699)
+  Rendered layout layouts/application.html.erb (Duration: 13.8ms | Allocations: 5788)
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 2.1ms | Allocations: 72927)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page with Sidebar</title>
+  <style>
+    .sidebar {
+      width: 250px;
+      height: 100%;
+      padding: 1rem;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar h2, .sidebar h3, .sidebar h5 {
+      color: #343a40;
+    }
+    .sidebar a {
+      color: #343a40;
+    }
+    .sidebar .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+      color: #ffffff;
+    }
+
+    @media (max-width: 992px) {
+      .sidebar {
+        display: none;
+      }
+    }
+
+    .main-content {
+      flex: 1;
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .top-warning {
+      position: fixed; /* or absolute */
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 1050; /* Ensure it's above other content; adjust as needed */
+      
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-3">
+
+    <div class="d-flex">
+      <div class="sidebar">
+        <div>
+          <div>
+            <%= link_to semesters_path do %>
+              <h2 style="z-index: 9999; position: relative;">
+                <i class="bi bi-arrow-return-left"></i>
+              </h2>
+            <% end %>
+            <h3><%= @semester.semester %> <%= @semester.year %></h3>
+            <ul class="list-unstyled ps-0">
+              <li class="border-top my-3"></li>
+              <li>
+                <div class="col-sm-8">
+                  <%= bootstrap_form_with url: semester_team_path(@semester), method: "get", local: true do |f| %>
+                    <%= f.select :team, @teams %>
+                    <hr>
+                    <%= f.select :sprint, @sprint_list %>
+                    <%= f.submit "View" %>
+                  <% end %>
+                </div>
+                <hr>
+              </li>
+              <li class="mb-1">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadCSVModal">
+                  Upload CSV
+                </button>
+              </li>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="main-content">
+        <!-- Warning for No Student CSV Uploaded -->
+        <% unless @semester.student_csv.attached? %>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="card w-100 border-danger">
+                <div class="card-body bg-danger text-white">
+                  <p class="card-text text-center">
+                    <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
+                  </p>
+                </div>
+              </div>
+            </div>
+        <% end %>
+
+        <div class="row">
+          <div class="mt-4 text-center">
+            <% if team_exist(@teams) %>
+              <h2 class="">Team Status</h2>
+              <div class="mt-3 mb-3">
+                <h5 class="">Legend:</h5>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <%= image_tag "check-circle-fill.svg", class: "", style: "height:16px" %> All Good
+                  </li>
+                  <li class="list-inline-item">
+                    <%= image_tag "question-circle-fill.svg", class: "", style: "height:16px" %> No Data Uploaded
+                  </li>
+                  <li class="list-inline-item">
+                    <%= image_tag "exclamation-circle-fill-yellow.svg", class: "", style: "height:16px" %> No Client Survey
+                  </li>
+                  <li class="list-inline-item">
+                    <%= image_tag "exclamation-triangle-fill-red.svg", class: "", style: "height:16px" %> Poor Performance
+                  </li>
+                </ul>
+              </div>
+              <p>Note: Hover over warning symbol to see more details</p>
+              <!-- Warning for No Client CSV Uploaded -->
+                <% unless @semester.client_csv.attached? %>
+                    <div class="d-flex justify-content-center mt-4 mb-4">
+                      <div class="card w-100 border-danger">
+                        <div class="card-body bg-danger text-white">
+                          <p class="card-text text-center">
+                            <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Team</th>
+                    <%= sprint_header(@sprint_list) %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= team_rows(@teams, @sprint_list, @flags) %>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
+        </div>
+        <!-- This section starts the integration of Github API -->
+        <%# <div>
+          <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem; text-align: center;">Github Commits</h1>
+          
+          <!-- Form to collect repo and sprint info -->
+          <div id="github-repo-form">
+
+              <!-- Style to align the input boxes for the request form -->
+              <style>
+                  label {
+                      display: inline-block;
+                      text-align: center;
+                  }
+
+                  input {
+                      display: block;
+                      margin-bottom: 10px;
+                  }
+              </style>
+
+              <div style="text-align: center;">
+                  <form id="github-form">
+                      <!-- Team Name and Sprint Number -->
+                      <div style="display: inline-block; text-align: center;">
+                          <label for="team-name" style="margin-right: 10px;">Team </label>
+                          <select id="team-name" required style="margin-right: 20px;">
+                              <option value="" selected>Choose Team Name</option>
+                              <% @team_names.each do |team| %>
+                              <option value="<%= team %>"><%= team %></option>
+                              <% end %>
+                          </select>
+
+                          <label for="sprint-number" style="margin-right: 10px;">Sprint</label>
+                          <select id="sprint-number" onchange="updateDates()" required style="margin-right: 20px;">
+                              <option value="" selected>Choose Sprint Number</option>
+                              <% @sprint_numbers.each do |sprint| %>
+                              <option value="<%= sprint %>"><%= sprint %></option>
+                              <% end %>
+                          </select>
+                      </div>
+
+                      <!-- Hidden inputs for repo info -->
+                      <label for="repo-owner" style="display: none;">Repository Owner: </label>
+                      <input type="text" placeholder="Repo Owner" id="repo-owner"  style="display: none;" required>
+
+                      <label for="repo-name" style="display: none;">Repository Name: </label>
+                      <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
+
+                      <label for="access-token" style="display: none;">Github Access Token: </label>
+                      <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
+
+                      <label for="start-date" style="display: none;">Sprint Start Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="start-date"  style="display: none;" required>
+
+                      <label for="end-date" style="display: none;">Sprint End Date: </label>
+                      <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
+
+                      <button type="submit" style="display: block; margin: 20px auto;">Get Commit Info</button>
+                  </form>
+              </div>
+
+          </div>
+
+          <script>
+
+            const sprintDates = {};
+            <% @sprint_numbers.each do |sprint_number| %>
+              sprintDates['<%= sprint_number %>'] = {
+                start_date: '<%= @start_dates[sprint_number] %>',
+                end_date: '<%= @end_dates[sprint_number] %>',
+              };
+            <% end %>
+
+            function updateDates(){
+              // Update the repository details based on the selected team name
+              const selectedSprint = document.getElementById('sprint-number').value;
+              const selectedSprintDetails = sprintDates[selectedSprint];
+              document.getElementById('start-date').value = selectedSprintDetails.start_date;
+              document.getElementById('end-date').value = selectedSprintDetails.end_date;
+            }
+
+            // Assuming @team_names, @repo_owners, @repo_names, and @access_tokens are arrays
+            const repoDetails = {};
+            <% @team_names.each do |team_name| %>
+              repoDetails['<%= team_name %>'] = {
+                repo_owner: '<%= @repo_owners[team_name] %>',
+                repo_name: '<%= @repo_names[team_name] %>',
+                access_token: '<%= @access_tokens[team_name] %>'
+              };
+            <% end %>
+
+            function updateTeams(){
+              // Update the repository details based on the selected team name
+              const selectedTeamName = document.getElementById('team-name').value;
+              const selectedTeamDetails = repoDetails[selectedTeamName];
+              document.getElementById('repo-owner').value = selectedTeamDetails.repo_owner;
+              document.getElementById('repo-name').value = selectedTeamDetails.repo_name;
+              document.getElementById('access-token').value = selectedTeamDetails.access_token;
+            }
+
+            // Event listener to call updateTeams() when the team name is changed
+            document.getElementById('team-name').addEventListener('change', updateTeams);
+            document.getElementById('sprint-number').addEventListener('change', updateDates);
+
+          </script>
+          
+
+          <!-- Element for where the response is placed -->
+          <div id="commit-list">
+          </div>
+          <div id="commit-table" style= "text-align: center;>
+            <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+              <thead>
+                <tr>
+                    <th>Author</th>
+                    <th>Number of Commits</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <!-- Commit data will be populated here -->
+              </tbody>
+            </table>
+
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+
+          </div>
+        </div> %>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload CSV Modal -->
+  <div class="modal fade" id="uploadCSVModal" tabindex="-1" aria-labelledby="uploadCSVModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="uploadCSVModalLabel">Upload CSV</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= bootstrap_form_with model: @semester, url: semester_path(@semester), method: :patch, local: true do |f| %>
+            <div class="form-outline mb-4">
+              <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
+            </div>
+            <div class="form-outline mb-4">
+              <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
+            </div>
+            <div class="d-flex justify-content-center mb-4">
+              <%= f.submit "Update", class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import CSV File Modal for student_list -->
+ <div class="modal fade" id="importStudentCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="importCSVModalLabel">Import Student CSV File</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(url: import_home_path, multipart: true, html: { class: "import-form" }) do |form| %>
+          <div class="form-group">
+            <%= form.label :file, 'Select CSV File', class: "import-file-label" %>
+            <%= form.file_field :file, accept: '.csv', class: "import-file-input" %>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <%= form.submit 'Import', class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white import-button" %>
+          </div>
+        <% end %>
+
+        <!-- Additional styling inside the modal body -->
+        <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- Allows the data from the github request to be shown -->
+<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+<%= javascript_include_tag 'octokit', type: "module" %>
+
+
+
+
+):
+1:    <!DOCTYPE html>
+2:    <html lang="en">
+3:    <head>
+4:      <meta charset="UTF-8">
+5:      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6:      <title>Page with Sidebar</title>
+7:      <style>
+8:        .sidebar {
+9:          width: 250px;
+10:          height: 100%;
+11:          padding: 1rem;
+12:          overflow-y: auto;
+13:          background-color: #f8f9fa;
+14:          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+15:        }
+16:        .sidebar h2, .sidebar h3, .sidebar h5 {
+17:          color: #343a40;
+18:        }
+19:        .sidebar a {
+20:          color: #343a40;
+21:        }
+22:        .sidebar .btn-primary {
+23:          background-color: #0d6efd;
+24:          border-color: #0d6efd;
+25:          color: #ffffff;
+26:        }
+27:    
+28:        @media (max-width: 992px) {
+29:          .sidebar {
+30:            display: none;
+31:          }
+32:        }
+33:    
+34:        .main-content {
+35:          flex: 1;
+36:          border: 2px solid #ffffff;
+37:          border-radius: 10px;
+38:          padding: 20px;
+39:        }
+40:    
+41:        .top-warning {
+42:          position: fixed; /* or absolute */
+43:          top: 40px;
+44:          left: 50%;
+45:          transform: translateX(-50%);
+46:          width: 100%;
+47:          z-index: 1050; /* Ensure it's above other content; adjust as needed */
+48:          
+49:        }
+50:      </style>
+51:    </head>
+52:    <body>
+53:    
+54:      <div class="container mt-3">
+55:    
+56:        <div class="d-flex">
+57:          <div class="sidebar">
+58:            <div>
+59:              <div>
+60:                <%= link_to semesters_path do %>
+61:                  <h2 style="z-index: 9999; position: relative;">
+62:                    <i class="bi bi-arrow-return-left"></i>
+63:                  </h2>
+64:                <% end %>
+65:                <h3><%= @semester.semester %> <%= @semester.year %></h3>
+66:                <ul class="list-unstyled ps-0">
+67:                  <li class="border-top my-3"></li>
+68:                  <li>
+69:                    <div class="col-sm-8">
+70:                      <%= bootstrap_form_with url: semester_team_path(@semester), method: "get", local: true do |f| %>
+71:                        <%= f.select :team, @teams %>
+72:                        <hr>
+73:                        <%= f.select :sprint, @sprint_list %>
+74:                        <%= f.submit "View" %>
+75:                      <% end %>
+76:                    </div>
+77:                    <hr>
+78:                  </li>
+79:                  <li class="mb-1">
+80:                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadCSVModal">
+81:                      Upload CSV
+82:                    </button>
+83:                  </li>
+84:                  </li>
+85:                </ul>
+86:              </div>
+87:            </div>
+88:          </div>
+89:          <div class="main-content">
+90:            <!-- Warning for No Student CSV Uploaded -->
+91:            <% unless @semester.student_csv.attached? %>
+92:                <div class="d-flex justify-content-center mt-4 mb-4">
+93:                  <div class="card w-100 border-danger">
+94:                    <div class="card-body bg-danger text-white">
+95:                      <p class="card-text text-center">
+96:                        <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
+97:                      </p>
+98:                    </div>
+99:                  </div>
+100:                </div>
+101:            <% end %>
+102:    
+103:            <div class="row">
+104:              <div class="mt-4 text-center">
+105:                <% if team_exist(@teams) %>
+106:                  <h2 class="">Team Status</h2>
+107:                  <div class="mt-3 mb-3">
+108:                    <h5 class="">Legend:</h5>
+109:                    <ul class="list-inline">
+110:                      <li class="list-inline-item">
+111:                        <%= image_tag "check-circle-fill.svg", class: "", style: "height:16px" %> All Good
+112:                      </li>
+113:                      <li class="list-inline-item">
+114:                        <%= image_tag "question-circle-fill.svg", class: "", style: "height:16px" %> No Data Uploaded
+115:                      </li>
+116:                      <li class="list-inline-item">
+117:                        <%= image_tag "exclamation-circle-fill-yellow.svg", class: "", style: "height:16px" %> No Client Survey
+118:                      </li>
+119:                      <li class="list-inline-item">
+120:                        <%= image_tag "exclamation-triangle-fill-red.svg", class: "", style: "height:16px" %> Poor Performance
+121:                      </li>
+122:                    </ul>
+123:                  </div>
+124:                  <p>Note: Hover over warning symbol to see more details</p>
+125:                  <!-- Warning for No Client CSV Uploaded -->
+126:                    <% unless @semester.client_csv.attached? %>
+127:                        <div class="d-flex justify-content-center mt-4 mb-4">
+128:                          <div class="card w-100 border-danger">
+129:                            <div class="card-body bg-danger text-white">
+130:                              <p class="card-text text-center">
+131:                                <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
+132:                              </p>
+133:                            </div>
+134:                          </div>
+135:                        </div>
+136:                    <% end %>
+137:                  <table class="table">
+138:                    <thead>
+139:                      <tr>
+140:                        <th scope="col">Team</th>
+141:                        <%= sprint_header(@sprint_list) %>
+142:                      </tr>
+143:                    </thead>
+144:                    <tbody>
+145:                      <%= team_rows(@teams, @sprint_list, @flags) %>
+146:                    </tbody>
+147:                  </table>
+148:                <% end %>
+149:              </div>
+150:            </div>
+151:            <!-- This section starts the integration of Github API -->
+152:            <%# <div>
+153:              <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem; text-align: center;">Github Commits</h1>
+154:              
+155:              <!-- Form to collect repo and sprint info -->
+156:              <div id="github-repo-form">
+157:    
+158:                  <!-- Style to align the input boxes for the request form -->
+159:                  <style>
+160:                      label {
+161:                          display: inline-block;
+162:                          text-align: center;
+163:                      }
+164:    
+165:                      input {
+166:                          display: block;
+167:                          margin-bottom: 10px;
+168:                      }
+169:                  </style>
+170:    
+171:                  <div style="text-align: center;">
+172:                      <form id="github-form">
+173:                          <!-- Team Name and Sprint Number -->
+174:                          <div style="display: inline-block; text-align: center;">
+175:                              <label for="team-name" style="margin-right: 10px;">Team </label>
+176:                              <select id="team-name" required style="margin-right: 20px;">
+177:                                  <option value="" selected>Choose Team Name</option>
+178:                                  <% @team_names.each do |team| %>
+179:                                  <option value="<%= team %>"><%= team %></option>
+180:                                  <% end %>
+181:                              </select>
+182:    
+183:                              <label for="sprint-number" style="margin-right: 10px;">Sprint</label>
+184:                              <select id="sprint-number" onchange="updateDates()" required style="margin-right: 20px;">
+185:                                  <option value="" selected>Choose Sprint Number</option>
+186:                                  <% @sprint_numbers.each do |sprint| %>
+187:                                  <option value="<%= sprint %>"><%= sprint %></option>
+188:                                  <% end %>
+189:                              </select>
+190:                          </div>
+191:    
+192:                          <!-- Hidden inputs for repo info -->
+193:                          <label for="repo-owner" style="display: none;">Repository Owner: </label>
+194:                          <input type="text" placeholder="Repo Owner" id="repo-owner"  style="display: none;" required>
+195:    
+196:                          <label for="repo-name" style="display: none;">Repository Name: </label>
+197:                          <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" required>
+198:    
+199:                          <label for="access-token" style="display: none;">Github Access Token: </label>
+200:                          <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" required>
+201:    
+202:                          <label for="start-date" style="display: none;">Sprint Start Date: </label>
+203:                          <input type="text" placeholder="YYYY-MM-DD" id="start-date"  style="display: none;" required>
+204:    
+205:                          <label for="end-date" style="display: none;">Sprint End Date: </label>
+206:                          <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" required>
+207:    
+208:                          <button type="submit" style="display: block; margin: 20px auto;">Get Commit Info</button>
+209:                      </form>
+210:                  </div>
+211:    
+212:              </div>
+213:    
+214:              <script>
+215:    
+216:                const sprintDates = {};
+217:                <% @sprint_numbers.each do |sprint_number| %>
+218:                  sprintDates['<%= sprint_number %>'] = {
+219:                    start_date: '<%= @start_dates[sprint_number] %>',
+220:                    end_date: '<%= @end_dates[sprint_number] %>',
+221:                  };
+222:                <% end %>
+223:    
+224:                function updateDates(){
+225:                  // Update the repository details based on the selected team name
+226:                  const selectedSprint = document.getElementById('sprint-number').value;
+227:                  const selectedSprintDetails = sprintDates[selectedSprint];
+228:                  document.getElementById('start-date').value = selectedSprintDetails.start_date;
+229:                  document.getElementById('end-date').value = selectedSprintDetails.end_date;
+230:                }
+231:    
+232:                // Assuming @team_names, @repo_owners, @repo_names, and @access_tokens are arrays
+233:                const repoDetails = {};
+234:                <% @team_names.each do |team_name| %>
+235:                  repoDetails['<%= team_name %>'] = {
+236:                    repo_owner: '<%= @repo_owners[team_name] %>',
+237:                    repo_name: '<%= @repo_names[team_name] %>',
+238:                    access_token: '<%= @access_tokens[team_name] %>'
+239:                  };
+240:                <% end %>
+241:    
+242:                function updateTeams(){
+243:                  // Update the repository details based on the selected team name
+244:                  const selectedTeamName = document.getElementById('team-name').value;
+245:                  const selectedTeamDetails = repoDetails[selectedTeamName];
+246:                  document.getElementById('repo-owner').value = selectedTeamDetails.repo_owner;
+247:                  document.getElementById('repo-name').value = selectedTeamDetails.repo_name;
+248:                  document.getElementById('access-token').value = selectedTeamDetails.access_token;
+249:                }
+250:    
+251:                // Event listener to call updateTeams() when the team name is changed
+252:                document.getElementById('team-name').addEventListener('change', updateTeams);
+253:                document.getElementById('sprint-number').addEventListener('change', updateDates);
+254:    
+255:              </script>
+256:              
+257:    
+258:              <!-- Element for where the response is placed -->
+259:              <div id="commit-list">
+260:              </div>
+261:              <div id="commit-table" style= "text-align: center;>
+262:                <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+263:                  <thead>
+264:                    <tr>
+265:                        <th>Author</th>
+266:                        <th>Number of Commits</th>
+267:                    </tr>
+268:                  </thead>
+269:                  <tbody>
+270:                      <!-- Commit data will be populated here -->
+271:                  </tbody>
+272:                </table>
+273:    
+274:                <div>
+275:                  <canvas id="myChart"></canvas>
+276:                </div>
+277:    
+278:              </div>
+279:            </div> %>
+280:    
+281:          </div>
+282:        </div>
+283:      </div>
+284:    
+285:      <!-- Upload CSV Modal -->
+286:      <div class="modal fade" id="uploadCSVModal" tabindex="-1" aria-labelledby="uploadCSVModalLabel" aria-hidden="true">
+287:        <div class="modal-dialog">
+288:          <div class="modal-content">
+289:            <div class="modal-header">
+290:              <h5 class="modal-title" id="uploadCSVModalLabel">Upload CSV</h5>
+291:              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+292:            </div>
+293:            <div class="modal-body">
+294:              <%= bootstrap_form_with model: @semester, url: semester_path(@semester), method: :patch, local: true do |f| %>
+295:                <div class="form-outline mb-4">
+296:                  <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
+297:                </div>
+298:                <div class="form-outline mb-4">
+299:                  <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
+300:                </div>
+301:                <div class="d-flex justify-content-center mb-4">
+302:                  <%= f.submit "Update", class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white" %>
+303:                </div>
+304:              <% end %>
+305:            </div>
+306:          </div>
+307:        </div>
+308:      </div>
+309:    
+310:      <!-- Import CSV File Modal for student_list -->
+311:     <div class="modal fade" id="importStudentCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
+312:      <div class="modal-dialog">
+313:        <div class="modal-content">
+314:          <div class="modal-header">
+315:            <h5 class="modal-title" id="importCSVModalLabel">Import Student CSV File</h5>
+316:            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+317:          </div>
+318:          <div class="modal-body">
+319:            <%= form_with(url: import_home_path, multipart: true, html: { class: "import-form" }) do |form| %>
+320:              <div class="form-group">
+321:                <%= form.label :file, 'Select CSV File', class: "import-file-label" %>
+322:                <%= form.file_field :file, accept: '.csv', class: "import-file-input" %>
+323:              </div>
+324:              <div class="d-flex justify-content-center mt-4">
+325:                <%= form.submit 'Import', class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white import-button" %>
+326:              </div>
+327:            <% end %>
+328:    
+329:            <!-- Additional styling inside the modal body -->
+330:            <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
+331:          </div>
+332:        </div>
+333:      </div>
+334:      
+335:    </div>
+336:    
+337:    <!-- Allows the data from the github request to be shown -->
+338:    <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+339:    <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+340:    <%= javascript_include_tag 'octokit', type: "module" %>
+  
+app/views/semesters/show.html.erb:346: syntax error, unexpected `end'
+app/views/semesters/show.html.erb:346: syntax error, unexpected `end'
+app/views/semesters/show.html.erb:346: syntax error, unexpected `end'
+app/views/semesters/show.html.erb:346: syntax error, unexpected `end'
+app/controllers/semesters_controller.rb:43:in `show'
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:34:31 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (41.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (4.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 20.9ms | Allocations: 14405)
+  [1m[36mSemester Load (6.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 7.4ms | Allocations: 1554)
+  Rendered shared/_flash.html.erb (Duration: 0.4ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 35.4ms | Allocations: 27054)
+Completed 200 OK in 130ms (Views: 33.7ms | ActiveRecord: 53.0ms | Allocations: 94149)
+
+
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:36:08 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (5.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.5ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (1.0ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 18.9ms | Allocations: 13814)
+  [1m[36mSemester Load (8.9ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 10.2ms | Allocations: 1554)
+  Rendered shared/_flash.html.erb (Duration: 0.5ms | Allocations: 432)
+  Rendered layout layouts/application.html.erb (Duration: 35.5ms | Allocations: 26464)
+Completed 200 OK in 93ms (Views: 30.0ms | ActiveRecord: 16.1ms | Allocations: 93520)
+
+
+Started GET "/semesters/1/team?team=TAG+Team" for ::1 at 2024-04-02 06:36:10 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.1ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.8ms | Allocations: 728)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 10.5ms | Allocations: 14465)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.5ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 18.4ms | Allocations: 26216)
+Completed 200 OK in 38ms (Views: 19.0ms | ActiveRecord: 1.1ms | Allocations: 63040)
+
+
+Started GET "/semesters" for ::1 at 2024-04-02 06:36:12 -0500
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (3.0ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 13.4ms | Allocations: 7178)
+  Rendered shared/_navbar.html.erb (Duration: 1.3ms | Allocations: 461)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 31.6ms | Allocations: 18162)
+Completed 200 OK in 44ms (Views: 31.3ms | ActiveRecord: 3.9ms | Allocations: 20039)
+
+
+Started GET "/semesters/1" for ::1 at 2024-04-02 06:36:13 -0500
+Processing by SemestersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.1ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:28:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_score_helper.rb:27:in `get_client_score'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/show.html.erb within layouts/application
+  Rendered semesters/show.html.erb within layouts/application (Duration: 6.7ms | Allocations: 12723)
+  [1m[36mSemester Load (2.6ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 4.5ms | Allocations: 1063)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | Allocations: 24056)
+Completed 200 OK in 37ms (Views: 13.1ms | ActiveRecord: 3.7ms | Allocations: 90528)
+
+
+Started GET "/semesters/1/team?team=TAG+Team" for ::1 at 2024-04-02 06:36:14 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.1ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (1.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (2.3ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 389)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 6.9ms | Allocations: 11726)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  [1m[36mSemester Load (0.9ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 2.8ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 14.7ms | Allocations: 23477)
+Completed 200 OK in 39ms (Views: 14.2ms | ActiveRecord: 2.7ms | Allocations: 60203)
+
+
+Started GET "/semesters/1/classlist" for ::1 at 2024-04-02 06:36:16 -0500
+Processing by SemestersController#classlist as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:465:in `classlist'
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/classlist.html.erb within layouts/application
+  Rendered semesters/classlist.html.erb within layouts/application (Duration: 1.8ms | Allocations: 363)
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 2.7ms | Allocations: 1081)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 28.0ms | Allocations: 12106)
+Completed 200 OK in 54ms (Views: 28.4ms | ActiveRecord: 1.5ms | Allocations: 16011)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+2&team=TAG+Team" for ::1 at 2024-04-02 06:36:19 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 2", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.5ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 7.9ms | Allocations: 6474)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.2ms | Allocations: 378)
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.7ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 18.0ms | Allocations: 18247)
+Completed 200 OK in 54ms (Views: 18.3ms | ActiveRecord: 2.4ms | Allocations: 54575)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+3&team=TAG+Team" for ::1 at 2024-04-02 06:36:21 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 3", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.5ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 5.4ms | Allocations: 6476)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.5ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 13.7ms | Allocations: 18255)
+Completed 200 OK in 49ms (Views: 13.9ms | ActiveRecord: 1.8ms | Allocations: 54511)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+1&team=TAG+Team" for ::1 at 2024-04-02 06:36:23 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 1", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (1.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (2.7ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.6ms | Allocations: 389)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 8.6ms | Allocations: 11694)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.8ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | Allocations: 23445)
+Completed 200 OK in 59ms (Views: 18.2ms | ActiveRecord: 3.0ms | Allocations: 60187)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+4&team=TAG+Team" for ::1 at 2024-04-02 06:36:25 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 4", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.6ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 6.6ms | Allocations: 6476)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 2.0ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 16.1ms | Allocations: 18255)
+Completed 200 OK in 42ms (Views: 16.1ms | ActiveRecord: 1.7ms | Allocations: 54532)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+4&team=TAG+Team" for ::1 at 2024-04-02 06:36:30 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 4", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.7ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 4.8ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 16.3ms | Allocations: 6477)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.5ms | Allocations: 378)
+  [1m[36mSemester Load (0.5ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 2.4ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 27.4ms | Allocations: 18256)
+Completed 200 OK in 86ms (Views: 27.6ms | ActiveRecord: 2.1ms | Allocations: 54517)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+1&team=TAG+Team" for ::1 at 2024-04-02 06:36:31 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 1", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (11.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.2ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+NAMEE ADD
+["Always", "Most of the time", "About half the time", "Sometimes", "Sometimes", "About half the time"]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.8ms | Allocations: 389)
+Missing responses: false
+Missing responses: false
+missing_responses : false
+@cliSurvey[0]: {:q1=>"TAG Team", :q12=>"Brandon Booth", :q3=>"Sprint 1", :q2_1=>"Did not meet expectations", :q2_2=>"Met Expectations", :q2_3=>"Exceeded expectations", :q2_4=>"Exceeded expectations", :q2_5=>"Met Expectations", :q2_6=>"Did not meet expectations", :q4=>"A complete project 100% totally ready to go :)", :q5=>"Chuck Norris", :q6=>"Fluffy the dog", :q7=>"Nope"}
+Response for q2_1: Did not meet expectations
+Response for q2_2: Met Expectations
+Response for q2_3: Exceeded expectations
+Response for q2_4: Exceeded expectations
+Response for q2_5: Met Expectations
+Response for q2_6: Did not meet expectations
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+[36m  Disk Storage (0.0ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+No Matching Row Found for Sprint: Sprint 1
+  Rendered semesters/team.html.erb within layouts/application (Duration: 8.1ms | Allocations: 11727)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 1.5ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 15.5ms | Allocations: 23478)
+Completed 200 OK in 52ms (Views: 15.8ms | ActiveRecord: 13.5ms | Allocations: 60206)
+
+
+Started GET "/semesters/1/team?sprint=Sprint+3&team=TAG+Team" for ::1 at 2024-04-02 06:36:39 -0500
+Processing by SemestersController#team as HTML
+  Parameters: {"sprint"=>"Sprint 3", "team"=>"TAG Team", "semester_id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mSemester Load (0.2ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" WHERE "semesters"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:130:in `team'
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "student_csv"], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/semesters_controller.rb:100:in `getTeams'
+[36m  Disk Storage (0.4ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: cxbgwtfy7l1voh3oilrqkx2qy5dk[0m
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = $1 AND "active_storage_attachments"."record_type" = $2 AND "active_storage_attachments"."name" = $3 LIMIT $4[0m  [["record_id", 1], ["record_type", "Semester"], ["name", "client_csv"], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/helpers/client_display_helper.rb:64:in `process_client_data'
+[36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: i8w8cvjsq33pucxrmy97rhl28hl2[0m
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/team.html.erb within layouts/application
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.6ms | Allocations: 389)
+  Rendered semesters/team.html.erb within layouts/application (Duration: 9.2ms | Allocations: 6476)
+  Rendered shared/_team_sprint_dropdowns.html.erb (Duration: 0.3ms | Allocations: 378)
+  [1m[36mSemester Load (0.3ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters"[0m
+  ↳ app/views/shared/_navbar.html.erb:19
+  Rendered shared/_navbar.html.erb (Duration: 2.2ms | Allocations: 1509)
+  Rendered shared/_flash.html.erb (Duration: 0.0ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 18.8ms | Allocations: 18255)
+Completed 200 OK in 68ms (Views: 19.1ms | ActiveRecord: 1.8ms | Allocations: 54621)
+
+
+Started GET "/semesters" for ::1 at 2024-04-02 06:36:41 -0500
+Processing by SemestersController#home as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering semesters/home.html.erb within layouts/application
+  [1m[36mSemester Load (0.4ms)[0m  [1m[34mSELECT "semesters".* FROM "semesters" ORDER BY "semesters"."year" ASC[0m
+  ↳ app/views/semesters/home.html.erb:128:in `group_by'
+  Rendered semesters/home.html.erb within layouts/application (Duration: 13.2ms | Allocations: 6298)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 461)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 22)
+  Rendered layout layouts/application.html.erb (Duration: 26.9ms | Allocations: 17245)
+Completed 200 OK in 52ms (Views: 27.8ms | ActiveRecord: 0.9ms | Allocations: 19054)
+
+
