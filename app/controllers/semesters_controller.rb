@@ -6,6 +6,8 @@ class SemestersController < ApplicationController
     helper_method :get_flags
     helper_method :unfinished_sprint
 
+
+
     include PreprocessorHelper
     include TeamsHelper
     include SprintsHelper
@@ -87,12 +89,12 @@ class SemestersController < ApplicationController
     def destroy
         @semester = Semester.find(params[:id])
         @semester.destroy
-        redirect_to semester_path, notice: 'Semester was successfully deleted.'
+        flash[:success] = "Semester was successfully deleted"
+        redirect_to semesters_path, status: :see_other
     end
 
     def getTeams(semester)
         @teams = []
-
         begin
             # Downloads and temporarily store the student_csv file
             semester.student_csv.open do |tempfile|
@@ -289,14 +291,14 @@ class SemestersController < ApplicationController
             flash.now[:alert] = "This semester does not have any student survey"
             @flags.append("student blank")
         end
-
+        
         client_data, flags = process_client_data(@semester, @team, @sprint)
 
         @full_questions = client_data[:full_questions]
         @cliSurvey = client_data[:cliSurvey]
         @flags = flags
         @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info()
-
+# set_team_flags 
 
         render :team
     end

@@ -13,18 +13,28 @@ Hitham W.S Rizeq
 * [https://docs.google.com/spreadsheets/d/1ORxyuffng5yyver_pzqf8FWHtdWZdBlKqOAZR6xUFfw/edit#gid=0](https://docs.google.com/spreadsheets/d/1GXZlfFAnzuQ2Z4I_l8P6ZgETAWoBOzQz5GX40Tphytk/edit#gid=0)
 
 * Week 3:
-* TBA
+* https://docs.google.com/spreadsheets/d/13Ec6YcdlZLvTVMSr0fIbmvbf0UzuCEUoiE2kK5ZlxZU/edit#gid=0
 
 ## Sprint 3 goals
 * Automating github process, correctly parsing csv files with appropriate information, finding a way to get authentication keys from the users.
 * Add new flags to the website so it is easier for the TA's to grade the teams and students. 
 * Making the student lists permenant on the website, so the TA'S do not need to upload a csv file.
 
+## Sprint 3 accomplishments
+* Automated the github process, Added a main commits graph on the home page, added the functionality for the users to select the team's Name and sprint number to get the respective commits graph​, Added the commits graph to the respective team's respective sprint's page as well which derives its information from the main graph​.
+* Added flags to check if the TA did not uploaded a student and client csv it will show them a Attaction warning to upload the files to see the data. Also added a icon button for the teams page flags using javascript to get the dropdown menu for the button.
+* We were able to create classlist to the project to help TA'S access the names easier, so the TA'S no longer need to upload CSV file to get access to the names.
+
 ## Purav Patel Code branch
-* My code is in adding_flags, and I have not completed the code so I have not push it to main.
+* My code is in adding_flags and I have pushed my code to main.
 
 ## Naitik Kaythwal Code branch
-* My code is in the git_info and I have not completed the code so I have not push it to main.
+* My code is in the github_new branch and I have pushed code to main. PR: [https://github.com/NaitikKaythwal/TAG_new/pull/12]([url](https://github.com/NaitikKaythwal/TAG_new/pull/12)).
 
 ## Hitham W.S Rizeq Code branch
-* My code is not finished yet and also the work i have so far need to be reviewed by the sponsor.
+* My code is on the github under studentlist_per , and my code is pushed
+* https://github.com/NaitikKaythwal/TAG_new/pull/11
+  
+
+## Sprint 3 Demo Day Presentation
+* [https://livememphis-my.sharepoint.com/:p:/r/personal/pvpatel1_memphis_edu/_layouts/15/Doc.aspx?sourcedoc=%7B786B6969-0A21-4580-806C-EABB1CFDB894%7D&file=TAG%20Team%20Demo3.pptx&action=edit&mobileredirect=true](https://livememphis-my.sharepoint.com/:p:/g/personal/pvpatel1_memphis_edu/EWlpa3ghCoBFgGzquxz9uJQB2msfBM4z5Ukopgn7N3ZsAw?email=mmouree%40memphis.edu&e=bMJK4j)
