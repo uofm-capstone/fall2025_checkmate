@@ -89,7 +89,8 @@ class SemestersController < ApplicationController
     def destroy
         @semester = Semester.find(params[:id])
         @semester.destroy
-        redirect_to semester_path, notice: 'Semester was successfully deleted.'
+        flash[:success] = "Semester was successfully deleted"
+        redirect_to semesters_path, status: :see_other
     end
 
     def getTeams(semester)

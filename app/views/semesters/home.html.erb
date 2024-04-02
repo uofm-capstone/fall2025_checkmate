@@ -138,14 +138,17 @@
                                 end %>
                 <div class="col-md-12">
                   <%= link_to semester_path(s), class: 'text-decoration-none' do %>
-                    <div class="card mb-4 <%= card_class %>">
+                    <div class="card mb-4 <%= card_class %>" style="position: relative;">
                       <div class="card-body">
                         <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
                         <p class="timestamp">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                        <!-- Delete Button -->
+                        <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10pxp; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %> 
                       </div>
                     </div>
                   <% end %>
                 </div>
+
                 <!-- Add the line separator between years, except for the last year -->
                 <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
                   <div class="col-md-12">
