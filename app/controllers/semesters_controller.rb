@@ -15,8 +15,19 @@ class SemestersController < ApplicationController
     include ClientDisplayHelper
     include ClientSurveyPatternsHelper
 
+    before_action :set_semester, only: [:show, :edit, :update, :destroy]
+    before_action :check_ownership, only: [:edit, :update, :destroy]
 
 
+    def set_semester
+        @semester = Semester.find(params[:id])
+    end
+
+    def check_ownership
+        unless current_user == @semester.user || current_user.admin?
+          redirect_to(semesters_path, alert: "You are not authorized to perform this action.")
+        end
+    end
 
     def home
         @semesters = Semester.order(:year)
@@ -50,7 +61,7 @@ class SemestersController < ApplicationController
     end
 
     def create
-        @semester = Semester.new(semester_params)
+        @semester = current_user.semester.build(semester_params)
 
         if params[:student_csv].present?
             @semester.student_csv.attach(params[:student_csv])

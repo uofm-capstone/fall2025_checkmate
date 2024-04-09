@@ -141,9 +141,11 @@
                     <div class="card mb-4 <%= card_class %>" style="position: relative;">
                       <div class="card-body">
                         <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
-                        <p class="timestamp">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                        <p class="timestamp">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
                         <!-- Delete Button -->
-                        <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                        <%if current_user == s.user || current_user.admin?%>
+                          <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                        <% end %>
                       </div>
                     </div>
                   <% end %>
