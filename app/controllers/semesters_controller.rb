@@ -38,7 +38,7 @@ class SemestersController < ApplicationController
         end
         @repos = current_user.repositories
         @sprints = @semester.sprints
-        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info()
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
 
         render :show
     end
@@ -60,6 +60,10 @@ class SemestersController < ApplicationController
             @semester.client_csv.attach(params[:client_csv])
         end
 
+        if params[:git_csv].present?
+            @semester.git_csv.attach(params[:git_csv])
+        end
+
         if @semester.save
             redirect_to @semester, notice: 'Semester was successfully created.'
         else
@@ -77,7 +81,7 @@ class SemestersController < ApplicationController
 
     def update
         @semester = Semester.find(params[:id])
-        if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv))
+        if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
             flash[:success] = "Semester was successfully updated!"
             redirect_to semester_url(@semester)
         else
@@ -291,14 +295,14 @@ class SemestersController < ApplicationController
             flash.now[:alert] = "This semester does not have any student survey"
             @flags.append("student blank")
         end
-        
+
         client_data, flags = process_client_data(@semester, @team, @sprint)
 
         @full_questions = client_data[:full_questions]
         @cliSurvey = client_data[:cliSurvey]
         @flags = flags
-        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info()
-# set_team_flags 
+        @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
+# set_team_flags
 
         render :team
     end
@@ -491,7 +495,7 @@ class SemestersController < ApplicationController
           :semester, :year, sprints_attributes: [
             :id, :_destroy, :start_date, :end_date
           ],
-          student_csv: [], client_csv: []
+          student_csv: [], client_csv: [], git_csv: []
         )
       end
 

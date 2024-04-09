@@ -26,6 +26,10 @@
                   <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
                 </div>
 
+                <div class="form-outline mb-4">
+                  <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'git_csv' %>
+                </div>
+
                 <div class="d-flex justify-content-center mb-5">
                   <%= f.submit "Submit", class: "btn btn-success btn-block btn-lg gradient-custom-4 text-body" %>
                 </div>
