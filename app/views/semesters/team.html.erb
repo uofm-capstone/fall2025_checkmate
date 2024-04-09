@@ -352,57 +352,84 @@
               
             </style>
 
-            <form id="github-form">
-              <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
-
-
-              <!-- Team Name -->
+           <form id="github-form">
+            <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+            <% unless @semester.git_csv.attached? %>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="card w-100 border-danger">
+                <div class="card-body bg-danger text-white">
+                  <p class="card-text text-center">
+                    <strong>Attention:</strong> No Github information has been uploaded for this semester. Please upload the git csv to display the commit data
+                  </p>
+                </div>
+              </div>
+            </div>
+        <% else %>
+            <!-- Team Name -->
+            <% if @team %>
               <label for="team-name" style="display: none;">Team Name: </label>
               <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly>
+            <% end %>
 
-              <!-- Sprint Number -->
+            <!-- Sprint Number -->
+            <% if @sprint %>
               <label for="sprint-number" style="display: none;">Sprint Number: </label>
               <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly>
+            <% end %>
 
-              <!-- Name of Repo Owner -->
+            <!-- Name of Repo Owner -->
+            <% if @repo_owners && @repo_owners[@team] %>
               <label for="repo-owner" style="display: none;">Repository Owner: </label>
               <input type="text" placeholder="Repo Owner" id="repo-owner" style="display: none;" value="<%= @repo_owners[@team] %>" readonly required>
+            <% end %>
 
-              <!-- Name of Repo -->
+            <!-- Name of Repo -->
+            <% if @repo_names && @repo_names[@team] %>
               <label for="repo-name" style="display: none;">Repository Name: </label>
               <input type="text" placeholder="Repo Name" id="repo-name" style="display: none;" value="<%= @repo_names[@team] %>" readonly required>
+            <% end %>
 
-              <!-- Fine-grain Access Token From Github -->
+            <!-- Fine-grain Access Token From Github -->
+            <% if @access_tokens && @access_tokens[@team] %>
               <label for="access-token" style="display: none;">Github Access Token: </label>
               <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" value="<%= @access_tokens[@team] %>" readonly required>
+            <% end %>
 
-              <!-- Sprint Start Date -->
+            <!-- Sprint Start Date -->
+            <% if @start_dates && @start_dates[@sprint] %>
               <label for="start-date" style="display: none;">Sprint Start Date: </label>
-              <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" value = "<%= @start_dates[@sprint]%>" readonly required>
+              <input type="text" placeholder="YYYY-MM-DD" id="start-date" style="display: none;" value="<%= @start_dates[@sprint] %>" readonly required>
+            <% end %>
 
-              <!-- Sprint End Date -->
+            <!-- Sprint End Date -->
+            <% if @end_dates && @end_dates[@sprint] %>
               <label for="end-date" style="display: none;">Sprint End Date: </label>
-              <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value = "<%= @end_dates[@sprint]%>" readonly required>
+              <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value="<%= @end_dates[@sprint] %>" readonly required>
+            <% end %>
 
-              <button type="submit">Get Commit Info</button>
-            </form>
+            <button type="submit">Get Commit Info</button>
+            <% end %>
+          </form>
           
-
+          
           <!-- Element for where the response is placed -->
           <div id="commit-list">
           </div>
           <div id="commit-table">
-            <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
-              <thead>
-                <tr>
+            <% if @semester.git_csv.present? %>
+              <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
+                <thead>
+                  <tr>
                     <th>Author</th>
                     <th>Number of Commits</th>
-                </tr>
-              </thead>
-              <tbody>
+                  </tr>
+                </thead>
+                <tbody>
                   <!-- Commit data will be populated here -->
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            <% end %>
+
 
             <div>
               <canvas id="myChart"></canvas>
