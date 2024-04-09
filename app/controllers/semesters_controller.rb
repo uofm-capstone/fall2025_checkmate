@@ -14,7 +14,7 @@ class SemestersController < ApplicationController
     include ClientScoreHelper
     include ClientDisplayHelper
     include ClientSurveyPatternsHelper
-
+    before_action :require_permission, except: [:home, :show, :new, :create]
 
 
 
@@ -50,7 +50,7 @@ class SemestersController < ApplicationController
     end
 
     def create
-        @semester = Semester.new(semester_params)
+        @semester = current_user.semester.build(semester_params)
 
         if params[:student_csv].present?
             @semester.student_csv.attach(params[:student_csv])
