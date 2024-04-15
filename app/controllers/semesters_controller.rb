@@ -16,7 +16,8 @@ class SemestersController < ApplicationController
     include ClientSurveyPatternsHelper
 
     before_action :set_semester, only: [:show, :edit, :update, :destroy]
-    before_action :check_ownership, only: [:edit, :update, :destroy]
+    before_action :check_ownership, only: [:destroy]
+    before_action :check_admin, only: [:new, :create]
 
 
     def set_semester
@@ -26,6 +27,12 @@ class SemestersController < ApplicationController
     def check_ownership
         unless current_user == @semester.user || current_user.admin?
           redirect_to(semesters_path, alert: "You are not authorized to perform this action.")
+        end
+    end
+
+    def check_admin
+        unless current_user.admin?
+            redirect_to root_path(alert_message: "You are not authorized to perform this action.")
         end
     end
 
