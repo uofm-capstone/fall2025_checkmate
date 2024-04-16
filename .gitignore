@@ -4,3 +4,5 @@ storage/*
 log/*.log
 tmp/cache/
 tmp/cache/*
+/config/master.key
+config/master.key
