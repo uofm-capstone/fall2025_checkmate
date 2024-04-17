@@ -1,3 +1,5 @@
+
+model Semesters
 class RepositoriesController < ApplicationController
     #HTTParty is a gem that you can use to easily make API calls. The first argument is a URL. Then can provide header information.
     include HTTParty
