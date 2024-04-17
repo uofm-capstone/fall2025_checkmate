@@ -1,41 +1,44 @@
 <h1>Admin Dashboard</h1>
-
-<div class="row">
-  <h2>Semesters</h2>
-  <% @semesters.each do |semester| %>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title"><%= semester.semester %> <%= semester.year %></h5>
-          <p class="card-text">
-            ID: <%= semester.id %>
-          </p>
-          <!-- Future actions can be added here -->
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<% @semesters.each do |semester| %>
+  <h2><%= semester.semester %> <%= semester.year %></h2>
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <% unless user.admin? %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.admin? ? "Admin" : "User" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <h2>Users</h2>
 <table class="table">
-  <thead>
+  <thead class="table-dark">
     <tr>
       <th>ID</th>
       <th>Email</th>
       <th>Status</th>
-      <!-- Add more columns as needed -->
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <% unless user.admin? %>
-        <tr>
-          <td><%= user.id %></td>
-          <td><%= user.email %></td>
-          <td><%= user.admin? ? "Admin" : "User" %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin? ? "Admin" : "User" %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
