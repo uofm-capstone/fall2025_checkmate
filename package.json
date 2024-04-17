@@ -16,6 +16,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/mrhosier42/tag/issues"
   },
-  "homepage": "https://github.com/mrhosier42/tag#readme"
+  "homepage": "https://github.com/mrhosier42/tag#readme",
+  "engines": {
+    "node": "16.14.2"
+  }
 }
