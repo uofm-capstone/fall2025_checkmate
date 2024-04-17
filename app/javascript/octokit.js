@@ -14,11 +14,10 @@ document.getElementById('github-form').addEventListener('submit', function(event
     const octokit = new Octokit({
         auth: accessToken,
     });
-    
+
     // Get a reference to the commit-table and its tbody
     const commitTable = document.getElementById('commit-table');
     const commitTableBody = commitTable.querySelector('tbody');
-
 
     // Get a reference to the commit-list element
     const commitList = document.getElementById('commit-list');
@@ -30,31 +29,58 @@ document.getElementById('github-form').addEventListener('submit', function(event
         until: endDate,
     })
 
-        .then((response) => {
-            const commits = response.data;
+    .then((response) => {
+        const commits = response.data;
 
-            const authorCommits = {};
-            const commitDates = {};
+        const authorCommits = {};
+        const commitDates = {};
 
-            // Process commits to group by author and date
-            commits.forEach((commit) => {
-                const author = commit.commit.author.name;
-                const date = commit.commit.author.date.slice(0, 10); // Extract just the YYYY-MM-DD part
+        // Process commits to group by author and date
+        commits.forEach((commit) => {
+            const author = commit.commit.author.name;
+            const date = commit.commit.author.date.slice(0, 10); // Extract just the YYYY-MM-DD part
 
-                if (!authorCommits[author]) {
-                    authorCommits[author] = {};
-                }
-                if (!authorCommits[author][date]) {
-                    authorCommits[author][date] = 0;
-                }
-                authorCommits[author][date]++;
-                commitDates[date] = true;
+            if (!authorCommits[author]) {
+                authorCommits[author] = {};
+            }
+            if (!authorCommits[author][date]) {
+                authorCommits[author][date] = 0;
+            }
+            authorCommits[author][date]++;
+            commitDates[date] = true;
+        });
+
+        // Generate a list of all dates for the x-axis
+        const allDates = Object.keys(commitDates).sort();
+
+        // Fetch display names for authors
+        const promises = Object.keys(authorCommits).map(author => {
+            return new Promise((resolve, reject) => {
+                const url = `https://api.github.com/users/${author}`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        const displayName = data.name || data.login;
+                        resolve({ author, displayName });
+                    })
+                    .catch(error => {
+                        console.error("Failed to fetch display name:", error);
+                        resolve({ author, displayName: author });
+                    });
+            });
+        });
+
+        Promise.all(promises)
+        .then(results => {
+            results.forEach(user => {
+                const oldUsername = user.author;
+                const displayName = user.displayName;
+                Object.defineProperty(authorCommits, displayName,
+                    Object.getOwnPropertyDescriptor(authorCommits, oldUsername));
+                delete authorCommits[oldUsername];
             });
 
-            // Generate a list of all dates for the x-axis
-            const allDates = Object.keys(commitDates).sort();
-
-            // Generate datasets for each author
+            // Generate datasets for each author with display names
             const datasets = Object.keys(authorCommits).map(author => {
                 const data = allDates.map(date => authorCommits[author][date] || 0);
 
@@ -70,6 +96,10 @@ document.getElementById('github-form').addEventListener('submit', function(event
             // Create the chart with these datasets
             createCommitChart(allDates, datasets);
         })
+        .catch(error => {
+            console.error("Failed to fetch display names:", error);
+        });
+    })
 
     .catch((error) => {
         console.log("Request failed.")
@@ -111,8 +141,6 @@ function createCommitChart(labels, datasets) {
         }
     });
 }
-
-
 
 document.addEventListener('DOMContentLoaded', (event) => {
     createDummyChart(); // Call the function to create the dummy chart
