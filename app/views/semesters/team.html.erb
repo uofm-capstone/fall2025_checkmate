@@ -368,13 +368,13 @@
             <!-- Team Name -->
             <% if @team %>
               <label for="team-name" style="display: none;">Team Name: </label>
-              <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly>
+              <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly required onchange="submitForm()">
             <% end %>
 
             <!-- Sprint Number -->
             <% if @sprint %>
               <label for="sprint-number" style="display: none;">Sprint Number: </label>
-              <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly>
+              <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly required onchange="submitForm()">
             <% end %>
 
             <!-- Name of Repo Owner -->
@@ -407,7 +407,13 @@
               <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value="<%= @end_dates[@sprint] %>" readonly required>
             <% end %>
 
-            <button type="submit">Get Commit Info</button>
+            <% if @team %>
+              <input type="text" placeholder="Team Name" id="team-name" style="display: none;" value="<%= @team %>" readonly required onchange="submitForm()">
+            <% end %>
+
+            <% if @sprint %>
+              <input type="text" placeholder="Sprint Number" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly required onchange="submitForm()">
+            <% end %>
             <% end %>
           </form>
           
