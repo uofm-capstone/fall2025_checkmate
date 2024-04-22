@@ -10,4 +10,12 @@ class AdminController < ApplicationController
       redirect_to semesters_path, alert: "Access denied."
     end
   end
+
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    flash[:success] = "user was successfully deleted"
+    redirect_to admin_path, status: :see_other
+  end
+
 end

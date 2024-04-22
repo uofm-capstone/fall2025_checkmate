@@ -32,9 +32,9 @@ Rails.application.routes.draw do
   get 'semesters/:semester_id/sprints/:id/edit', to: 'sprints#edit', as: 'edit_semester_sprint'
 
   # Admin controller
-  get 'admin/dashboard', to: 'admin#dashboard'
-
-
+  get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'
+  delete 'admin_user/:id', to: 'admin#destroy', as: 'admin_delete_user'
+  
 end
 
 
