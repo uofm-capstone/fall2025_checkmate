@@ -1,44 +1,78 @@
-<h1>Admin Dashboard</h1>
-<% @semesters.each do |semester| %>
-  <h2><%= semester.semester %> <%= semester.year %></h2>
-  <table class="table">
-    <thead class="table-dark">
-      <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
-        <% unless user.admin? %>
-          <tr>
-            <td><%= user.id %></td>
-            <td><%= user.email %></td>
-            <td><%= user.admin? ? "Admin" : "User" %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 22px;
+            color: #333;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .btn-sm {
+            padding: .25rem .5rem;
+            font-size: .875rem;
+            line-height: 1.5;
+            border-radius: .2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Admin Dashboard</div>
 
-<h2>Users</h2>
-<table class="table">
-  <thead class="table-dark">
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.email %></td>
-        <td><%= user.admin? ? "Admin" : "User" %></td>
-      </tr>
+    <% @semesters.each do |semester| %>
+        <div class="container mt-4">
+            <h2><%= semester.semester %> <%= semester.year %></h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @users.each do |user| %>
+                        <% unless user.admin? %>
+                            <tr>
+                                <td><%= user.id %></td>
+                                <td><%= user.email %></td>
+                                <td><%= user.admin? ? "Admin" : "User" %></td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
     <% end %>
-  </tbody>
-</table>
+
+    <div class="container mt-4">
+        <h2>Users</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                        <td><%= user.id %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.admin? ? "Admin" : "User" %></td>
+                        <td><%= button_to "Delete", admin_delete_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
