@@ -20,6 +20,10 @@ Hitham W.S Rizeq
 
 
 ## Sprint 4 goals
+* Create Admin user and give them full control of the website
+* Impliment user ownership so the user can only update and view the semester
+* Delploy the website
+  
 
 
 ## Sprint 4 accomplishments
