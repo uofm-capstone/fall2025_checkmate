@@ -104,7 +104,17 @@ function createCommitChart(labels, datasets) {
         },
         options: {
             scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    }
+                },
                 y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Commits'
+                    },
                     beginAtZero: true
                 }
             }

@@ -51,6 +51,10 @@
       transform: rotate(-135deg);
     }
 
+    .tabbed {
+    padding-left: 27em; /* To centre the author div */
+}
+
 </style>
 <body>
 <div class="container-fluid">
@@ -407,10 +411,9 @@
               <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value="<%= @end_dates[@sprint] %>" readonly required>
             <% end %>
 
-            <button type="submit">Get Commit Info</button>
+            <button id="gitSubmit" type="submit" style="display: none;">Get Commit Info</button> 
             <% end %>
           </form>
-          
           
           <!-- Element for where the response is placed -->
           <div id="commit-list">
@@ -420,8 +423,7 @@
               <table id="commit-table" style="border-collapse: separate; border-spacing: 10px;">
                 <thead>
                   <tr>
-                    <th>Author</th>
-                    <th>Number of Commits</th>
+                      <th class="tabbed">Author</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -442,6 +444,10 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  // Submitting the form ot get the commit info
+    setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 500); 
+</script>
 <!-- Allows the data from the github request to be shown -->
 <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
 <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
