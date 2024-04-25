@@ -7,12 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-user = User.create(
-  email: "email@email.com",
-  password: "123456"
-)
+## Ensure general user is created only if they do not exist
+User.find_or_create_by(email: "email@email.com") do |user|
+  user.password = "123456"
+end
 
-# Admin for Professor Amy Cook
-User.create!(email: "AmyCook@admin.com", password:"Admin1", admin: true)
-# Admin for Professor Brandon Booth
-User.create!(email: "BrandonBooth@admin.com", password:"Admin2", admin: true)
+# Ensure admin for Professor Amy Cook is created only if they do not exist
+User.find_or_create_by(email: "AmyCook@admin.com") do |user|
+  user.password = "Admin1"
+  user.admin = true
+end
+
+# Ensure admin for Professor Brandon Booth is created only if they do not exist
+User.find_or_create_by(email: "BrandonBooth@admin.com") do |user|
+  user.password = "Admin2"
+  user.admin = true
+end
