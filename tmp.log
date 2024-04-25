@@ -1,0 +1,100 @@
+2024-04-25T17:58:41.794514+00:00 app[web.1]: I, [2024-04-25T17:58:41.794441 #2]  INFO -- : [f1421665-9aab-45f9-95b4-e83dae26a086]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1922)
+2024-04-25T17:58:41.796030+00:00 app[web.1]: I, [2024-04-25T17:58:41.795997 #2]  INFO -- : [f1421665-9aab-45f9-95b4-e83dae26a086]   Rendered layout layouts/application.html.erb (Duration: 4.1ms | Allocations: 2508)
+2024-04-25T17:58:41.796166+00:00 app[web.1]: I, [2024-04-25T17:58:41.796146 #2]  INFO -- : [f1421665-9aab-45f9-95b4-e83dae26a086] Completed 200 OK in 229ms (Views: 3.9ms | ActiveRecord: 0.6ms | Allocations: 2964)
+2024-04-25T17:58:41.797424+00:00 heroku[router]: at=info method=POST path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=f1421665-9aab-45f9-95b4-e83dae26a086 fwd="73.5.84.100" dyno=web.1 connect=0ms service=460ms status=200 bytes=7929 protocol=https
+2024-04-25T17:58:57.069575+00:00 app[web.1]: I, [2024-04-25T17:58:57.069509 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7] Started POST "/users/sign_in" for 73.5.84.100 at 2024-04-25 17:58:57 +0000
+2024-04-25T17:58:57.070223+00:00 app[web.1]: I, [2024-04-25T17:58:57.070188 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7] Processing by Devise::SessionsController#create as HTML
+2024-04-25T17:58:57.070252+00:00 app[web.1]: I, [2024-04-25T17:58:57.070233 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"AmyCook@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T17:58:57.296478+00:00 app[web.1]: I, [2024-04-25T17:58:57.296392 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7] Completed 401 Unauthorized in 226ms (ActiveRecord: 0.6ms | Allocations: 580)
+2024-04-25T17:58:57.297320+00:00 app[web.1]: I, [2024-04-25T17:58:57.297278 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7] Processing by Devise::SessionsController#new as HTML
+2024-04-25T17:58:57.297343+00:00 app[web.1]: I, [2024-04-25T17:58:57.297324 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"AmyCook@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T17:58:57.525804+00:00 app[web.1]: I, [2024-04-25T17:58:57.525728 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1922)
+2024-04-25T17:58:57.527332+00:00 app[web.1]: I, [2024-04-25T17:58:57.527299 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7]   Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 2508)
+2024-04-25T17:58:57.527469+00:00 app[web.1]: I, [2024-04-25T17:58:57.527449 #2]  INFO -- : [b62275f9-a2ae-414b-8342-fe466d67b9e7] Completed 200 OK in 230ms (Views: 4.0ms | ActiveRecord: 0.6ms | Allocations: 2970)
+2024-04-25T17:58:57.529040+00:00 heroku[router]: at=info method=POST path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=b62275f9-a2ae-414b-8342-fe466d67b9e7 fwd="73.5.84.100" dyno=web.1 connect=0ms service=460ms status=200 bytes=7927 protocol=https
+2024-04-25T18:05:51.000000+00:00 app[api]: Build started by user hrizeq@memphis.edu
+2024-04-25T18:06:34.164352+00:00 app[api]: Deploy 3451597e by user hrizeq@memphis.edu
+2024-04-25T18:06:34.164352+00:00 app[api]: Release v44 created by user hrizeq@memphis.edu
+2024-04-25T18:06:34.759759+00:00 heroku[web.1]: Restarting
+2024-04-25T18:06:34.762139+00:00 heroku[web.1]: State changed from up to starting
+2024-04-25T18:06:35.384977+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2024-04-25T18:06:35.400136+00:00 app[web.1]: - Gracefully stopping, waiting for requests to finish
+2024-04-25T18:06:35.400753+00:00 app[web.1]: Exiting
+2024-04-25T18:06:35.452883+00:00 heroku[web.1]: Process exited with status 143
+2024-04-25T18:06:40.000000+00:00 app[api]: Build succeeded
+2024-04-25T18:06:41.066456+00:00 heroku[web.1]: Starting process with command `bin/rails server -p ${PORT:-5000} -e production`
+2024-04-25T18:06:42.954527+00:00 app[web.1]: => Booting Puma
+2024-04-25T18:06:42.954584+00:00 app[web.1]: => Rails 7.0.8.1 application starting in production
+2024-04-25T18:06:42.954584+00:00 app[web.1]: => Run `bin/rails server --help` for more startup options
+2024-04-25T18:06:44.607254+00:00 app[web.1]: Puma starting in single mode...
+2024-04-25T18:06:44.607298+00:00 app[web.1]: * Puma version: 5.6.8 (ruby 3.1.2-p20) ("Birdie's Version")
+2024-04-25T18:06:44.607299+00:00 app[web.1]: *  Min threads: 5
+2024-04-25T18:06:44.607299+00:00 app[web.1]: *  Max threads: 5
+2024-04-25T18:06:44.607299+00:00 app[web.1]: *  Environment: production
+2024-04-25T18:06:44.607300+00:00 app[web.1]: *          PID: 2
+2024-04-25T18:06:44.607465+00:00 app[web.1]: * Listening on http://0.0.0.0:47346
+2024-04-25T18:06:44.619126+00:00 app[web.1]: Use Ctrl-C to stop
+2024-04-25T18:06:44.898181+00:00 heroku[web.1]: State changed from starting to up
+2024-04-25T18:08:08.000000+00:00 app[api]: Build started by user hrizeq@memphis.edu
+2024-04-25T18:08:49.910159+00:00 app[api]: Release v45 created by user hrizeq@memphis.edu
+2024-04-25T18:08:49.910159+00:00 app[api]: Deploy 4ab0f6a8 by user hrizeq@memphis.edu
+2024-04-25T18:08:50.630277+00:00 heroku[web.1]: Restarting
+2024-04-25T18:08:50.681884+00:00 heroku[web.1]: State changed from up to starting
+2024-04-25T18:08:51.253875+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2024-04-25T18:08:51.269596+00:00 app[web.1]: - Gracefully stopping, waiting for requests to finish
+2024-04-25T18:08:51.270156+00:00 app[web.1]: Exiting
+2024-04-25T18:08:51.336744+00:00 heroku[web.1]: Process exited with status 143
+2024-04-25T18:08:56.000000+00:00 app[api]: Build succeeded
+2024-04-25T18:08:57.297650+00:00 heroku[web.1]: Starting process with command `bin/rails server -p ${PORT:-5000} -e production`
+2024-04-25T18:08:59.713600+00:00 app[web.1]: => Booting Puma
+2024-04-25T18:08:59.713658+00:00 app[web.1]: => Rails 7.0.8.1 application starting in production
+2024-04-25T18:08:59.713658+00:00 app[web.1]: => Run `bin/rails server --help` for more startup options
+2024-04-25T18:09:00.956807+00:00 app[web.1]: Puma starting in single mode...
+2024-04-25T18:09:00.956845+00:00 app[web.1]: * Puma version: 5.6.8 (ruby 3.1.2-p20) ("Birdie's Version")
+2024-04-25T18:09:00.956845+00:00 app[web.1]: *  Min threads: 5
+2024-04-25T18:09:00.956846+00:00 app[web.1]: *  Max threads: 5
+2024-04-25T18:09:00.956846+00:00 app[web.1]: *  Environment: production
+2024-04-25T18:09:00.956846+00:00 app[web.1]: *          PID: 2
+2024-04-25T18:09:00.957080+00:00 app[web.1]: * Listening on http://0.0.0.0:52604
+2024-04-25T18:09:00.961856+00:00 app[web.1]: Use Ctrl-C to stop
+2024-04-25T18:09:00.987099+00:00 heroku[web.1]: State changed from starting to up
+2024-04-25T18:09:01.906969+00:00 app[web.1]: I, [2024-04-25T18:09:01.906832 #2]  INFO -- : [34ef4811-e7a3-41b1-8b5e-47ff728f7c1f] Started GET "/" for 73.5.84.100 at 2024-04-25 18:09:01 +0000
+2024-04-25T18:09:01.909398+00:00 app[web.1]: I, [2024-04-25T18:09:01.909318 #2]  INFO -- : [34ef4811-e7a3-41b1-8b5e-47ff728f7c1f] Processing by SemestersController#home as HTML
+2024-04-25T18:09:01.914058+00:00 app[web.1]: I, [2024-04-25T18:09:01.913993 #2]  INFO -- : [34ef4811-e7a3-41b1-8b5e-47ff728f7c1f] Completed 401 Unauthorized in 5ms (ActiveRecord: 0.0ms | Allocations: 810)
+2024-04-25T18:09:01.919740+00:00 heroku[router]: at=info method=GET path="/" host=tag-team-20617dde09ea.herokuapp.com request_id=34ef4811-e7a3-41b1-8b5e-47ff728f7c1f fwd="73.5.84.100" dyno=web.1 connect=0ms service=20ms status=302 bytes=1045 protocol=https
+2024-04-25T18:09:01.979618+00:00 app[web.1]: I, [2024-04-25T18:09:01.979505 #2]  INFO -- : [ea266a5c-aa76-4d98-a399-83257fc3fd08] Started GET "/users/sign_in" for 73.5.84.100 at 2024-04-25 18:09:01 +0000
+2024-04-25T18:09:01.980756+00:00 app[web.1]: I, [2024-04-25T18:09:01.980694 #2]  INFO -- : [ea266a5c-aa76-4d98-a399-83257fc3fd08] Processing by Devise::SessionsController#new as HTML
+2024-04-25T18:09:02.107950+00:00 app[web.1]: I, [2024-04-25T18:09:02.107815 #2]  INFO -- : [ea266a5c-aa76-4d98-a399-83257fc3fd08]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.8ms | Allocations: 3471)
+2024-04-25T18:09:02.112914+00:00 app[web.1]: I, [2024-04-25T18:09:02.112813 #2]  INFO -- : [ea266a5c-aa76-4d98-a399-83257fc3fd08]   Rendered layout layouts/application.html.erb (Duration: 8.8ms | Allocations: 5989)
+2024-04-25T18:09:02.113154+00:00 app[web.1]: I, [2024-04-25T18:09:02.113111 #2]  INFO -- : [ea266a5c-aa76-4d98-a399-83257fc3fd08] Completed 200 OK in 132ms (Views: 9.9ms | ActiveRecord: 24.2ms | Allocations: 19681)
+2024-04-25T18:09:02.115004+00:00 heroku[router]: at=info method=GET path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=ea266a5c-aa76-4d98-a399-83257fc3fd08 fwd="73.5.84.100" dyno=web.1 connect=0ms service=136ms status=200 bytes=7939 protocol=https
+2024-04-25T18:09:20.045192+00:00 app[web.1]: I, [2024-04-25T18:09:20.045063 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54] Started POST "/users/sign_in" for 73.5.84.100 at 2024-04-25 18:09:20 +0000
+2024-04-25T18:09:20.046465+00:00 app[web.1]: I, [2024-04-25T18:09:20.046058 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54] Processing by Devise::SessionsController#create as HTML
+2024-04-25T18:09:20.046466+00:00 app[web.1]: I, [2024-04-25T18:09:20.046137 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:09:20.053539+00:00 app[web.1]: I, [2024-04-25T18:09:20.053468 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54] Completed 401 Unauthorized in 7ms (ActiveRecord: 2.2ms | Allocations: 1622)
+2024-04-25T18:09:20.054576+00:00 app[web.1]: I, [2024-04-25T18:09:20.054424 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54] Processing by Devise::SessionsController#new as HTML
+2024-04-25T18:09:20.054577+00:00 app[web.1]: I, [2024-04-25T18:09:20.054495 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:09:20.289957+00:00 app[web.1]: I, [2024-04-25T18:09:20.289825 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.9ms | Allocations: 2090)
+2024-04-25T18:09:20.292739+00:00 app[web.1]: I, [2024-04-25T18:09:20.292649 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54]   Rendered layout layouts/application.html.erb (Duration: 5.8ms | Allocations: 2785)
+2024-04-25T18:09:20.292906+00:00 app[web.1]: I, [2024-04-25T18:09:20.292872 #2]  INFO -- : [9cff0bbd-49b8-4f50-9599-24d1edf85f54] Completed 200 OK in 238ms (Views: 5.6ms | ActiveRecord: 0.8ms | Allocations: 4371)
+2024-04-25T18:09:20.294482+00:00 heroku[router]: at=info method=POST path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=9cff0bbd-49b8-4f50-9599-24d1edf85f54 fwd="73.5.84.100" dyno=web.1 connect=0ms service=257ms status=200 bytes=7928 protocol=https
+2024-04-25T18:15:11.983128+00:00 app[web.1]: I, [2024-04-25T18:15:11.983014 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970] Started POST "/users/sign_in" for 73.5.84.100 at 2024-04-25 18:15:11 +0000
+2024-04-25T18:15:11.984318+00:00 app[web.1]: I, [2024-04-25T18:15:11.984239 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970] Processing by Devise::SessionsController#create as HTML
+2024-04-25T18:15:11.984343+00:00 app[web.1]: I, [2024-04-25T18:15:11.984323 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:15:12.023744+00:00 app[web.1]: I, [2024-04-25T18:15:12.023546 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970] Completed 401 Unauthorized in 39ms (ActiveRecord: 19.3ms | Allocations: 3787)
+2024-04-25T18:15:12.024427+00:00 app[web.1]: I, [2024-04-25T18:15:12.024378 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970] Processing by Devise::SessionsController#new as HTML
+2024-04-25T18:15:12.024454+00:00 app[web.1]: I, [2024-04-25T18:15:12.024436 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:15:12.256535+00:00 app[web.1]: I, [2024-04-25T18:15:12.256405 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.7ms | Allocations: 1922)
+2024-04-25T18:15:12.258854+00:00 app[web.1]: I, [2024-04-25T18:15:12.258803 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970]   Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 2539)
+2024-04-25T18:15:12.259012+00:00 app[web.1]: I, [2024-04-25T18:15:12.258980 #2]  INFO -- : [b385b9e7-3a7f-4af6-a772-4c29f1415970] Completed 200 OK in 234ms (Views: 4.5ms | ActiveRecord: 1.2ms | Allocations: 3012)
+2024-04-25T18:15:12.261121+00:00 heroku[router]: at=info method=POST path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=b385b9e7-3a7f-4af6-a772-4c29f1415970 fwd="73.5.84.100" dyno=web.1 connect=0ms service=279ms status=200 bytes=7934 protocol=https
+2024-04-25T18:15:14.652173+00:00 app[web.1]: I, [2024-04-25T18:15:14.652072 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21] Started POST "/users/sign_in" for 73.5.84.100 at 2024-04-25 18:15:14 +0000
+2024-04-25T18:15:14.652914+00:00 app[web.1]: I, [2024-04-25T18:15:14.652846 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21] Processing by Devise::SessionsController#create as HTML
+2024-04-25T18:15:14.652949+00:00 app[web.1]: I, [2024-04-25T18:15:14.652927 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:15:14.656028+00:00 app[web.1]: I, [2024-04-25T18:15:14.655969 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21] Completed 401 Unauthorized in 3ms (ActiveRecord: 0.7ms | Allocations: 551)
+2024-04-25T18:15:14.656931+00:00 app[web.1]: I, [2024-04-25T18:15:14.656868 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21] Processing by Devise::SessionsController#new as HTML
+2024-04-25T18:15:14.656972+00:00 app[web.1]: I, [2024-04-25T18:15:14.656941 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21]   Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"BrandonBooth@admin.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+2024-04-25T18:15:14.888904+00:00 app[web.1]: I, [2024-04-25T18:15:14.888796 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21]   Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 1922)
+2024-04-25T18:15:14.890835+00:00 app[web.1]: I, [2024-04-25T18:15:14.890776 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21]   Rendered layout layouts/application.html.erb (Duration: 4.3ms | Allocations: 2518)
+2024-04-25T18:15:14.890978+00:00 app[web.1]: I, [2024-04-25T18:15:14.890948 #2]  INFO -- : [c5ec12ad-1859-48ab-b32a-bc0a565afb21] Completed 200 OK in 234ms (Views: 3.8ms | ActiveRecord: 0.8ms | Allocations: 2980)
+2024-04-25T18:15:14.892507+00:00 heroku[router]: at=info method=POST path="/users/sign_in" host=tag-team-20617dde09ea.herokuapp.com request_id=c5ec12ad-1859-48ab-b32a-bc0a565afb21 fwd="73.5.84.100" dyno=web.1 connect=0ms service=241ms status=200 bytes=7926 protocol=https
