@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin/dashboard'
   root to: 'semesters#home'
   devise_for :users
   # resources :sprints
@@ -30,7 +31,10 @@ Rails.application.routes.draw do
   put 'semesters/:semester_id/sprints/:id', to: 'sprints#update'
   get 'semesters/:semester_id/sprints/:id/edit', to: 'sprints#edit', as: 'edit_semester_sprint'
 
-
+  # Admin controller
+  get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'
+  delete 'admin_user/:id', to: 'admin#destroy', as: 'admin_delete_user'
+  
 end
 
 

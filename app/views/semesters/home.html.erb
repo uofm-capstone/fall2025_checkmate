@@ -123,6 +123,12 @@
               </div>
           </div>
         <div class="col-10 justify-content-center align-items-center text-center">
+          <!--Alert message for user if they create a semester-->
+          <% if params[:alert_message] %>
+            <div class="alert alert-warning">
+              <%= params[:alert_message] %>
+            </div>
+          <% end %>
           <h3>Select Semester</h3>
           <div class="row">
             <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
@@ -141,9 +147,11 @@
                     <div class="card mb-4 <%= card_class %>" style="position: relative;">
                       <div class="card-body">
                         <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
-                        <p class="timestamp">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                        <p class="timestamp">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
                         <!-- Delete Button -->
-                        <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                        <%if current_user == s.user || current_user.admin?%>
+                          <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                        <% end %>
                       </div>
                     </div>
                   <% end %>
