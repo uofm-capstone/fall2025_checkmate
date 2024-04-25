@@ -368,13 +368,13 @@
             <!-- Team Name -->
             <% if @team %>
               <label for="team-name" style="display: none;">Team Name: </label>
-              <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly required onchange="submitForm()">
+              <input type="text" id="team-name" style="display: none;" value="<%= @team %>" readonly>
             <% end %>
 
             <!-- Sprint Number -->
             <% if @sprint %>
               <label for="sprint-number" style="display: none;">Sprint Number: </label>
-              <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly required onchange="submitForm()">
+              <input type="text" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly>
             <% end %>
 
             <!-- Name of Repo Owner -->
@@ -407,13 +407,7 @@
               <input type="text" placeholder="YYYY-MM-DD" id="end-date" style="display: none;" value="<%= @end_dates[@sprint] %>" readonly required>
             <% end %>
 
-            <% if @team %>
-              <input type="text" placeholder="Team Name" id="team-name" style="display: none;" value="<%= @team %>" readonly required onchange="submitForm()">
-            <% end %>
-
-            <% if @sprint %>
-              <input type="text" placeholder="Sprint Number" id="sprint-number" style="display: none;" value="<%= @sprint %>" readonly required onchange="submitForm()">
-            <% end %>
+            <button id="gitSubmit" type="submit" style="display: none;">Get Commit Info</button> 
             <% end %>
           </form>
           
@@ -448,6 +442,9 @@
   </div>
 </div>
 
+<script type="text/javascript">
+    setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 100);
+</script>
 <!-- Allows the data from the github request to be shown -->
 <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
 <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>

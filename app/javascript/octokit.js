@@ -2,35 +2,32 @@ import { Octokit } from "https://esm.sh/octokit";
 
 console.log("Javascript File is executed.");
 
-// Add a function to submit the form when dropdowns are changed
-function submitForm() {
-    document.getElementById('github-form').submit();
-  }
-  
-  // Remove the event listener for form submission
-  document.getElementById('github-form').removeEventListener('submit', function(event) {...});
-  
-  // Adjust the Octokit API call to trigger on dropdown change instead of form submit
-  function fetchCommits() {
+document.getElementById('github-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
     const repoOwner = document.getElementById('repo-owner').value;
     const repoName = document.getElementById('repo-name').value;
     const accessToken = document.getElementById('access-token').value;
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
-  
+
     const octokit = new Octokit({
-      auth: accessToken,
+        auth: accessToken,
     });
     
     // Get a reference to the commit-table and its tbody
     const commitTable = document.getElementById('commit-table');
     const commitTableBody = commitTable.querySelector('tbody');
-  
+
+
+    // Get a reference to the commit-list element
+    const commitList = document.getElementById('commit-list');
+
     octokit.rest.repos.listCommits({
-      owner: repoOwner,
-      repo: repoName,
-      since: startDate,
-      until: endDate,
+        owner: repoOwner,
+        repo: repoName,
+        since: startDate,
+        until: endDate,
     })
 
         .then((response) => {
