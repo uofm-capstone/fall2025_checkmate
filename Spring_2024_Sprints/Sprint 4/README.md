@@ -20,6 +20,7 @@ Hitham W.S Rizeq
 
 
 ## Sprint 4 goals
+* Added a deleting feature to the semesters.
 * Create Admin user and give them full control of the website
 * Impliment user ownership so the user can only update and view the semester
 * Delploy the website
@@ -27,6 +28,9 @@ Hitham W.S Rizeq
 
 
 ## Sprint 4 accomplishments
+* Successfully created an Admin user role with full control of the website, including the ability to create, update, and delete semesters, ensuring comprehensive management capabilities.
+* Successfully implemented user ownership functionality, restricting users to only view and edit semesters assigned to them, while reserving semester creation privileges exclusively for Admin users, ensuring streamlined access control and maintaining data integrity.
+* Sucessfully deploy the website.
 
 
 ## Purav Patel Code branch
