@@ -132,39 +132,52 @@
           <h3>Select Semester</h3>
           <div class="row">
             <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
-            <% grouped_semesters.each_with_index do |(year, semesters), index| %>
-              <% sorted_semesters = semesters.sort_by { |s| s.semester == 'Fall' ? 0 : s.semester == 'Summer' ? 1 : 2 } %>
+            <% if grouped_semesters.empty? %>
+              <div class="d-flex justify-content-center mt-4 mb-4">
+                <div class="card w-100 border-danger">
+                  <div class="card-body bg-danger text-white">
+                    <p class="card-text text-center">
+                      <strong>Attention:</strong> No semester created. Create a new semester to continue
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% else %>
+              <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
+              <% grouped_semesters.each_with_index do |(year, semesters), index| %>
+                <% sorted_semesters = semesters.sort_by { |s| s.semester == 'Fall' ? 0 : s.semester == 'Summer' ? 1 : 2 } %>
 
-              <% sorted_semesters.each_with_index do |s, semester_index| %>
-                <% card_class = case s.semester
-                                when 'Summer' then 'summer-card'
-                                when 'Spring' then 'spring-card'
-                                when 'Fall' then 'fall-card'
-                                else ''
-                                end %>
-                <div class="col-md-12">
-                  <%= link_to semester_path(s), class: 'text-decoration-none' do %>
-                    <div class="card mb-4 <%= card_class %>" style="position: relative;">
-                      <div class="card-body">
-                        <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
-                        <p class="timestamp">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-                        <!-- Delete Button -->
-                        <%if current_user == s.user || current_user.admin?%>
-                          <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
-                        <% end %>
+                <% sorted_semesters.each_with_index do |s, semester_index| %>
+                  <% card_class = case s.semester
+                                  when 'Summer' then 'summer-card'
+                                  when 'Spring' then 'spring-card'
+                                  when 'Fall' then 'fall-card'
+                                  else ''
+                                  end %>
+                  <div class="col-md-12">
+                    <%= link_to semester_path(s), class: 'text-decoration-none' do %>
+                      <div class="card mb-4 <%= card_class %>" style="position: relative;">
+                        <div class="card-body">
+                          <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
+                          <p class="timestamp">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                          <!-- Delete Button -->
+                          <%if current_user == s.user || current_user.admin?%>
+                            <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                          <% end %>
+                        </div>
                       </div>
+                    <% end %>
+                  </div>
+
+                  <!-- Add the line separator between years, except for the last year -->
+                  <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
+                    <div class="col-md-12">
+                      <hr class="hr-separator">
                     </div>
                   <% end %>
-                </div>
-
-                <!-- Add the line separator between years, except for the last year -->
-                <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
-                  <div class="col-md-12">
-                    <hr class="hr-separator">
-                  </div>
                 <% end %>
-              <% end %>
 
+              <% end %>
             <% end %>
           </div>
         </div>
