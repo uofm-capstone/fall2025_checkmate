@@ -1,12 +1,58 @@
-<!-- app/views/semesters/classlist.html.erb -->
-<h1>Classlist for <%= @semester.name_for_select %></h1>
-
-<% if @students_info.any? %>
-  <ul>
-    <% @students_info.each do |student| %>
-      <li><%= "#{student[:name]} - #{student[:role]}" %></li>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Class List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      margin: 20px;
+    }
+    h1 {
+      color: #007bff;
+      text-align: center;
+    }
+    table {
+      width: 100%; 
+      max-width: 15rem; 
+      margin: auto; 
+      background-color: #ffffff;
+      border-collapse: collapse; 
+    }
+    th, td {
+      border: 1px solid #ddd; 
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0; 
+    }
+    p {
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Classlist for <%= @semester.name_for_select %></h1>
+  <table class="table">
+    <% if @students_info.any? %>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+      </tr>
+      <% @students_info.each do |student| %>
+        <tr>
+          <td><%= student[:name] %></td>
+          <td><%= student[:role] %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="2"><p>No students found for this semester.</p></td>
+      </tr>
     <% end %>
-  </ul>
-<% else %>
-  <p>No students found for this semester.</p>
-<% end %>
+  </table>
+</body>
+</html>
