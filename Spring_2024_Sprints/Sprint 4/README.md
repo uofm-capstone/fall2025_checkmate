@@ -39,6 +39,16 @@ Hitham W.S Rizeq
 ## Naitik Kaythwal Code branch
 
 
-## Hitham W.S Rizeq Code branch
+## Hitham W.S Rizeq 
+https://github.com/NaitikKaythwal/TAG_new/pull/36
+https://github.com/NaitikKaythwal/TAG_new/pull/37
+https://github.com/NaitikKaythwal/TAG_new/pull/40
+
+most of my works can be found here on the forked repo , we did this because we didn not want to mess up with main reop , https://github.com/hrizeq17/Hitham-hosting-
+BRANCHES 
+- Hostingapp-spring24
+- app-host
+- student_list_spring24
+
 
   
