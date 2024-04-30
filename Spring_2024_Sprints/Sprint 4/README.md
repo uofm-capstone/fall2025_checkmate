@@ -42,6 +42,16 @@ Hitham W.S Rizeq
 
 
 ## Purav Patel Code branch
+* My code for delete button is in branch: https://github.com/NaitikKaythwal/TAG_new/tree/delete-button
+* My code for super user is in branch: https://github.com/NaitikKaythwal/TAG_new/tree/super-user
+* My code for user ownership are in branches:
+  - https://github.com/NaitikKaythwal/TAG_new/tree/user-ownership
+  - https://github.com/NaitikKaythwal/TAG_new/tree/update-ownership
+  - https://github.com/NaitikKaythwal/TAG_new/tree/fix-update-ownership
+* My code for admin dashboard and controller are in branches:
+  - https://github.com/NaitikKaythwal/TAG_new/tree/create-dashbord-admin
+  - https://github.com/NaitikKaythwal/TAG_new/tree/update-dashboard
+* My code for admin delete user is in braches: https://github.com/NaitikKaythwal/TAG_new/tree/delete-user
 
 
 ## Naitik Kaythwal Code branch
