@@ -1,0 +1,44 @@
+Meeting_2_9_2025
+
+Big goals and a lot of flex
+
+Place to start: (we will have to start here)
+
+TAG (uses ruby)
+
+- ruby is blacklisted in uofm
+
+GOAL: find a way to get Ruby on Rails running in cloud but only a way that select users can mess with it
+
+We'd move to google cloud 
+
+
+We need to put up and take down bc 
+
+
+****GOAL HIGH LEVEL: Get code running, create docker image, and deploy in cloud. Report cost per week***
+
+*Find a solution for the solution that will run on AT MOST one semester credits
+
+**tutorials on both.
+
+
+CODE RIGHT NOW:
+
+Has a lot of features:
+
+- gives stats on repos
+
+- stats on reviews
+
+Bugs:
+
+- add up and summarize data
+
+- UI needs redesign
+
+- bugs with graphs
+
+One team set up:
+
+- define a team so that we don't have to redefine.
