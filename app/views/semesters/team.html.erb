@@ -57,6 +57,19 @@
 
 </style>
 <body>
+  
+<div>
+
+<%= link_to "View Repository", 
+    semesters_repository_path(
+      semester_id: @semester_id,
+      id: 2, 
+      sprint_id: @sprint,
+    )
+%>
+</div>
+
+
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

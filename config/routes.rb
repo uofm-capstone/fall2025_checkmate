@@ -34,19 +34,14 @@ Rails.application.routes.draw do
   # Admin controller
   get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'
   delete 'admin_user/:id', to: 'admin#destroy', as: 'admin_delete_user'
-  
+
+
+  namespace :semesters do
+    resources :repositories, only: [:new, :create, :show]
+  end
+  resources :semesters do
+    get 'team', to: 'semesters#team'
+    resources :sprints
+  end
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-

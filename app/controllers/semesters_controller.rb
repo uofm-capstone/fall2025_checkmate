@@ -54,7 +54,8 @@ class SemestersController < ApplicationController
                 @flags[sprint][team] = get_flags(@semester, sprint, team)
             end
         end
-        @repos = current_user.repositories
+        # @repos = current_user.repositories
+        @repo = Repository.find(2)
         @sprints = @semester.sprints
         @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
 
