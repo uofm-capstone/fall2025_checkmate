@@ -1,11 +1,11 @@
 steps:
   # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/myrailsapp', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/spring2025-tag', '.']
 
   # Step 2: Push the image to Google Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/myrailsapp']
+    args: ['push', 'gcr.io/$PROJECT_ID/spring2025-tag']
 
   # Step 3: Deploy to Google Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,17 +13,17 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'spring2025-tag'
+      - 'spring2025-tag'  # Cloud Run service name
       - '--image'
-      - 'gcr.io/$PROJECT_ID/myrailsapp'
+      - 'gcr.io/$PROJECT_ID/spring2025-tag'  # Use correct image name
       - '--platform'
       - 'managed'
       - '--region'
       - 'us-central1'
       - '--add-cloudsql-instances'
-      - 'myproject:us-central1:mydatabase-instance'
+      - '$PROJECT_ID:us-central1:mydatabase-instance'  # Use correct Cloud SQL format
       - '--update-env-vars'
-      - 'DATABASE_HOST=/cloudsql/myproject:us-central1:mydatabase-instance,DATABASE_NAME=mydatabase,DATABASE_USER=postgres,DATABASE_PASSWORD=password,SECRET_KEY_BASE=$(rails secret)'
+      - 'DATABASE_HOST=/cloudsql/$PROJECT_ID:us-central1:mydatabase-instance,DATABASE_NAME=mydatabase,DATABASE_USER=postgres,DATABASE_PASSWORD=password,SECRET_KEY_BASE=$(rails secret)'
       - '--allow-unauthenticated'
 
 # Grant Cloud Build permission to deploy
