@@ -1,0 +1,30 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/myrailsapp', '.']
+
+  # Step 2: Push the image to Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/myrailsapp']
+
+  # Step 3: Deploy to Google Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'myrailsapp'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/myrailsapp'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - 'us-central1'
+      - '--add-cloudsql-instances'
+      - 'myproject:us-central1:mydatabase-instance'
+      - '--update-env-vars'
+      - 'DATABASE_HOST=/cloudsql/myproject:us-central1:mydatabase-instance,DATABASE_NAME=mydatabase,DATABASE_USER=postgres,DATABASE_PASSWORD=password,SECRET_KEY_BASE=$(rails secret)'
+      - '--allow-unauthenticated'
+
+# Grant Cloud Build permission to deploy
+timeout: 1800s

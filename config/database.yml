@@ -84,3 +84,5 @@ production:
   database: tag_production
   username: tag
   password: <%= ENV["TAG_DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] || "/cloudsql/myproject:us-central1:mydatabase-instance" %>
+
