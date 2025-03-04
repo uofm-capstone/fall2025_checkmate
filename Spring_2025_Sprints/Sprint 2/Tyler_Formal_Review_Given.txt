@@ -1,0 +1,8 @@
+Feedback From: Tyler Howell           
+Group: TAG                                  
+To Student: Riyaad Howlader
+Group: Decibuddies
+
+- Riyaad demostrated progress creating wireframes for multiple pages and translating into HTML on the application.
+
+Feedback Given: In future sprints, migrate styling to a separate stylesheet for better application organization.

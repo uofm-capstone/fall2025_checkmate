@@ -1,0 +1,8 @@
+Feedback from Riyaad Howlader 
+Group: Decibuddies	
+To Student: Tyler Howell 
+Group: Tag 
+
+- Tyler has successfully created a Dockerfile and yaml for cloud for deployment on google cloud. 
+
+Feedback: To make it easier for other groups in the future to use this when they want to test locally and redeploy  to the cloud, he should add docker documentation
