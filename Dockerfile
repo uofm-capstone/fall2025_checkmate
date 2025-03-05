@@ -1,11 +1,19 @@
-# ======= STAGE 1: Build Dependencies =======
+# ======= STAGE 1: Build Node.js Dependencies =======
+FROM node:16-alpine AS node_build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and install Node.js dependencies
+COPY package.json yarn.lock ./
+RUN yarn install --production
+
+# ======= STAGE 2: Build Ruby & Rails Dependencies =======
 FROM ruby:3.2.1-alpine AS builder
 
-# Install required dependencies
+# Install required dependencies (but NOT Node.js, since it's handled in the first stage)
 RUN apk add --no-cache \
     build-base \
-    nodejs=16.20.0 \
-    npm==8.19.4 \
     postgresql-dev \
     tzdata \
     git \
@@ -19,27 +27,23 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set --local without 'development test' && bundle install
 
-# Copy package.json and install Node.js dependencies
-COPY package.json yarn.lock ./
-RUN yarn install --production
-
-# Copy the entire application
+# Copy Node.js dependencies from the node_build stage
+COPY --from=node_build /app/node_modules /app/node_modules
 COPY . .
 
 # Precompile assets (for production use)
 RUN bundle exec rake assets:precompile
 
-
-# ======= STAGE 2: Minimal Runtime Image =======
+# ======= STAGE 3: Minimal Runtime Image =======
 FROM ruby:3.2.1-alpine
 
 # Install minimal dependencies
-RUN apk add --no-cache nodejs tzdata postgresql-dev
+RUN apk add --no-cache tzdata postgresql-dev
 
 # Set the working directory
 WORKDIR /app
 
-# Copy files from the builder stage
+# Copy everything from the builder stage (Rails app)
 COPY --from=builder /app /app
 
 # Expose port 8080 for Google Cloud Run
