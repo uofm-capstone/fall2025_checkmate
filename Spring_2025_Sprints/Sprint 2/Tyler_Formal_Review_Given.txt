@@ -2,6 +2,7 @@ Feedback From: Tyler Howell
 Group: TAG                                  
 To Student: Riyaad Howlader
 Group: Decibuddies
+Meeting Type: Code Review
 
 - Riyaad demostrated progress creating wireframes for multiple pages and translating into HTML on the application.
 
