@@ -4,8 +4,8 @@ FROM ruby:3.2.1-alpine AS builder
 # Install required dependencies
 RUN apk add --no-cache \
     build-base \
-    nodejs \
-    npm \
+    nodejs=16.20.0 \
+    npm==8.19.4 \
     postgresql-dev \
     tzdata \
     git \
