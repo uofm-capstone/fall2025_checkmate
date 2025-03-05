@@ -1,5 +1,5 @@
 # ======= STAGE 1: Build Node.js Dependencies =======
-FROM node:19.8.1-alpine AS node_build
+FROM node:16-alpine AS node_build
 
 # Set the working directory
 WORKDIR /app
