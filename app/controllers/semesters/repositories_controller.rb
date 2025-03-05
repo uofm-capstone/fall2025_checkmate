@@ -12,6 +12,7 @@ class RepositoriesController < ApplicationController
         @repo = Repository.find(params[:id])
         @sprint = @semester.sprints.find_by(name: params[:sprint])
         # @sprint = Sprint.find(params[:sprint_id])
+        # hard code sprint dates as the Sprint model is not defined / not used
         @start_date = Date.new(2025, 1, 1)  # January 1, 2025
         @end_date = Date.new(2025, 3, 1)    # March 1, 2025
 
