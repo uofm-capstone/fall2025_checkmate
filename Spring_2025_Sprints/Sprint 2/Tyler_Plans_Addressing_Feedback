@@ -1,0 +1,5 @@
+Feedback Recieved: Make it easier to build and test with the Docker container locally and document it. 
+
+Plans to Address: 
+- Build a docker-compose.yml so that, when building container locally it can connect to the database.
+- Write instructional documentation about how to set up docker, build and test locally, and document how it works with gcloud.
