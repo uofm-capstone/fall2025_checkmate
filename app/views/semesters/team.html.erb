@@ -57,18 +57,6 @@
 
 </style>
 <body>
-  
-<div>
-
-<%= link_to "View Repository", 
-    semesters_repository_path(
-      semester_id: @semester_id,
-      id: 2, 
-      sprint_id: @sprint,
-    )
-%>
-</div>
-
 
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -457,6 +445,17 @@
   </div>
 </div>
 
+
+<div>
+    <%# <%= link_to "View Repository", semester_repository_path(semester_id: @semester, id: @repo, sprint: @sprint) %> %>
+    <%= link_to "View Repository", "/semesters/#{@semester.id}/repositories/#{@repo.id}?sprint_id=#{@sprint}" %>
+  <% if @repo.present? %>
+  <% else %>
+    <p>Repository not available</p>
+  <% end %>
+</div>
+
+</body>
 <script type="text/javascript">
   // Submitting the form ot get the commit info
     setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 500); 

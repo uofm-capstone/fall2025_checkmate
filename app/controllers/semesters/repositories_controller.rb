@@ -8,12 +8,13 @@ class RepositoriesController < ApplicationController
     #Version 2 is updated to the standard scaffolding, but still needs the GitHub metrics code added back in and adapted
 
     def show
-        # @semester = Semester.find(params[:semester_id])
-        # @repo = Repository.find(params[:repo_id])
+        @semester = Semester.find(params[:semester_id])
+        @repo = Repository.find(params[:id])
+        @sprint = @semester.sprints.find_by(name: params[:sprint])
         # @sprint = Sprint.find(params[:sprint_id])
-        @semester = 4
-        @repo = 2
-        @sprint = 'Sprint 4'
+        @start_date = Date.new(2025, 1, 1)  # January 1, 2025
+        @end_date = Date.new(2025, 3, 1)    # March 1, 2025
+
 
         session[:repo_id] = params[:repo_id]
         session[:repo_sprint_id] = params[:sprint_id]
@@ -22,7 +23,7 @@ class RepositoriesController < ApplicationController
         issues_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/issues?state=all"
         pullrequests_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/pulls?state=all"
         pullrequest_reviews_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/pulls/"
-        commits_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/commits?per_page=100&since=#{@sprint.start_date}&until=#{@sprint.end_date}"
+        commits_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/commits?per_page=100&since=#{@start_date}&until=#{@end_date}"
         contributors_url="https://api.github.com/repos/#{@repo.owner}/#{@repo.repo_name}/contributors"
         if current_user.github_token
         then

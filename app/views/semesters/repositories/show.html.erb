@@ -13,8 +13,8 @@
 </head>
 
 <div class="container">
-    <h1 style = "color:  #0D3182"><%= link_to semester_path(@semester), class: "" do %><%= image_tag "arrow-left-circle-fill.svg", class:"mr-1", style: "height:32px"%><% end %><%="Team #{@repo.team}'s Metrics from #{@sprint.name}"%></h1>
-    <p style = "text-align:center"><%="From #{@sprint.start_date.strftime("%m/%d/%Y")} to #{@sprint.end_date.strftime("%m/%d/%Y")}"%></p>
+    <h1 style = "color:  #0D3182"><%= link_to semesters_path(@semester), class: "" do %><%= image_tag "arrow-left-circle-fill.svg", class:"mr-1", style: "height:32px"%><% end %><%="Team #{@repo.team}'s Metrics from #{@sprint}"%></h1>
+    <p style = "text-align:center"><%="From #{@start_date.strftime("%m/%d/%Y")} to #{@end_date.strftime("%m/%d/%Y")}"%></p>
     <h2 style = "color:  #0D3182"> GitHub Commits</h2>
     <p>
         <%begin%>
@@ -112,10 +112,10 @@
     title: {
         text: 'Github Issues'
     },xAxis: [{
-            <% mod = @sprint.start_date.strftime('%m').to_i - 1 %>
-            <% mod2 = @sprint.end_date.strftime('%m').to_i - 1 %>
-            min: Date.UTC(<%=raw @sprint.start_date.strftime('%Y').to_json %>, <%=raw mod.to_json %>, <%=raw @sprint.start_date.strftime('%d').to_json %>, <%=raw @sprint.start_date.strftime('%H').to_json %>),
-            max: Date.UTC(<%=raw @sprint.end_date.strftime('%Y').to_json %>, <%=raw mod2.to_json %>, <%=raw @sprint.end_date.strftime('%d').to_json %>, <%=raw @sprint.start_date.strftime('%H').to_json %>),
+            <% mod = @start_date.strftime('%m').to_i - 1 %>
+            <% mod2 = @end_date.strftime('%m').to_i - 1 %>
+            min: Date.UTC(<%=raw @start_date.strftime('%Y').to_json %>, <%=raw mod.to_json %>, <%=raw @start_date.strftime('%d').to_json %>, <%=raw @start_date.strftime('%H').to_json %>),
+            max: Date.UTC(<%=raw @end_date.strftime('%Y').to_json %>, <%=raw mod2.to_json %>, <%=raw @end_date.strftime('%d').to_json %>, <%=raw @start_date.strftime('%H').to_json %>),
         }, {
         dateTimeLabelFormats: {
             week: 'Week of %b %e, %Y',

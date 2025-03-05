@@ -15,7 +15,7 @@
      then it follows the pattern <i>https://github.com/owner_name/repository_name</i>)
  </p>
  <br>
- <%= form_with url: semesters_repositories_path, model: @repository, local:true, html: { multipart: true } do |form| %>
+ <%= form_with url: semester_repositories_path, model: @repository, local:true, html: { multipart: true } do |form| %>
     <div class = "form-group row">
         <label class = "col-sm-3 col-form-label"; style = "text-align: right">Owner name</label>
         <div class = "col-sm-7">
