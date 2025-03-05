@@ -1,5 +1,5 @@
 # ======= STAGE 1: Build Node.js Dependencies =======
-FROM node:16-alpine AS node_build
+FROM node:19.8.1-alpine AS node_build
 
 # Set the working directory
 WORKDIR /app
@@ -11,7 +11,7 @@ RUN yarn install --production
 # ======= STAGE 2: Build Ruby & Rails Dependencies =======
 FROM ruby:3.2.1-alpine AS builder
 
-# Install required dependencies (but NOT Node.js, since it's handled in the first stage)
+# Install required dependencies (Node.js is handled separately)
 RUN apk add --no-cache \
     build-base \
     postgresql-dev \
