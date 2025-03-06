@@ -60,7 +60,7 @@ class RepositoriesController < ApplicationController
                 @issue_user = []
                 @issue_login = []
                 @issues_hash.each do |issue|
-                    if issue[%Q(closed_at)]  && Time.parse(issue[%Q(closed_at)]) > @sprint.start_date && Time.parse(issue[%Q(closed_at)]) < @sprint.end_date && issue[%Q(html_url)].exclude?("pull")
+                    if issue[%Q(closed_at)]  && Time.parse(issue[%Q(closed_at)]) > @start_date && Time.parse(issue[%Q(closed_at)]) < @end_date && issue[%Q(html_url)].exclude?("pull")
                         @issue_titles.push(issue[%Q(title)])
                         @issue_created.push(Time.parse(issue[%Q(created_at)]))
                         @issue_closed.push(Time.parse(issue[%Q(closed_at)]))
@@ -84,7 +84,7 @@ class RepositoriesController < ApplicationController
 
                 #This only keeps PRs that have actually been merged.
                 pullrequests_api_results.each do |pr|
-                    if pr[%Q(merged_at)] && Time.parse(pr[%Q(merged_at)]) > @sprint.start_date && Time.parse(pr[%Q(merged_at)]) < @sprint.end_date
+                    if pr[%Q(merged_at)] && Time.parse(pr[%Q(merged_at)]) > @start_date && Time.parse(pr[%Q(merged_at)]) < @end_date
                         review_request = (HTTParty.get(pullrequest_reviews_url + "#{pr[%Q(number)]}/reviews",:headers => {"Authorization" => "Bearer #{current_user.github_token}","Accept" => "application/json"}))
                         @pr_review_array.push(JSON.parse(review_request.body))
                         @pr_assigned_array.push(pr)
