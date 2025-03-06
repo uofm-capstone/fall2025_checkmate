@@ -1,0 +1,9 @@
+Feedback From: Su Odeyemi
+To: McNeil McCarley
+
+Feedback:
+ - Replace the black space on the login page with a gradient picture
+ - Take away "Your email" and second "Password"
+ - Put "Forgot Password" under password
+ - Update buttons
+ - Profile image?
