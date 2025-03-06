@@ -4,14 +4,16 @@ steps:
     args: 
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag' 
+      - 'gcr.io/$PROJECT_ID/spring2025-tag'
+      - '--build-arg'
+      - 'RAILS_ENV=production'
       - '.'
 
   # Step 2: Push the image to Google Container Registry (GCR)
   - name: 'gcr.io/cloud-builders/docker'
     args: 
       - 'push'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag' 
+      - 'gcr.io/$PROJECT_ID/spring2025-tag'
 
   # Step 3: Deploy to Google Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -19,19 +21,20 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'spring2025-tag'  
+      - 'spring2025-tag'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag' 
+      - 'gcr.io/$PROJECT_ID/spring2025-tag'
       - '--platform'
       - 'managed'
       - '--region'
-      - 'us-central1'  
+      - 'us-central1'
       - '--add-cloudsql-instances'
-      - '$PROJECT_ID:us-central1:spring2025-tag-instance' 
+      - '$PROJECT_ID:us-central1:spring2025-tag-instance'
       - '--update-secrets'
       - 'DATABASE_PASSWORD=database-password:latest,SECRET_KEY_BASE=secret-key-base:latest'
       - '--update-env-vars'
-      - 'DATABASE_HOST=/cloudsql/$PROJECT_ID:us-central1:spring2025-tag-instance,DATABASE_NAME=tagdatabase,DATABASE_USER=postgres' 
+      - 'DATABASE_HOST=/cloudsql/$PROJECT_ID:us-central1:spring2025-tag-instance,DATABASE_NAME=tagdatabase,DATABASE_USER=postgres'
+      - '--memory'
+      - '512Mi'
 
-# Set build timeout (optional)
 timeout: 1800s

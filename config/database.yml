@@ -80,9 +80,13 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: tag_production
-  username: tag
-  password: <%= ENV["TAG_DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] || "/cloudsql/myproject:us-central1:mydatabase-instance" %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  database: tagdatabase
+  username: postgres
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: "/cloudsql/$PROJECT_ID:us-central1:spring2025-tag-instance"
+
 
