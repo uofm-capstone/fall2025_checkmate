@@ -4,8 +4,7 @@
 * Timesheet: https://docs.google.com/spreadsheets/d/1Mp5RXmfIqL2ilEI71O-yjVjz8YulbK6ScH4siZxfafs/edit?usp=sharing
 * Team Contract: https://docs.google.com/document/d/1DNdxrKrqxv0f3FG1GDt5yBjK3IdsK1GSwnrV8zVkqxE/edit?usp=sharing
 * Client Meeting Notes: https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
-* Sprint 1 Demo Day ppt: https://1drv.ms/p/c/953af0a0f1222a1c/EapOFUD_PFZHo9rJ0-UujeMBj6CFEIbtn7hiftW9tB0uoA
-
+* Sprint 2 Demo Day ppt: 
 # Tool-Assisted Grading (TAG)
 TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).
 
