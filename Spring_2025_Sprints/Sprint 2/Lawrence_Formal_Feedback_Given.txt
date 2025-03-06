@@ -1,0 +1,16 @@
+Formal Feedback from Lawrence Jones to Jeralyn Saenz:
+
+Jeralyn showed me the wireframes for her HPV vaccination app. I liked how she demonstrated the questions that the user will have to 
+answer when they sign up. It was also creative how she had a wireframe showing that the user can find nearby clinics to get HPV vaccinations. 
+I’m looking forward to seeing how the app comes out to be by sprint 3.
+
+
+Formal Feedback from Lawrence Jones to Courtney Colbert:
+
+Example Headstone Images 
+- Needs implementation into website 
+
+Search Function (Basic/Advanced) 
+- Works well 
+
+Overall Opinion: Good 

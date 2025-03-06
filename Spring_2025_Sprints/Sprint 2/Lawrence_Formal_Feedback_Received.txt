@@ -1,0 +1,13 @@
+Formal feedback from Jeralyn Saenz to Lawrence Jones 
+
+Lawrence showed me his Kanban board and his progress on deploying their app from google cloud. He also showed me the process he went through 
+installing and initializing the app. He mostly spoke about what he hopes to complete because he is having trouble deploying the app on his 
+machine and running the trigger. He and his team are still working on it, but from what I can tell, they’ve made good progress. I’m looking 
+forward to seeing what they accomplish in Sprint 3.
+
+
+Formal feedback from Courtney Colbert to Lawrence Jones
+
+Server runs good 
+App deployment needs further work 
+Overall  Opinion: Keep up the good work 
