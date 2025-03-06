@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_09_171630) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_04_040448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_09_171630) do
     t.text "repo_name"
     t.text "team"
     t.bigint "user_id", null: false
+    t.bigint "semester_id"
+    t.index ["semester_id"], name: "index_repositories_on_semester_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
@@ -105,6 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_09_171630) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "classlists", "semesters"
   add_foreign_key "classlists", "students"
+  add_foreign_key "repositories", "semesters"
   add_foreign_key "repositories", "users"
   add_foreign_key "semesters", "users"
   add_foreign_key "sprints", "semesters"

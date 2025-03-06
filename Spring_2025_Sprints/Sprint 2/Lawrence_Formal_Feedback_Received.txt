@@ -11,3 +11,7 @@ Formal feedback from Courtney Colbert to Lawrence Jones
 Server runs good 
 App deployment needs further work 
 Overall  Opinion: Keep up the good work 
+
+Plans:
+- Get the trigger to work 
+- Deploy the app through Google Cloud.
