@@ -1,0 +1,9 @@
+Feedback From: Su Odeyemi
+To: McNeil McCarley
+
+Feedback
+ - Change blank space on Log In page to have and gradient style picture
+ - Take away Your Email" and second "Password" under input boxes
+ - Put "Forgot Password" under Password Input box
+ - Update buttons
+ - Profile Image?

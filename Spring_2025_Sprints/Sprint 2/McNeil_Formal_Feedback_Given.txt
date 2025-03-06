@@ -1,0 +1,7 @@
+Feedback From: McNeil McCarley
+To: Su Odeyemi
+
+Feedback
+ - Change interactive style to Khan Academy/Cousera 
+ - Add Notes/Highlight feature to help students remember topics
+ - Try to implement a "What Did You Learn" tab at the end of a section/chapter
