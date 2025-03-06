@@ -1,0 +1,11 @@
+Feedback to Dev (from Jonnie)
+- Summary:
+    - electron / js based web-app with backend AI in Python 
+    - Has wireframe drawings  for login page, dashboard, upload
+    - Detects frog from image and sort the images into folder(s)
+    - Current detection only determines if a frog is present in image or not 
+- Comments
+    - On the drawing for the frogs folder upload, could add the instruction under the select folder bottom instead on the asterisk 
+    -  wireframe drawing ideas and flow looks good. 
+    - Could add more to the dashboard like trends or any other data insights ?
+    - Has a drop-down for camera on dashboard
