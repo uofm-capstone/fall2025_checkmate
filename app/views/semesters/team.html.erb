@@ -57,6 +57,7 @@
 
 </style>
 <body>
+
 <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -444,6 +445,17 @@
   </div>
 </div>
 
+
+<div>
+  <%# Putting this div at the bottom for now, as putting it anywhere else would cause the link to not work.  %>
+  <% if @repo.present? %>
+    <%= link_to "View Repository", semester_repository_path(@semester.id, @repo.id, sprin_id: @sprint) %>
+  <% else %>
+    <p>Repository not available</p>
+  <% end %>
+</div>
+
+</body>
 <script type="text/javascript">
   // Submitting the form ot get the commit info
     setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 500); 
