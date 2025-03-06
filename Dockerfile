@@ -1,45 +1,38 @@
-# ======= STAGE 1: Build Node.js Dependencies =======
-FROM node:16-alpine AS node_build
+# Use the correct Ruby version
+FROM ruby:3.2.1-alpine
 
-WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --production
-
-# ======= STAGE 2: Build Ruby & Rails Dependencies =======
-FROM ruby:3.2.1-alpine AS builder
-
+# Install system dependencies
 RUN apk add --no-cache \
     build-base \
+    nodejs \
+    npm \
     postgresql-dev \
     tzdata \
     git \
     imagemagick \
-    yarn \
-    nodejs 
+    yarn
 
+# Set working directory
 WORKDIR /app
 
-# Install Ruby Gems
+# Copy Gemfile first to leverage Docker cache
 COPY Gemfile Gemfile.lock ./
+
+# Fix Bundler issues and install gems
 RUN bundle config set --local without 'development test' && bundle install
 
-# Copy Node.js dependencies from node_build
-COPY --from=node_build /app/node_modules /app/node_modules
+# Copy package.json and install frontend dependencies
+COPY package.json yarn.lock ./
+RUN yarn install --production
+
+# Copy the rest of the application
 COPY . .
 
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
-# ======= STAGE 3: Minimal Runtime Image =======
-FROM ruby:3.2.1-alpine
-
-RUN apk add --no-cache tzdata postgresql-dev nodejs yarn
-
-WORKDIR /app
-COPY --from=builder /app /app
-
-# Expose port 8080 for Google Cloud Run
+# Expose the required port
 EXPOSE 8080
 
-# Run the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
+# Start the Rails server
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "development"]
