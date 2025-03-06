@@ -1,0 +1,9 @@
+Feedback From: Su Odeyemi
+To: McNeil McCarley
+
+Feedback:
+ - Try to add a gradient of admin office to replace the black space on the login page
+ - Take away "Your Email" and second "Password" from under the text boxes
+ - Put "Forgot Password" under Password
+ - Update buttons
+ - Profile Image?
