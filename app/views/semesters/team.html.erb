@@ -449,7 +449,7 @@
 <div>
   <%# Putting this div at the bottom for now, as putting it anywhere else would cause the link to not work.  %>
   <% if @repo.present? %>
-    <%= link_to "View Repository", semester_repository_path(@semester.id, @repo.id, sprin_id: @sprint) %>
+    <%= link_to "View Repository", semester_repository_path(@semester.id, @repo.id, sprint_id: @sprint) %>
   <% else %>
     <p>Repository not available</p>
   <% end %>
