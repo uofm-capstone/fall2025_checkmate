@@ -1,40 +1,18 @@
 steps:
-  # Step 1: Build the Docker image
+  # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
-      - 'build'
-      - '-t'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag'
-      - '--build-arg'
-      - 'RAILS_ENV=production'
-      - '.'
+    args: ['build', '-t', 'us-east1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app', '.']
 
-  # Step 2: Push the image to Google Container Registry (GCR)
+  # Step 2: Push image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
-      - 'push'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag'
+    args: ['push', 'us-east1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app']
 
-  # Step 3: Deploy to Google Cloud Run
+  # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
-    args:
-      - 'run'
-      - 'deploy'
-      - 'spring2025-tag'
-      - '--image'
-      - 'gcr.io/$PROJECT_ID/spring2025-tag'
-      - '--platform'
-      - 'managed'
-      - '--region'
-      - 'us-central1'
-      - '--add-cloudsql-instances'
-      - '$PROJECT_ID:us-central1:spring2025-tag-instance'
-      - '--update-secrets'
-      - 'DATABASE_PASSWORD=database-password:latest,SECRET_KEY_BASE=secret-key-base:latest'
-      - '--update-env-vars'
-      - 'DATABASE_HOST=/cloudsql/$PROJECT_ID:us-central1:spring2025-tag-instance,DATABASE_NAME=tagdatabase,DATABASE_USER=postgres'
-      - '--memory'
-      - '512Mi'
+    args: ['run', 'deploy', 'tag-app-service',
+           '--image', 'us-east1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app',
+           '--region', 'us-east1']
 
-timeout: 1800s
+images:
+- 'us-east1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app'
