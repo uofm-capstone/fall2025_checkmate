@@ -3,7 +3,9 @@
 Run this command in your project root (where docker-compose.yml is located):
 
 docker-compose up --build
-This will: - Build the Rails app container
+
+This will: 
+- Build the Rails app container
 - Start a PostgreSQL database container
 - Start the Rails server on http://localhost:3000
 
