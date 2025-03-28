@@ -32,6 +32,7 @@ class Ability
     user ||= User.new(role: :guest) # Guest user (not logged in)
 
     if user.present?
+
       # Student abilities
       if user.student?
         can :read, Semester
