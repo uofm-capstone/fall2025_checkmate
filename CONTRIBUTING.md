@@ -1,4 +1,4 @@
-## Development Workflow: Full Local Setup Commands
+## Development Workflow Using Docker Container: Full Local Setup Commands
 ### 1. Build and Start Containers
 Run this command in your project root (where docker-compose.yml is located):
 
