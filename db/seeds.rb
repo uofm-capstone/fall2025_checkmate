@@ -16,10 +16,12 @@ end
 User.find_or_create_by(email: "AmyCook@admin.com") do |user|
   user.password = "Admin123!"
   user.admin = true
+  user.role = :admin
 end
 
 # Admin for Professor Brandon Booth
 User.find_or_create_by(email: "BrandonBooth@admin.com") do |user|
   user.password = "Admin456!"
   user.admin = true
+  user.role = :admin
 end

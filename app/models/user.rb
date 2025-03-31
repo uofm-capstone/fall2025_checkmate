@@ -35,4 +35,9 @@ class User < ApplicationRecord
     foreign_key: 'user_id',
     inverse_of: :user,
     dependent: :destroy
+
+  # For backward compatibility with existing admin boolean
+  def admin?
+    role == "admin" || self[:admin] == true
+  end
 end
