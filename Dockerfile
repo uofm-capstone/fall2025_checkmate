@@ -1,40 +1,41 @@
-# Use the correct Ruby version
 FROM ruby:3.2.1-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \
-    build-base \
-    nodejs \
-    npm \
-    postgresql-dev \
-    tzdata \
-    git \
-    imagemagick \
-    yarn
+  build-base \
+  postgresql-dev \
+  nodejs \
+  yarn \
+  tzdata \
+  git \
+  imagemagick \
+  bash \
+  libffi-dev \
+  curl
 
 # Set working directory
 WORKDIR /app
 
-# Copy Gemfile first to leverage Docker cache
+# Set environment
+ENV RAILS_ENV=production \
+    BUNDLE_WITHOUT="development test"
+
+# Copy Gemfile and install gems
 COPY Gemfile Gemfile.lock ./
+RUN bundle install --jobs 4
 
-# Fix Bundler issues and install gems
-RUN bundle config set --local without 'development test' && bundle install
-
-# Copy package.json and install frontend dependencies
+# Copy package.json and install JS deps
 COPY package.json yarn.lock ./
 RUN yarn install --production
 
-# Copy the rest of the application
+# Copy the entire app
 COPY . .
 
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
-# Expose the required port
-# EXPOSE 8080
+# Expose the port Cloud Run expects
+EXPOSE 8080
 
-ENV RAILS_ENV=production
-
-# Start the Rails server
+# Start the Puma server
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:${PORT}"]
