@@ -32,7 +32,9 @@ COPY . .
 RUN bundle exec rake assets:precompile
 
 # Expose the required port
-EXPOSE 8080
+# EXPOSE 8080
+
+ENV RAILS_ENV=production
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
+CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:${PORT}"]
