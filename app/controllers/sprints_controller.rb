@@ -1,5 +1,4 @@
 class SprintsController < ApplicationController
-  before_action :set_semester
   before_action :set_sprint, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, only: [:new, :create, :edit, :update, :destroy]
 
@@ -71,7 +70,7 @@ class SprintsController < ApplicationController
   end
 
   def check_permission
-    unless current_user.admin?
+    unless current_user.admin? || current_user.ta?
       redirect_to semesters_path(@semester), alert: "You don't have permission to manage sprints for this semester."
     end
   end
