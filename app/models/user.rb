@@ -18,13 +18,16 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  # Define roles
+  enum role: { guest: 0, student: 1, ta: 2, admin: 3 }, _default: :guest
+
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "Must be a valid email address" }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
-  # In this version (version_1), each user has only one (implied) class, 
+
+  # In this version (version_1), each user has only one (implied) class,
   # And each user directly owns repositories and sprints
     has_many :semester, dependent: :destroy
     has_many :repositories,
@@ -32,4 +35,9 @@ class User < ApplicationRecord
     foreign_key: 'user_id',
     inverse_of: :user,
     dependent: :destroy
+
+  # For backward compatibility with existing admin boolean
+  def admin?
+    role == "admin" || self[:admin] == true
+  end
 end

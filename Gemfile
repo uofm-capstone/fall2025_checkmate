@@ -98,3 +98,5 @@ gem 'jquery-rails'
 gem 'jaro_winkler'
 gem 'levenshtein'
 gem 'fuzzy-string-match'
+
+gem 'cancancan'
