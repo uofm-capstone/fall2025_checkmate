@@ -35,4 +35,4 @@ RUN bundle exec rake assets:precompile
 EXPOSE 8080
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "development"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080", "-e", "production"]
