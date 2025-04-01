@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   # Admin controller
   get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'
   delete 'admin_user/:id', to: 'admin#destroy', as: 'admin_delete_user'
+  patch 'admin_user/:id/role', to: 'admin#update_role', as: 'admin_update_role'
+
 
   resources :semesters do
     resources :repositories, only: [:new, :create, :show], controller: 'semesters/repositories'
