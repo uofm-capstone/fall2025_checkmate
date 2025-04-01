@@ -1,0 +1,10 @@
+
+Feedback from Riyaad Howlader 
+Group: Decibuddies
+To Student: Tyler Howell 
+Group: Tag
+Meeting Type: Code Review
+
+The website is difficult to reach due to it lacking url when putting into production, as such it requires IP in order to navigate. 
+It would be a good idea to get a formal url so people can navigate. 
+Further, it seems the website is not correctly uploading onto the cloud, as such it is a good idea to figure out how to get it to deploy
