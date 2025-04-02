@@ -54,38 +54,6 @@
   <div class="container mt-3">
 
     <div class="d-flex">
-      <div class="sidebar">
-        <div>
-          <div>
-            <%= link_to semesters_path do %>
-              <h2 style="z-index: 9999; position: relative;">
-                <i class="bi bi-arrow-return-left"></i>
-              </h2>
-            <% end %>
-            <h3><%= @semester.semester %> <%= @semester.year %></h3>
-            <ul class="list-unstyled ps-0">
-              <li class="border-top my-3"></li>
-              <li>
-                <div class="col-sm-8">
-                  <%= bootstrap_form_with url: semester_team_path(@semester), method: "get", local: true do |f| %>
-                    <%= f.select :team, @teams %>
-                    <hr>
-                    <%= f.select :sprint, @sprint_list %>
-                    <%= f.submit "View" %>
-                  <% end %>
-                </div>
-                <hr>
-              </li>
-              <li class="mb-1">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadCSVModal">
-                  Upload CSV
-                </button>
-              </li>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <div class="main-content">
         <!-- Warning for No Student CSV Uploaded -->
         <% unless @semester.student_csv.attached? %>
