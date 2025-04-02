@@ -1,0 +1,23 @@
+Jeralyn Saenz:
+-	Jeralyn showed me the features the HPV group implemented: home page, the map, and assessments.
+-	There are some Spanish related questions in place of the actual questions regarding HPV vaccination.
+-	There is a QR code you must scan through the terminal in order to access the app. The app is called Expo go.
+-	The map feature shows the nearest clinics you can visit.
+
+Feedback:
+-	Fix the map features so you can see the “Find the clinics near you”
+-	Make the map to where you can navigate it easier.
+-	Try to implement some questions for the user about their health.
+-	Create questions for the user pertaining to any prior vaccinations.
+
+
+Courtney Colbert:
+- I like the attention to detail. I like the switch from basic to advanced search button feature.
+- There was an issue where the search feature did not have any records shown.
+- The manage function crashed when attempting to create new record.
+- The Contact page had good data.
+
+Feedback:
+- News page needs more content and better styling.
+- About page needs more detailed styling, animated gif needs more work done
+- Contact page needs more styling.
