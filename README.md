@@ -1,10 +1,11 @@
 # README
 
 # TAG Team Spring Semester Documents
-* Timesheet (As of 3/5/2025): https://docs.google.com/spreadsheets/d/1Mp5RXmfIqL2ilEI71O-yjVjz8YulbK6ScH4siZxfafs/edit?usp=sharing
+* Timesheet: https://docs.google.com/spreadsheets/d/1Mp5RXmfIqL2ilEI71O-yjVjz8YulbK6ScH4siZxfafs/edit?usp=sharing
 * Team Contract: https://docs.google.com/document/d/1DNdxrKrqxv0f3FG1GDt5yBjK3IdsK1GSwnrV8zVkqxE/edit?usp=sharing
-* Client Meeting Notes (As of 2/28/2025): https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
-* Sprint 2 Demo Day ppt: https://livememphis-my.sharepoint.com/:p:/g/personal/mmccrly1_memphis_edu/EZpUdLgltoxFvo8zFw6a2fEB_LukHtgALYhXKY3DAPcTyw?e=D9a04A 
+* Client Meeting Notes: https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
+* Sprint 3 Demo Day ppt: https://livememphis-my.sharepoint.com/:p:/g/personal/mmccrly1_memphis_edu/EZpUdLgltoxFvo8zFw6a2fEB_LukHtgALYhXKY3DAPcTyw?e=D9a04A
+* Formal Feedback Sprint 3: Spring_2025_Sprints > Sprint 3
 # Tool-Assisted Grading (TAG)
 TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).
 
