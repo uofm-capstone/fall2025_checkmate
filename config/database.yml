@@ -83,10 +83,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USER"] %>
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: rails_user
+  password: <%= ENV['DB_PASSWORD'] %>
+  database: tag_app_production
+  host: /cloudsql/spring2025-tag:us-central1:tag-app-db
 
 
