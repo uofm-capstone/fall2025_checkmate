@@ -1,0 +1,17 @@
+From Jeralyn Saenz:
+-	Lawrence is using an app called Postman to make GET requests to the Tag team repo on GitHub.
+-	He showed me how he retrieved the commit history of the repo, and the list of usernames associated with it.
+-	He demonstrated how to generate an access token on GitHub.
+-	Lawrence could not retrieve the GitHub API using the octokit.js file.
+
+Feeback:
+Learn how to use JavaScript.
+
+From Courtney Colbert:
+- Lawrence showed me the GET requests he made to get the GitHub API using Postman.
+- He showed me the steps he took to generate an access token on GitHub.
+- He tried to show me how to get the GitHub API requests using a variable which contained the fine-grained access token, but it didn’t work. 
+
+Feedback:
+Watch more videos on how to access the GitHub API to get a better understanding.
+Ask for help when needed.
