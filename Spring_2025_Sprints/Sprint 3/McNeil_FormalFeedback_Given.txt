@@ -1,0 +1,8 @@
+Feedback Given To: Su Odeyemi
+Feedback From: McNeil McCarley
+
+Feedback:
+- Create better spacing for viewing important vocabulary words in the lessons
+- Add Back button/Navigation button to connect lesson screens together
+- Implement highlighting feature to make important words/topics stand out for the user
+- Add a second set of foward and back navigation buttons for better usability
