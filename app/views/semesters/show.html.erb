@@ -153,6 +153,36 @@
             <% end %>
           </div>
         </div>
+      <!-- Sprint-specific Upload CSV Forms -->
+<!-- Sprint-specific Upload CSV Forms (Student + Client, no Git) -->
+<% @sprint_list.each do |sprint| %>
+  <div class="d-flex justify-content-center mb-3">
+    <div class="card w-100">
+      <div class="card-body">
+        <h5 class="card-title"><%= sprint %> CSV Upload</h5>
+        <%= form_with url: upload_sprint_csv_semester_path(@semester), method: :post, local: true, html: { multipart: true } do %>
+          <%= hidden_field_tag :sprint_name, sprint %>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Student CSV</label>
+              <%= file_field_tag :student_csv, accept: '.csv', class: 'form-control' %>
+            </div>
+            <div class="col-md-6">
+              <label>Client CSV</label>
+              <%= file_field_tag :client_csv, accept: '.csv', class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="text-center mt-3">
+            <%= submit_tag "Upload for #{sprint}", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 
       </div>
     </div>
