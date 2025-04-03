@@ -1,0 +1,14 @@
+Feedback Given To: McNeil McCarley
+Feedback From: Su Odeyemi
+Meeting Type: Usability
+
+Feedback:
+- Move global navigation to top for more screen spacing
+- Include option to click on team on team status page to show all team and individual assignment information
+- Change legend for team status icon
+- Add dropdown to change between semesters on team status page
+- Add tutorial for obtaining Github access token
+- Implement upload button for CSV files on team status page for specific sprint
+- Add column headers on Teams page for better user readability
+- Add input text for sponsor name on "New Team" form
+- Delete "Github Configuration" tab since the access token form is now in Add/Edit Team tab
