@@ -20,8 +20,8 @@
         <% @sprints.each do |sprint| %>
           <tr>
             <td><%= sprint.name %></td>
-            <td><%= sprint.start_date %></td>
-            <td><%= sprint.end_date %></td>
+            <td><%= sprint.start_date.strftime('%Y-%m-%d') %></td>
+            <td><%= sprint.end_date.strftime('%Y-%m-%d') %></td>
             <% if current_user.admin? %>
               <td>
                 <%= link_to 'Edit', edit_semester_sprint_path(@semester, sprint), class: 'btn btn-outline-secondary btn-sm'  %>
