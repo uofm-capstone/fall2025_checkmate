@@ -1,5 +1,6 @@
 Feedback Given To: Su Odeyemi
 Feedback From: McNeil McCarley
+Meeting Type: Usability
 
 Feedback:
 - Create better spacing for viewing important vocabulary words in the lessons
