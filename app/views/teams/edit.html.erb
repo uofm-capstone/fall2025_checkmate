@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+    <div class="d-flex flex-column">
+      <h1>Edit Team</h1>
+      <div>
+        <%= bootstrap_form_with model: @team, local: true do |f| %>
+          <div class="form-group">
+            <%= f.text_field :name, required: true %>
+            <%= f.collection_select :semester_id, @semesters, :id, :name_for_select, { label: "Semester" } %>
+            <%= f.text_area :description, rows: 3 %>
+            <%= f.text_field :github_token, label: "GitHub Token" %>
+            <%= f.submit %>
+          </div>
+        <% end %>
+      </div>
+      
+      <h2 class="mt-4">Team Members</h2>
+      <table class="table text-white">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @team.users.any? %>
+            <% @team.users.each do |user| %>
+              <tr>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.admin? %>
+                    Admin
+                  <% elsif user.ta? %>
+                    TA
+                  <% elsif user.student? %>
+                    Student
+                  <% else %>
+                    Guest
+                  <% end %>
+                </td>
+                <td>
+                  <%= button_to "Remove", remove_member_team_path(@team, user_id: user.id), method: :delete, class: "btn btn-sm btn-danger" %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="3">No members in this team yet.</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <% if @users.any? %>
+        <h3 class="mt-3">Add Member</h3>
+        <%= bootstrap_form_with url: add_member_team_path(@team), method: :post, local: true do |f| %>
+          <%= f.collection_select :user_id, @users, :id, :email, { label: "Select User" } %>
+          <%= f.submit "Add Member", class: "btn btn-success" %>
+        <% end %>
+      <% end %>
+      
+      <%= link_to 'Back', team_path(@team), class: 'btn btn-outline-secondary mt-3' %>
+    </div>
+  </div>
+</div>

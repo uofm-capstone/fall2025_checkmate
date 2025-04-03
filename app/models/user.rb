@@ -29,12 +29,17 @@ class User < ApplicationRecord
 
   # In this version (version_1), each user has only one (implied) class,
   # And each user directly owns repositories and sprints
-    has_many :semester, dependent: :destroy
-    has_many :repositories,
-    class_name: 'Repository',
-    foreign_key: 'user_id',
-    inverse_of: :user,
-    dependent: :destroy
+  has_many :semester, dependent: :destroy
+  has_many :repositories,
+  class_name: 'Repository',
+  foreign_key: 'user_id',
+  inverse_of: :user,
+  dependent: :destroy
+
+  # Joint table with Team
+  has_many :user_teams, dependent: :destroy
+  has_many :teams, through: :user_teams
+
 
   # For backward compatibility with existing admin boolean
   def admin?

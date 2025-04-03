@@ -157,8 +157,8 @@ class SemestersController < ApplicationController
       @team =  params[:team]
       @repositories = Repository.where(team: @team)
       # Find the specific repository for the current team
-      @repo = @repositories.find { |repo| repo.team == @team } if @team.present?
-
+    #   @repo = @repositories.team.find { |repo| repo.team == @team } if @team.present?
+    #   @repo ||= none
 
       # TODO: Allow user to select how many Sprint's there are
       @sprints = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
