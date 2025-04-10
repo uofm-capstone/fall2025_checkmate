@@ -24,3 +24,6 @@ steps:
 
 images:
 - 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
