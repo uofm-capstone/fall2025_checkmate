@@ -12,7 +12,7 @@ document.getElementById('github-form').addEventListener('submit', function(event
     const endDate = document.getElementById('end-date').value;
 
     const octokit = new Octokit({
-        auth: accessToken,
+        auth: auth_token, //replace me
     });
     
     // Get a reference to the commit-table and its tbody

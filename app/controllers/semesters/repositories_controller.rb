@@ -109,13 +109,21 @@ class RepositoriesController < ApplicationController
     end
 
     def create
-        @repository = Repository.new(user_id: current_user.id, owner: params[:owner].strip, repo_name: params[:repo_name].strip, team: params[:team_name].strip)
-        if @repository.save!
+        @semester = Semester.find(params[:semester_id])
+        @repository = Repository.new(repository_params)
+
+        if @repository.save
             redirect_to semesters_path, notice: 'The repository has been successfully added!'
         else
             flash.now[:alert] = 'Error! Unable to add new repository.'
             render :new
         end
+    end
+
+    private
+
+    def repository_params
+        params.permit(:owner, :repo_name, :team_name)
     end
 end
 end
