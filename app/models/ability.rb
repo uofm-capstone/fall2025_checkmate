@@ -33,12 +33,17 @@ class Ability
 
     if user.present?
 
+      if user.guest?
+        can :read, Semester
+        can :read, Sprint
+      end
+
       # Student abilities
       if user.student?
         can :read, Semester
-        can :read, Team, user_teams: { user_id: user.id }
-        can :read, Repository, team: { user_teams: { user_id: user.id } }
         can :read, Sprint
+        # can :read, Team, user_teams: { user_id: user.id }
+        # can :read, Repository, team: { user_teams: { user_id: user.id } }
       end
 
       # TA abilities
@@ -54,6 +59,7 @@ class Ability
         can :read, Sprint
         can :create, Sprint
         can :update, Sprint
+        can :destroy, Sprint
       end
 
       # Admin abilities - can do everything
