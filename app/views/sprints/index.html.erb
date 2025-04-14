@@ -1,8 +1,5 @@
 <div class="container">
   <h1 style="color: #0D3182; text-align: center">
-    <%= link_to semester_path(@semester), class: "" do %>
-      <%= image_tag "arrow-left-circle-fill.svg", class:"mr-1", style: "height:32px"%>
-    <% end %>
     Sprints for <%= @semester.semester %> <%= @semester.year %>
   </h1>
   <div>
@@ -22,12 +19,11 @@
             <td><%= sprint.name %></td>
             <td><%= sprint.start_date.strftime('%Y-%m-%d') %></td>
             <td><%= sprint.end_date.strftime('%Y-%m-%d') %></td>
-            <% if current_user.admin? %>
+            <% if can? :update, sprint %>
               <td>
                 <%= link_to 'Edit', edit_semester_sprint_path(@semester, sprint), class: 'btn btn-outline-secondary btn-sm'  %>
                 <%= button_to "Destroy", semester_sprint_path(@semester, sprint), method: :delete, class: 'btn btn-outline-secondary btn-sm',
                   form: { style: 'display:inline-block;' }, data: { turbo_confirm: 'Are you sure?' }  %>
-
               </td>
             <% end %>
           </tr>
@@ -37,7 +33,13 @@
   </div>
   <div class="mt-3">
     <div style="text-align: center">
-      <%= link_to 'Create a new sprint', new_semester_sprint_path(@semester), class: "btn btn-secondary" %>
+      <% if can? :create, Sprint %>
+        <%= link_to 'Create a new sprint', new_semester_sprint_path(@semester), class: "btn btn-secondary" %>
+      <% end %>
     </div>
+  </div>
+
+   <div class="mt-4 text-center">
+    <%= link_to "Back to Semester", semester_path(@semester), class: "bi bi-arrow-left btn btn-primary" %>
   </div>
 </div>

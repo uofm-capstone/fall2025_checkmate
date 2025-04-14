@@ -2,6 +2,9 @@ class SprintsController < ApplicationController
   before_action :set_sprint, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, only: [:new, :create, :edit, :update, :destroy]
 
+  load_and_authorize_resource :semester
+  load_and_authorize_resource :sprint, through: :semester
+
   def index
     @semester = Semester.find(params[:semester_id])
     @sprints = @semester.sprints.order(:start_date)

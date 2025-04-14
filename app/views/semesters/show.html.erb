@@ -75,14 +75,11 @@
                   <% end %>
                 </div>
               </li>
-              <% if current_user.admin? || current_user.ta? %>
-              <%# Maybe allow users to look at sprints date read-only? %>
                 <li>
                   <div class="col-sm-8">
-                    <%= link_to "Manage Sprints", semester_sprints_path(@semester), class: 'btn btn-secondary'%>
+                    <%= link_to "Sprints", semester_sprints_path(@semester), class: 'btn btn-secondary'%>
                   </div>
                 </li>
-              <% end %>
               <hr>
 
               <li class="mb-1">
