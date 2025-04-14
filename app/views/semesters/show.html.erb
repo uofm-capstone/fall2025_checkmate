@@ -74,8 +74,14 @@
                     <%= f.submit "View" %>
                   <% end %>
                 </div>
-                <hr>
               </li>
+                <li>
+                  <div class="col-sm-8">
+                    <%= link_to "Sprints", semester_sprints_path(@semester), class: 'btn btn-secondary'%>
+                  </div>
+                </li>
+              <hr>
+
               <li class="mb-1">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadCSVModal">
                   Upload CSV

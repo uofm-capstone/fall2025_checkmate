@@ -64,7 +64,7 @@ class SemestersController < ApplicationController
 
   def new
       @semester = Semester.new
-      @semester.sprints.build
+      # @semester.sprints.build
       # render :new
   end
 

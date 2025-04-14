@@ -15,3 +15,6 @@ From Courtney Colbert:
 Feedback:
 Watch more videos on how to access the GitHub API to get a better understanding.
 Ask for help when needed.
+
+Plans to address:
+- Learn how to check the API with Node.js

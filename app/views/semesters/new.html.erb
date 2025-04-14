@@ -12,12 +12,6 @@
                   <%= f.select :semester, semester_array, {}, class: 'form-control form-control-lg', id: 'semester' %>
                   <%= f.select :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), {}, class: 'form-control form-control-lg', id: 'year' %>
                 </div>
-                <fieldset class="ml-2 mb-4">
-                  <legend>Sprints:</legend>
-                  <%= f.fields_for :sprints do |sprints_form| %>
-                    <%= render partial: "semesters/sprint_fields", locals: { f: sprints_form } %>
-                  <% end %>
-                </fieldset>
                 <div class="form-outline mb-4">
                   <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
                 </div>
