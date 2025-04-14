@@ -1,0 +1,7 @@
+== TO: Aidan Johnson ==
+
+- Could have placeholders/default stuff for profiles to make look less empty. 
+- Could have ‘other’ option on email form.
+- Email form and sent email looks good.
+- Some cool future stuff to have is a profile relationship with profiles 
+The website looks generally good; functionality looks good. 

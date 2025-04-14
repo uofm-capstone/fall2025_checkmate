@@ -1,0 +1,5 @@
+Plans to address feedback
+Tyler Howell
+
+In sprint 4 we will talking with the sponsor about domain names and assign one to the tag service in gcloud.
+Application is deployed in cloud now, second sentence resolved.
