@@ -17,13 +17,26 @@
   </head>
   <body>
   <%= render partial: "shared/navbar" %>
-  <div class="flash-messages-wrapper">
-    <%= render partial: "shared/flash" %>
-  </div>
-  <div class="main-content-wrapper">
-    <%= yield %>
-  </div>
-  </body>
+
+  <% if user_signed_in? %>
+    <div class="d-flex">
+      <%= render partial: "shared/sidebar" %>
+      <div class="main-content-wrapper" style="margin-left: 220px; padding: 2rem;">
+        <div class="flash-messages-wrapper">
+          <%= render partial: "shared/flash" %>
+        </div>
+         <%= yield %>
+      </div>
+    </div>
+  <% else %>
+    <div class="flash-messages-wrapper">
+      <%= render partial: "shared/flash" %>
+    </div>
+    <div class="main-content-wrapper">
+      <%= yield %>
+    </div>
+  <% end %>
+</body>
 <style>
     .flash-messages-wrapper {
         position: fixed;

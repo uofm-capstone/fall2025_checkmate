@@ -109,12 +109,41 @@ class SemestersController < ApplicationController
       end
   end
 
-  def destroy
-      @semester = Semester.find(params[:id])
-      @semester.destroy
-      flash[:success] = "Semester was successfully deleted"
-      redirect_to semesters_path, status: :see_other
-  end
+    def destroy
+        @semester = Semester.find(params[:id])
+        @semester.destroy
+        flash[:success] = "Semester was successfully deleted"
+        redirect_to semesters_path, status: :see_other
+    end
+
+    def status
+        @semester = Semester.find(params[:id])
+        @teams = getTeams(@semester)
+        @sprint_list = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
+        @flags = {}
+
+        @sprint_list.each do |sprint|
+            @flags[sprint] = {}
+            @teams.each do |team|
+                @flags[sprint][team] = get_flags(@semester, sprint, team)
+            end
+        end
+
+        render :status
+    end
+
+    def upload_sprint_csv
+        @semester = Semester.find(params[:id])
+        sprint_name = params[:sprint_name]
+
+        @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
+        @semester.client_csv.attach(params[:client_csv]) if params[:client_csv].present?
+
+        flash[:notice] = "#{sprint_name} CSVs uploaded!"
+        redirect_to semester_path(@semester)
+    end
+
+
 
   def getTeams(semester)
       @teams = []
@@ -513,15 +542,15 @@ class SemestersController < ApplicationController
 
     private
 
-    # Ensure all private methods are within this section.
-    def semester_params
-      params.permit(
-        :semester, :year, sprints_attributes: [
-          :id, :_destroy, :start_date, :end_date
-        ],
-        student_csv: [], client_csv: [], git_csv: []
-      )
-    end
+      # Ensure all private methods are within this section.
+      def semester_params
+        params.permit(
+          :semester, :year, :sprint_number, sprints_attributes: [
+            :id, :_destroy, :start_date, :end_date
+          ],
+          student_csv: [], client_csv: [], git_csv: []
+        )
+      end
 
     # Any other private utility methods should be defined below this point.
 

@@ -39,20 +39,18 @@
     }
 
     .top-warning {
-      position: fixed; /* or absolute */
+      position: fixed;
       top: 40px;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      z-index: 1050; /* Ensure it's above other content; adjust as needed */
-      
+      z-index: 1050;
     }
   </style>
 </head>
 <body>
 
   <div class="container mt-3">
-
     <div class="d-flex">
       <div class="sidebar">
         <div>
@@ -95,15 +93,15 @@
       <div class="main-content">
         <!-- Warning for No Student CSV Uploaded -->
         <% unless @semester.student_csv.attached? %>
-            <div class="d-flex justify-content-center mt-4 mb-4">
-              <div class="card w-100 border-danger">
-                <div class="card-body bg-danger text-white">
-                  <p class="card-text text-center">
-                    <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
-                  </p>
-                </div>
+          <div class="d-flex justify-content-center mt-4 mb-4">
+            <div class="card w-100 border-danger">
+              <div class="card-body bg-danger text-white">
+                <p class="card-text text-center">
+                  <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
+                </p>
               </div>
             </div>
+          </div>
         <% end %>
 
         <div class="row">
@@ -114,41 +112,80 @@
                 <h5 class="">Legend:</h5>
                 <ul class="list-inline">
                   <li class="list-inline-item">
-                    <%= image_tag "check-circle-fill.svg", class: "", style: "height:16px" %> All Good
+                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %> All Good
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "question-circle-fill.svg", class: "", style: "height:16px" %> No Data Uploaded
+                    <%= image_tag "question-circle-fill.svg", style: "height:16px" %> No Data Uploaded
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "exclamation-circle-fill-yellow.svg", class: "", style: "height:16px" %> No Client Survey
+                    <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %> No Client Survey
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "exclamation-triangle-fill-red.svg", class: "", style: "height:16px" %> Poor Performance
+                    <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %> Poor Performance
                   </li>
                 </ul>
               </div>
               <p>Note: Hover over warning symbol to see more details</p>
+
               <!-- Warning for No Client CSV Uploaded -->
-                <% unless @semester.client_csv.attached? %>
-                    <div class="d-flex justify-content-center mt-4 mb-4">
-                      <div class="card w-100 border-danger">
-                        <div class="card-body bg-danger text-white">
-                          <p class="card-text text-center">
-                            <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
-                          </p>
-                        </div>
-                      </div>
+              <% unless @semester.client_csv.attached? %>
+                <div class="d-flex justify-content-center mt-4 mb-4">
+                  <div class="card w-100 border-danger">
+                    <div class="card-body bg-danger text-white">
+                      <p class="card-text text-center">
+                        <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
+                      </p>
                     </div>
-                <% end %>
-              <table class="table">
-                <thead>
+                  </div>
+                </div>
+              <% end %>
+
+              <table class="table table-bordered">
+                <thead class="text-center">
                   <tr>
-                    <th scope="col">Team</th>
-                    <%= sprint_header(@sprint_list) %>
+                    <th rowspan="3">Team</th>
+                    <% @sprint_list.each do |sprint| %>
+                      <th colspan="15"><%= sprint %></th>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <% @sprint_list.each do |_sprint| %>
+                      <th colspan="4">Planning</th>
+                      <th colspan="4">PC</th>
+                      <th colspan="6">Demo</th>
+                      <th rowspan="2">CF</th>
+                    <% end %>
+                  </tr>
+                  <tr>
+                    <% @sprint_list.each do |_sprint| %>
+                      <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D"].each do |item| %>
+                        <th style="font-size: 0.75rem;"><%= item %></th>
+                      <% end %>
+                    <% end %>
                   </tr>
                 </thead>
                 <tbody>
-                  <%= team_rows(@teams, @sprint_list, @flags) %>
+                  <% @teams.each do |team| %>
+                    <tr>
+                      <td><%= team %></td>
+                      <% @sprint_list.each do |sprint| %>
+                        <% indicators = @flags[sprint][team] || [] %>
+                        <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
+                          <td class="text-center">
+                            <% if indicators.include?("no data") %>
+                              <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
+                            <% elsif indicators.include?("no client score") && rubric_item == "CF" %>
+                              <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %>
+                            <% elsif indicators.include?("low score") || indicators.include?("low client score") %>
+                              <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
+                            <% else %>
+                              <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                            <% end %>
+                          </td>
+                        <% end %>
+                      <% end %>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             <% end %>
@@ -175,52 +212,26 @@
             <div class="form-outline mb-4">
               <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
             </div>
-            <div class="form-outline mb-4">
-              <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
+            <div class="mb-3">
+              <%= f.label :client_csv, "Client CSV" %>
+              <%= f.file_field :client_csv, accept: ".csv", class: "form-control" %>
             </div>
-            <div class="form-outline mb-4">
-              <%= f.file_field :git_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'git_csv' %>
-            </div>
-            <div class="d-flex justify-content-center mb-4">
-              <%= f.submit "Update", class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white" %>  
+            <%= hidden_field_tag :sprint_number, sprint %>
+            <div class="d-grid">
+              <%= f.submit "Upload for #{sprint}", class: "btn btn-primary" %>
             </div>
           <% end %>
         </div>
       </div>
-    </div>
-  </div>
+    <% end %>
 
-  <!-- Import CSV File Modal for student_list -->
- <div class="modal fade" id="importStudentCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="importCSVModalLabel">Import Student CSV File</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with(url: import_home_path, multipart: true, html: { class: "import-form" }) do |form| %>
-          <div class="form-group">
-            <%= form.label :file, 'Select CSV File', class: "import-file-label" %>
-            <%= form.file_field :file, accept: '.csv', class: "import-file-input" %>
-          </div>
-          <div class="d-flex justify-content-center mt-4">
-            <%= form.submit 'Import', class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white import-button" %>
-          </div>
-        <% end %>
-
-        <!-- Additional styling inside the modal body -->
-        <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
       </div>
     </div>
   </div>
-  
-</div>
 
-<!-- Allows the data from the github request to be shown -->
-<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
-<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
-<%= javascript_include_tag 'octokit', type: "module" %>
-
-
-
+  <!-- Upload CSV Modal -->
+  <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+  <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+  <%= javascript_include_tag 'octokit', type: "module" %>
+</body>
+</html>
