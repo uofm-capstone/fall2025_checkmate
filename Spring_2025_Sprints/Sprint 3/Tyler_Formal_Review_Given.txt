@@ -1,0 +1,18 @@
+Feedback From: Tyler Howell           
+Group: TAG                                  
+To Student: Riyaad Howlader
+Group: Decibuddies
+Meeting Type: Emperical Usability 
+
+Walking through application (after navigating to training, completing week one  & two training): 
+    - My training results for week 2 do not appear after completing week 2 training 
+    - Training page has difficult buttons for everyone to locate instantly
+
+Feedback given:
+UI could benefit from:
+- More noticable buttons
+
+Backend needs to show the results of trainings beyond week 1.
+
+
+

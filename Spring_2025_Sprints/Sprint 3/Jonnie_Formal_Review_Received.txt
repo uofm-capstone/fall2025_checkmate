@@ -1,0 +1,10 @@
+great funcitonoality for the sprint creation, suggestion to maybe have the timezone of the sprint change depending on the user's local machine timezone or maybe remove timezone entirely,
+make sure there are proper restrictions in regards to the user access based on roles, need to tie in the semester repository. Needed to see the team managment in action but code seen/functionality looks good.
+ensure that admins are able to properly assign tasks based on sprint data. Sprint integration with github commits will be crucial.
+
+
+Plan to address:
+- Will look into how to config timezone rather than use UTC
+- Will test each user role access and change if needed.
+- Continue on working on the Team functionality. 
+- And ensure that git info is displayed properly and working.

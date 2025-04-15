@@ -1,0 +1,13 @@
+Feedback to @Jonnie (from Dev)
+- Summary
+    - Fixed the sprint links in repositories/show by hardcoding default sprint start/end dates
+    - Partially refactor semesters_controller.rb
+- Comments
+    - Thanks for organizing the changes into a PR (good organization)
+    - Try to make more incremental & smaller commits so the diffs aren’t huge
+    - Good job with feeling out the codebase and making small changes to review how it affects functionality; especially given the lack of comments.
+    - Dependencies (node_modules) should not be checked into GitHub; they need to be `.gitignore`d and installed in developer environments like Ruby gems.
+- Plans to Address feedback:
+    - Since I have a better grasp of codebase I should be able to contribute more the code. 
+    - Will be more mindful of the my commits by trying to commit more frequently. 
+    - Will try to address the dependencies stuff with the team during sprint 3. 

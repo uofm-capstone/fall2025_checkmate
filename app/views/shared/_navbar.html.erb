@@ -10,7 +10,7 @@
         <li class="nav-item">
           <%= render 'shared/team_sprint_dropdowns' if controller_name == 'semesters' && action_name == 'team' %>
         </li>
-        <% if current_user && current_user.admin? %>
+        <% if current_user && (current_user.admin? || current_user.ta?) %>
           <li class="nav-item">
             <a class="nav-link" href="<%= admin_dashboard_path %>" aria-expanded="false">
               Admin Dashboard

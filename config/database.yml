@@ -17,13 +17,16 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'password' %>
+  database: <%= ENV['DATABASE_NAME'] || 'mydatabase' %>
+
 
 development:
   <<: *default
-  database: tag_development
+  database: <%= ENV.fetch("DATABASE_NAME", "tag_development") %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -80,7 +83,12 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: tag_production
-  username: tag
-  password: <%= ENV["TAG_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: rails_user
+  password: <%= ENV['DB_PASSWORD'] %>
+  database: tag_app_production
+  host: /cloudsql/spring2025-tag:us-central1:tag-app-db
+
+
