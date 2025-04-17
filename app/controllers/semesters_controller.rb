@@ -374,15 +374,46 @@ class SemestersController < ApplicationController
               begin
                   studentData = SmarterCSV.process(tempStudent.path)
 
-                  # # Delete the 2 header columns before the data
-                  # studentData.delete_at(0)
-                  # studentData.delete_at(0)
-
                   student_survey = studentData.find_all{|survey| survey[:q2]==team && survey[:q22]==sprint}
                   question_titles = studentData[0]
 
                   if student_survey.blank?
                       flags.append("student blank")
+                  end
+
+                  # Check for client feedback
+                  begin
+                      semester.client_csv.open do |tempClient|
+                          clientData = SmarterCSV.process(tempClient.path)
+                          client_survey = clientData.find_all { |survey| 
+                              survey[:q1_team] == team && survey[:q3] == sprint 
+                          }
+                          
+                          if client_survey.blank?
+                              flags.append("no client score")
+                          else
+                              # Check if all required client feedback questions are answered
+                              required_questions = ['q2_1', 'q2_2', 'q2_3', 'q2_4', 'q2_5', 'q2_6']
+                              missing_questions = required_questions.reject { |q| client_survey[0].has_key?(q.to_sym) }
+                              
+                              if missing_questions.any?
+                                  flags.append("incomplete client feedback")
+                              else
+                                  # Check if any responses are below expectations
+                                  low_scores = client_survey[0].select { |k, v| 
+                                      k.to_s.start_with?('q2_') && 
+                                      v.present? && 
+                                      !['exceeded expectations', 'met expectations'].include?(v.strip.downcase)
+                                  }
+                                  
+                                  if low_scores.any?
+                                      flags.append("low client score")
+                                  end
+                              end
+                          end
+                      end
+                  rescue => e
+                      flags.append("no client score")
                   end
 
                   if student_survey[0] then self_submitted_names = [[student_survey[0][:q1]],[student_survey[0][:q10]]] end
@@ -483,7 +514,7 @@ class SemestersController < ApplicationController
                       if name[-2].is_a?(String) && !flags.include?("missing submit")
                           flags.append("missing submit")
                       end
-                      if name[-2] < 4 && !@flags.include?("-low score")
+                      if name[-2] < 4 && !flags.include?("-low score")
                           flags.append("low score")
                       end
                       if name.last < 4 && !flags.include?("low score")
@@ -524,7 +555,7 @@ class SemestersController < ApplicationController
       @students_info = []
 
       CSV.foreach(filepath, headers: true) do |row|
-        @students_info << {name: row['﻿Name'], role: row['Role']}
+        @students_info << {name: row['Name'], role: row['Role']}
       end
     rescue ActiveRecord::RecordNotFound
       redirect_to semesters_path, alert: 'Semester not found.'

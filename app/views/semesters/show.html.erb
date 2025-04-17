@@ -134,14 +134,24 @@
                         <% indicators = @flags[sprint][team] || [] %>
                         <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
                           <td class="text-center">
-                            <% if indicators.include?("no data") %>
-                              <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
-                            <% elsif indicators.include?("no client score") && rubric_item == "CF" %>
-                              <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %>
-                            <% elsif indicators.include?("low score") || indicators.include?("low client score") %>
-                              <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
+                            <% if rubric_item == "CF" %>
+                              <% if indicators.include?("no client score") %>
+                                <%= image_tag "question-circle-fill.svg", style: "height:16px", title: "No client feedback available" %>
+                              <% elsif indicators.include?("incomplete client feedback") %>
+                                <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px", title: "Incomplete client feedback" %>
+                              <% elsif indicators.include?("low client score") %>
+                                <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px", title: "Low client feedback score" %>
+                              <% else %>
+                                <%= image_tag "check-circle-fill.svg", style: "height:16px", title: "Client feedback received" %>
+                              <% end %>
                             <% else %>
-                              <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                              <% if indicators.include?("no data") %>
+                                <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
+                              <% elsif indicators.include?("low score") %>
+                                <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
+                              <% else %>
+                                <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                              <% end %>
                             <% end %>
                           </td>
                         <% end %>
