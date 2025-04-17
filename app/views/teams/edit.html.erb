@@ -28,22 +28,13 @@
             <% @team.users.each do |user| %>
               <tr>
                 <td><%= user.email %></td>
-                <td>
-                  <% if user.admin? %>
-                    Admin
-                  <% elsif user.ta? %>
-                    TA
-                  <% elsif user.student? %>
-                    Student
-                  <% else %>
-                    Guest
-                  <% end %>
-                </td>
+                <td><%= user.role.capitalize %></td>
                 <td>
                   <%= button_to "Remove", remove_member_team_path(@team, user_id: user.id), method: :delete, class: "btn btn-sm btn-danger" %>
                 </td>
               </tr>
             <% end %>
+            <%# If team is empty %>
           <% else %>
             <tr>
               <td colspan="3">No members in this team yet.</td>

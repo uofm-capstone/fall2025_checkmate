@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <h1 style="color: #0D3182; text-align: center">Teams</h1>
   
-  <% if current_user.admin? || current_user.ta? %>
+  <% if can? :create, Team %>
     <div style="text-align: center" class="mb-3">
       <%= link_to 'Create a new team', new_team_path, class: "btn btn-secondary" %>
     </div>
@@ -26,7 +26,7 @@
             <td><%= team.users.count %></td>
             <td>
               <%= link_to 'View', team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
-              <% if current_user.admin? || current_user.ta? %>
+              <% if can? :update, team %>
                 <%= link_to 'Edit', edit_team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
                 <%= button_to 'Delete', team_path(team), method: :delete, class: 'btn btn-outline-secondary btn-sm', data: { confirm: 'Are you sure?' } %>
               <% end %>

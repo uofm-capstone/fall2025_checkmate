@@ -1,9 +1,11 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: [:show, :edit, :update, :destroy, :add_member, :remove_member]
-  before_action :check_admin_or_ta, except: [:index, :show]
+
+  load_and_authorize_resource except: [:create, :add_member, :remove_member]
 
   def index
+    # @teams = Team.accessible_by(current_ability)
     @teams = Team.all
   end
 
@@ -19,6 +21,7 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    authorize! :create, @team
 
     if @team.save
       redirect_to @team, notice: 'Team was successfully created.'
@@ -49,6 +52,7 @@ class TeamsController < ApplicationController
   end
 
   def add_member
+    authorize! :update, @team
     @user = User.find(params[:user_id])
 
     user_team = UserTeam.new(user: @user, team: @team)
@@ -61,6 +65,7 @@ class TeamsController < ApplicationController
   end
 
   def remove_member
+    authorize! :update, @team
     @user_team = UserTeam.find_by(user_id: params[:user_id], team_id: @team.id)
 
     if @user_team&.destroy
@@ -80,6 +85,7 @@ class TeamsController < ApplicationController
     params.require(:team).permit(:name, :description, :semester_id, :github_token)
   end
 
+  # Might use can? instead
   def check_admin_or_ta
     unless current_user.admin? || current_user.ta?
       redirect_to teams_path, alert: "You don't have permission to perform this action."
