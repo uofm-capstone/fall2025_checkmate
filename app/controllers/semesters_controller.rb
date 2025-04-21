@@ -605,6 +605,6 @@ class SemestersController < ApplicationController
         )
       end
 
-    # Any other private utility methods should be defined below this point.
+    end# Any other private utility methods should be defined below this point.
 
 end
