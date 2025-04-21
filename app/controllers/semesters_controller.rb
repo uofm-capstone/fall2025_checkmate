@@ -115,12 +115,6 @@ class SemestersController < ApplicationController
         flash[:success] = "Semester was successfully deleted"
         redirect_to semesters_path, status: :see_other
     end
-    def destroy
-        @semester = Semester.find(params[:id])
-        @semester.destroy
-        flash[:success] = "Semester was successfully deleted"
-        redirect_to semesters_path, status: :see_other
-    end
 
     def status
         @semester = Semester.find(params[:id])
@@ -149,47 +143,34 @@ class SemestersController < ApplicationController
         redirect_to semester_path(@semester)
     end
 
+    def getTeams(semester)
+        @teams = []
+        begin
+            # Downloads and temporarily store the student_csv file
+            semester.student_csv.open do |tempfile|
+                begin
+                    @studentData = SmarterCSV.process(tempfile.path)
 
+                    # Delete the 2 header columns before the data
+                    @studentData.delete_at(0)
+                    @studentData.delete_at(0)
 
-  def getTeams(semester)
-      @teams = []
-      begin
-          # Downloads and temporarily store the student_csv file
-          semester.student_csv.open do |tempfile|
-              begin
-                  @studentData = SmarterCSV.process(tempfile.path)
-  def getTeams(semester)
-      @teams = []
-      begin
-          # Downloads and temporarily store the student_csv file
-          semester.student_csv.open do |tempfile|
-              begin
-                  @studentData = SmarterCSV.process(tempfile.path)
-
-                  # Delete the 2 header columns before the data
-                  @studentData.delete_at(0)
-                  @studentData.delete_at(0)
-
-                  @studentData.each do |row|
-                      if @teams.exclude? row[:q2]
-                          @teams.append(row[:q2])
-                      end
-                  end
-                  @teams.uniq()
-              rescue => exception
-                  flash.now[:alert] = "Error! Unable to read data. Please update your student data file"
-              end
-          end
-      rescue => exception
-          flash.now[:alert] = "This semester does not have a student survey"
-      end
-      session[:teams_list] = @teams
-      return @teams
-  end
-
-
-
-
+                    @studentData.each do |row|
+                        if @teams.exclude? row[:q2]
+                            @teams.append(row[:q2])
+                        end
+                    end
+                    @teams.uniq()
+                rescue => exception
+                    flash.now[:alert] = "Error! Unable to read data. Please update your student data file"
+                end
+            end
+        rescue => exception
+            flash.now[:alert] = "This semester does not have a student survey"
+        end
+        session[:teams_list] = @teams
+        return @teams
+    end
 
   def team
       @semester = Semester.find(params[:semester_id])
@@ -595,16 +576,5 @@ class SemestersController < ApplicationController
           student_csv: [], client_csv: [], git_csv: []
         )
       end
-      # Ensure all private methods are within this section.
-      def semester_params
-        params.permit(
-          :semester, :year, :sprint_number, sprints_attributes: [
-            :id, :_destroy, :start_date, :end_date
-          ],
-          student_csv: [], client_csv: [], git_csv: []
-        )
-      end
-
-    end# Any other private utility methods should be defined below this point.
 
 end
