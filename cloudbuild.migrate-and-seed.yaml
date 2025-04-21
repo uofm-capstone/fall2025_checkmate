@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'beta', 'run', 'jobs', 'execute', 'tag-app-migrate',
+        '--region=us-central1'
+      ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'beta', 'run', 'jobs', 'execute', 'tag-app-seed',
+        '--region=us-central1'
+      ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
