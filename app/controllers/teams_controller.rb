@@ -2,16 +2,18 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_team, only: [:show, :edit, :update, :destroy, :add_member, :remove_member]
 
-  load_and_authorize_resource except: [:create, :add_member, :remove_member]
+  load_and_authorize_resource class: Team
+
 
   def index
-    # @teams = Team.accessible_by(current_ability)
     @teams = Team.all
+    render :index
   end
 
   def show
     @team_members = @team.users
     @repositories = @team.repositories
+    render :show
   end
 
   def new
@@ -84,12 +86,5 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(:name, :description, :semester_id, :github_token)
-  end
-
-  # Might use can? instead
-  def check_admin_or_ta
-    unless current_user.admin? || current_user.ta?
-      redirect_to teams_path, alert: "You don't have permission to perform this action."
-    end
   end
 end

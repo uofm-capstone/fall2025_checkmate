@@ -11,12 +11,11 @@
           <%= render 'shared/team_sprint_dropdowns' if controller_name == 'semesters' && action_name == 'team' %>
         </li>
         <%# Team page %>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= teams_path %>" aria-expanded="false">
-    Teams
-  </a>
-
-        </li>
+        <% if can? :read, Team %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= teams_path %>" aria-expanded="false">Teams</a>
+          </li>
+        <% end %>
         <%# Admin dashboard %>
         <% if current_user && (current_user.admin? || current_user.ta?) %>
           <li class="nav-item">

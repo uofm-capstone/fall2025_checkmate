@@ -26,7 +26,7 @@
             <td><%= team.users.count %></td>
             <td>
               <%= link_to 'View', team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
-              <% if can? :update, team %>
+              <% if can? :modify, team %>
                 <%= link_to 'Edit', edit_team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
                 <%= button_to 'Delete', team_path(team), method: :delete, class: 'btn btn-outline-secondary btn-sm', data: { confirm: 'Are you sure?' } %>
               <% end %>

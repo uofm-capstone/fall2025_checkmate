@@ -31,13 +31,16 @@ class Ability
 
     user ||= User.new(role: :guest) # Guest user (not logged in)
 
+    # Alias to combine both action into one.
+    alias_action :update, :destroy, to: :modify
+
     if user.present?
 
       # Guest abilities
       if user.guest?
         can :read, Semester
         can :read, Sprint
-        can :read, Team
+
       end
 
       # Student abilities
@@ -56,8 +59,7 @@ class Ability
         # Team
         can :read, Team
         can :create, Team
-        can :update, Team
-        can :destroy, Team
+        can :modify, Team
         can :add_member, Team
         can :remove_member, Team
         can :manage, UserTeam
