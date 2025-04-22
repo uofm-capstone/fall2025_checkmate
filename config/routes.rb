@@ -15,10 +15,13 @@ Rails.application.routes.draw do
   get 'semesters/new', to: 'semesters#new', as: 'new_semester'
   get 'semesters/:id/edit', to: 'semesters#edit', as: 'edit_semester'
   get 'semesters/:id', to: 'semesters#show', as: 'semester'
+  get 'semesters/:id/status', to: 'semesters#status', as:'semester_status'
   patch 'semesters/:id', to: 'semesters#update'
   delete 'semesters/:id', to: 'semesters#destroy'
   get 'semesters/:semester_id/team/', to: "semesters#team", as: 'semester_team'
-  get 'semesters/:id/classlist', to: 'semesters#classlist', as: 'semester_classlist' # <- Add this line
+  get 'semesters/:id/classlist', to: 'semesters#classlist', as: 'semester_classlist' 
+  post 'semesters/:id/upload_sprint_csv', to: 'semesters#upload_sprint_csv', as: 'upload_sprint_csv_semester'
+
 
   # Sprint controller
   get 'semesters/:semester_id/sprints', to: 'sprints#index', as: 'semester_sprints'

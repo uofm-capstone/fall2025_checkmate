@@ -1,0 +1,22 @@
+<!-- Upload CSV per Sprint -->
+<% @sprint_list.each_with_index do |sprint, index| %>
+  <div class="d-flex justify-content-center mb-3">
+    <div class="card w-100">
+      <div class="card-body">
+        <h5 class="card-title"><%= sprint %> CSV Upload</h5>
+        <%= form_with model: @semester, url: semester_path(@semester), method: :patch, local: true, html: { multipart: true } do |f| %>
+          <div class="row">
+            <div class="col-md-10">
+              <%= f.file_field :student_csv, accept: '.csv', class: 'form-control' %>
+              <%= hidden_field_tag :sprint_number, sprint %>
+            </div>
+            <div class="col-md-2">
+              <%= f.submit "Upload", class: "btn btn-primary w-100" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

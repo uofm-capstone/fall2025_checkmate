@@ -5,10 +5,10 @@
 </head>
 <style>
     .optional {
-        font-size: 0.7em; /* adjust the font size as needed */
+        font-size: 0.7em;
         font-style: italic;
-        transform: skew(-1deg); /* adjust the skew angle as needed */
-        display: inline-block; /* ensure the span is only as wide as its content */
+        transform: skew(-1deg);
+        display: inline-block;
     }
 
     .dropdown-container {
@@ -16,14 +16,21 @@
         margin-right: 10px;
         vertical-align: top;
     }
+
     body {
         font-family: 'Roboto', sans-serif;
     }
 
     .card {
-        border-radius: 5px;
-        font-weight: 500;
-    }
+    border-radius: 8px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 600px; /* Wider cards */
+    margin: 20px auto; /* Center and space out */
+    padding: 20px;
+    animation-duration: 1s;
+    animation-name: fadeIn;
+  }
 
     .card:hover {
         transform: translateY(-5px);
@@ -71,14 +78,10 @@
     .card:hover .timestamp {
         color: #555;
     }
+
     h3 {
         animation-duration: 1s;
         animation-name: slideInFromLeft;
-    }
-
-    .card {
-        animation-duration: 1s;
-        animation-name: fadeIn;
     }
 
     @keyframes fadeIn {
@@ -107,21 +110,10 @@
         margin: 20px 0;
     }
 </style>
+
 <body>
   <div class="container">
       <div class="row">
-          <div class="col-2 sticky-top h-100">
-              <div>
-                <div class="text-center">
-                  <div class="d-inline-block mx-auto" style="margin-left: 50px;">
-                    <%= image_tag 'Homepage.png', class: 'w-100', style: 'max-width: 25rem;'%>
-                    <button href="#" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#newSemesterModal">
-                      New Semester
-                    </button>
-                  </div>
-                </div>
-              </div>
-          </div>
         <div class="col-10 justify-content-center align-items-center text-center">
           <!--Alert message for user if they create a semester-->
           <% if params[:alert_message] %>
@@ -130,6 +122,11 @@
             </div>
           <% end %>
           <h3>Select Semester</h3>
+          <div class="d-flex justify-content-center mb-3">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSemesterModal">
+              Upload Survey CSVs
+            </button>
+          </div>
           <div class="row">
             <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
             <% if grouped_semesters.empty? %>

@@ -3,224 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page with Sidebar</title>
+  <title>Team Status</title>
   <style>
-    .sidebar {
-      width: 250px;
-      height: 100%;
-      padding: 1rem;
-      overflow-y: auto;
-      background-color: #f8f9fa;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .sidebar h2, .sidebar h3, .sidebar h5 {
-      color: #343a40;
-    }
-    .sidebar a {
-      color: #343a40;
-    }
-    .sidebar .btn-primary {
-      background-color: #0d6efd;
-      border-color: #0d6efd;
-      color: #ffffff;
-    }
-
-    @media (max-width: 992px) {
-      .sidebar {
-        display: none;
-      }
-    }
-
-    .main-content {
-      flex: 1;
-      border: 2px solid #ffffff;
-      border-radius: 10px;
+    .status-container {
+      max-width: 95%;
+      margin: 0 auto;
       padding: 20px;
     }
-
-    .top-warning {
-      position: fixed; /* or absolute */
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+    .legend-container {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .status-table {
       width: 100%;
-      z-index: 1050; /* Ensure it's above other content; adjust as needed */
-      
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+    .status-table table {
+      min-width: 1200px;
+    }
+    .sprint-upload-section {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .warning-banner {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      margin-bottom: 20px;
+    }
+    .table th {
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .table td {
+      vertical-align: middle;
+    }
+    .team-name {
+      font-weight: 500;
+      color: #0d6efd;
+    }
+    .team-name:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+  <div class="status-container">
+    <!-- Warning for No Student CSV Uploaded -->
+    <% unless @semester.student_csv.attached? %>
+      <div class="warning-banner">
+        <div class="alert alert-danger" role="alert">
+          <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data.
+        </div>
+      </div>
+    <% end %>
 
-  <div class="container mt-3">
+    <!-- Warning for No Client CSV Uploaded -->
+    <% unless @semester.client_csv.attached? %>
+      <div class="warning-banner">
+        <div class="alert alert-danger" role="alert">
+          <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
+        </div>
+      </div>
+    <% end %>
 
-    <div class="d-flex">
-      <div class="sidebar">
-        <div>
-          <div>
-            <%= link_to semesters_path do %>
-              <h2 style="z-index: 9999; position: relative;">
-                <i class="bi bi-arrow-return-left"></i>
-              </h2>
+    <% if team_exist(@teams) %>
+      <div class="text-center mb-4">
+        <h2>Team Status</h2>
+      </div>
+
+      <div class="legend-container">
+        <h5 class="text-center mb-3">Legend</h5>
+        <div class="d-flex justify-content-center flex-wrap gap-4">
+          <div class="d-flex align-items-center">
+            <%= image_tag "check-circle-fill.svg", style: "height:16px; margin-right: 8px" %>
+            <span>All Good</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <%= image_tag "question-circle-fill.svg", style: "height:16px; margin-right: 8px" %>
+            <span>No Data Uploaded</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px; margin-right: 8px" %>
+            <span>No Client Survey</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px; margin-right: 8px" %>
+            <span>Poor Performance</span>
+          </div>
+        </div>
+        <p class="text-center mt-2 text-muted">Note: Hover over warning symbols to see more details</p>
+      </div>
+
+      <div class="status-table">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th rowspan="3" class="text-center">Team</th>
+              <% @sprint_list.each do |sprint| %>
+                <th colspan="15" class="text-center"><%= sprint %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <% @sprint_list.each do |_sprint| %>
+                <th colspan="4" class="text-center">Planning</th>
+                <th colspan="4" class="text-center">PC</th>
+                <th colspan="6" class="text-center">Demo</th>
+                <th rowspan="2" class="text-center">CF</th>
+              <% end %>
+            </tr>
+            <tr>
+              <% @sprint_list.each do |_sprint| %>
+                <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D"].each do |item| %>
+                  <th class="text-center" style="font-size: 0.75rem;"><%= item %></th>
+                <% end %>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @teams.each do |team| %>
+              <tr>
+                <td>
+                  <%= link_to team, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "team-name" %>
+                </td>
+                <% @sprint_list.each do |sprint| %>
+                  <% indicators = @flags[sprint][team] || [] %>
+                  <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
+                    <td class="text-center">
+                      <% if rubric_item == "CF" %>
+                        <% if indicators.include?("no client score") %>
+                          <%= image_tag "question-circle-fill.svg", style: "height:16px", title: "No client feedback available" %>
+                        <% elsif indicators.include?("incomplete client feedback") %>
+                          <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px", title: "Incomplete client feedback" %>
+                        <% elsif indicators.include?("low client score") %>
+                          <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px", title: "Low client feedback score" %>
+                        <% else %>
+                          <%= image_tag "check-circle-fill.svg", style: "height:16px", title: "Client feedback received" %>
+                        <% end %>
+                      <% else %>
+                        <% if indicators.include?("no data") %>
+                          <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
+                        <% elsif indicators.include?("low score") %>
+                          <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
+                        <% else %>
+                          <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                <% end %>
+              </tr>
             <% end %>
-            <h3><%= @semester.semester %> <%= @semester.year %></h3>
-            <ul class="list-unstyled ps-0">
-              <li class="border-top my-3"></li>
-              <li>
-                <div class="col-sm-8">
-                  <%= bootstrap_form_with url: semester_team_path(@semester), method: "get", local: true do |f| %>
-                    <%= f.select :team, @teams %>
-                    <hr>
-                    <%= f.select :sprint, @sprint_list %>
-                    <%= f.submit "View" %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sprint-upload-section">
+        <h4 class="text-center mb-4">Sprint CSV Uploads</h4>
+        <div class="row">
+          <% @sprint_list.each_with_index do |sprint, i| %>
+            <div class="col-md-6 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">Sprint <%= i + 1 %></h5>
+                  <%= form_with(url: upload_sprint_csv_semester_path(@semester), method: :post, local: true, html: { multipart: true }) do |f| %>
+                    <div class="mb-3">
+                      <%= f.label :student_csv, "Student CSV", class: "form-label" %>
+                      <%= f.file_field :student_csv, accept: ".csv", class: "form-control" %>
+                    </div>
+                    <div class="mb-3">
+                      <%= f.label :client_csv, "Client CSV", class: "form-label" %>
+                      <%= f.file_field :client_csv, accept: ".csv", class: "form-control" %>
+                    </div>
+                    <%= hidden_field_tag :sprint_number, sprint %>
+                    <div class="d-grid">
+                      <%= f.submit "Upload for #{sprint}", class: "btn btn-primary" %>
+                    </div>
                   <% end %>
                 </div>
-              </li>
-                <li>
-                  <div class="col-sm-8">
-                    <%= link_to "Sprints", semester_sprints_path(@semester), class: 'btn btn-secondary'%>
-                  </div>
-                </li>
-              <hr>
-
-              <li class="mb-1">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadCSVModal">
-                  Upload CSV
-                </button>
-              </li>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="main-content">
-        <!-- Warning for No Student CSV Uploaded -->
-        <% unless @semester.student_csv.attached? %>
-            <div class="d-flex justify-content-center mt-4 mb-4">
-              <div class="card w-100 border-danger">
-                <div class="card-body bg-danger text-white">
-                  <p class="card-text text-center">
-                    <strong>Attention:</strong> No Student CSV has been uploaded for this semester. Please upload the student csv to display the data
-                  </p>
-                </div>
               </div>
-            </div>
-        <% end %>
-
-        <div class="row">
-          <div class="mt-4 text-center">
-            <% if team_exist(@teams) %>
-              <h2 class="">Team Status</h2>
-              <div class="mt-3 mb-3">
-                <h5 class="">Legend:</h5>
-                <ul class="list-inline">
-                  <li class="list-inline-item">
-                    <%= image_tag "check-circle-fill.svg", class: "", style: "height:16px" %> All Good
-                  </li>
-                  <li class="list-inline-item">
-                    <%= image_tag "question-circle-fill.svg", class: "", style: "height:16px" %> No Data Uploaded
-                  </li>
-                  <li class="list-inline-item">
-                    <%= image_tag "exclamation-circle-fill-yellow.svg", class: "", style: "height:16px" %> No Client Survey
-                  </li>
-                  <li class="list-inline-item">
-                    <%= image_tag "exclamation-triangle-fill-red.svg", class: "", style: "height:16px" %> Poor Performance
-                  </li>
-                </ul>
-              </div>
-              <p>Note: Hover over warning symbol to see more details</p>
-              <!-- Warning for No Client CSV Uploaded -->
-                <% unless @semester.client_csv.attached? %>
-                    <div class="d-flex justify-content-center mt-4 mb-4">
-                      <div class="card w-100 border-danger">
-                        <div class="card-body bg-danger text-white">
-                          <p class="card-text text-center">
-                            <strong>Attention:</strong> No Client CSV has been uploaded for this semester. Please upload the client csv to display the correct data.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                <% end %>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Team</th>
-                    <%= sprint_header(@sprint_list) %>
-                  </tr>
-                </thead>
-                <tbody>
-                  <%= team_rows(@teams, @sprint_list, @flags) %>
-                </tbody>
-              </table>
-            <% end %>
-          </div>
-        </div>
-        <!-- This section starts the integration of Github API -->
-        <%= link_to 'Add New Repository', new_semester_repository_path(semester_id: @semester.id) %>
-
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Upload CSV Modal -->
-  <div class="modal fade" id="uploadCSVModal" tabindex="-1" aria-labelledby="uploadCSVModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="uploadCSVModalLabel">Upload CSV</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <%= bootstrap_form_with model: @semester, url: semester_path(@semester), method: :patch, local: true do |f| %>
-            <div class="form-outline mb-4">
-              <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
-            </div>
-            <div class="form-outline mb-4">
-              <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
-            </div>
-            <div class="form-outline mb-4">
-              <%= f.file_field :git_csv, accept: 'text/csv', class: 'form-control form-control-lg', id: 'git_csv' %>
-            </div>
-            <div class="d-flex justify-content-center mb-4">
-              <%= f.submit "Update", class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white" %>  
             </div>
           <% end %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 
-  <!-- Import CSV File Modal for student_list -->
- <div class="modal fade" id="importStudentCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="importCSVModalLabel">Import Student CSV File</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with(url: import_home_path, multipart: true, html: { class: "import-form" }) do |form| %>
-          <div class="form-group">
-            <%= form.label :file, 'Select CSV File', class: "import-file-label" %>
-            <%= form.file_field :file, accept: '.csv', class: "import-file-input" %>
-          </div>
-          <div class="d-flex justify-content-center mt-4">
-            <%= form.submit 'Import', class: "btn btn-primary btn-block btn-lg gradient-custom-4 text-white import-button" %>
-          </div>
-        <% end %>
-
-        <!-- Additional styling inside the modal body -->
-        <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 8px;">
-      </div>
-    </div>
-  </div>
-  
-</div>
-
-<!-- Allows the data from the github request to be shown -->
-<%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
-<%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
-<%= javascript_include_tag 'octokit', type: "module" %>
-
-
-
+  <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
+  <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
+  <%= javascript_include_tag 'octokit', type: "module" %>
+</body>
+</html>
