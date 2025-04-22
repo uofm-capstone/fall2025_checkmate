@@ -55,6 +55,13 @@ class Ability
 
       # TA abilities
       if user.ta?
+        can :read, User
+        can :modify, User
+        # TAs can manage users except admins
+        can :update, User do |user_to_update|
+          !user_to_update.admin?
+        end
+
         can :read, Semester
         # Team
         can :read, Team
@@ -77,6 +84,16 @@ class Ability
       # Admin abilities - can do everything
       if user.admin?
         can :manage, :all
+
+        # Admin can't modify another admin roles
+        cannot :update, User do |user_to_update|
+          user_to_update.admin? && user_to_update.id != user.id
+        end
+        # Admin can't delete other admins
+        cannot :destroy, User do |user_to_update|
+          user_to_update.admin? && user_to_update.id != user.id
+        end
+
       end
 
     end
