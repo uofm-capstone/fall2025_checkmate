@@ -49,14 +49,14 @@ module TeamsHelper
     puts "DEBUG: render_client_table called for question #{question_number}"
     puts "DEBUG: @cliSurvey[0][question_key]: #{@cliSurvey[0][question_key]}"
 
-    
 
-    
+
+
       content_tag :table, class: "table table-striped" do
         thead = content_tag :thead do
           content_tag :tr do
             content_tag :th do
-              content_tag :p, @client_question_titles[question_key] 
+              content_tag :p, @client_question_titles[question_key]
             end
           end
         end
@@ -70,7 +70,7 @@ module TeamsHelper
         thead + tbody
       end
   end
-# New added 
+# New added
   # def render_average_score(student_name, scores)
   #   if scores[:average_including_self]
   #     content_tag :p, "#{student_name}'s Average Score (Including Self): #{scores[:average_including_self].round(2)}"
@@ -80,6 +80,5 @@ module TeamsHelper
   #   end
   # end
 
-  
-end
 
+end

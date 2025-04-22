@@ -1,18 +1,12 @@
+# In app/controllers/admin_controller.rb
 class AdminController < ApplicationController
   before_action :check_ta_or_admin
-  before_action :check_admin, only: [:destroy]
-
+  before_action :load_user, only: [:update_role, :destroy]
+  authorize_resource :user, only: [:update_role, :destroy]
 
   def dashboard
     @semesters = Semester.all
     @users = User.all.order(:email)
-  end
-
-  def check_admin
-    unless current_user.admin?
-      # redirect_to semesters_path, alert: "Access denied."
-      redirect_to admin_dashboard_path, alert: "This action requires admin privileges."
-    end
   end
 
   def check_ta_or_admin
@@ -21,31 +15,18 @@ class AdminController < ApplicationController
     end
   end
 
-  def check_permissions
-    user_to_update = User.find(params[:id])
-
-    # Only admins can change roles
-    unless current_user.admin?
-      redirect_to admin_dashboard_path, alert: "You don't have permission to change user roles."
-      return
-    end
-
-    # Cannot change role of another admin
-    if user_to_update.admin? && current_user.id != user_to_update.id
+  def update_role
+    # Check if trying to modify another admin's role
+    if @user.admin? && current_user.id != @user.id
       redirect_to admin_dashboard_path, alert: "Cannot modify another admin's role."
       return
     end
 
-    # Cannot set a role higher than your own
+    # Check if trying to assign a higher role than current user
     if params[:role].to_i > current_user.role_before_type_cast
       redirect_to admin_dashboard_path, alert: "Cannot assign a role higher than your own."
       return
     end
-  end
-
-
-  def update_role
-    @user = User.find(params[:id])
 
     if @user.update(role: params[:role])
       redirect_to admin_dashboard_path, notice: "#{@user.email}'s role has been updated to #{params[:role].humanize}."
@@ -55,9 +36,20 @@ class AdminController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy
-    flash[:success] = "user was successfully deleted"
+    # Additional check to prevent admin from deleting themselves or other admins
+    if @user.admin? && current_user.id != @user.id
+      redirect_to admin_dashboard_path, alert: "Cannot delete another admin."
+      return
+    end
+
+    @user.destroy
+    flash[:success] = "User was successfully deleted"
     redirect_to admin_path, status: :see_other
+  end
+
+  private
+
+  def load_user
+    @user = User.find(params[:id])
   end
 end

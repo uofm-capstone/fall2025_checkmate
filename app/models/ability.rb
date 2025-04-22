@@ -31,31 +31,50 @@ class Ability
 
     user ||= User.new(role: :guest) # Guest user (not logged in)
 
+    # Alias to combine both action into one.
+    alias_action :update, :destroy, to: :modify
+
     if user.present?
 
+      # Guest abilities
       if user.guest?
         can :read, Semester
         can :read, Sprint
+
       end
 
       # Student abilities
       if user.student?
         can :read, Semester
         can :read, Sprint
-        # can :read, Team, user_teams: { user_id: user.id }
+        can :read, Team
+        can :read, Team, user_teams: { user_id: user.id } # Students can view teams they belong to
+        can :read, Repository
         # can :read, Repository, team: { user_teams: { user_id: user.id } }
       end
 
       # TA abilities
       if user.ta?
+        can :read, User
+        can :modify, User
+        # TAs can manage users except admins
+        can :update, User do |user_to_update|
+          !user_to_update.admin?
+        end
+
         can :read, Semester
+        # Team
         can :read, Team
         can :create, Team
-        can :update, Team
+        can :modify, Team
+        can :add_member, Team
+        can :remove_member, Team
         can :manage, UserTeam
+        # Repository
         can :read, Repository
         can :create, Repository
         can :update, Repository
+        # Sprint
         can :read, Sprint
         can :create, Sprint
         can :update, Sprint
@@ -65,6 +84,16 @@ class Ability
       # Admin abilities - can do everything
       if user.admin?
         can :manage, :all
+
+        # Admin can't modify another admin roles
+        cannot :update, User do |user_to_update|
+          user_to_update.admin? && user_to_update.id != user.id
+        end
+        # Admin can't delete other admins
+        cannot :destroy, User do |user_to_update|
+          user_to_update.admin? && user_to_update.id != user.id
+        end
+
       end
 
     end

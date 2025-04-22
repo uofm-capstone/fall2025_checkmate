@@ -1,155 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        .header {
-            background-color: #f8f9fa;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 22px;
-            color: #333;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
-        .btn-sm {
-            padding: .25rem .5rem;
-            font-size: .875rem;
-            line-height: 1.5;
-            border-radius: .2rem;
-        }
-        .role-badge {
-            display: inline-block;
-            padding: 0.25em 0.6em;
-            font-size: 75%;
-            font-weight: 700;
-            line-height: 1;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 0.25rem;
-            color: white;
-        }
-        .role-admin { background-color: #dc3545; }
-        .role-ta { background-color: #fd7e14; }
-        .role-student { background-color: #28a745; }
-        .role-guest { background-color: #6c757d; }
-    </style>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .header {
+      background-color: #f8f9fa;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 22px;
+      color: #333;
+    }
+    .table th, .table td {
+      vertical-align: middle;
+    }
+    .btn-sm {
+      padding: .25rem .5rem;
+      font-size: .875rem;
+      line-height: 1.5;
+      border-radius: .2rem;
+    }
+    .role-badge {
+      display: inline-block;
+      padding: 0.25em 0.6em;
+      font-size: 75%;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+      color: white;
+    }
+    .role-admin { background-color: #dc3545; }
+    .role-ta { background-color: #fd7e14; }
+    .role-student { background-color: #28a745; }
+    .role-guest { background-color: #6c757d; }
+  </style>
 </head>
 <body>
-    <div class="header">
-        Dashboard
-        <% if current_user.admin? %>
-            <span class="role-badge role-admin">Admin Access</span>
-        <% elsif current_user.ta? %>
-            <span class="role-badge role-ta">TA Access</span>
-        <% end %>
-    </div>
-
-    <% @semesters.each do |semester| %>
-        <div class="container mt-4">
-            <h2><%= semester.semester %> <%= semester.year %></h2>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% @users.each do |user| %>
-                        <tr>
-                            <td><%= user.id %></td>
-                            <td><%= user.email %></td>
-                            <td>
-                                <% if user.admin? %>
-                                    <span class="role-badge role-admin">Admin</span>
-                                <% elsif user.ta? %>
-                                    <span class="role-badge role-ta">TA</span>
-                                <% elsif user.student? %>
-                                    <span class="role-badge role-student">Student</span>
-                                <% else %>
-                                    <span class="role-badge role-guest">Guest</span>
-                                <% end %>
-                            </td>
-                        </tr>
-                    <% end %>
-                </tbody>
-            </table>
-        </div>
+  <div class="header">
+    Dashboard
+    <% if current_user.admin? %>
+      <span class="role-badge role-admin">Admin Access</span>
+    <% elsif current_user.ta? %>
+      <span class="role-badge role-ta">TA Access</span>
     <% end %>
+  </div>
 
+  <% @semesters.each do |semester| %>
     <div class="container mt-4">
-        <h2>User Management</h2>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @users.each do |user| %>
-                    <tr>
-                        <td><%= user.id %></td>
-                        <td><%= user.email %></td>
-                        <td>
-                            <% if user.admin? %>
-                                <span class="role-badge role-admin">Admin</span>
-                            <% elsif user.ta? %>
-                                <span class="role-badge role-ta">TA</span>
-                            <% elsif user.student? %>
-                                <span class="role-badge role-student">Student</span>
-                            <% else %>
-                                <span class="role-badge role-guest">Guest</span>
-                            <% end %>
-                        </td>
-                        <td class="d-flex">
-                            <% if current_user.admin? || (current_user.ta? && !user.admin? && !user.ta?) %>
-                                <div class="dropdown mr-2">
-                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="roleDropdown<%= user.id %>" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Change Role
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="roleDropdown<%= user.id %>">
-                                        <% if current_user.admin? %>
-                                            <% unless user.admin? %>
-                                                <li>
-                                                    <%= button_to "Admin", admin_update_role_path(user, role: 'admin'), method: :patch, class: "dropdown-item" %>
-                                                </li>
-                                            <% end %>
-                                            <% unless user.ta? %>
-                                                <li>
-                                                    <%= button_to "TA", admin_update_role_path(user, role: 'ta'), method: :patch, class: "dropdown-item" %>
-                                                </li>
-                                            <% end %>
-                                        <% end %>
-                                        <% unless user.student? %>
-                                            <li>
-                                                <%= button_to "Student", admin_update_role_path(user, role: 'student'), method: :patch, class: "dropdown-item" %>
-                                            </li>
-                                        <% end %>
-                                        <% unless user.guest? %>
-                                            <li>
-                                                <%= button_to "Guest", admin_update_role_path(user, role: 'guest'), method: :patch, class: "dropdown-item" %>
-                                            </li>
-                                        <% end %>
-                                    </ul>
-                                </div>
-                            <% end %>
-                            
-                            <% if current_user.admin? && current_user.id != user.id %>
-                                <%= button_to "Delete", admin_delete_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
-                            <% end %>
-                        </td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
+      <h2><%= semester.semester %> <%= semester.year %></h2>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.email %></td>
+              <td>
+                <%= role_badge(user) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
+  <% end %>
+
+  <div class="container mt-4">
+    <h2>User Management</h2>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= role_badge(user) %>
+            </td>
+            <td class="d-flex">
+              <% if can? :update, user %>
+                <div class="dropdown mr-2">
+                  <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="roleDropdown<%= user.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                    Change Role
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="roleDropdown<%= user.id %>">
+                    <% assignable_roles_for(user, current_user).each do |role| %>
+                      <li>
+                        <%= button_to role.titleize, admin_update_role_path(user, role: role), method: :patch, class: "dropdown-item" %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+
+              <% if can? :destroy, user %>
+                <%= button_to "Delete", admin_delete_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

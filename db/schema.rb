@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_27_194846) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_21_210659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_27_194846) do
     t.text "team"
     t.bigint "user_id", null: false
     t.bigint "semester_id"
+    t.bigint "team_id", null: false
     t.index ["semester_id"], name: "index_repositories_on_semester_id"
+    t.index ["team_id"], name: "index_repositories_on_team_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"
   end
 
@@ -89,6 +91,25 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_27_194846) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "semester_id", null: false
+    t.string "github_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["semester_id"], name: "index_teams_on_semester_id"
+  end
+
+  create_table "user_teams", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_user_teams_on_team_id"
+    t.index ["user_id"], name: "index_user_teams_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -109,7 +130,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_27_194846) do
   add_foreign_key "classlists", "semesters"
   add_foreign_key "classlists", "students"
   add_foreign_key "repositories", "semesters"
+  add_foreign_key "repositories", "teams"
   add_foreign_key "repositories", "users"
   add_foreign_key "semesters", "users"
   add_foreign_key "sprints", "semesters"
+  add_foreign_key "teams", "semesters"
+  add_foreign_key "user_teams", "teams"
+  add_foreign_key "user_teams", "users"
 end
