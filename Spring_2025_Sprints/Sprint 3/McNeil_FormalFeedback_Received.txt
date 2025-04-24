@@ -12,3 +12,4 @@ Feedback:
 - Add column headers on Teams page for better user readability
 - Add input text for sponsor name on "New Team" form
 - Delete "Github Configuration" tab since the access token form is now in Add/Edit Team tab
+

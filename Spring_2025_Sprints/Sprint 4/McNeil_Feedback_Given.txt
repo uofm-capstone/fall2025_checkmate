@@ -1,0 +1,12 @@
+Feedback Given To: Su Odeyemi
+Feedback From: McNeil McCarley
+Meeting Type: Usability
+
+Feedback:
+- Be able to change from full screen to non-full screen on videos
+- Possibly implement 1 question per video to see if user was paying attention
+- Give videos new pages and not within the same page as the lesson
+    - Optional: User can't go to the next page until video is completed (hide button to move foward)
+- On the quiz page, include button that goes to the next lesson
+
+

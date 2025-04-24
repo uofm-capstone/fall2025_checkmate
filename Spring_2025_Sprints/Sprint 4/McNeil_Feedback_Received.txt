@@ -1,0 +1,12 @@
+Feedback Given To: McNeil McCarley
+Feedback From: Su Odeyemi
+Meeting Type: Usability
+
+Feedback:
+- Transform upload buttons on the status page to one button, for unnecessary scrolling
+- Collapse feature on status page to show relevant info from sprints
+- Centralize and increase the size of Teams functions on Teams page (create, edit, view) and the semester button
+- Add more semester options to picking semester on create team function
+- Add “optional” to the description text box on the create team form
+- Change colors on teams buttons/color consistency on buttons for teams 
+

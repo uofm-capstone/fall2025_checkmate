@@ -143,34 +143,40 @@ class SemestersController < ApplicationController
         redirect_to semester_path(@semester)
     end
 
-    def getTeams(semester)
-        @teams = []
-        begin
-            # Downloads and temporarily store the student_csv file
-            semester.student_csv.open do |tempfile|
-                begin
-                    @studentData = SmarterCSV.process(tempfile.path)
 
-                    # Delete the 2 header columns before the data
-                    @studentData.delete_at(0)
-                    @studentData.delete_at(0)
 
-                    @studentData.each do |row|
-                        if @teams.exclude? row[:q2]
-                            @teams.append(row[:q2])
-                        end
-                    end
-                    @teams.uniq()
-                rescue => exception
-                    flash.now[:alert] = "Error! Unable to read data. Please update your student data file"
-                end
-            end
-        rescue => exception
-            flash.now[:alert] = "This semester does not have a student survey"
-        end
-        session[:teams_list] = @teams
-        return @teams
-    end
+  def getTeams(semester)
+      @teams = []
+      begin
+          # Downloads and temporarily store the student_csv file
+          semester.student_csv.open do |tempfile|
+              begin
+                  @studentData = SmarterCSV.process(tempfile.path)
+
+                  # Delete the 2 header columns before the data
+                  @studentData.delete_at(0)
+                  @studentData.delete_at(0)
+
+                  @studentData.each do |row|
+                      if @teams.exclude? row[:q2]
+                          @teams.append(row[:q2])
+                      end
+                  end
+                  @teams.uniq()
+              rescue => exception
+                  flash.now[:alert] = "Error! Unable to read data. Please update your student data file"
+              end
+          end
+      rescue => exception
+          flash.now[:alert] = "This semester does not have a student survey"
+      end
+      session[:teams_list] = @teams
+      return @teams
+  end
+
+
+
+
 
   def team
       @semester = Semester.find(params[:semester_id])
@@ -180,8 +186,8 @@ class SemestersController < ApplicationController
       @team =  params[:team]
       @repositories = Repository.where(team: @team)
       # Find the specific repository for the current team
-    #   @repo = @repositories.team.find { |repo| repo.team == @team } if @team.present?
-    #   @repo ||= none
+      @repo = @repositories.find { |repo| repo.team == @team } if @team.present?
+
 
       # TODO: Allow user to select how many Sprint's there are
       @sprints = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
@@ -549,7 +555,7 @@ class SemestersController < ApplicationController
       @students_info = []
 
       CSV.foreach(filepath, headers: true) do |row|
-        @students_info << {name: row['﻿Name'], role: row['Role']}
+        @students_info << {name: row['Name'], role: row['Role']}
       end
     rescue ActiveRecord::RecordNotFound
       redirect_to semesters_path, alert: 'Semester not found.'
@@ -576,5 +582,7 @@ class SemestersController < ApplicationController
           student_csv: [], client_csv: [], git_csv: []
         )
       end
+
+    # Any other private utility methods should be defined below this point.
 
 end
