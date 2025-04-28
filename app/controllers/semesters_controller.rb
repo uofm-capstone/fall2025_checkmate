@@ -46,7 +46,8 @@ class SemestersController < ApplicationController
       @semester = Semester.find(params[:id])
       @teams = getTeams(@semester)
       # TODO: allow user to select how many Sprints there are
-      @sprint_list = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
+      @sprint_list = @semester.sprints.pluck(:name)
+
       @flags = {}
       @sprint_list.each do |sprint|
           @flags[sprint] = {}
@@ -119,7 +120,7 @@ class SemestersController < ApplicationController
     def status
         @semester = Semester.find(params[:id])
         @teams = getTeams(@semester)
-        @sprint_list = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
+        @sprint_list = @semester.sprints.pluck(:name)
         @flags = {}
 
         @sprint_list.each do |sprint|
@@ -190,7 +191,7 @@ class SemestersController < ApplicationController
 
 
       # TODO: Allow user to select how many Sprint's there are
-      @sprints = ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
+      @sprints = @semester.sprints.pluck(:name)
       # @sprint = params[:sprint]
       @sprint = params[:sprint] || @sprints.first
 
@@ -385,27 +386,27 @@ class SemestersController < ApplicationController
                   begin
                       semester.client_csv.open do |tempClient|
                           clientData = SmarterCSV.process(tempClient.path)
-                          client_survey = clientData.find_all { |survey| 
-                              survey[:q1_team] == team && survey[:q3] == sprint 
+                          client_survey = clientData.find_all { |survey|
+                              survey[:q1_team] == team && survey[:q3] == sprint
                           }
-                          
+
                           if client_survey.blank?
                               flags.append("no client score")
                           else
                               # Check if all required client feedback questions are answered
                               required_questions = ['q2_1', 'q2_2', 'q2_3', 'q2_4', 'q2_5', 'q2_6']
                               missing_questions = required_questions.reject { |q| client_survey[0].has_key?(q.to_sym) }
-                              
+
                               if missing_questions.any?
                                   flags.append("incomplete client feedback")
                               else
                                   # Check if any responses are below expectations
-                                  low_scores = client_survey[0].select { |k, v| 
-                                      k.to_s.start_with?('q2_') && 
-                                      v.present? && 
+                                  low_scores = client_survey[0].select { |k, v|
+                                      k.to_s.start_with?('q2_') &&
+                                      v.present? &&
                                       !['exceeded expectations', 'met expectations'].include?(v.strip.downcase)
                                   }
-                                  
+
                                   if low_scores.any?
                                       flags.append("low client score")
                                   end
