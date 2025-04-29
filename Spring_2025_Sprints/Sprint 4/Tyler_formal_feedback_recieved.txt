@@ -1,0 +1,10 @@
+Feedback From: Riyaad Howlader 
+Group: Decibuddies
+To Student: Tyler Howell 
+Group: Tag
+Meeting Type: Code Review
+
+- Fixed hosting on cloud, especially with the database issues that popped up.
+- Reorganized data collection querying to be easily accessible by developers.
+
+Data is not being correctly displayed on the app. JS can be called but, the app is not showing it on the view

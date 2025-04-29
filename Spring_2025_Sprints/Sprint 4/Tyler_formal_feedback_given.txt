@@ -1,0 +1,11 @@
+Feedback From: Tyler Howell
+Group: TAG
+To Student: Riyaad Howlader
+Group: Decibuddies
+Meeting Type: User testing
+
+- great work & animations on buttons (refined CSS styling on most of application)
+- Feedback from sprint 3 addressed with week navigation buttons.
+
+Fix accessing notes AFTER training is complete. User is not able to see their notes after the test.
+Score table is not complete inside the test environment is not complete yet.
