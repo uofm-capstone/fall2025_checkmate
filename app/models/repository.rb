@@ -31,7 +31,7 @@ class Repository < ApplicationRecord
     # Add relationship to semester
     belongs_to :semester, optional: true
     # Relationship with Team
-    belongs_to :team, optional: true
+    belongs_to :team, optional: false
 
 
 end

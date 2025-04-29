@@ -6,7 +6,9 @@ class Semester < ApplicationRecord
   has_one_attached :git_csv
 
   belongs_to :user
-  has_many :sprints, inverse_of: :semester
+  has_many :sprints, inverse_of: :semester, dependent: :destroy
+  has_many :teams, inverse_of: :semester, dependent: :destroy
+  has_many :repositories, dependent: :nullify
   accepts_nested_attributes_for :sprints, allow_destroy: true, reject_if: :all_blank
 
   validates :semester, presence: true, inclusion: { in: %w[Fall Spring Summer] }
