@@ -1,0 +1,16 @@
+Feedback From: Aidan Johnson
+Group: Grave Data Robbers
+To Student: Jonnie Nguyen
+Group: Tag
+Meeting Type: User Testing
+
+-Team creation works as intended good functionality with conventional crud capabilities and formatting
+
+-Intuitive design for users to use easialy
+
+-Maybe have an assigned ta displayed on team page for easy communication with their email
+
+-Github token integration preferably for team creation
+
+-Fix button for the teams on the navbar
+
