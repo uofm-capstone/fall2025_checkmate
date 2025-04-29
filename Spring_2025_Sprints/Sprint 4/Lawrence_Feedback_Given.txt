@@ -1,0 +1,22 @@
+Formal Feedback from Lawrence Jones to Jessica Edwards:
+
+Goal:
+The person who I will be giving formal feedback to is Jessica Edwards; Jessica is a part of the Autolink team. The goal of their project is to 
+create an app that connects to a device plugged into an OBD port, which will then retrieve information on the car and send it back to the cloud.
+
+Observation:
+During the feedback meeting, Jessica performed user testing functionality, demonstrating tasks while explaining aloud. While reviewing the 
+progress of the Autolink team, Jessica showed how her team set up a Bluetooth connection so the device can automatically connect and start 
+reading the VIN. Once the connection to the VIN is established, it shows the year, make, and model of the correct car. When you click the button 
+“Discover Supported Parameters”, it takes the user to a screen that presents different car parameters, such as the odometer, tire pressure, fuel 
+level, ignition status, and battery voltage. Jessica explained how her team is still working on implementing functionality that will help them 
+successfully get the values for the parameters.
+
+UI Design:
+For the most part, the UI for the autolink app is nice. However, I believe adding color will be more visually appealing to audiences. Some 
+pictures would also be nice to implement; I believe adding pictures for the parameters will help users who are unaware of specific car parts and 
+locations.
+
+Overall Feedback:
+The app seems to be going great, as there doesn’t seem to be any issue with code and its effect on the app’s performance. I don’t have very much 
+to critique other than adding color and pictures. The autolink team is on track with meeting their goals.
