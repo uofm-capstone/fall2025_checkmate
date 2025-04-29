@@ -1,0 +1,15 @@
+Feedback From: Jonnie Nguyen
+Group: TAG
+To Student: Aidan Johnson
+Group: Grave Data Robbers
+Meeting Type: User Testing
+
+- Good management functionality for individual, and the records.  
+
+- Get advanced search to be functional. 
+
+- Fix the header individually with the timestamp and Json.  
+ 
+- Create function that filled with unknown if blank.
+
+- Fix issue with sign up for a new user with access code. 
