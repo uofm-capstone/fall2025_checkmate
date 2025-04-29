@@ -1,0 +1,23 @@
+Formal Evaluation and Feedback
+Project: TAG
+Student: Lawrence Jones
+Feedback by: Jessica Edwards
+
+
+Clarity of Objectives: TAG gives an explicit explanation of the team’s objective which is to create an application that will help professors 
+and/or teacher’s assistants to grade assignments, specifically capstone projects.
+
+Methodology and Design: The TAG project takes on user driven design, which includes functions like authentication, semester management, team 
+creation, and project grading workflows. It provides a clean template that helps with readability, functionality and simplicity that aids in the 
+application being user-friendly and efficient. Also, the implication of authentication allows for only authorized professors and teachers’ 
+assistants to access the application. 
+
+Technical Implementation: TAG provides an easier setup for developers using Docker. Docker holds it consistency across different environments. 
+It can make the project more professional, easier to manage, and implementation stronger. Using Ruby on Rails, following a Model-View-Controller 
+design on the backend, maintained a clear separation on concerns within the project.
+
+
+Overall Assesment:  The project successfully meets its core objective of providing a fast, efficient grading tool for professors and teaching 
+assistants. By offering a simple interface which includes a login-based access system, structured semester and team management, and a clean, 
+minimal workflow. The Rails' MVC architecture makes the app easy to maintain and extend and the basic authentication ensures that sensitive 
+grading operations are restricted to authorized users only.
