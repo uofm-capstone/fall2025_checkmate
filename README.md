@@ -53,7 +53,7 @@ This application is built on Ruby on Rails web framework.
 ## GitHub Analytics - OctoKit API
 This application fetches GitHub commit history on a per-contributor and per-sprint basis, presenting it in an easy-to-digest graphical interface. It's designed to streamline the process of monitoring and analyzing commit activities over specific time periods.
 1. #### Obtaining a Personal Access Token (PAT):
-   * To utilize the [OctoKit API](https://octokit.github.io/rest.js), you first need to create a Personal Access Token (PAT). This application uses a [fine-grain token](https://github.com/settings/tokens). Please follow the instructions on GitHub to generate your token.
+   * To utilize the [OctoKit API](https://octokit.github.io/rest.js), you first need to create a Personal Access Token (PAT). This application can use a [classic token](https://github.com/settings/tokens). Please follow the instructions on GitHub to generate your token.
 
 2. #### Configuring the Application:
    * Locate the octokit.js file in your application directory. Replace the placeholder in the file with your newly generated PAT. This setup will allow asynchronous fetching of data.
