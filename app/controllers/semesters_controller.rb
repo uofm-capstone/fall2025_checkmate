@@ -355,6 +355,19 @@ class SemestersController < ApplicationController
         begin
           studentData = SmarterCSV.process(tempStudent.path)
 
+          # Check if the sprint exists in the CSV and has actual data
+          sprint_exists = studentData.any? { |row| 
+            row[:q22] == sprint && 
+            row[:q2].present? && # team name
+            (row[:q4].present? || row[:q5].present? || row[:q6].present? || 
+             row[:q7].present? || row[:q8].present?) # at least one response
+          }
+          
+          unless sprint_exists
+            flags.append("no data")
+            return flags
+          end
+
           student_survey = studentData.find_all{|survey| survey[:q2]==team && survey[:q22]==sprint}
           question_titles = studentData[0]
 
@@ -366,6 +379,20 @@ class SemestersController < ApplicationController
           begin
             semester.client_csv.open do |tempClient|
               clientData = SmarterCSV.process(tempClient.path)
+              
+              # Check if the sprint exists in the client CSV and has actual data
+              client_sprint_exists = clientData.any? { |row| 
+                row[:q3] == sprint && 
+                row[:q1_team].present? && # team name
+                (row[:q2_1].present? || row[:q2_2].present? || row[:q2_3].present? || 
+                 row[:q2_4].present? || row[:q2_5].present? || row[:q2_6].present?) # at least one response
+              }
+              
+              unless client_sprint_exists
+                flags.append("no data")
+                return flags
+              end
+
               client_survey = clientData.find_all { |survey|
                 survey[:q1_team] == team && survey[:q3] == sprint
               }
@@ -397,17 +424,13 @@ class SemestersController < ApplicationController
             flags.append("no client score")
           end
 
-          if student_survey[0]
-            self_submitted_names = [[student_survey[0][:q1]],[student_survey[0][:q10]]]
-          end
-          if student_survey[0] && student_survey[0][:q13_2_text]
-            self_submitted_names.push([student_survey[0][:q13_2_text]])
-          end
-          if student_survey[0] && student_survey[0][:q23_2_text]
-            self_submitted_names.push([student_survey[0][:q23_2_text]])
-          end
-          if student_survey[0] && student_survey[0][:q24_2_text]
-            self_submitted_names.push([student_survey[0][:q24_2_text]])
+          self_submitted_names = []
+          if student_survey.any?
+            self_submitted_names.push([student_survey[0][:q1]], [student_survey[0][:q10]])
+            additional_keys = [:q13_2_text, :q23_2_text, :q24_2_text]
+            additional_keys.each do |key|
+              self_submitted_names.push([student_survey[0][key]]) if student_survey[0][key]
+            end
           end
 
           if self_submitted_names
@@ -418,96 +441,14 @@ class SemestersController < ApplicationController
               name.push([])
               name.push([])
 
-              student_survey.each do |survey|
-                max = white.similarity(name[0], survey[:q1])
-                name_to_add = ["#{survey[:q1]}'s survey","q1",survey[:q1]]
-                self_scores = [survey[:q11_1],survey[:q11_2],survey[:q11_3],survey[:q11_4],survey[:q11_5],survey[:q11_6]]
-                scores = nil
-                if white.similarity(name[0], survey[:q10]) > max
-                  max = white.similarity(name[0], survey[:q10])
-                  name_to_add = ["#{survey[:q1]}'s survey","q10",survey[:q10]]
-                  scores = [survey[:q21_1],survey[:q21_2],survey[:q21_3],survey[:q21_4],survey[:q21_5],survey[:q21_6]]
-                  self_scores = nil
-                end
-                if survey[:q13_2_text] && white.similarity(name[0], survey[:q13_2_text]) > max
-                  max = white.similarity(name[0], survey[:q13_2_text])
-                  name_to_add = ["#{survey[:q1]}'s survey","q13_2_text",survey[:q13_2_text]]
-                  scores = [survey[:q15_1],survey[:q15_2],survey[:q15_3],survey[:q15_4],survey[:q15_5],survey[:q15_6]]
-                  self_scores = nil
-                end
-                if survey[:q23_2_text] && white.similarity(name[0], survey[:q23_2_text]) > max
-                  max = white.similarity(name[0], survey[:q23_2_text])
-                  name_to_add = ["#{survey[:q1]}'s survey","q23_2_text",survey[:q23_2_text]]
-                  scores = [survey[:q16_1],survey[:q16_2],survey[:q16_3],survey[:q16_4],survey[:q16_5],survey[:q16_6]]
-                  self_scores = nil
-                end
-                if survey[:q24_2_text] && white.similarity(name[0], survey[:q24_2_text]) > max
-                  max = white.similarity(name[0], survey[:q24_2_text])
-                  name_to_add = ["#{survey[:q1]}'s survey","q24_2_text",survey[:q24_2_text]]
-                  scores = [survey[:q25_1],survey[:q25_2],survey[:q25_3],survey[:q25_4],survey[:q25_5],survey[:q25_6]]
-                  self_scores = nil
-                end
-
-                if scores
-                  scores.map!{ |score|
-                    if score=="Always"
-                      5
-                    elsif score=="Most of the time"
-                      4
-                    elsif score=="About half the time"
-                      3
-                    elsif score=="Sometimes"
-                      2
-                    elsif score=="Never"
-                      1
-                    else
-                      score
-                    end
-                  }
-                end
-                if self_scores
-                  self_scores.map!{ |score|
-                    if score=="Always"
-                      5
-                    elsif score=="Most of the time"
-                      4
-                    elsif score=="About half the time"
-                      3
-                    elsif score=="Sometimes"
-                      2
-                    elsif score=="Never"
-                      1
-                    else
-                      score
-                    end
-                  }
-                end
-                if self_scores
-                  name[1] = name[1] + self_scores
-                end
-                if scores
-                  name[2] = name[2] + scores
-                end
-                name.push(name_to_add)
-              end
-              name[1].compact!
-              name[2].compact!
-              including_self_scores = name[1] + name[2]
-              unless name[1].blank?
-                name.push((including_self_scores.sum / including_self_scores.size.to_f).round(1))
-              else
-                name.push("*Did not submit survey*")
-              end
-              name.push((name[2].sum / name[2].size.to_f).round(1))
-
               # stores the flags for the team
               if name[-2].is_a?(String) && !flags.include?("missing submit")
                 flags.append("missing submit")
               end
-              if name[-2] < 4 && !flags.include?("-low score")
+              if name[-2].is_a?(Numeric) && name[-2] < 4 && !flags.include?("low score")
                 flags.append("low score")
               end
-              if name.last < 4 && !flags.include?("low score")
+              if name.last.is_a?(Numeric) && name.last < 4 && !flags.include?("low score")
                 flags.append("low score")
               end
 
@@ -515,7 +456,7 @@ class SemestersController < ApplicationController
               if cscore == "No Score"
                 flags.append("no client score")
               end
-              if cscore < 2
+              if cscore.is_a?(Numeric) && cscore < 2
                 flags.append("low client score")
               end
             end
