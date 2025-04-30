@@ -1,0 +1,2 @@
+- Javascript call / view will be added to the frontend before expo
+- Cloud db reseting and migration issues will also be solved before the expo (as the final step)
