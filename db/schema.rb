@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_04_21_210659) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_29_210247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_21_210659) do
     t.text "team"
     t.bigint "user_id", null: false
     t.bigint "semester_id"
-    t.bigint "team_id", null: false
+    t.bigint "team_id"
     t.index ["semester_id"], name: "index_repositories_on_semester_id"
     t.index ["team_id"], name: "index_repositories_on_team_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"
