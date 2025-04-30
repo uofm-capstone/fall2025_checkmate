@@ -358,18 +358,22 @@
             </style>
 
            <form id="github-form">
-            <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
-            <% unless @semester.git_csv.attached? %>
-            <div class="d-flex justify-content-center mt-4 mb-4">
-              <div class="card w-100 border-danger">
-                <div class="card-body bg-danger text-white">
-                  <p class="card-text text-center">
-                    <strong>Attention:</strong> No Github csv has been uploaded for this semester. Please upload the git csv to display the commit data
-                  </p>
-                </div>
-              </div>
-            </div>
-        <% else %>
+           <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+
+           <% if @semester.git_csv.attached? %>
+             <!-- Keep the warning if you still want it -->
+             <div class="d-flex justify-content-center mt-4 mb-4">
+               <div class="card w-100 border-danger">
+                 <div class="card-body bg-danger text-white">
+                   <p class="card-text text-center">
+                     <strong>Notice:</strong> You have a GitHub CSV uploaded, but we’re now also fetching data directly from the API.
+                   </p>
+                 </div>
+               </div>
+             </div>
+           <% end %>
+           
+
             <!-- Team Name -->
             <% if @team %>
               <label for="team-name" style="display: none;">Team Name: </label>
@@ -413,7 +417,6 @@
             <% end %>
 
             <button id="gitSubmit" type="submit" style="display: none;">Get Commit Info</button> 
-            <% end %>
           </form>
           
           <!-- Element for where the response is placed -->
