@@ -41,6 +41,8 @@ class SemestersController < ApplicationController
   def show
     session[:return_to] ||= request.referer
     @semester = Semester.find(params[:id])
+    # Store the current semester in session
+    session[:last_viewed_semester_id] = @semester.id
     @teams = getTeams(@semester)
     # TODO: allow user to select how many Sprints there are
     @sprint_list = @semester.sprints.pluck(:name)
@@ -113,6 +115,8 @@ class SemestersController < ApplicationController
 
   def status
     @semester = Semester.find(params[:id])
+    # Store the current semester in session
+    session[:last_viewed_semester_id] = @semester.id
     @teams = getTeams(@semester)
     @sprint_list = @semester.sprints.pluck(:name)
     @flags = {}
@@ -124,7 +128,11 @@ class SemestersController < ApplicationController
       end
     end
 
-    render :status
+    @repos = current_user.repositories
+    @sprints = @semester.sprints
+    @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
+
+    render :show
   end
 
   def upload_sprint_csv
