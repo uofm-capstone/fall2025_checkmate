@@ -340,6 +340,22 @@ class SemestersController < ApplicationController
     @flags = flags
     @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
     # set_team_flags
+    if @team == "TAG"
+      @repo_owners ||= {}
+      @repo_names ||= {}
+      @access_tokens ||= {}
+      @start_dates ||= {}
+      @end_dates ||= {}
+    
+      @repo_owners["TAG"] = "uofm-capstone"  
+      @repo_names["TAG"] = "spring2025_tag"            
+      @access_tokens["TAG"] = Rails.application.credentials.dig(:github, :pat)
+  
+      if @sprint.present?
+        @start_dates[@sprint] = "2025-03-01"           
+        @end_dates[@sprint] = "2025-03-15"            
+      end
+    end
 
     render :team
   end

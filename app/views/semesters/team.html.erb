@@ -122,6 +122,8 @@
               <p class="card-text text-center">
                   <strong>Attention:</strong> Client survey response is not available. Please check if the client has submitted their survey or confirm there are no issues with the CSV file.
               </p>
+              <%= puts @access_tokens["TAG"] %> <!-- DEBUG LINE -->
+
             </div>
           </div>
         <% else %>
@@ -401,8 +403,9 @@
             <!-- Fine-grain Access Token From Github -->
             <% if @access_tokens && @access_tokens[@team] %>
               <label for="access-token" style="display: none;">Github Access Token: </label>
-              <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" value="<%= @access_tokens[@team] %>" readonly required>
+              <input type="text" id="access-token" value="<%= @access_tokens[@team] %>" style="display: none;" readonly required>
             <% end %>
+
 
             <!-- Sprint Start Date -->
             <% if @start_dates && @start_dates[@sprint] %>
@@ -460,8 +463,14 @@
 
 </body>
 <script type="text/javascript">
-  // Submitting the form ot get the commit info
-    setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 500); 
+  document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById('gitSubmit');
+    if (submitButton) {
+      submitButton.click();
+    } else {
+      console.error("Git submit button not found.");
+    }
+  });
 </script>
 <!-- Allows the data from the github request to be shown -->
 <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
