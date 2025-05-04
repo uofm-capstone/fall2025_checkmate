@@ -87,6 +87,9 @@ class SemestersController < ApplicationController
     end
 
     if @semester.save
+      # Auto-create teams from the CSV if attached
+      @semester.create_teams_from_csv if @semester.student_csv.attached?
+
       redirect_to @semester, notice: 'Semester was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -101,7 +104,15 @@ class SemestersController < ApplicationController
 
   def update
     @semester = Semester.find(params[:id])
+
+    was_student_csv_attached = @semester.student_csv.attached?
+
     if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
+      # If a student CSV was just attached, create teams
+      if !was_student_csv_attached && @semester.student_csv.attached?
+        @semester.create_teams_from_csv
+      end
+
       flash[:success] = "Semester was successfully updated!"
       redirect_to semester_url(@semester)
     else

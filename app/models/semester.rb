@@ -31,7 +31,40 @@ class Semester < ApplicationRecord
     puts students.inspect
   end
 
-  # Make sure there's an 'end' for the class itself
+  def create_teams_from_csv
+    # It is possible for there to be same team names but different semester/year
+    # Do not need to check other semester's teams, so putting it in model instead of getTeams method (controller)
+    return unless student_csv.attached?
+
+    # Extract existing semester's team names to avoid duplicates
+    existing_team_names = teams.pluck(:name)
+
+    # Process the CSV
+    student_csv.open do |tempfile|
+      begin
+        data = SmarterCSV.process(tempfile.path)
+
+        # Remove header rows
+        data.delete_at(0) if data[0]
+        data.delete_at(0) if data[0]
+
+        # Extract team names
+        team_names = data.map { |row| row[:q2] }.compact.uniq
+
+        # Create teams that don't already exist
+        team_names.each do |team_name|
+          next if team_name.blank? || existing_team_names.include?(team_name)
+          teams.create!(name: team_name)
+        end
+      # In case it fails
+      rescue => e
+        Rails.logger.error("Error creating teams from CSV: #{e.message}")
+        false
+      end
+    end
+    true
+  end
+
 
   private
 
