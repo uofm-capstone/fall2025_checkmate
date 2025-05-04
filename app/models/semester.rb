@@ -2,8 +2,8 @@
 require 'csv'
 class Semester < ApplicationRecord
   has_one_attached :student_csv
-  has_one_attached :client_csv
   has_one_attached :git_csv
+  has_one_attached :client_csv
 
   belongs_to :user
   has_many :sprints, inverse_of: :semester, dependent: :destroy
@@ -12,6 +12,7 @@ class Semester < ApplicationRecord
   accepts_nested_attributes_for :sprints, allow_destroy: true, reject_if: :all_blank
 
   validates :semester, presence: true, inclusion: { in: %w[Fall Spring Summer] }
+  validates :semester, uniqueness: { scope: :year, message: "Semester and year combination already exists" }
   validates :year, presence: true
 
   # To create default sprint when new semester is created.
