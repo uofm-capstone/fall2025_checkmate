@@ -48,32 +48,6 @@
     <% end %>
   </div>
 
-  <% @semesters.each do |semester| %>
-    <div class="container mt-4">
-      <h2><%= semester.semester %> <%= semester.year %></h2>
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= user.id %></td>
-              <td><%= user.email %></td>
-              <td>
-                <%= role_badge(user) %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-
   <div class="container mt-4">
     <h2>User Management</h2>
     <table class="table">

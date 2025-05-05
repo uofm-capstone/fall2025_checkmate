@@ -28,6 +28,12 @@ class AdminController < ApplicationController
       return
     end
 
+    # Can't modify self role
+    if current_user.id == @user.id
+      redirect_to admin_dashboard_path, alert: "Cannot change your own role."
+      return
+    end
+
     if @user.update(role: params[:role])
       redirect_to admin_dashboard_path, notice: "#{@user.email}'s role has been updated to #{params[:role].humanize}."
     else
