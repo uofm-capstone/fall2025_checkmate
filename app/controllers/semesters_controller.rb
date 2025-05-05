@@ -61,13 +61,19 @@ class SemestersController < ApplicationController
 
   def new
     @semester = Semester.new
-    # @semester.sprints.build
-    # render :new
+
+    # Populate with any values from previous submission if they exist (had a problem with the csv stuff)
+    @semester.semester = params[:semester] if params[:semester]
+    @semester.year = params[:year] if params[:year]
+
+    render :new
   end
 
   def create
-    @semester = current_user.semester.build(semester_params)
+    # @semester = current_user.semester.build(semester_params)
+    @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
 
+    # Attach files if present
     if params[:student_csv].present?
       @semester.student_csv.attach(params[:student_csv])
     end
@@ -81,9 +87,12 @@ class SemestersController < ApplicationController
     end
 
     if @semester.save
+      # Auto-create teams from the CSV if attached
+      @semester.create_teams_from_csv if @semester.student_csv.attached?
+
       redirect_to @semester, notice: 'Semester was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -95,7 +104,15 @@ class SemestersController < ApplicationController
 
   def update
     @semester = Semester.find(params[:id])
+
+    was_student_csv_attached = @semester.student_csv.attached?
+
     if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
+      # If a student CSV was just attached, create teams
+      if !was_student_csv_attached && @semester.student_csv.attached?
+        @semester.create_teams_from_csv
+      end
+
       flash[:success] = "Semester was successfully updated!"
       redirect_to semester_url(@semester)
     else

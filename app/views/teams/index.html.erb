@@ -1,39 +1,65 @@
-<div class="container-">
-  <h1 style="color: #0D3182; text-align: center;">Teams</h1>
-  
-  <% if can? :create, Team %>
-    <div style="text-align: center" class="mb-3">
-      <%= link_to 'Create a new team', new_team_path, class: "btn btn-secondary" %>
-    </div>
-  <% end %>
-  
-  <div>
-    <table class="table table-hover">
-      <thead style="background-color: #0D3182; color: white">
-        <tr>
-          <th>Team Name</th>
-          <th>Semester</th>
-          <th>Members</th>
-          <th></th>
-        </tr>
-      </thead>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 ms-auto ps-4">
+      <h1 style="color: #0D3182; text-align: center;">Teams</h1>
+      
+      <% if can? :create, Team %>
+        <div style="text-align: center" class="mb-3">
+          <%= link_to 'Create a new team', new_team_path, class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+      
+      <div>
+        <table class="table table-hover">
+          <thead style="background-color: #0D3182; color: white">
+            <tr>
+              <th>Team Name</th>
+              <th>Semester</th>
+              <th>Members</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <% @teams.each do |team| %>
-          <tr>
-            <td><%= team.name %></td>
-            <td><%= team.semester.name_for_select %></td>
-            <td><%= team.users.count %></td>
-            <td>
-              <%= link_to 'View', team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
-              <% if can? :modify, team %>
-                <%= link_to 'Edit', edit_team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
-                <%= button_to 'Delete', team_path(team), method: :delete, class: 'btn btn-outline-secondary btn-sm', data: { confirm: 'Are you sure?' } %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+          <tbody>
+            <% @teams.each do |team| %>
+              <tr>
+                <td><%= team.name %></td>
+                <td><%= team.semester.name_for_select %></td>
+                <td><%= team.users.count %></td>
+                <td>
+                  <%= link_to 'View', team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
+                  <% if can? :modify, team %>
+                    <%= link_to 'Edit', edit_team_path(team), class: 'btn btn-outline-secondary btn-sm' %>
+                    <%= button_to 'Delete', team_path(team), method: :delete, class: 'btn btn-outline-secondary btn-sm d-inline-block', form: { style: 'display: inline-block;' }, data: { confirm: 'Are you sure?' } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+  /* Custom styles to fix the layout with the sidebar */
+  @media (min-width: 768px) {
+    .container-fluid {
+      padding-left: 270px; /* 250px sidebar width + some extra padding */
+    }
+  }
+  
+  /* Add responsive behavior for smaller screens */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-left: 15px;
+    }
+  }
+  
+  /* Fix the display of the button-to elements */
+  form.button_to {
+    display: inline-block;
+    margin: 0;
+  }
+</style>

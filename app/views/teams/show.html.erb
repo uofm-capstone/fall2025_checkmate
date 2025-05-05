@@ -1,45 +1,79 @@
-<div class="container">
-  <h1 style="text-align: center">Team: <%= @team.name %></h1>
-  
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">Semester: <%= @team.semester.name_for_select %></h5>
-      <% if @team.description.present? %>
-        <p class="card-text"><%= @team.description %></p>
-      <% end %>
-    </div>
-  </div>
-  
-  <h2 style="color: #0D3182;">Team Members</h2>
-  <div>
-    <table class="table table-hover">
-      <thead style="background-color: #0D3182; color: white">
-        <tr>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @team_members.any? %>
-          <% @team_members.each do |member| %>
-            <tr>
-              <td><%= member.email %></td>
-              <td><%= member.role.capitalize %> </td>
-            </tr>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 ms-auto ps-4">
+      <h1 style="text-align: center">Team: <%= @team.name %></h1>
+      
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Semester: <%= @team.semester.name_for_select %></h5>
+          <% if @team.description.present? %>
+            <p class="card-text"><%= @team.description %></p>
           <% end %>
-        <%# If team is empty %>
-        <% else %>
-          <tr>
-            <td colspan="2">No members in this team yet.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  
-  <% if can? :update, @team %>
-    <div style="text-align: center" class="mt-3">
-      <%= link_to 'Edit Team', edit_team_path(@team), class: "btn btn-secondary" %>
+        </div>
+      </div>
+      
+      <h2 style="color: #0D3182;">Team Members</h2>
+      <div>
+        <table class="table table-hover">
+          <thead style="background-color: #0D3182; color: white">
+            <tr>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @team_members.any? %>
+              <% @team_members.each do |member| %>
+                <tr>
+                  <td><%= member.email %></td>
+                  <td><%= member.role.capitalize %> </td>
+                </tr>
+              <% end %>
+            <%# If team is empty %>
+            <% else %>
+              <tr>
+                <td colspan="2">No members in this team yet.</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      
+      <% if can? :update, @team %>
+        <div style="text-align: center" class="mt-3">
+          <%= link_to 'Edit Team', edit_team_path(@team), class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+      
+      <div style="text-align: center" class="mt-3">
+        <%= link_to 'Back to Teams', teams_path, class: "btn btn-outline-secondary" %>
+      </div>
     </div>
-  <% end %>
+  </div>
 </div>
+
+<style>
+  /* Custom styles to fix the layout with the sidebar */
+  @media (min-width: 768px) {
+    .container-fluid {
+      padding-left: 270px; /* 250px sidebar width + some extra padding */
+    }
+  }
+  
+  /* Add responsive behavior for smaller screens */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-left: 15px;
+    }
+  }
+  
+  /* Enhance card styling */
+  .card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  
+  .table {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+</style>
