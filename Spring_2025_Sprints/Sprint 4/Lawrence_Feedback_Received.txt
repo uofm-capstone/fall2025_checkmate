@@ -39,3 +39,20 @@ Overall Feedback:
 Lawrence clearly understands how to deploy and run the app locally using Docker. However, the overall design and functionality of the app appear underdeveloped. 
 To improve user experience, the app needs essential features like login error messages when incorrect credentials are entered. Adding more feedback for the user 
 and polishing the interface would help the TAG app better serve its intended purpose.
+
+
+Feedback from Nacim Osman to Lawrence Jones:
+
+In Sprint 4:
+● Set up the app using Docker containers, creating an isolated and reproducible development
+environment.
+
+● Implemented a PostgreSQL database container and configured it for use with the backend.
+
+● Walked through how to build and run the container setup — it was well-documented and clearly
+demonstrated.
+
+○ The system looks solid, just needs more testing to ensure consistency across different environments.
+
+Lawrence’s work shows a strong understanding of backend deployment and infrastructure. His setup will
+help the team transition to a more robust and scalable architecture
