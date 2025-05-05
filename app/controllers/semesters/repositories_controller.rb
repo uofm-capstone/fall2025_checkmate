@@ -6,6 +6,8 @@ class RepositoriesController < ApplicationController
     #The repositories_controller got a makeover between versions 1 and 2
     #Version 1 has the code for showing the GitHub metrics
     #Version 2 is updated to the standard scaffolding, but still needs the GitHub metrics code added back in and adapted
+    #GitHub Metrics is now handled on the front end through Octokit
+    #Using a personal access token from GitHub will allow the user to retrieve the API and get the commits per user.
 
     def show
         @semester = Semester.find(params[:semester_id])
