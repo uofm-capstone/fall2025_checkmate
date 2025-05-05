@@ -7,3 +7,5 @@ tmp/cache/*
 /config/master.key
 config/master.key
 .env*
+.env
+config/credentials.yml.enc

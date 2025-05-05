@@ -21,3 +21,21 @@ Overall Assesment:  The project successfully meets its core objective of providi
 assistants. By offering a simple interface which includes a login-based access system, structured semester and team management, and a clean, 
 minimal workflow. The Rails' MVC architecture makes the app easy to maintain and extend and the basic authentication ensures that sensitive 
 grading operations are restricted to authorized users only.
+
+
+Formal Feedback from Jeralyn Saenz to Lawrence Jones:
+
+Goal:
+The person I am reviewing today is Lawrence Jones. Lawrence is a member of the TAG team. The goal of their team is to develop an app that helps 
+streamline grading and managing capstone projects through survey uploads and team creation functionality.
+
+Observation:
+During the formal feedback session, Lawrence demonstrated how to install Docker and use it to run the TAG app locally. He walked me through creating 
+a Docker container, running PostgreSQL, building the image, and starting the Rails server. Once everything was up, he showed the login page, how to 
+upload survey CSVs, and how to create teams using GitHub tokens. He also explained the role of different Docker containers and the database migration 
+process.
+
+Overall Feedback:
+Lawrence clearly understands how to deploy and run the app locally using Docker. However, the overall design and functionality of the app appear underdeveloped. 
+To improve user experience, the app needs essential features like login error messages when incorrect credentials are entered. Adding more feedback for the user 
+and polishing the interface would help the TAG app better serve its intended purpose.

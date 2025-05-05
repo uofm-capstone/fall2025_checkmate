@@ -20,3 +20,22 @@ locations.
 Overall Feedback:
 The app seems to be going great, as there doesn’t seem to be any issue with code and its effect on the app’s performance. I don’t have very much 
 to critique other than adding color and pictures. The autolink team is on track with meeting their goals.
+
+
+Formal Feedback from Lawrence Jones to Jeralyn Saenz:
+
+Goal:
+The person I am reviewing today is Jeralyn Saenz. Jeralyn is a part of the HPV Vac team. The goal of their team is to create an app that will 
+help people get HPV vaccinated.
+
+Observation:
+Jeralyn performed user testing functionality during the feedback session. She made two minigames. One minigame is an unvaccinated version where 
+the parent tries to fight the HPV cells with the help of immune cells but gets overpowered by HPV every time. The vaccinated version gives the 
+parents a chance to win by enforcing the immune cells and slowing down the infection of HPV cells.
+
+Overall Feedback:
+The HPV Vac team is on track with meeting their goals in terms of making an app to help children get vaccinated for HPV. The idea of creating 
+quizzes and minigames is a unique way of targeting parents and children, making the app not only entertaining but also informative. My overall 
+feedback on the app is that the time limit on the minigames should be a little longer so the users will have enough time to complete them. Also, 
+the HPV cells and immune cells need to have a more realistic look.
+

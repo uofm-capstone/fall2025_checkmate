@@ -25,3 +25,52 @@ User.find_or_create_by(email: "BrandonBooth@admin.com") do |user|
   user.admin = true
   user.role = :admin
 end
+
+# Adding more seed data
+
+# Teaching Assistants
+User.find_or_create_by(email: "doe.john@ta.edu") do |user|
+  user.password = "TApass123!"
+  user.role = :ta
+end
+
+User.find_or_create_by(email: "smith.jame@ta.edu") do |user|
+  user.password = "TApass456!"
+  user.role = :ta
+end
+
+# Students
+students = [
+  { email: "john.doe@student.edu", password: "Student123!" },
+  { email: "jane.smith@student.edu", password: "Student456!" },
+  { email: "naitik.kaythwal@student.edu", password: "StudentJKL!" },
+  { email: "purav.patel@student.edu", password: "StudentMNO!" },
+  { email: "hitham.rizeq@student.edu", password: "StudentPQR!" },
+  { email: "mcneil.mccarley@student.edu", password: "StudentDEF!" },
+  { email: "jonnie.nguyen@student.edu", password: "Student789!" },
+  { email: "tyler.howell@student.edu", password: "StudentABC!" },
+  { email: "lawrence.jones@student.edu", password: "StudentGHI!" },
+]
+
+students.each do |student_data|
+  User.find_or_create_by(email: student_data[:email]) do |user|
+    user.password = student_data[:password]
+    user.role = :student
+  end
+end
+
+# Guest users
+guests = [
+  { email: "client1@company.com", password: "GuestPass1!" },
+  { email: "client2@nonprofit.org", password: "GuestPass2!" },
+  { email: "sponsor1@business.com", password: "GuestPass3!" },
+  { email: "sponsor2@enterprise.net", password: "GuestPass4!" },
+  { email: "observer@external.edu", password: "GuestPass5!" }
+]
+
+guests.each do |guest_data|
+  User.find_or_create_by(email: guest_data[:email]) do |user|
+    user.password = guest_data[:password]
+    user.role = :guest
+  end
+end

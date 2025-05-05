@@ -1,31 +1,67 @@
-<section class="vh-100 bg-image" style="background-image: url('<%= asset_path('background/cap.jpg') %>');">
-  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+<section class="vh-100">
+  <div class="mask d-flex align-items-center h-100">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+        <div class="col-12 col-md-10 col-lg-8">
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">New Semester</h2>
-              <%= bootstrap_form_with(model: @semester, url: semesters_path, method: :post, local: true) do |f| %>
-                <div class="form-outline mb-4">
-                  <% semester_array = %w[Fall Spring Summer] %>
-                  <%= f.select :semester, semester_array, {}, class: 'form-control form-control-lg', id: 'semester' %>
-                  <%= f.select :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), {}, class: 'form-control form-control-lg', id: 'year' %>
+              <h2 class="text-uppercase text-center mb-5">NEW SEMESTER</h2>
+              
+              <% if @semester.errors.any? %>
+                <div class="alert alert-danger">
+                  <ul>
+                    <% @semester.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
                 </div>
-                <div class="form-outline mb-4">
-                  <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'student_csv' %>
+              <% end %>
+              
+              <%= form_with(url: semesters_path, method: :post, local: true, html: { multipart: true }) do |f| %>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-outline mb-4">
+                      <label for="semester">Semester</label>
+                      <% semester_array = %w[Fall Spring Summer] %>
+                      <%= f.select :semester, options_for_select(semester_array, @semester.semester), {}, class: 'form-control form-control-lg' %>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-outline mb-4">
+                      <label for="year">Year</label>
+                      <%= f.select :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), @semester.year || Time.zone.now.year), {}, class: 'form-control form-control-lg' %>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="form-outline mb-4">
-                  <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'client_csv' %>
+                <hr>
+                <h5 class="mb-3">Upload Survey CSVs <span class="text-muted small">(optional)</span></h5>
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-outline mb-4">
+                      <label for="student_csv">Student CSV</label>
+                      <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control' %>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-outline mb-4">
+                      <label for="client_csv">Client CSV</label>
+                      <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control' %>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-outline mb-4">
+                      <label for="git_csv">Git CSV</label>
+                      <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control' %>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="form-outline mb-4">
-                  <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control form-control-lg', id: 'git_csv' %>
-                </div>
-
-                <div class="d-flex justify-content-center mb-5">
-                  <%= f.submit "Submit", class: "btn btn-success btn-block btn-lg gradient-custom-4 text-body" %>
+                
+                <div class="d-flex justify-content-center mt-4">
+                  <%= f.submit "Submit", class: "btn btn-success btn-lg px-5" %>
                 </div>
               <% end %>
             </div>

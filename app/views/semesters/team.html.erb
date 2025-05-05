@@ -122,6 +122,8 @@
               <p class="card-text text-center">
                   <strong>Attention:</strong> Client survey response is not available. Please check if the client has submitted their survey or confirm there are no issues with the CSV file.
               </p>
+              <%= puts @access_tokens["TAG"] %> <!-- DEBUG LINE -->
+
             </div>
           </div>
         <% else %>
@@ -358,18 +360,22 @@
             </style>
 
            <form id="github-form">
-            <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
-            <% unless @semester.git_csv.attached? %>
-            <div class="d-flex justify-content-center mt-4 mb-4">
-              <div class="card w-100 border-danger">
-                <div class="card-body bg-danger text-white">
-                  <p class="card-text text-center">
-                    <strong>Attention:</strong> No Github csv has been uploaded for this semester. Please upload the git csv to display the commit data
-                  </p>
-                </div>
-              </div>
-            </div>
-        <% else %>
+           <h1 id="github-commits" style="font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.5rem;">Github Commits</h1>
+
+           <% if @semester.git_csv.attached? %>
+             <!-- Keep the warning if you still want it -->
+             <div class="d-flex justify-content-center mt-4 mb-4">
+               <div class="card w-100 border-danger">
+                 <div class="card-body bg-danger text-white">
+                   <p class="card-text text-center">
+                     <strong>Notice:</strong> You have a GitHub CSV uploaded, but we’re now also fetching data directly from the API.
+                   </p>
+                 </div>
+               </div>
+             </div>
+           <% end %>
+           
+
             <!-- Team Name -->
             <% if @team %>
               <label for="team-name" style="display: none;">Team Name: </label>
@@ -397,8 +403,9 @@
             <!-- Fine-grain Access Token From Github -->
             <% if @access_tokens && @access_tokens[@team] %>
               <label for="access-token" style="display: none;">Github Access Token: </label>
-              <input type="text" placeholder="Fine-grain Token" id="access-token" style="display: none;" value="<%= @access_tokens[@team] %>" readonly required>
+              <input type="text" id="access-token" value="<%= @access_tokens[@team] %>" style="display: none;" readonly required>
             <% end %>
+
 
             <!-- Sprint Start Date -->
             <% if @start_dates && @start_dates[@sprint] %>
@@ -413,7 +420,6 @@
             <% end %>
 
             <button id="gitSubmit" type="submit" style="display: none;">Get Commit Info</button> 
-            <% end %>
           </form>
           
           <!-- Element for where the response is placed -->
@@ -457,8 +463,14 @@
 
 </body>
 <script type="text/javascript">
-  // Submitting the form ot get the commit info
-    setTimeout(function(){ document.getElementById('gitSubmit').click(); }, 500); 
+  document.addEventListener("DOMContentLoaded", function () {
+    const submitButton = document.getElementById('gitSubmit');
+    if (submitButton) {
+      submitButton.click();
+    } else {
+      console.error("Git submit button not found.");
+    }
+  });
 </script>
 <!-- Allows the data from the github request to be shown -->
 <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
