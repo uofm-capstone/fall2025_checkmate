@@ -2,8 +2,8 @@
 require 'csv'
 class Semester < ApplicationRecord
   has_one_attached :student_csv
-  has_one_attached :client_csv
   has_one_attached :git_csv
+  has_one_attached :client_csv
 
   belongs_to :user
   has_many :sprints, inverse_of: :semester, dependent: :destroy
@@ -12,6 +12,7 @@ class Semester < ApplicationRecord
   accepts_nested_attributes_for :sprints, allow_destroy: true, reject_if: :all_blank
 
   validates :semester, presence: true, inclusion: { in: %w[Fall Spring Summer] }
+  validates :semester, uniqueness: { scope: :year, message: "Semester and year combination already exists" }
   validates :year, presence: true
 
   # To create default sprint when new semester is created.
@@ -22,15 +23,71 @@ class Semester < ApplicationRecord
     "#{semester} #{year}"
   end
 
-  # New class method to process static CSV file
+  # Find the current active semester based on the current date
+  def self.current_active
+    current_date = Date.current
+    current_year = current_date.year
 
+    # Define semester date ranges
+    spring_range = Date.new(current_year, 1, 1)..Date.new(current_year, 5, 31)
+    summer_range = Date.new(current_year, 6, 1)..Date.new(current_year, 7, 31)
+    fall_range = Date.new(current_year, 8, 1)..Date.new(current_year, 12, 31)
+
+    # Determine current semester based on date
+    current_semester = case current_date
+                      when spring_range then 'Spring'
+                      when summer_range then 'Summer'
+                      when fall_range then 'Fall'
+                      end
+
+    # Find the semester record
+    semester = where(semester: current_semester, year: current_year).first
+
+    # If no semester exists for the current period, return the most recent semester
+    semester || order(year: :desc, semester: :desc).first
+  end
+
+  # New class method to process static CSV file
   def self.debug_students
     filepath = Rails.root.join('lib', 'assets', 'Students_list.csv')
     students = CSV.read(filepath, headers: true).map { |row| {name: row['Name'], role: row['Role']} }
     puts students.inspect
   end
 
-  # Make sure there's an 'end' for the class itself
+  def create_teams_from_csv
+    # It is possible for there to be same team names but different semester/year
+    # Do not need to check other semester's teams, so putting it in model instead of getTeams method (controller)
+    return unless student_csv.attached?
+
+    # Extract existing semester's team names to avoid duplicates
+    existing_team_names = teams.pluck(:name)
+
+    # Process the CSV
+    student_csv.open do |tempfile|
+      begin
+        data = SmarterCSV.process(tempfile.path)
+
+        # Remove header rows
+        data.delete_at(0) if data[0]
+        data.delete_at(0) if data[0]
+
+        # Extract team names
+        team_names = data.map { |row| row[:q2] }.compact.uniq
+
+        # Create teams that don't already exist
+        team_names.each do |team_name|
+          next if team_name.blank? || existing_team_names.include?(team_name)
+          teams.create!(name: team_name)
+        end
+      # In case it fails
+      rescue => e
+        Rails.logger.error("Error creating teams from CSV: #{e.message}")
+        false
+      end
+    end
+    true
+  end
+
 
   private
 

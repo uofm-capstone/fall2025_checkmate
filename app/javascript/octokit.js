@@ -38,7 +38,8 @@ document.getElementById('github-form').addEventListener('submit', function(event
 
             // Process commits to group by author and date
             commits.forEach((commit) => {
-                const author = commit.commit.author.name;
+                //const author = commit.commit.author.name;
+                const author = commit.author && commit.author.login ? commit.author.login : "Unknown";
                 const date = commit.commit.author.date.slice(0, 10); // Extract just the YYYY-MM-DD part
 
                 if (!authorCommits[author]) {

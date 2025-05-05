@@ -1,19 +1,49 @@
-<div class="container">
-  <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
-    <div class="d-flex flex-column">
-      <h1>Create Team</h1>
-      <div>
-        <%= bootstrap_form_with model: @team, local: true do |f| %>
-          <div class="form-group">
-            <%= f.text_field :name, required: true %>
-            <%= f.collection_select :semester_id, @semesters, :id, :name_for_select, { label: "Semester" } %>
-            <%= f.text_area :description, rows: 3 %>
-            <%= f.text_field :github_token, label: "GitHub Token (optional)" %>
-            <%= f.submit %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 ms-auto ps-4">
+      <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+        <div class="d-flex flex-column">
+          <h1>Create Team</h1>
+          <div>
+            <%= bootstrap_form_with model: @team, local: true do |f| %>
+              <div class="form-group">
+                <%= f.text_field :name, required: true %>
+                <%= f.collection_select :semester_id, @semesters, :id, :name_for_select, { label: "Semester" } %>
+                <%= f.text_area :description, rows: 3 %>
+                <%= f.text_field :github_token, label: "GitHub Token (optional)" %>
+                <%= f.submit class: "btn btn-primary mt-3" %>
+              </div>
+            <% end %>
           </div>
-        <% end %>
+          <%= link_to 'Cancel', teams_path, class: 'btn btn-outline-secondary mt-3' %>
+        </div>
       </div>
-      <%= link_to 'Cancel', teams_path, class: 'btn btn-outline-secondary' %>
     </div>
   </div>
 </div>
+
+<style>
+  /* Custom styles to fix the layout with the sidebar */
+  @media (min-width: 768px) {
+    .container-fluid {
+      padding-left: 270px; /* 250px sidebar width + some extra padding */
+    }
+  }
+  
+  /* Add responsive behavior for smaller screens */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-left: 15px;
+    }
+  }
+  
+  /* Improve form styling */
+  .form-group {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .bg-color1 {
+    border-radius: 8px;
+  }
+</style>

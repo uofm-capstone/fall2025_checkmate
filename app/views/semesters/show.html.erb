@@ -9,9 +9,13 @@
       width: 250px;
       height: 100%;
       padding: 1rem;
+      position: fixed;
+      left: 0;
+      top: 56px; /* Height of the top navbar */
       overflow-y: auto;
       background-color: #f8f9fa;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1020;
     }
     .sidebar h2, .sidebar h3, .sidebar h5 {
       color: #343a40;
@@ -29,13 +33,20 @@
       .sidebar {
         display: none;
       }
+      .main-content,
+      .upload-buttons-container {
+        margin-left: 0;
+      }
     }
 
     .main-content {
+      margin-left: 250px; /* Width of the sidebar */
       flex: 1;
       border: 2px solid #ffffff;
       border-radius: 10px;
       padding: 20px;
+      min-width: 0; /* Allows the content to shrink below its minimum content size */
+      overflow-x: auto;
     }
 
     .top-warning {
@@ -45,6 +56,48 @@
       transform: translateX(-50%);
       width: 100%;
       z-index: 1050;
+    }
+
+    .navbar {
+      z-index: 1030;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .container {
+      padding-top: 70px;
+      position: relative;
+      z-index: 1;
+      width: auto;
+      margin-right: 20px;
+    }
+
+    /* Table styles */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+      min-width: 100%;
+    }
+
+    /* Upload buttons container */
+    .upload-buttons-container {
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-left: 250px; /* Match sidebar width */
+    }
+
+    .upload-card {
+      width: 300px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -102,85 +155,89 @@
                 </div>
               <% end %>
 
-              <table class="table table-bordered">
-                <thead class="text-center">
-                  <tr>
-                    <th rowspan="3">Team</th>
-                    <% @sprint_list.each do |sprint| %>
-                      <th colspan="15"><%= sprint %></th>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <% @sprint_list.each do |_sprint| %>
-                      <th colspan="4">Planning</th>
-                      <th colspan="4">PC</th>
-                      <th colspan="6">Demo</th>
-                      <th rowspan="2">CF</th>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <% @sprint_list.each do |_sprint| %>
-                      <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D"].each do |item| %>
-                        <th style="font-size: 0.75rem;"><%= item %></th>
-                      <% end %>
-                    <% end %>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @teams.each do |team| %>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="text-center">
                     <tr>
-                      <td>
-                        <%= link_to team, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none" %>
-                      </td>
+                      <th rowspan="3">Team</th>
                       <% @sprint_list.each do |sprint| %>
-                        <% indicators = @flags[sprint][team] || [] %>
-                        <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
-                          <td class="text-center">
-                            <% if indicators.include?("no data") %>
-                              <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
-                            <% elsif indicators.include?("no client score") && rubric_item == "CF" %>
-                              <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %>
-                            <% elsif indicators.include?("low score") || indicators.include?("low client score") %>
-                              <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
-                            <% else %>
-                              <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-                            <% end %>
-                          </td>
+                        <th colspan="15"><%= sprint %></th>
+                      <% end %>
+                    </tr>
+                    <tr>
+                      <% @sprint_list.each do |_sprint| %>
+                        <th colspan="4">Planning</th>
+                        <th colspan="4">PC</th>
+                        <th colspan="6">Demo</th>
+                        <th rowspan="2">CF</th>
+                      <% end %>
+                    </tr>
+                    <tr>
+                      <% @sprint_list.each do |_sprint| %>
+                        <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D"].each do |item| %>
+                          <th style="font-size: 0.75rem;"><%= item %></th>
                         <% end %>
                       <% end %>
                     </tr>
-                  <% end %>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <% @teams.each do |team| %>
+                      <tr>
+                        <td>
+                          <%= link_to team, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none" %>
+                        </td>
+                        <% @sprint_list.each do |sprint| %>
+                          <% indicators = @flags[sprint][team] || [] %>
+                          <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
+                            <td class="text-center">
+                              <% if indicators.include?("no data") %>
+                                <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
+                              <% elsif indicators.include?("no client score") && rubric_item == "CF" %>
+                                <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %>
+                              <% elsif indicators.include?("low score") || indicators.include?("low client score") %>
+                                <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
+                              <% else %>
+                                <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                              <% end %>
+                            </td>
+                          <% end %>
+                        <% end %>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
             <% end %>
           </div>
         </div>
-      <!-- Sprint-specific Upload CSV Forms -->
-  <!-- Sprint-specific Upload CSV Forms (Student + Client, no Git) -->
-  <div class="container mt-5">
-    <% @sprint_list.each_with_index do |sprint, i| %>
-      <div class="card mb-4 mx-auto" style="max-width: 800px;">
-        <div class="card-body">
-          <h5 class="card-title">Sprint <%= i + 1 %> CSV Upload</h5>
-          <%= form_with(url: upload_sprint_csv_semester_path(@semester), method: :post, local: true, html: { multipart: true }) do |f| %>
-            <div class="mb-3">
-              <%= f.label :student_csv, "Student CSV" %>
-              <%= f.file_field :student_csv, accept: ".csv", class: "form-control" %>
-            </div>
-            <div class="mb-3">
-              <%= f.label :client_csv, "Client CSV" %>
-              <%= f.file_field :client_csv, accept: ".csv", class: "form-control" %>
-            </div>
-            <%= hidden_field_tag :sprint_number, sprint %>
-            <div class="d-grid">
-              <%= f.submit "Upload for #{sprint}", class: "btn btn-primary" %>
-            </div>
-          <% end %>
-        </div>
       </div>
-    <% end %>
+    </div>
+  </div>
 
-      </div>
+  <!-- Sprint-specific Upload CSV Forms -->
+  <div class="container">
+    <div class="upload-buttons-container">
+      <% @sprint_list.each_with_index do |sprint, i| %>
+        <div class="card upload-card">
+          <div class="card-body">
+            <h5 class="card-title">Sprint <%= i + 1 %> CSV Upload</h5>
+            <%= form_with(url: upload_sprint_csv_semester_path(@semester), method: :post, local: true, html: { multipart: true }) do |f| %>
+              <div class="mb-3">
+                <%= f.label :student_csv, "Student CSV" %>
+                <%= f.file_field :student_csv, accept: ".csv", class: "form-control" %>
+              </div>
+              <div class="mb-3">
+                <%= f.label :client_csv, "Client CSV" %>
+                <%= f.file_field :client_csv, accept: ".csv", class: "form-control" %>
+              </div>
+              <%= hidden_field_tag :sprint_number, sprint %>
+              <div class="d-grid">
+                <%= f.submit "Upload for #{sprint}", class: "btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
