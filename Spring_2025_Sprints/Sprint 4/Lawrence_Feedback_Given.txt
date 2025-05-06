@@ -39,3 +39,18 @@ quizzes and minigames is a unique way of targeting parents and children, making 
 feedback on the app is that the time limit on the minigames should be a little longer so the users will have enough time to complete them. Also, 
 the HPV cells and immune cells need to have a more realistic look.
 
+Feedback from Lawrence Jones to Nacim Osman:
+In Sprint 4:
+
+● Implemented machine learning model switching capability to support improved and updated models.
+
+● Developed a model upload function, allowing users to import their own trained models into the app.
+
+○ Still addressing a model read error, but the core upload logic is in place.
+
+● Worked on expanding the image dataset to include a broader and more diverse set of frog images.
+
+○ This will help improve model generalization and classification accuracy.
+
+Overall, Nacim continues to make strong technical contributions. His work on the model infrastructure is
+essential for the app’s flexibility and future updates
