@@ -374,7 +374,7 @@ class SemestersController < ApplicationController
     
       @repo_owners["TAG"] = "uofm-capstone"  
       @repo_names["TAG"] = "spring2025_tag"            
-      @access_tokens["TAG"] = Rails.application.credentials.dig(:github, :pat)
+      @access_tokens["TAG"] = ENV["GITHUB_PAT"]
   
       if @sprint.present?
         @start_dates[@sprint] = "2025-03-01"           
