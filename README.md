@@ -64,7 +64,7 @@ This application is deployed on **Google Cloud Run** using a fully containerized
 - On app startup, Cloud Run probes port `8080` for health checks—this is preconfigured in the Dockerfile and app server.
 ---
 
-For more details on cloud setup and deployment steps, refer to: [DRAFT_CLOUD_DEPLOYMENT.md](./DRAFT_CLOUD_DEPLOYMENT.md).
+For more details on cloud setup and deployment steps, refer to: [DRAFT_GOOGLE_CLOUD_DEPLOYMENT.md](./DRAFT_GOOGLE_CLOUD_DEPLOYMENT.md)
 
 ## Legacy Manual Setup (Deprecated)
 1. Create a workspace folder to download your application.
