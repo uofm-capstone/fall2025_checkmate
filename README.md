@@ -33,7 +33,7 @@ This application is fully containerized and configured for local development usi
    docker-compose up --build
 The application depends on the docker-compose.yml file to manage services and volumes. The PostgreSQL database and Rails server are both defined in this file and will not run correctly outside the containerized environment.
 
-For detailed setup instructions and troubleshooting tips, refer to [CONTAINER_DEVELOPMENT.md]
+For detailed setup instructions and troubleshooting tips, refer to [CONTAINER_DEVELOPMENT.md](./CONTAINER_DEVELOPMENT.md).
 
 ## ☁️ Google Cloud Deployment
 
@@ -64,7 +64,7 @@ This application is deployed on **Google Cloud Run** using a fully containerized
 - On app startup, Cloud Run probes port `8080` for health checks—this is preconfigured in the Dockerfile and app server.
 ---
 
-For more details on cloud setup and deployment steps, refer to: [CLOUD_DEPLOYMENT.md]
+For more details on cloud setup and deployment steps, refer to: [DRAFT_CLOUD_DEPLOYMENT.md](./DRAFT_CLOUD_DEPLOYMENT.md).
 
 ## Legacy Manual Setup (Deprecated)
 1. Create a workspace folder to download your application.
