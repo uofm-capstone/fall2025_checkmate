@@ -12,19 +12,61 @@ TAG is a web-based application designed to assist professors and teaching assist
 This application is built on Ruby on Rails web framework.
 
 ## Prerequisites
-* Ruby - v3.2.1
-* Node.js - v19.8.1
-* PostgreSQL - latest
-* [Optional] Ruby version manager (rvm or rbenv if using MacOS or Linux)
+* Docker - latest version
+Ensure that Docker is installed on your machine. You can get the latest version here: [Docker](https://docs.docker.com/get-started/get-docker/)
 
-# Installating Software
-## Windows or Linux/macOS
-#### NOTE: Be sure to download and install the corresponding operating system supported files.
-1. Download and install [Ruby](https://www.ruby-lang.org/en/downloads/releases/)
-2. Download and install [Node](https://nodejs.org/en/download/)
-3. Download and install [Postgress](https://www.postgresql.org/download/)
+## Running the App Locally (Recommended via Docker)
+This application is fully containerized and configured for local development using Docker. The primary way to run and develop the app is via `docker-compose`, which builds the backend service and connects it to a PostgreSQL database container.
 
-## Using the software
+### Getting Started with Docker
+
+1. **Clone the repository to your local machine**  
+   The application must be downloaded locally in order to function correctly in development mode.
+
+2. **Ensure Docker and Docker Compose are installed**  
+   Visit [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/) if you haven’t already set up Docker.
+
+3. **Run the app**  
+   Use the following command from the project root:
+
+   ```bash
+   docker-compose up --build
+The application depends on the docker-compose.yml file to manage services and volumes. The PostgreSQL database and Rails server are both defined in this file and will not run correctly outside the containerized environment.
+
+For detailed setup instructions and troubleshooting tips, refer to [CONTAINER_DEVELOPMENT.md]
+
+## ☁️ Google Cloud Deployment
+
+This application is deployed on **Google Cloud Run** using a fully containerized setup. The deployment architecture includes:
+
+- **Cloud Run** for running the Dockerized web app
+- **Cloud SQL (PostgreSQL)** for the production database
+- **Artifact Registry** for storing Docker container images
+
+### Deployment Workflow
+
+1. **Build and Push Container Image**
+   - The app is containerized via the `Dockerfile` in the project root.
+   - Images are built locally or via CI and pushed to **Artifact Registry**.
+
+2. **Deploy to Cloud Run**
+   - The container is deployed to Cloud Run via the Google Cloud Console or CLI.
+   - Environment variables and secrets (e.g., database URL, PAT tokens) are configured in the Cloud Run service settings.
+
+3. **Database Integration**
+   - The application connects to **Cloud SQL** via proxy connection.
+   - The database must be migrated and seeded manually after first deployment.
+   - Tip: If needed, database operations can be set up as Jobs in the cloud console for easy migration during development.
+
+### Notes
+
+- Make sure your GCP project is linked to **Artifact Registry**, and that Cloud SQL and Cloud Run APIs are enabled.
+- On app startup, Cloud Run probes port `8080` for health checks—this is preconfigured in the Dockerfile and app server.
+---
+
+For more details on cloud setup and deployment steps, refer to: [CLOUD_DEPLOYMENT.md]
+
+## Legacy Manual Setup (Deprecated)
 1. Create a workspace folder to download your application.
 2. Navigate to your new workspace directory.
 3. Clone the repository using the following command: ```git clone git@github.com:mrhosier42/tag.git```
