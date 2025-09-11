@@ -1,8 +1,8 @@
 # README
 
 # TAG Team Spring Semester Documents
-* Timesheet: https://docs.google.com/spreadsheets/d/1Mp5RXmfIqL2ilEI71O-yjVjz8YulbK6ScH4siZxfafs/edit?usp=sharing
-* Team Contract: https://docs.google.com/document/d/1DNdxrKrqxv0f3FG1GDt5yBjK3IdsK1GSwnrV8zVkqxE/edit?usp=sharing
+* Timesheet: https://docs.google.com/spreadsheets/d/1pCBtfY8AnAp2bjKmCF15EJ1o0w-YEGDmEuD759m-Wk4/edit?usp=sharing
+* Team Contract: https://docs.google.com/document/d/1FrvJ8fkTTyo5yjNhq1EDdQLQ5URz3z76Hiespm06bUE/edit?usp=sharing
 * Client Meeting Notes: https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
 * Sprint 3 Demo Day ppt: https://livememphis-my.sharepoint.com/:p:/g/personal/thowell3_memphis_edu/EVrbFlvN2GBAqcLntB22lWQBCoP840brvaA5xekwMS7sEw?e=SKdNJP
 * Formal Feedback Sprint 4: (In app root) [Spring_2025_Sprints/Sprint 4]
