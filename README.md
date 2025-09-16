@@ -1,11 +1,10 @@
 # README
 
-# TAG Team Spring Semester Documents
+# Team CheckMate Fall Semester Documents
 * Timesheet: https://docs.google.com/spreadsheets/d/1pCBtfY8AnAp2bjKmCF15EJ1o0w-YEGDmEuD759m-Wk4/edit?usp=sharing
 * Team Contract: https://docs.google.com/document/d/1FrvJ8fkTTyo5yjNhq1EDdQLQ5URz3z76Hiespm06bUE/edit?usp=sharing
-* Client Meeting Notes: https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
-* Sprint 3 Demo Day ppt: https://livememphis-my.sharepoint.com/:p:/g/personal/thowell3_memphis_edu/EVrbFlvN2GBAqcLntB22lWQBCoP840brvaA5xekwMS7sEw?e=SKdNJP
-* Formal Feedback Sprint 4: (In app root) [Spring_2025_Sprints/Sprint 4]
+* Client Meeting Notes: https://docs.google.com/document/d/1zPfrdiE6hBqIzEtFx1Fwb6oAbib8PR-Zi7qnjcjqyOU/edit?usp=sharing
+* Demo Day PPT: 
 # Tool-Assisted Grading (TAG)
 TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).
 
