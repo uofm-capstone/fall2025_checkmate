@@ -48,20 +48,20 @@
     }
 
     .summer-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(255, 215, 0, 0.1);
     }
 
     .spring-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(152, 251, 152, 0.1);
     }
 
     .fall-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(255, 160, 122, 0.1);
     }
 
@@ -153,13 +153,13 @@
                                   end %>
                   <div class="col-md-12">
                     <%= link_to semester_path(s), class: 'text-decoration-none' do %>
-                      <div class="card mb-4 <%= card_class %>" style="position: absolute; width: 15rem">
+                      <div class="card mb-4 <%= card_class %>" style='position: relative; width: 15rem;'>
                         <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
                         <div class="card-body">
-                          <p class="timestamp" style="margin: 5px;">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                          <p class="timestamp" style='padding: 5px;';">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
                           <!-- Delete Button -->
                           <%if current_user == s.user || current_user.admin?%>
-                            <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; margin: 5px; top: 50%; transform: translateY(-50%);]' }, class: 'btn btn-danger delete-semester-btn' %>
+                            <%= button_to ' ', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; top: 50%; transform: translateY(-50%);]' }, class: 'bi bi-trash-fill btn bg-transparent' %>
                           <% end %>
                         </div>
                       </div>
