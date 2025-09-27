@@ -152,18 +152,16 @@
                                   else ''
                                   end %>
                   <div class="col-md-12">
-                    <%= link_to semester_path(s), class: 'text-decoration-none' do %>
-                      <div class="card mb-4 <%= card_class %>" style='position: relative; width: 15rem;'>
-                        <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
-                        <div class="card-body">
-                          <p class="timestamp" style='padding: 5px;';">Created: <%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-                          <!-- Delete Button -->
-                          <%if current_user == s.user || current_user.admin?%>
-                            <%= button_to ' ', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; top: 50%; transform: translateY(-50%);]' }, class: 'bi bi-trash-fill btn bg-transparent' %>
-                          <% end %>
-                        </div>
+                    <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
+                      <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
+                      <div class="card-body">
+                        <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
+                        <!-- Delete Button -->
+                        <%if current_user == s.user || current_user.admin?%>
+                          <%= button_to ' ', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; bottom: 5px;]' }, class: 'bi bi-trash-fill btn bg-transparent' %>
+                        <% end %>
                       </div>
-                    <% end %>
+                    </div>
                   </div>
 
                   <!-- Add the line separator between years, except for the last year -->
