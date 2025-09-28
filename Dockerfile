@@ -34,5 +34,8 @@ RUN bundle exec rake assets:precompile
 # Expose the required port
 EXPOSE 8080
 
+# Run the entry point file
+ENTRYPOINT ["./docker-entry.sh"]
+
 # Start the Rails server
 CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
