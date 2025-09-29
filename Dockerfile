@@ -1,5 +1,5 @@
 # Use the correct Ruby version
-FROM ruby:3.2.1-alpine
+FROM --platform=linux/amd64 ruby:3.2.1-alpine
 
 # Install system dependencies
 RUN apk add --no-cache \
@@ -10,7 +10,10 @@ RUN apk add --no-cache \
     tzdata \
     git \
     imagemagick \
-    yarn
+    yarn \
+    libxml2-dev \
+    libxslt-dev \
+    zlib-dev  
 
 # Set working directory
 WORKDIR /app
