@@ -90,6 +90,20 @@ For more details on cloud setup and deployment steps, refer to: [DRAFT_GOOGLE_CL
 4. Select a sprint and semester.
 5. View the page team you want to review.
 
+## Student CSV Format
+
+Each semester requires a student CSV with the following columns:
+
+- Full Name – Student’s full legal name  
+- Email – Student’s email (used for communication)  
+- Team – Team name for grouping  
+- Github Username – Student’s GitHub handle  
+- Github Project Board Link – URL to the team’s GitHub Project board  
+- Timesheet Link – URL to the team’s shared timesheet  
+- Client Meeting Notes Link – URL to the team’s client meeting notes  
+
+An example CSV is located at: `lib/assets/student_template.csv`
+
 
 ## GitHub Analytics - OctoKit API
 This application fetches GitHub commit history on a per-contributor and per-sprint basis, presenting it in an easy-to-digest graphical interface. It's designed to streamline the process of monitoring and analyzing commit activities over specific time periods.
