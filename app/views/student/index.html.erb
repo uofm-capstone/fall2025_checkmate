@@ -1,9 +1,10 @@
 <div class="d-flex align-items-center justify-content-between mb-3">
   <h1 class="h3 mb-0">Students</h1>
-  <!-- New student button opens modal -->
-  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newStudentModal">
-    New student
-  </button>
+
+  <!-- Prefer a real link (works without JS) + still triggers modal when JS is on -->
+  <%= link_to "New student", new_student_path,
+      class: "btn btn-primary",
+      data: { bs_toggle: "modal", bs_target: "#newStudentModal" } %>
 </div>
 
 <div class="card shadow-sm">
@@ -21,26 +22,32 @@
       <tbody>
         <% @students.each do |s| %>
           <tr>
-            <td><%= s.full_name %></td>
-            <td><%= mail_to s.email %></td>
-            <td><%= link_to s.github_username, "https://github.com/#{s.github_username}", target: "_blank", rel: "noopener" %></td>
-            <td><%= s.team_name %></td>
-            <td class="text-end">
-              <!-- Pencil: edit -->
-              <button
-                class="btn btn-sm btn-outline-secondary me-1"
-                data-bs-toggle="modal"
-                data-bs-target="#editStudentModal"
-                data-student-id="<%= s.id %>"
-                data-student-full-name="<%= s.full_name %>"
-                data-student-email="<%= s.email %>"
-                data-student-github="<%= s.github_username %>"
-                data-student-team="<%= s.team_name %>">
-                <i class="bi bi-pencil"></i>
-              </button>
+            <!-- Link name to the show page -->
+            <td><%= link_to s.full_name, student_path(s) %></td>
 
-              <!-- Trash: delete -->
-              <%= button_to student_path(s), method: :delete,
+            <td><%= mail_to s.email %></td>
+            <td><%= link_to s.github_username, "https://github.com/#{s.github_username}",
+                            target: "_blank", rel: "noopener" %></td>
+            <td><%= s.team_name %></td>
+
+            <td class="text-end">
+              <!-- Pencil: edit (modal + fallback to edit path if JS is off) -->
+              <%= link_to edit_student_path(s),
+                    class: "btn btn-sm btn-outline-secondary me-1",
+                    data: {
+                      bs_toggle: "modal",
+                      bs_target: "#editStudentModal",
+                      student_id: s.id,
+                      student_full_name: s.full_name,
+                      student_email: s.email,
+                      student_github: s.github_username,
+                      student_team: s.team_name
+                    } do %>
+                <i class="bi bi-pencil"></i>
+              <% end %>
+
+              <!-- Trash: delete (use your named route) -->
+              <%= button_to destroy_student_path(s), method: :delete,
                     form: { data: { turbo_confirm: "Delete #{s.full_name}?" } },
                     class: "btn btn-sm btn-outline-danger" do %>
                 <i class="bi bi-trash"></i>
@@ -53,5 +60,5 @@
   </div>
 </div>
 
-<%= render "new_modal", student: @student %>
+<%= render "new_modal",  student: @student %>
 <%= render "edit_modal" %>
