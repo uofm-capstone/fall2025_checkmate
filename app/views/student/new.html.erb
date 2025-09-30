@@ -1,9 +1,35 @@
-<%= form_with(model: @student, local: true) do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
+<div class="modal fade" id="newStudentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New student</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-  <%= form.label :semester_id, "Semester" %>
-  <%= form.collection_select :semester_id, Semester.all, :id, :name_for_select, include_blank: true %>
-
-  <%= form.submit "Add Student" %>
-<% end %>
+      <%= form_with model: student, url: students_path, class: "needs-validation", data: { turbo: true } do |f| %>
+        <div class="modal-body">
+          <div class="mb-3">
+            <%= f.label :full_name %>
+            <%= f.text_field :full_name, class: "form-control", required: true %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: "form-control", required: true %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :github_username, "Github Username" %>
+            <%= f.text_field :github_username, class: "form-control", required: true %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :team_name, "Team Name" %>
+            <%= f.text_field :team_name, class: "form-control", required: true %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancel</button>
+          <%= f.submit "Create", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

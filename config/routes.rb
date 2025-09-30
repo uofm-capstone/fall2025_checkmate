@@ -42,6 +42,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # Student controller
+  get    'students',          to: 'students#index',   as: 'students'
+  post   'students',          to: 'students#create',  as: 'create_student'
+  get    'students/new',      to: 'students#new',     as: 'new_student'
+  get    'students/:id/edit', to: 'students#edit',    as: 'edit_student'
+  get    'students/:id',      to: 'students#show',    as: 'student'
+  patch  'students/:id',      to: 'students#update',  as: 'update_student'
+  delete 'students/:id',      to: 'students#destroy', as: 'destroy_student'
+
 
   # Admin controller
   get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'

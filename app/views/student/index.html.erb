@@ -1,0 +1,57 @@
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h1 class="h3 mb-0">Students</h1>
+  <!-- New student button opens modal -->
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newStudentModal">
+    New student
+  </button>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Github Username</th>
+          <th>Team Name</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |s| %>
+          <tr>
+            <td><%= s.full_name %></td>
+            <td><%= mail_to s.email %></td>
+            <td><%= link_to s.github_username, "https://github.com/#{s.github_username}", target: "_blank", rel: "noopener" %></td>
+            <td><%= s.team_name %></td>
+            <td class="text-end">
+              <!-- Pencil: edit -->
+              <button
+                class="btn btn-sm btn-outline-secondary me-1"
+                data-bs-toggle="modal"
+                data-bs-target="#editStudentModal"
+                data-student-id="<%= s.id %>"
+                data-student-full-name="<%= s.full_name %>"
+                data-student-email="<%= s.email %>"
+                data-student-github="<%= s.github_username %>"
+                data-student-team="<%= s.team_name %>">
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <!-- Trash: delete -->
+              <%= button_to student_path(s), method: :delete,
+                    form: { data: { turbo_confirm: "Delete #{s.full_name}?" } },
+                    class: "btn btn-sm btn-outline-danger" do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= render "new_modal", student: @student %>
+<%= render "edit_modal" %>
