@@ -22,18 +22,16 @@
               <thead>
                 <tr>
                   <th>Email</th>
-                  <th>Role</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <% if @team.users.any? %>
-                  <% @team.users.each do |user| %>
+                <% if @team.students.any? %>
+                  <% @team.students.each do |student| %>
                     <tr>
-                      <td><%= user.email %></td>
-                      <td><%= user.role.capitalize %></td>
+                      <td><%= student.email %></td>
                       <td>
-                        <%= button_to "Remove", remove_member_team_path(@team, user_id: user.id), method: :delete, class: "btn btn-sm btn-danger" %>
+                        <%= button_to "Remove", remove_member_team_path(@team, student_id: student.id), method: :delete, class: "btn btn-sm btn-danger" %>
                       </td>
                     </tr>
                   <% end %>
@@ -46,10 +44,10 @@
             </table>
           </div>
           
-          <% if @users.any? %>
+          <% if @students.any? %>
             <h3 class="mt-3">Add Member</h3>
             <%= bootstrap_form_with url: add_member_team_path(@team), method: :post, local: true do |f| %>
-              <%= f.collection_select :user_id, @users, :id, :email, { label: "Select User" } %>
+              <%= f.collection_select :student_id, @students, :id, :email, { label: "Select User" } %>
               <%= f.submit "Add Member", class: "btn btn-success" %>
             <% end %>
           <% end %>

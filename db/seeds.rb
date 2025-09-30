@@ -41,22 +41,19 @@ end
 
 # Students
 students = [
-  { email: "john.doe@student.edu", password: "Student123!" },
-  { email: "jane.smith@student.edu", password: "Student456!" },
-  { email: "naitik.kaythwal@student.edu", password: "StudentJKL!" },
-  { email: "purav.patel@student.edu", password: "StudentMNO!" },
-  { email: "hitham.rizeq@student.edu", password: "StudentPQR!" },
-  { email: "mcneil.mccarley@student.edu", password: "StudentDEF!" },
-  { email: "jonnie.nguyen@student.edu", password: "Student789!" },
-  { email: "tyler.howell@student.edu", password: "StudentABC!" },
-  { email: "lawrence.jones@student.edu", password: "StudentGHI!" },
+  { email: "john.doe@student.edu" },
+  { email: "jane.smith@student.edu" },
+  { email: "naitik.kaythwal@student.edu" },
+  { email: "purav.patel@student.edu" },
+  { email: "hitham.rizeq@student.edu" },
+  { email: "mcneil.mccarley@student.edu" },
+  { email: "jonnie.nguyen@student.edu" },
+  { email: "tyler.howell@student.edu" },
+  { email: "lawrence.jones@student.edu" },
 ]
 
 students.each do |student_data|
-  User.find_or_create_by(email: student_data[:email]) do |user|
-    user.password = student_data[:password]
-    user.role = :student
-  end
+  Student.find_or_create_by(email: student_data[:email])
 end
 
 # Guest users

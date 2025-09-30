@@ -18,7 +18,6 @@
           <thead style="background-color: #0D3182; color: white">
             <tr>
               <th>Email</th>
-              <th>Role</th>
             </tr>
           </thead>
           <tbody>
@@ -26,7 +25,6 @@
               <% @team_members.each do |member| %>
                 <tr>
                   <td><%= member.email %></td>
-                  <td><%= member.role.capitalize %> </td>
                 </tr>
               <% end %>
             <%# If team is empty %>
