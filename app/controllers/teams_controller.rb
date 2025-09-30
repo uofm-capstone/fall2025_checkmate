@@ -11,8 +11,7 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team_members = @team.users
-    @repositories = @team.repositories
+    @team_members = @team.students
     render :show
   end
 
@@ -35,7 +34,7 @@ class TeamsController < ApplicationController
 
   def edit
     @semesters = Semester.all
-    @users = User.where.not(id: @team.user_ids)
+    @students = Student.where.not(id: @team.student_ids)
   end
 
   def update
@@ -43,7 +42,7 @@ class TeamsController < ApplicationController
       redirect_to @team, notice: 'Team was successfully updated.'
     else
       @semesters = Semester.all
-      @users = User.where.not(id: @team.user_ids)
+      @students = Student.where.not(id: @team.student_ids)
       render :edit
     end
   end
@@ -56,11 +55,11 @@ class TeamsController < ApplicationController
 
   def add_member
     authorize! :update, @team
-    @user = User.find(params[:user_id])
+    @student = Student.find(params[:student_id])
 
-    user_team = UserTeam.new(user: @user, team: @team)
+    student_team = StudentTeam.new(student: @student, team: @team)
 
-    if user_team.save
+    if student_team.save
       redirect_to edit_team_path(@team), notice: 'Member was successfully added to the team.'
     else
       redirect_to edit_team_path(@team), alert: 'Failed to add member to the team.'
@@ -69,9 +68,9 @@ class TeamsController < ApplicationController
 
   def remove_member
     authorize! :update, @team
-    @user_team = UserTeam.find_by(user_id: params[:user_id], team_id: @team.id)
+    @student_team = StudentTeam.find_by(student_id: params[:student_id], team_id: @team.id)
 
-    if @user_team&.destroy
+    if @student_team&.destroy
       redirect_to edit_team_path(@team), notice: 'Member was successfully removed from the team.'
     else
       redirect_to edit_team_path(@team), alert: 'Failed to remove member from the team.'
@@ -85,6 +84,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:name, :description, :semester_id, :github_token)
+    params.require(:team).permit(:name, :description, :semester_id, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
   end
 end
