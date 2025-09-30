@@ -156,10 +156,21 @@
                       <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
                       <div class="card-body">
                         <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
-                        <!-- Delete Button -->
-                        <%if current_user == s.user || current_user.admin?%>
-                          <%= button_to ' ', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; bottom: 5px;]' }, class: 'bi bi-trash-fill btn bg-transparent' %>
-                        <% end %>
+                        <br>
+                        <div class='d-flex justify-content-center'>
+                          <!-- Edit Button -->
+                          <%if current_user == s.user || current_user.admin?%>
+                            <%= link_to edit_semester_path(s), style: 'position: relative; bottom: 5px;', class: 'btn bg-transparent' do %>
+                              <i class='bi bi-pencil-fill'></i>
+                            <% end %>
+                          <% end %>
+                          <!-- Delete Button -->
+                          <%if current_user == s.user || current_user.admin?%>
+                            <%= button_to semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; bottom: 5px;]' }, class: 'btn bg-transparent' do %>
+                              <i class='bi bi-trash-fill'></i>
+                            <% end %>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   </div>
