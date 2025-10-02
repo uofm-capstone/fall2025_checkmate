@@ -1,35 +1,6 @@
-<div class="modal fade" id="newStudentModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">New student</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <%= form_with model: student, url: students_path, class: "needs-validation", data: { turbo: true } do |f| %>
-        <div class="modal-body">
-          <div class="mb-3">
-            <%= f.label :full_name %>
-            <%= f.text_field :full_name, class: "form-control", required: true %>
-          </div>
-          <div class="mb-3">
-            <%= f.label :email %>
-            <%= f.email_field :email, class: "form-control", required: true %>
-          </div>
-          <div class="mb-3">
-            <%= f.label :github_username, "Github Username" %>
-            <%= f.text_field :github_username, class: "form-control", required: true %>
-          </div>
-          <div class="mb-3">
-            <%= f.label :team_name, "Team Name" %>
-            <%= f.text_field :team_name, class: "form-control", required: true %>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-link" data-bs-dismiss="modal">Cancel</button>
-          <%= f.submit "Create", class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
+<h1 class="h3 mb-3">New Student</h1>
+<div class="card">
+  <div class="card-body">
+    <%= render "form" %>
   </div>
 </div>
