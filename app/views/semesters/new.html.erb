@@ -40,7 +40,7 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <label for="student_csv">Student CSV</label>
+                      <%= f.label :student_csv, "Student CSV" %>
                       <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control' %>
                     </div>
                   </div>

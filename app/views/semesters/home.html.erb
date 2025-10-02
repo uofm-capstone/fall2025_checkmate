@@ -48,20 +48,20 @@
     }
 
     .summer-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(255, 215, 0, 0.1);
     }
 
     .spring-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(152, 251, 152, 0.1);
     }
 
     .fall-card {
-        background-color: #FFC8B2;
-        border: 1px solid #FFA07A;
+        background-color: #D3D3D3;
+        border: 1px solid #D3D3D3;
         box-shadow: 0 4px 8px rgba(255, 160, 122, 0.1);
     }
 
@@ -112,7 +112,7 @@
 </style>
 
 <body>
-  <div class="container">
+  <div class="" style="width: 30%;">
       <div class="row">
         <div class="col-10 justify-content-center align-items-center text-center">
           <!--Alert message for user if they create a semester-->
@@ -152,18 +152,27 @@
                                   else ''
                                   end %>
                   <div class="col-md-12">
-                    <%= link_to semester_path(s), class: 'text-decoration-none' do %>
-                      <div class="card mb-4 <%= card_class %>" style="position: relative;">
-                        <div class="card-body">
-                          <h5 class="card-title text-dark"><%= "#{s.semester} #{s.year}" %></h5>
-                          <p class="timestamp">Created by: <%= s.user.email %><br><%= s.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+                    <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
+                      <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
+                      <div class="card-body">
+                        <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
+                        <br>
+                        <div class='d-flex justify-content-center'>
+                          <!-- Edit Button -->
+                          <%if current_user == s.user || current_user.admin?%>
+                            <%= link_to edit_semester_path(s), style: 'position: relative; bottom: 5px;', class: 'btn bg-transparent' do %>
+                              <i class='bi bi-pencil-fill'></i>
+                            <% end %>
+                          <% end %>
                           <!-- Delete Button -->
                           <%if current_user == s.user || current_user.admin?%>
-                            <%= button_to 'Delete', semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: absolute; top: 50%; right: 10px; transform: translateY(-50%);' }, class: 'btn btn-danger delete-semester-btn' %>
+                            <%= button_to semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; bottom: 5px;]' }, class: 'btn bg-transparent' do %>
+                              <i class='bi bi-trash-fill'></i>
+                            <% end %>
                           <% end %>
                         </div>
                       </div>
-                    <% end %>
+                    </div>
                   </div>
 
                   <!-- Add the line separator between years, except for the last year -->

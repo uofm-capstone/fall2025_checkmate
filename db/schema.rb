@@ -86,6 +86,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_183927) do
     t.index ["semester_id"], name: "index_sprints_on_semester_id"
   end
 
+  create_table "student_teams", force: :cascade do |t|
+    t.bigint "student_id", null: false
+    t.bigint "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_student_teams_on_student_id"
+    t.index ["team_id"], name: "index_student_teams_on_team_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -103,16 +112,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_183927) do
     t.string "github_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "repo_url"
+    t.string "timesheet_url"
+    t.string "project_board_url"
+    t.string "client_notes_url"
     t.index ["semester_id"], name: "index_teams_on_semester_id"
-  end
-
-  create_table "user_teams", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "team_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["team_id"], name: "index_user_teams_on_team_id"
-    t.index ["user_id"], name: "index_user_teams_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -139,7 +143,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_09_30_183927) do
   add_foreign_key "repositories", "users"
   add_foreign_key "semesters", "users"
   add_foreign_key "sprints", "semesters"
+  add_foreign_key "student_teams", "students"
+  add_foreign_key "student_teams", "teams"
   add_foreign_key "teams", "semesters"
-  add_foreign_key "user_teams", "teams"
-  add_foreign_key "user_teams", "users"
 end

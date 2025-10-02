@@ -10,7 +10,10 @@
                 <%= f.text_field :name, required: true %>
                 <%= f.collection_select :semester_id, @semesters, :id, :name_for_select, { label: "Semester" } %>
                 <%= f.text_area :description, rows: 3 %>
-                <%= f.text_field :github_token, label: "GitHub Token (optional)" %>
+                <%= f.text_field :repo_url, label: "Repo URL" %>
+                <%= f.text_field :timesheet_url, label: "Timesheet URL" %>
+                <%= f.text_field :project_board_url, label: "Project Board URL" %>
+                <%= f.text_field :client_notes_url, label: "Client Notes URL" %>
                 <%= f.submit class: "btn btn-primary mt-3" %>
               </div>
             <% end %>

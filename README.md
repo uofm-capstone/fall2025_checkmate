@@ -1,11 +1,10 @@
 # README
 
-# TAG Team Spring Semester Documents
+# Team CheckMate Fall Semester Documents
 * Timesheet: https://docs.google.com/spreadsheets/d/1pCBtfY8AnAp2bjKmCF15EJ1o0w-YEGDmEuD759m-Wk4/edit?usp=sharing
 * Team Contract: https://docs.google.com/document/d/1FrvJ8fkTTyo5yjNhq1EDdQLQ5URz3z76Hiespm06bUE/edit?usp=sharing
-* Client Meeting Notes: https://docs.google.com/document/d/1-AIM5DQK8lllqFsF41cocEPRypCkBmVKW4QHCnBBrK0/edit?usp=sharing
-* Sprint 3 Demo Day ppt: https://livememphis-my.sharepoint.com/:p:/g/personal/thowell3_memphis_edu/EVrbFlvN2GBAqcLntB22lWQBCoP840brvaA5xekwMS7sEw?e=SKdNJP
-* Formal Feedback Sprint 4: (In app root) [Spring_2025_Sprints/Sprint 4]
+* Client Meeting Notes: https://docs.google.com/document/d/1zPfrdiE6hBqIzEtFx1Fwb6oAbib8PR-Zi7qnjcjqyOU/edit?usp=sharing
+* Demo Day PPT: https://docs.google.com/presentation/d/1mVn2zTjcE84VW1WJ2O0MsoHPhOAV1eOgNhv15IshEQQ/edit?usp=sharing
 # Tool-Assisted Grading (TAG)
 TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).
 
@@ -90,6 +89,20 @@ For more details on cloud setup and deployment steps, refer to: [DRAFT_GOOGLE_CL
 3. Load client and student survey data.
 4. Select a sprint and semester.
 5. View the page team you want to review.
+
+## Student CSV Format
+
+Each semester requires a student CSV with the following columns:
+
+- Full Name – Student’s full legal name  
+- Email – Student’s email (used for communication)  
+- Team – Team name for grouping  
+- Github Username – Student’s GitHub handle  
+- Github Project Board Link – URL to the team’s GitHub Project board  
+- Timesheet Link – URL to the team’s shared timesheet  
+- Client Meeting Notes Link – URL to the team’s client meeting notes  
+
+An example CSV is located at: `lib/assets/student_template.csv`
 
 
 ## GitHub Analytics - OctoKit API
