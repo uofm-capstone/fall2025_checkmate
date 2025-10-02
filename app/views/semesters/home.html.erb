@@ -160,7 +160,7 @@
                         <div class='d-flex justify-content-center'>
                           <!-- Edit Button -->
                           <%if current_user == s.user || current_user.admin?%>
-                            <%= link_to edit_semester_path(s), style: 'position: relative; bottom: 5px;', class: 'btn bg-transparent' do %>
+                            <%= link_to '#', style: 'position: relative; bottom: 5px;', class: 'btn bg-transparent', data: { bs_toggle: "modal", bs_target: "#editSemesterModal" } do %>
                               <i class='bi bi-pencil-fill'></i>
                             <% end %>
                           <% end %>
@@ -224,6 +224,41 @@
             <div class="form-outline mb-4">
               <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'git_csv' %>
             </div>
+            <hr>
+            <div class="d-flex justify-content-center mb-5">
+              <%= f.submit "Submit", class: "btn btn-success btn-block gradient-custom-4 text-white" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editSemesterModal" tabindex="-1" aria-labelledby="editSemesterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editSemesterModalLabel">Edit Semester</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= bootstrap_form_with model: @semester, url: semester_path(self), method: :patch, local: true do |f| %>
+            <%= f.hidden_field :semester %>
+            <%= f.hidden_field :year %>
+            <div class="form-outline mb-4">
+              <div class="dropdown-container">
+                <% semester_array = %w[Fall Spring Summer] %>
+                <%= select_tag :semester, options_for_select(semester_array), class: 'form-control form-control-lg', id: 'semester' %>
+              </div>
+              <div class="dropdown-container">
+                <%= select_tag :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), class: 'form-control form-control-lg', id: 'year' %>
+              </div>
+
+            </div>
+            <hr>
+            <h5>Upload Survey CSV <span class="optional">(optional)</span></h5>
+            <div class="form-outline mb-4">
+              <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
             <hr>
             <div class="d-flex justify-content-center mb-5">
               <%= f.submit "Submit", class: "btn btn-success btn-block gradient-custom-4 text-white" %>
