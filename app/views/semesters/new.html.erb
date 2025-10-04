@@ -40,8 +40,21 @@
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <%= f.label :student_csv, "Student CSV" %>
+                      <%= f.label :student_csv, "Student Roster CSV" %>
                       <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control' %>
+
+                      <%# --- CSV FORMAT REQUIREMENTS --- %>
+                      <details class="mt-2 small text-muted">
+                        <summary>CSV Requirements</summary>
+                        <p class="mb-1 mt-1">
+                          The Student CSV must include the following **exact column headers** (case and spelling sensitive):
+                        </p>
+                        <p class="mb-0 fw-bold">
+                          Full Name, Email, Team, Github Username, Github Project Board Link, Timesheet Link, Client Meeting Notes Link
+                        </p>
+                      </details>
+                      <%# ------------------------------- %>
+                      
                     </div>
                   </div>
                   
