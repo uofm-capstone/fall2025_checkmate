@@ -36,39 +36,26 @@
 
                 <hr>
                 <h5 class="mb-3">Upload Survey CSVs <span class="text-muted small">(optional)</span></h5>
-                
+
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
                       <%= f.label :student_csv, "Student Roster CSV" %>
-                      <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control' %>
-
-                      <%# --- CSV FORMAT REQUIREMENTS --- %>
-                      <details class="mt-2 small text-muted">
-                        <summary>CSV Requirements</summary>
-                        <p class="mb-1 mt-1">
-                          The Student CSV must include the following **exact column headers** (case and spelling sensitive):
-                        </p>
-                        <p class="mb-0 fw-bold">
-                          Full Name, Email, Team, Github Username, Github Project Board Link, Timesheet Link, Client Meeting Notes Link
-                        </p>
-                      </details>
-                      <%# ------------------------------- %>
-                      
+                      <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                   
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <label for="client_csv">Client CSV</label>
-                      <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control' %>
+                      <%= f.label :client_csv, "Client CSV" %>
+                      <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                   
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <label for="git_csv">Git CSV</label>
-                      <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control' %>
+                      <%= f.label :git_csv, "Git CSV" %>
+                      <%= f.file_field :git_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                 </div>

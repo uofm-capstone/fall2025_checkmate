@@ -75,7 +75,7 @@
             <tr>
               <td class='align-middle text-center'><%= team.name %></td>
               <td class='align-middle'>
-                <%= team.students.map(&:email).join('<br>').html_safe %>
+                <%= team.students.map(&:name).join('<br>').html_safe %>
               </td>
               <td class='align-middle' style='max-width: 250px; overflow-x: auto;'>
                 <code><%= team.github_token %></code>
