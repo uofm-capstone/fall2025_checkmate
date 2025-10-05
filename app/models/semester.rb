@@ -77,80 +77,101 @@ class Semester < ApplicationRecord
   # - Creates or updates students
   # - Links students to teams
   def import_students_from_csv
-    return true unless student_csv.attached?
+  return true unless student_csv.attached?
 
-    student_csv.open do |tempfile|
-      begin
-        csv = CSV.read(tempfile.path, headers: true)
-        headers = csv.headers.map { |h| h.to_s.strip } # keep original case!
+  student_csv.open do |tempfile|
+    begin
+      csv = CSV.read(tempfile.path, headers: true)
+      headers = csv.headers.map { |h| h.to_s.strip }
 
-        # Flexible header matching
-        header_candidates = {
-          name: ["full name", "fullname", "name"],
-          email: ["email", "e-mail", "e mail"],
-          team: ["team", "group"],
-          github_username: ["github username", "github_username", "github"],
-          project_board: ["github project board link", "project board", "project_board"],
-          timesheet: ["timesheet link", "timesheet", "timesheet_url"],
-          client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
-        }
+      # Flexible header matching
+      header_candidates = {
+        name: ["full name", "fullname", "name"],
+        email: ["email", "e-mail", "e mail"],
+        team: ["team", "group"],
+        github_username: ["github username", "github_username", "github"],
+        project_board: ["github project board link", "project board", "project_board"],
+        timesheet: ["timesheet link", "timesheet", "timesheet_url"],
+        client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
+      }
 
-        header_map = {}
-        header_candidates.each do |key, candidates|
-          found = headers.find { |h| candidates.include?(h.downcase) }
-          header_map[key] = found
-        end
+      header_map = {}
+      header_candidates.each do |key, candidates|
+        found = headers.find { |h| candidates.include?(h.downcase) }
+        header_map[key] = found
+      end
 
-        # Ensure minimum required columns exist
-        if header_map[:name].nil? || header_map[:email].nil?
-          raise "CSV must include at least 'Full name' and 'Email' columns. Found: #{headers.join(', ')}"
-        end
+      if header_map[:name].nil? || header_map[:email].nil?
+        raise "CSV must include at least 'Full name' and 'Email' columns. Found: #{headers.join(', ')}"
+      end
 
-        # Wrap everything in a transaction for atomicity
-        ActiveRecord::Base.transaction do
-          csv.each_with_index do |row, i|
-            name  = row[header_map[:name]]&.strip
-            email = row[header_map[:email]]&.strip&.downcase
-            team_name = row[header_map[:team]]&.strip
-            github_username = row[header_map[:github_username]]&.strip
-            project_board   = row[header_map[:project_board]]&.strip
-            timesheet       = row[header_map[:timesheet]]&.strip
-            client_notes    = row[header_map[:client_notes]]&.strip
+      ActiveRecord::Base.transaction do
+        csv.each_with_index do |row, i|
+          name  = row[header_map[:name]]&.strip
+          email = row[header_map[:email]]&.strip&.downcase
+          team_name = row[header_map[:team]]&.strip
+          github_username = row[header_map[:github_username]]&.strip
+          project_board   = row[header_map[:project_board]]&.strip
+          timesheet       = row[header_map[:timesheet]]&.strip
+          client_notes    = row[header_map[:client_notes]]&.strip
 
-            # Skip blank rows
-            next if name.blank? && email.blank?
+          # ❌ Skip empty rows
+          next if name.blank? && email.blank?
 
-            # ✅ Create/find team
-            team = teams.find_or_create_by!(name: team_name) if team_name.present?
+          # ❌ Validate required fields
+          if name.blank?
+            raise "Row #{i + 2}: Name is missing"
+          end
 
-            # ✅ Create or update student
-            student = students.find_or_initialize_by(email: email)
-            student.assign_attributes(
-              name: name,
-              email: email,
-              github_username: github_username,
-              project_board_url: project_board,
-              timesheet_url: timesheet,
-              client_notes_url: client_notes,
-              semester: self
-            )
-            student.save!
+          if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
+            raise "Row #{i + 2}: Email is missing or invalid (#{email})"
+          end
 
-            # ✅ Link student to team (through join table)
-            if team && !team.students.exists?(student.id)
-              team.students << student
+          # ❌ Optional URL validations
+          url_fields = {
+            "Project Board URL" => project_board,
+            "Timesheet URL" => timesheet,
+            "Client Notes URL" => client_notes
+          }
+
+          url_fields.each do |label, url|
+            if url.present? && !(url =~ /\Ahttps?:\/\/[\S]+\z/)
+              raise "Row #{i + 2}: #{label} is not a valid URL: #{url}"
             end
           end
-        end
 
-        true
-      rescue => e
-        Rails.logger.error("CSV import failed: #{e.message}")
-        errors.add(:student_csv, "CSV import failed: #{e.message}")
-        false
+          # ✅ Create/find team
+          team = teams.find_or_create_by!(name: team_name) if team_name.present?
+
+          # ✅ Create or update student
+          student = students.find_or_initialize_by(email: email)
+          student.assign_attributes(
+            name: name,
+            email: email,
+            github_username: github_username,
+            project_board_url: project_board,
+            timesheet_url: timesheet,
+            client_notes_url: client_notes,
+            semester: self
+          )
+          student.save!
+
+          # ✅ Link to team (if not already linked)
+          if team && !team.students.exists?(student.id)
+            team.students << student
+          end
+        end
       end
+
+      true
+    rescue => e
+      Rails.logger.error("CSV import failed: #{e.class} - #{e.message}")
+      errors.add(:student_csv, "Import failed: #{e.message}")
+      false
     end
   end
+end
+
 
   # --------------------------------------------------------
   # PRIVATE METHODS
