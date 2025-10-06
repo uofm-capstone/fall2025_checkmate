@@ -1,0 +1,16 @@
+<%= bootstrap_form_with model: @student, url: students_path, local: true do |f| %>
+  <div class="form-group">
+    <%= f.text_field :full_name, required: true, label: "Full Name" %>
+    <%= f.email_field :email, required: true, label: "Email" %>
+    <%= f.text_field :github_username, required: true, label: "GitHub Username" %>
+
+    <%# If you're storing a plain string for the team: %>
+    <%= f.text_field :team_name, label: "Team Name" %>
+
+    <%# If you later switch to Team association, replace above with a select:
+        <%= f.collection_select :team_id, @teams, :id, :name, { label: "Team", include_blank: "Select a team" }, class: "form-select" %>
+    %>
+
+    <%= f.submit "Create Student", class: "btn btn-primary mt-3" %>
+  </div>
+<% end %>

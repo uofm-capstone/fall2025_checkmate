@@ -1,58 +1,123 @@
-<div class="d-flex align-items-center justify-content-between mb-3">
-  <h1 class="h3 mb-0">Students</h1>
-  <%= link_to "New student", new_student_path, class: "btn btn-primary" %>
-</div>
+<div class='d-flex justify-content-center pt-3' style='width: 100%;'>
+  <div class=''>
+    <h1 style='color: #0D3182;'>Students</h1>
 
-<div class="card shadow-sm">
-  <div class="card-body p-0">
-    <table class="table table-hover mb-0">
-      <thead class="table-light">
-        <tr>
-          <th>Full Name</th>
-          <th>Email</th>
-          <th>Github Username</th>
-          <th>Team Name</th>
-          <th class="text-end">Actions</th>
-        </tr>
-      </thead>
+    <%= button_tag "New Student", type: "button", class: "btn btn-primary mb-2",
+        data: { bs_toggle: "modal", bs_target: "#studentModal" } %>
 
-      <tbody>
-        <% students = Array(@students) %>
+    <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="studentModalLabel">Create New Student</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= render "form", student: @student %>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <% if students.any? %>
-          <% students.each do |s| %>
+    <% if @student&.errors&.any? %>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var modalEl = document.getElementById('studentModal');
+          if (modalEl) { new bootstrap.Modal(modalEl).show(); }
+        });
+      </script>
+    <% end %>
+
+    <div>
+      <table class='table table-hover'>
+        <thead class='text-center' style='background-color: #0D3182; color: white'>
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Github Username</th>
+            <th>Links</th>
+            <th>Team</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @students.each do |s| %>
             <tr>
-              <td><%= link_to s.full_name, student_path(s) %></td>
-              <td><%= s.email.present? ? mail_to(s.email) : "—" %></td>
-              <td>
-                <% if s.github_username.present? %>
-                  <%= link_to s.github_username,
-                              "https://github.com/#{s.github_username}",
-                              target: "_blank", rel: "noopener" %>
-                <% else %>
-                  —
-                <% end %>
-              </td>
-              <td><%= s.try(:team_name).presence || "—" %></td>
-              <td class="text-end">
-                <%= link_to edit_student_path(s), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit" do %>
-                  <i class="bi bi-pen-fill" aria-hidden="true"></i><span class="visually-hidden">Edit</span>
-                <% end %>
+              <td class='align-middle text-center'><%= s.full_name %></td>
 
-                <%= button_to destroy_student_path(s), method: :delete,
-                      class: "btn btn-sm btn-outline-danger", title: "Delete",
-                      form: { data: { turbo_confirm: "Delete #{s.full_name}?" } } do %>
-                  <i class="bi bi-trash-fill" aria-hidden="true"></i><span class="visually-hidden">Delete</span>
+              <td class='align-middle'>
+                <%= s.email.presence || "—" %>
+              </td>
+
+              <td class='align-middle'>
+                <%= s.github_username.presence || "—" %>
+              </td>
+
+              <td class='align-middle' style='max-width=440px'>
+                <div class='d-flex justify-content-center gap-2'>
+                  <%= link_to 'Email',
+                    (s.email.present? ? "mailto:#{s.email}" : "#"),
+                    class: class_names(
+                      "btn btn-outline-secondary btn-sm link-button",
+                      "missing" => s.email.blank?,
+                      "available" => s.email.present?
+                    ) %>
+
+                  <%= link_to 'GitHub',
+                    (s.github_username.present? ? "https://github.com/#{s.github_username}" : "#"),
+                    class: class_names(
+                      "btn btn-outline-secondary btn-sm link-button",
+                      "missing" => s.github_username.blank?,
+                      "available" => s.github_username.present?
+                    ),
+                    target: (s.github_username.present? ? "_blank" : nil),
+                    rel: "noopener" %>
+                </div>
+              </td>
+
+              <td class='align-middle text-center'>
+                <%= s.team_name.presence || "—" %>
+              </td>
+
+              <td class='align-middle text-center'>
+                <%# If you use CanCanCan like Teams: %>
+                <% if !defined?(can?) || can?(:modify, s) %>
+                  <%= link_to edit_student_path(s), class: 'icon-button', title: 'Edit' do %>
+                    <i class='bi bi-pen-fill'></i>
+                  <% end %>
+                  <%= button_to destroy_student_path(s), method: :delete, class: 'icon-button', title: 'Delete',
+                        form: { data: { turbo_confirm: "Delete #{s.full_name}?" } } do %>
+                    <i class='bi bi-trash-fill'></i>
+                  <% end %>
                 <% end %>
               </td>
             </tr>
           <% end %>
-        <% else %>
-          <tr>
-            <td colspan="5" class="text-center text-muted py-4">No students yet.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
+<style>
+  /* keep parity with your Teams page styles if needed */
+  .icon-button {
+    color: #6c757d;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+  }
+  .icon-button:hover { color: #0D3182; }
+  .missing { color: red; border-color: red; pointer-events: none; opacity: 0.5; }
+  .available { color: green; border-color: green; }
+  .link-button { width: 110px; }
+</style>

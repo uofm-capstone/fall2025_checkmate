@@ -5,6 +5,7 @@ class StudentsController < ApplicationController
 
   def index
     @students = Student.includes(:semester).order(Arel.sql('LOWER(full_name)'))
+    @students = Student.new
   end
 
   def show; end
