@@ -4,7 +4,7 @@ class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
 
   def index
-    @students = Student.includes(:semester).order(Arel.sql('LOWER(full_name)'))
+    @students = Student.order(:semester).order(Arel.sql('LOWER(full_name)'))
     @students = Student.new
   end
 
@@ -19,7 +19,8 @@ class StudentsController < ApplicationController
     if @student.save
       redirect_to semester_classlist_path(@student.semester_id), notice: "Student was successfully added."
     else
-      render :new, status: :unprocessable_entity
+      @students = Student.order(:semester).order(Arel.sql('LOWER(full_name)'))
+      render :index, status: :unprocessable_entity
     end
   end
 
