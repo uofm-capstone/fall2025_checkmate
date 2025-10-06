@@ -4,9 +4,9 @@ class TeamsController < ApplicationController
 
   load_and_authorize_resource class: Team
 
-
   def index
     @teams = Team.all
+    @team = Team.new
     render :index
   end
 
@@ -17,18 +17,20 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
-    @semesters = Semester.all
   end
 
   def create
     @team = Team.new(team_params)
+    @current_semester = Semester.order(created_at: :desc).first
+    @team.semester = @current_semester
     authorize! :create, @team
 
     if @team.save
-      redirect_to @team, notice: 'Team was successfully created.'
+      redirect_to teams_path, notice: 'Team was successfully created.'
     else
       @semesters = Semester.all
-      render :new
+      @teams = Team.all  # needed if your index lists teams
+      render :index
     end
   end
 
@@ -84,6 +86,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:name, :description, :semester_id, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
+    params.require(:team).permit(:name, :description, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
   end
 end

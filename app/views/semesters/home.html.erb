@@ -216,13 +216,13 @@
             <hr>
             <h5>Upload Survey CSVs <span class="optional">(optional)</span></h5>
             <div class="form-outline mb-4">
-              <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'client_csv' %>
-            </div>
-            <div class="form-outline mb-4">
               <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
-            </div>
-            <div class="form-outline mb-4">
-              <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'git_csv' %>
+              
+              <% if @semester && @semester.errors[:student_csv].any? %>
+                <div class="text-danger mt-2">
+                  <%= @semester.errors[:student_csv].join(", ") %>
+                </div>
+              <% end %>
             </div>
             <hr>
             <div class="d-flex justify-content-center mb-5">
@@ -259,6 +259,12 @@
             <h5>Upload Survey CSV <span class="optional">(optional)</span></h5>
             <div class="form-outline mb-4">
               <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
+              
+              <% if @semester && @semester.errors[:student_csv].any? %>
+                <div class="text-danger mt-2">
+                  <%= @semester.errors[:student_csv].join(", ") %>
+                </div>
+              <% end %>
             <hr>
             <div class="d-flex justify-content-center mb-5">
               <%= f.submit "Submit", class: "btn btn-success btn-block gradient-custom-4 text-white" %>

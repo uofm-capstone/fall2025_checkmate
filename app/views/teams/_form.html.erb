@@ -1,0 +1,44 @@
+<%= form_with(model: @team, current_semester: @current_semester, url: teams_path, local: false, html: { id: "new_team_form" }) do |form| %>
+  <% if @team.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h4>
+      <ul>
+        <% @team.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :repo_url, class: "form-label" %>
+    <%= form.text_field :repo_url, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :project_board_url, class: "form-label" %>
+    <%= form.text_field :project_board_url, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :client_notes_url, class: "form-label" %>
+    <%= form.text_field :client_notes_url, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :timesheet_url, class: "form-label" %>
+    <%= form.text_field :timesheet_url, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :github_token, class: "form-label" %>
+    <%= form.text_field :github_token, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>
