@@ -6,7 +6,7 @@ module Semesters
       @semester = Semester.find(params[:semester_id])
       #render pages/github_key.html.erb
     end
-
+    
     # Users go to this page to manually paste in their GitHub API key.
     # A good quick feature update would be to allow users to authenticate to GitHub in-app
     # And let the app handle the API key in the background
