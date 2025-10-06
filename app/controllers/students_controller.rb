@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
 
   def index
     @students = Student.order(:semester).order(Arel.sql('LOWER(full_name)'))
-    @students = Student.new
+    @student = Student.new
   end
 
   def show; end
