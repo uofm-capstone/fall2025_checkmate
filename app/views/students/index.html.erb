@@ -15,23 +15,41 @@
           <th class="text-end">Actions</th>
         </tr>
       </thead>
+
       <tbody>
-        <% @students.each do |s| %>
+        <% students = Array(@students) %>
+
+        <% if students.any? %>
+          <% students.each do |s| %>
+            <tr>
+              <td><%= link_to s.full_name, student_path(s) %></td>
+              <td><%= s.email.present? ? mail_to(s.email) : "—" %></td>
+              <td>
+                <% if s.github_username.present? %>
+                  <%= link_to s.github_username,
+                              "https://github.com/#{s.github_username}",
+                              target: "_blank", rel: "noopener" %>
+                <% else %>
+                  —
+                <% end %>
+              </td>
+              <td><%= s.try(:team_name).presence || "—" %></td>
+              <td class="text-end">
+                <%= link_to edit_student_path(s), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit" do %>
+                  <i class="bi bi-pen-fill" aria-hidden="true"></i><span class="visually-hidden">Edit</span>
+                <% end %>
+
+                <%= button_to destroy_student_path(s), method: :delete,
+                      class: "btn btn-sm btn-outline-danger", title: "Delete",
+                      form: { data: { turbo_confirm: "Delete #{s.full_name}?" } } do %>
+                  <i class="bi bi-trash-fill" aria-hidden="true"></i><span class="visually-hidden">Delete</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
           <tr>
-            <td><%= link_to s.full_name, student_path(s) %></td>
-            <td><%= mail_to s.email %></td>
-            <td><%= link_to s.github_username, "https://github.com/#{s.github_username}", target: "_blank", rel: "noopener" %></td>
-            <td><%= s.team_name %></td>
-            <td class="text-end">
-              <%= link_to edit_student_path(s), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit" do %>
-                <i class="bi bi-pen-fill"></i>
-              <% end %>
-              <%= button_to destroy_student_path(s), method: :delete,
-                    class: "btn btn-sm btn-outline-danger", title: "Delete",
-                    form: { data: { turbo_confirm: "Delete #{s.full_name}?" } } do %>
-                <i class="bi bi-trash-fill"></i>
-              <% end %>
-            </td>
+            <td colspan="5" class="text-center text-muted py-4">No students yet.</td>
           </tr>
         <% end %>
       </tbody>

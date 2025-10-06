@@ -1,5 +1,7 @@
 # app/controllers/students_controller.rb
 class StudentsController < ApplicationController
+  def index
+    @students = Student.all
   def create
     @student = Student.new(student_params)
     if @student.save
