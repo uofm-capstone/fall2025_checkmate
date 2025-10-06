@@ -65,16 +65,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
-  # Permit what your form actually sends.
-  # If you use a plain text team name, keep :team_name.
-  # If you select a Team from a list, include :team_id.
   def student_params
-    params.require(:student).permit(
-      :full_name,
-      :email,
-      :github_username,
-      :team_name,   # keep if your schema has this string column
-      :team_id      # keep if you use Team association instead (harmless to permit both)
-    )
+    params.require(:student).permit(:full_name, :email, :github_username, :team_name, :team_id)
   end
 end
