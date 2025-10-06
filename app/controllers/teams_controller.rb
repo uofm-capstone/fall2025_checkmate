@@ -1,91 +1,80 @@
-class TeamsController < ApplicationController
+class StudentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_team, only: [:show, :edit, :update, :destroy, :add_member, :remove_member]
+  before_action :set_student, only: [:show, :edit, :update, :destroy]
 
-  load_and_authorize_resource class: Team
+  load_and_authorize_resource class: Student
 
+  # GET /students
   def index
-    @teams = Team.all
-    @team = Team.new
+    @students = Student.order(Arel.sql('LOWER(full_name)'))
+    @student  = Student.new
     render :index
   end
 
+  # GET /students/:id
   def show
-    @team_members = @team.students
+    # If you track memberships via join table, expose them (optional)
+    @teams = @student.respond_to?(:teams) ? @student.teams : []
     render :show
   end
 
+  # GET /students/new  (not used if you create via modal on index, but kept for parity)
   def new
-    @team = Team.new
+    @student = Student.new
+    @teams = Team.all if defined?(Team)
   end
 
+  # POST /students
   def create
-    @team = Team.new(team_params)
-    @current_semester = Semester.order(created_at: :desc).first
-    @team.semester = @current_semester
-    authorize! :create, @team
+    @student = Student.new(student_params)
+    authorize! :create, @student
 
-    if @team.save
-      redirect_to teams_path, notice: 'Team was successfully created.'
+    if @student.save
+      redirect_to students_path, notice: 'Student was successfully created.'
     else
-      @semesters = Semester.all
-      @teams = Team.all  # needed if your index lists teams
+      @students = Student.order(Arel.sql('LOWER(full_name)'))
+      @teams = Team.all if defined?(Team)
       render :index
     end
   end
 
+  # GET /students/:id/edit
   def edit
-    @semesters = Semester.all
-    @students = Student.where.not(id: @team.student_ids)
+    @teams = Team.all if defined?(Team)
   end
 
+  # PATCH/PUT /students/:id
   def update
-    if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+    if @student.update(student_params)
+      redirect_to students_path, notice: 'Student was successfully updated.'
     else
-      @semesters = Semester.all
-      @students = Student.where.not(id: @team.student_ids)
+      @teams = Team.all if defined?(Team)
       render :edit
     end
   end
 
+  # DELETE /students/:id
   def destroy
-    @team = Team.find(params[:id])
-    @team.destroy
-    redirect_to teams_path, notice: 'Team was successfully deleted.'
-  end
-
-  def add_member
-    authorize! :update, @team
-    @student = Student.find(params[:student_id])
-
-    student_team = StudentTeam.new(student: @student, team: @team)
-
-    if student_team.save
-      redirect_to edit_team_path(@team), notice: 'Member was successfully added to the team.'
-    else
-      redirect_to edit_team_path(@team), alert: 'Failed to add member to the team.'
-    end
-  end
-
-  def remove_member
-    authorize! :update, @team
-    @student_team = StudentTeam.find_by(student_id: params[:student_id], team_id: @team.id)
-
-    if @student_team&.destroy
-      redirect_to edit_team_path(@team), notice: 'Member was successfully removed from the team.'
-    else
-      redirect_to edit_team_path(@team), alert: 'Failed to remove member from the team.'
-    end
+    @student.destroy
+    redirect_to students_path, notice: 'Student was successfully deleted.'
   end
 
   private
 
-  def set_team
-    @team = Team.find(params[:id])
+  def set_student
+    @student = Student.find(params[:id])
   end
 
-  def team_params
-    params.require(:team).permit(:name, :description, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
+  # Permit what your form actually sends.
+  # If you use a plain text team name, keep :team_name.
+  # If you select a Team from a list, include :team_id.
+  def student_params
+    params.require(:student).permit(
+      :full_name,
+      :email,
+      :github_username,
+      :team_name,   # keep if your schema has this string column
+      :team_id      # keep if you use Team association instead (harmless to permit both)
+    )
   end
 end
