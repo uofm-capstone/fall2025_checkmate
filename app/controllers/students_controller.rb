@@ -16,7 +16,6 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     if @student.save
-      # assumes Student belongs_to :semester
       redirect_to semester_classlist_path(@student.semester_id), notice: "Student was successfully added."
     else
       render :new, status: :unprocessable_entity
@@ -44,7 +43,6 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
-  # include semester_id so create/update can associate it
   def student_params
     params.require(:student).permit(:full_name, :email, :github_username, :team_name, :semester_id)
   end
