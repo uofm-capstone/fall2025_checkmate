@@ -1,28 +1,59 @@
-<h1 class="mb-4">Add New Student</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 ms-auto ps-4">
+      <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+        <div class="d-flex flex-column">
+          <h1>Create Student</h1>
 
-<%= form_with model: @student, local: true do |f| %>
-  <div class="mb-3">
-    <%= f.label :full_name, class: "form-label" %>
-    <%= f.text_field :full_name, class: "form-control", required: true %>
-  </div>
+          <div>
+            <%= bootstrap_form_with model: @student, local: true do |f| %>
+              <div class="form-group">
+                <%= f.text_field :full_name, required: true, label: "Full Name" %>
+                <%= f.email_field :email, required: true, label: "Email" %>
+                <%= f.text_field :github_username, required: true, label: "GitHub Username" %>
 
-  <div class="mb-3">
-    <%= f.label :email, class: "form-label" %>
-    <%= f.email_field :email, class: "form-control", required: true %>
-  </div>
+                <%# --- OPTION A (default): plain team_name string --- %>
+                <%= f.text_field :team_name, required: true, label: "Team Name" %>
 
-  <div class="mb-3">
-    <%= f.label :github_username, "GitHub Username", class: "form-label" %>
-    <%= f.text_field :github_username, class: "form-control" %>
-  </div>
+                <%# --- OPTION B (if you have Team association & @teams is set): ---
+                    Replace the team_name field above with this select:
+                    <%= f.collection_select :team_id, @teams, :id, :name, { label: "Team", include_blank: "Select a team" }, class: "form-select" %>
+                %>
 
-  <div class="mb-3">
-    <%= f.label :team_id, "Team", class: "form-label" %>
-    <%= f.collection_select :team_id, @teams, :id, :name, { prompt: "Select Team" }, class: "form-select" %>
-  </div>
+                <%= f.submit "Create Student", class: "btn btn-primary mt-3" %>
+              </div>
+            <% end %>
+          </div>
 
-  <div class="d-flex justify-content-between">
-    <%= link_to "Back", students_path, class: "btn btn-secondary" %>
-    <%= link_to "New student", new_student_path, class: "btn btn-primary" %>
+          <%= link_to 'Cancel', students_path, class: 'btn btn-outline-secondary mt-3' %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
+</div>
+
+<style>
+  /* Custom styles to fix the layout with the sidebar */
+  @media (min-width: 768px) {
+    .container-fluid {
+      padding-left: 270px; /* 250px sidebar width + some extra padding */
+    }
+  }
+
+  /* Add responsive behavior for smaller screens */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-left: 15px;
+    }
+  }
+
+  /* Improve form styling */
+  .form-group {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .bg-color1 {
+    border-radius: 8px;
+  }
+</style>
