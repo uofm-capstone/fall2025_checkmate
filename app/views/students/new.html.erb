@@ -1,6 +1,31 @@
 <h1 class="h3 mb-3">New Student</h1>
 <div class="card">
   <div class="card-body">
-    <%= render "form" %>
+    <%= form_with model: @student, url: create_student_path do |f| %>
+      <div class="mb-3">
+        <%= f.label :full_name %>
+        <%= f.text_field :full_name, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :github_username, "Github Username" %>
+        <%= f.text_field :github_username, class: "form-control", required: true %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :team_name, "Team Name" %>
+        <%= f.text_field :team_name, class: "form-control", required: true %>
+      </div>
+
+      <div class="d-flex gap-2">
+        <%= link_to "Cancel", students_path, class: "btn btn-link" %>
+        <%= f.submit "Create student", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
 </div>

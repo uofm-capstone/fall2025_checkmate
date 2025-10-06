@@ -3,18 +3,16 @@ class StudentsController < ApplicationController
 
   # GET /students
   def index
-    @students = Student.includes(:team).order('LOWER(full_name)')
-    @student  = Student.new
-    @teams    = Team.order(:name)
+    @students = Student.order(Arel.sql('LOWER(full_name)'))
   end
 
   # GET /students/:id
-  def show; end
+  def show
+  end
 
   # GET /students/new
   def new
     @student = Student.new
-    @teams   = Team.order(:name)
   end
 
   # POST /students
@@ -23,14 +21,12 @@ class StudentsController < ApplicationController
     if @student.save
       redirect_to students_path, notice: "Student added."
     else
-      @teams = Team.order(:name)
       render :new, status: :unprocessable_entity
     end
   end
 
   # GET /students/:id/edit
   def edit
-    @teams = Team.order(:name)
   end
 
   # PATCH/PUT /students/:id
@@ -38,7 +34,6 @@ class StudentsController < ApplicationController
     if @student.update(student_params)
       redirect_to students_path, notice: "Student updated."
     else
-      @teams = Team.order(:name)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -55,7 +50,13 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  # Strong params — using team_name (string) to match your views
   def student_params
-    params.require(:student).permit(:full_name, :email, :github_username, :team_id)
+    params.require(:student).permit(:full_name, :email, :github_username, :team_name)
+  end
+
+  # Nice-to-have: handle bad IDs gracefully
+  rescue_from ActiveRecord::RecordNotFound do
+    redirect_to students_path, alert: "Student not found."
   end
 end
