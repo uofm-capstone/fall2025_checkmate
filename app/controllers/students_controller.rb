@@ -66,4 +66,3 @@ end
   def student_params
     params.require(:student).permit(:name, :semester_id)
   end
-end
