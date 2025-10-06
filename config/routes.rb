@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'admin/dashboard'
-  root to: 'semesters#home'
+  root to: 'pages#home'
   devise_for :users
   # resources :sprints
 
