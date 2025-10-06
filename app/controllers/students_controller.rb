@@ -1,42 +1,62 @@
-# app/controllers/students_controller.rb
 class StudentsController < ApplicationController
-  skip_before_action :ensure_semester_exists, raise: false rescue nil
-  before_action :set_student, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  before_action :set_student, only: [:show, :edit, :update, :destroy]
 
+  load_and_authorize_resource class: Student
+
+  # GET /students
   def index
-    @students = Student.order(:semester).order(Arel.sql('LOWER(full_name)'))
-    @student = Student.new
+    @students = Student.order(Arel.sql('LOWER(full_name)'))
+    @student  = Student.new
+    render :index
   end
 
-  def show; end
+  # GET /students/:id
+  def show
+    # If you track memberships via join table, expose them (optional)
+    @teams = @student.respond_to?(:teams) ? @student.teams : []
+    render :show
+  end
 
+  # GET /students/new  (not used if you create via modal on index, but kept for parity)
   def new
     @student = Student.new
+    @teams = Team.all if defined?(Team)
   end
 
+  # POST /students
   def create
     @student = Student.new(student_params)
+    authorize! :create, @student
+
     if @student.save
-      redirect_to semester_classlist_path(@student.semester_id), notice: "Student was successfully added."
+      redirect_to students_path, notice: 'Student was successfully created.'
     else
-      @students = Student.order(:semester).order(Arel.sql('LOWER(full_name)'))
-      render :index, status: :unprocessable_entity
+      @students = Student.order(Arel.sql('LOWER(full_name)'))
+      @teams = Team.all if defined?(Team)
+      render :index
     end
   end
 
-  def edit; end
+  # GET /students/:id/edit
+  def edit
+    @teams = Team.all if defined?(Team)
+  end
 
+  # PATCH/PUT /students/:id
   def update
     if @student.update(student_params)
-      redirect_to students_path, notice: "Student updated."
+      redirect_to students_path, notice: 'Student was successfully updated.'
     else
-      render :edit, status: :unprocessable_entity
+      @teams = Team.all if defined?(Team)
+      render :edit
     end
   end
 
+  # DELETE /students/:id
   def destroy
     @student.destroy
-    redirect_to students_path, notice: "Student removed."
+    redirect_to students_path, notice: 'Student was successfully deleted.'
   end
 
   private
@@ -45,11 +65,16 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  # Permit what your form actually sends.
+  # If you use a plain text team name, keep :team_name.
+  # If you select a Team from a list, include :team_id.
   def student_params
-    params.require(:student).permit(:full_name, :email, :github_username, :team_name, :semester_id)
-  end
-
-  rescue_from ActiveRecord::RecordNotFound do
-    redirect_to students_path, alert: "Student not found."
+    params.require(:student).permit(
+      :full_name,
+      :email,
+      :github_username,
+      :team_name,   # keep if your schema has this string column
+      :team_id      # keep if you use Team association instead (harmless to permit both)
+    )
   end
 end

@@ -1,80 +1,91 @@
-class StudentsController < ApplicationController
+class TeamsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy, :add_member, :remove_member]
 
-  load_and_authorize_resource class: Student
+  load_and_authorize_resource class: Team
 
-  # GET /students
   def index
-    @students = Student.order(Arel.sql('LOWER(full_name)'))
-    @student  = Student.new
+    @teams = Team.all
+    @team = Team.new
     render :index
   end
 
-  # GET /students/:id
   def show
-    # If you track memberships via join table, expose them (optional)
-    @teams = @student.respond_to?(:teams) ? @student.teams : []
+    @team_members = @team.students
     render :show
   end
 
-  # GET /students/new  (not used if you create via modal on index, but kept for parity)
   def new
-    @student = Student.new
-    @teams = Team.all if defined?(Team)
+    @team = Team.new
   end
 
-  # POST /students
   def create
-    @student = Student.new(student_params)
-    authorize! :create, @student
+    @team = Team.new(team_params)
+    @current_semester = Semester.order(created_at: :desc).first
+    @team.semester = @current_semester
+    authorize! :create, @team
 
-    if @student.save
-      redirect_to students_path, notice: 'Student was successfully created.'
+    if @team.save
+      redirect_to teams_path, notice: 'Team was successfully created.'
     else
-      @students = Student.order(Arel.sql('LOWER(full_name)'))
-      @teams = Team.all if defined?(Team)
+      @semesters = Semester.all
+      @teams = Team.all  # needed if your index lists teams
       render :index
     end
   end
 
-  # GET /students/:id/edit
   def edit
-    @teams = Team.all if defined?(Team)
+    @semesters = Semester.all
+    @students = Student.where.not(id: @team.student_ids)
   end
 
-  # PATCH/PUT /students/:id
   def update
-    if @student.update(student_params)
-      redirect_to students_path, notice: 'Student was successfully updated.'
+    if @team.update(team_params)
+      redirect_to @team, notice: 'Team was successfully updated.'
     else
-      @teams = Team.all if defined?(Team)
+      @semesters = Semester.all
+      @students = Student.where.not(id: @team.student_ids)
       render :edit
     end
   end
 
-  # DELETE /students/:id
   def destroy
-    @student.destroy
-    redirect_to students_path, notice: 'Student was successfully deleted.'
+    @team = Team.find(params[:id])
+    @team.destroy
+    redirect_to teams_path, notice: 'Team was successfully deleted.'
+  end
+
+  def add_member
+    authorize! :update, @team
+    @student = Student.find(params[:student_id])
+
+    student_team = StudentTeam.new(student: @student, team: @team)
+
+    if student_team.save
+      redirect_to edit_team_path(@team), notice: 'Member was successfully added to the team.'
+    else
+      redirect_to edit_team_path(@team), alert: 'Failed to add member to the team.'
+    end
+  end
+
+  def remove_member
+    authorize! :update, @team
+    @student_team = StudentTeam.find_by(student_id: params[:student_id], team_id: @team.id)
+
+    if @student_team&.destroy
+      redirect_to edit_team_path(@team), notice: 'Member was successfully removed from the team.'
+    else
+      redirect_to edit_team_path(@team), alert: 'Failed to remove member from the team.'
+    end
   end
 
   private
 
-  def set_student
-    @student = Student.find(params[:id])
+  def set_team
+    @team = Team.find(params[:id])
   end
 
-  # Permit what your form actually sends.
-  # If you use a plain text team name, keep :team_name.
-  # If you select a Team from a list, include :team_id.
-  def student_params
-    params.require(:student).permit(
-      :full_name,
-      :email,
-      :github_username,
-      :team_name,   # keep if your schema has this string column
-      :team_id      # keep if you use Team association instead (harmless to permit both)
-    )
+  def team_params
+    params.require(:team).permit(:name, :description, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
   end
 end
