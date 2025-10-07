@@ -18,6 +18,8 @@
   <body>
   <%= render partial: "shared/navbar" %>
 
+  <%= turbo_frame_tag "modal" %>
+
   <% if user_signed_in? %>
     <div class="d-flex">
       <%= render partial: "shared/sidebar" %>

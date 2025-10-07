@@ -52,10 +52,29 @@
   <div class=''>
     <h1 style='color: #0D3182;'>Teams</h1>
 
-    <% if can? :create, Team %>
-      <div style='' class='mb-3'>
-        <%= link_to 'Create a new team', new_team_path, class: 'btn btn-secondary' %>
+    <%= button_tag "New Team", type: "button", class: "btn btn-primary mb-2", data: { bs_toggle: "modal", bs_target: "#teamModal" } %>
+
+    <div class="modal fade" id="teamModal" tabindex="-1" aria-labelledby="teamModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="teamModalLabel">Create New Team</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= render "form", team: @team, current_semester: @current_semester %>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <% if @team.errors.any? %>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var myModal = new bootstrap.Modal(document.getElementById('teamModal'));
+          myModal.show();
+        });
+      </script>
     <% end %>
 
     <div>
