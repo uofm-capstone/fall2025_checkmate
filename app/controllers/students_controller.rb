@@ -9,6 +9,7 @@ class StudentsController < ApplicationController
     @students = Student.all.order(:full_name)
     @student = Student.new
     @teams = Team.all
+    @semesters = Semester.all
   end
 
   # GET /students/:id
@@ -31,6 +32,7 @@ class StudentsController < ApplicationController
       end
     else
       @teams = Team.all
+      @semesters = Semesters.all
       render :new, status: :unprocessable_entity
     end
   end
