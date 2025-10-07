@@ -38,14 +38,16 @@ class TeamsController < ApplicationController
     @semesters = Semester.all
     @students = Student.where.not(id: @team.student_ids)
   end
-
+  
   def update
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team was successfully updated.'
+      redirect_to teams_path, notice: 'Team was successfully updated.'
     else
-      @semesters = Semester.all
+      @current_semester = Semester.order(created_at: :desc).first
       @students = Student.where.not(id: @team.student_ids)
-      render :edit
+      # Re-render the whole index so the modal + errors appear like "new"
+      @teams = Team.all
+      render :index, status: :unprocessable_entity
     end
   end
 
