@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'admin/dashboard'
-  root to: 'semesters#home'
+  root to: 'pages#home'
   devise_for :users
   # resources :sprints
 
@@ -52,14 +52,16 @@ Rails.application.routes.draw do
     end
   end
 
-
   # Admin controller
   get 'admin_dashboard', to: 'admin#dashboard', as: 'admin'
   delete 'admin_user/:id', to: 'admin#destroy', as: 'admin_delete_user'
   patch 'admin_user/:id/role', to: 'admin#update_role', as: 'admin_update_role'
 
-
+  # Pages controller
+  get 'home', to: 'pages#home', as: 'home'
+  
   resources :semesters do
     resources :repositories, only: [:new, :create, :show], controller: 'semesters/repositories'
   end
 end
+
