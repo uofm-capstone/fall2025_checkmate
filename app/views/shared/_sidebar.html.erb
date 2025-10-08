@@ -8,6 +8,9 @@
       <%= link_to "Teams", teams_path, class: "nav-link text-dark fs-5" %>
     </li>
     <li class="nav-item mb-3">
+      <%= link_to "Students", students_path, class: "nav-link text-dark fs-5" %>
+    </li>
+    <li class="nav-item mb-3">
       <% if session[:last_viewed_semester_id] %>
         <%= link_to "Status Page", semester_status_path(session[:last_viewed_semester_id]), class: "nav-link text-dark fs-5" %>
       <% else %>

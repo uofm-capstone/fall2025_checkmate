@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 ms-auto ps-4">
+      <div class="d-flex bg-color1 text-white justify-content-center align-items-center m-5 p-3">
+        <div class="d-flex flex-column">
+          <h1>Create Student</h1>
+
+          <div>
+            <%= bootstrap_form_with model: @student, local: true do |f| %>
+              <div class="form-group">
+                <%= f.text_field :full_name, required: true, label: "Full Name" %>
+                <%= f.email_field :email, required: true, label: "Email" %>
+                <%= f.text_field :github_username, required: true, label: "GitHub Username" %>
+
+                <%# --- OPTION A (default): plain team_name string --- %>
+                <%= f.text_field :team_name, required: true, label: "Team Name" %>
+
+                <%# --- OPTION B (if you have Team association & @teams is set): ---
+                    Replace the team_name field above with this select:
+                    <%= f.collection_select :team_id, @teams, :id, :name, { label: "Team", include_blank: "Select a team" }, class: "form-select" %>
+                %>
+
+                <%= f.submit "Create Student", class: "btn btn-primary mt-3" %>
+              </div>
+            <% end %>
+          </div>
+
+          <%= link_to 'Cancel', students_path, class: 'btn btn-outline-secondary mt-3' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Custom styles to fix the layout with the sidebar */
+  @media (min-width: 768px) {
+    .container-fluid {
+      padding-left: 270px; /* 250px sidebar width + some extra padding */
+    }
+  }
+
+  /* Add responsive behavior for smaller screens */
+  @media (max-width: 767px) {
+    .container-fluid {
+      padding-left: 15px;
+    }
+  }
+
+  /* Improve form styling */
+  .form-group {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .bg-color1 {
+    border-radius: 8px;
+  }
+</style>

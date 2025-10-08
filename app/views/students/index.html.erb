@@ -1,0 +1,144 @@
+<style>
+  .icon-button {
+    color: #6c757d;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+  }
+
+  .icon-button:hover {
+    color: #dc3545;
+  }
+
+  .missing {
+    color: red;
+    border-color: red;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .available {
+    color: green;
+    border-color: green;
+  }
+
+  .link-button {
+    width: 110px;
+  }
+</style>
+
+<div class="d-flex justify-content-center pt-3" style="width: 100%;">
+  <div class="">
+    <h1 style="color: #0D3182;">Students</h1>
+
+    <!-- New Student Modal Button -->
+    <%= button_tag "New Student", type: "button", class: "btn btn-primary mb-2", 
+        data: { bs_toggle: "modal", bs_target: "#studentModal" } %>
+
+    <!-- New Student Modal -->
+    <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="studentModalLabel">Create New Student</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= render "form", student: @student %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if @student.errors.any? %>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var myModal = new bootstrap.Modal(document.getElementById('studentModal'));
+          myModal.show();
+        });
+      </script>
+    <% end %>
+
+    <div>
+      <table class="table table-hover">
+        <thead class="text-center" style="background-color: #0D3182; color: white">
+          <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>GitHub Username</th>
+            <th>Team</th>
+            <th>Links</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @students.each do |student| %>
+            <tr>
+              <td class="align-middle text-center"><%= student.name.presence || "—" %></td>
+
+
+              <td class="align-middle text-center">
+                <%= student.email.presence || "—" %>
+              </td>
+
+              <td class="align-middle text-center">
+                <%= student.github_username.presence || "—" %>
+              </td>
+
+              <td class="align-middle text-center">
+                <%= student.teams.map(&:name).join(", ").presence || "Unassigned" %>
+              </td>
+              
+              <%# <%td class="align-middle text-center">
+                <%= student.semester&.name_for_select || "—" %>
+              </%td> 
+
+              <td class="align-middle text-center" style="max-width=440px;">
+                <div class="d-flex justify-content-center gap-2">
+                  <%= link_to 'Email',
+                    (student.email.present? ? "mailto:#{student.email}" : "#"),
+                    class: class_names(
+                      "btn btn-outline-secondary btn-sm link-button",
+                      "missing" => student.email.blank?,
+                      "available" => student.email.present?
+                    ) %>
+
+                  <%= link_to 'GitHub',
+                    (student.github_username.present? ? "https://github.com/#{student.github_username}" : "#"),
+                    class: class_names(
+                      "btn btn-outline-secondary btn-sm link-button",
+                      "missing" => student.github_username.blank?,
+                      "available" => student.github_username.present?
+                    ),
+                    target: (student.github_username.present? ? "_blank" : nil),
+                    rel: "noopener" %>
+                </div>
+              </td>
+
+              <td class="align-middle text-center">
+                <% if !defined?(can?) || can?(:modify, student) %>
+                  <%= link_to edit_student_path(student), class: "icon-button", title: "Edit" do %>
+                    <i class="bi bi-pen-fill"></i>
+                  <% end %>
+                  <%= button_to student_path(student), method: :delete, class: "icon-button", title: "Delete",
+                        form: { data: { turbo_confirm: "Delete #{student.full_name}?" } } do %>
+                    <i class="bi bi-trash-fill"></i>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

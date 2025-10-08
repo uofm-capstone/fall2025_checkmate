@@ -21,6 +21,17 @@ Rails.application.routes.draw do
   get 'semesters/:id/classlist', to: 'semesters#classlist', as: 'semester_classlist' 
   post 'semesters/:id/upload_sprint_csv', to: 'semesters#upload_sprint_csv', as: 'upload_sprint_csv_semester'
 
+  # Student controller
+  get 'students', to: 'students#index', as: 'students'
+  post 'students', to: 'students#create'
+  get 'students/new', to: 'students#new', as: 'new_student'
+  get 'students/:id/edit', to: 'students#edit', as: 'edit_student'
+  get 'students/:id', to: 'students#show', as: 'student'
+  patch 'students/:id', to: 'students#update'
+  delete 'students/:id', to: 'students#destroy', as: 'destroy_student'
+
+
+
 
   # Sprint controller
   get 'semesters/:semester_id/sprints', to: 'sprints#index', as: 'semester_sprints'

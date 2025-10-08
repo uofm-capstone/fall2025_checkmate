@@ -1,0 +1,23 @@
+<h1 class="h3 mb-3"><%= @student.full_name %></h1>
+
+<div class="card">
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Email</dt>
+      <dd class="col-sm-9"><%= mail_to @student.email %></dd>
+
+      <dt class="col-sm-3">Github Username</dt>
+      <dd class="col-sm-9">
+        <%= link_to @student.github_username, "https://github.com/#{@student.github_username}", target: "_blank", rel: "noopener" %>
+      </dd>
+
+      <dt class="col-sm-3">Team Name</dt>
+      <dd class="col-sm-9"><%= @student.team_name %></dd>
+    </dl>
+
+    <div class="d-flex gap-2">
+      <%= link_to "Back", students_path, class: "btn btn-outline-secondary" %>
+      <%= link_to "Edit", edit_student_path(@student), class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>

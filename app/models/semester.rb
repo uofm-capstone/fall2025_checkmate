@@ -76,7 +76,113 @@ class Semester < ApplicationRecord
   # - Creates teams if missing
   # - Creates or updates students
   # - Links students to teams
-  def import_students_from_csv
+#   def import_students_from_csv
+#   return true unless student_csv.attached?
+
+#   student_csv.open do |tempfile|
+#     begin
+#       csv = CSV.read(tempfile.path, headers: true)
+#       headers = csv.headers.map { |h| h.to_s.strip }
+
+#       # Flexible header matching
+#       header_candidates = {
+#         name: ["full name", "fullname", "name"],
+#         email: ["email", "e-mail", "e mail"],
+#         team: ["team", "group"],
+#         github_username: ["github username", "github_username", "github"],
+#         project_board: ["github project board link", "project board", "project_board"],
+#         timesheet: ["timesheet link", "timesheet", "timesheet_url"],
+#         client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
+#       }
+
+#       header_map = {}
+#       header_candidates.each do |key, candidates|
+#         found = headers.find { |h| candidates.include?(h.downcase) }
+#         header_map[key] = found
+#       end
+
+#       if header_map[:name].nil? || header_map[:email].nil?
+#         raise "CSV must include at least 'Full name' and 'Email' columns. Found: #{headers.join(', ')}"
+#       end
+
+#       ActiveRecord::Base.transaction do
+#         csv.each_with_index do |row, i|
+#           name  = row[header_map[:name]]&.strip
+#           email = row[header_map[:email]]&.strip&.downcase
+#           team_name = row[header_map[:team]]&.strip
+#           github_username = row[header_map[:github_username]]&.strip
+#           project_board   = row[header_map[:project_board]]&.strip
+#           timesheet       = row[header_map[:timesheet]]&.strip
+#           client_notes    = row[header_map[:client_notes]]&.strip
+
+#           # ❌ Skip empty rows
+#           next if name.blank? && email.blank?
+
+#           # ❌ Validate required fields
+#           if name.blank?
+#             raise "Row #{i + 2}: Name is missing"
+#           end
+
+#           if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
+#             raise "Row #{i + 2}: Email is missing or invalid (#{email})"
+#           end
+
+#           # ❌ Optional URL validations
+#           url_fields = {
+#             "Project Board URL" => project_board,
+#             "Timesheet URL" => timesheet,
+#             "Client Notes URL" => client_notes
+#           }
+
+#           url_fields.each do |label, url|
+#             if url.present? && !(url =~ /\Ahttps?:\/\/[\S]+\z/)
+#               raise "Row #{i + 2}: #{label} is not a valid URL: #{url}"
+#             end
+#           end
+
+#           # ✅ Create/find team
+#           team = teams.find_or_create_by!(name: team_name) if team_name.present?
+
+#           # ✅ Assign team-level URLs (if not already present)
+#           if team
+#             team.repo_url           = project_board   if project_board.present?
+#             team.project_board_url  = project_board   if project_board.present?
+#             team.timesheet_url      = timesheet       if timesheet.present?
+#             team.client_notes_url   = client_notes    if client_notes.present?
+#             team.save!              if team.changed?
+#           end
+
+
+#           # ✅ Create or update student
+#           student = students.find_or_initialize_by(email: email)
+#           student.assign_attributes(
+#             name: name,
+#             email: email,
+#             github_username: github_username,
+#             project_board_url: project_board,
+#             timesheet_url: timesheet,
+#             client_notes_url: client_notes,
+#             semester: self
+#           )
+#           student.save!
+
+#           # ✅ Link to team (if not already linked)
+#           if team && !team.students.exists?(student.id)
+#             team.students << student
+#           end
+#         end
+#       end
+
+#       true
+#     rescue => e
+#       Rails.logger.error("CSV import failed: #{e.class} - #{e.message}")
+#       errors.add(:student_csv, "Import failed: #{e.message}")
+#       false
+#     end
+#   end
+# end
+
+def import_students_from_csv
   return true unless student_csv.attached?
 
   student_csv.open do |tempfile|
@@ -90,6 +196,7 @@ class Semester < ApplicationRecord
         email: ["email", "e-mail", "e mail"],
         team: ["team", "group"],
         github_username: ["github username", "github_username", "github"],
+        repo_url: ["repo url", "repository link", "repository", "repo"],
         project_board: ["github project board link", "project board", "project_board"],
         timesheet: ["timesheet link", "timesheet", "timesheet_url"],
         client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
@@ -101,19 +208,21 @@ class Semester < ApplicationRecord
         header_map[key] = found
       end
 
+      # ✅ Must include name + email columns
       if header_map[:name].nil? || header_map[:email].nil?
-        raise "CSV must include at least 'Full name' and 'Email' columns. Found: #{headers.join(', ')}"
+        raise "CSV must include at least 'Full Name' and 'Email' columns. Found: #{headers.join(', ')}"
       end
 
       ActiveRecord::Base.transaction do
         csv.each_with_index do |row, i|
-          name  = row[header_map[:name]]&.strip
-          email = row[header_map[:email]]&.strip&.downcase
-          team_name = row[header_map[:team]]&.strip
-          github_username = row[header_map[:github_username]]&.strip
-          project_board   = row[header_map[:project_board]]&.strip
-          timesheet       = row[header_map[:timesheet]]&.strip
-          client_notes    = row[header_map[:client_notes]]&.strip
+          name             = row[header_map[:name]]&.strip
+          email            = row[header_map[:email]]&.strip&.downcase
+          team_name        = row[header_map[:team]]&.strip
+          github_username  = row[header_map[:github_username]]&.strip
+          repo_url         = row[header_map[:repo_url]]&.strip
+          project_board    = row[header_map[:project_board]]&.strip
+          timesheet        = row[header_map[:timesheet]]&.strip
+          client_notes     = row[header_map[:client_notes]]&.strip
 
           # ❌ Skip empty rows
           next if name.blank? && email.blank?
@@ -129,6 +238,7 @@ class Semester < ApplicationRecord
 
           # ❌ Optional URL validations
           url_fields = {
+            "Repo URL" => repo_url,
             "Project Board URL" => project_board,
             "Timesheet URL" => timesheet,
             "Client Notes URL" => client_notes
@@ -143,10 +253,20 @@ class Semester < ApplicationRecord
           # ✅ Create/find team
           team = teams.find_or_create_by!(name: team_name) if team_name.present?
 
+          # ✅ Assign URLs to team (if provided)
+          if team
+            team.repo_url           = repo_url        if repo_url.present?
+            team.project_board_url  = project_board   if project_board.present?
+            team.timesheet_url      = timesheet       if timesheet.present?
+            team.client_notes_url   = client_notes    if client_notes.present?
+            team.save!              if team.changed?
+          end
+
           # ✅ Create or update student
           student = students.find_or_initialize_by(email: email)
           student.assign_attributes(
             name: name,
+            full_name: name,
             email: email,
             github_username: github_username,
             project_board_url: project_board,
@@ -156,7 +276,7 @@ class Semester < ApplicationRecord
           )
           student.save!
 
-          # ✅ Link to team (if not already linked)
+          # ✅ Link student to team
           if team && !team.students.exists?(student.id)
             team.students << student
           end
@@ -171,6 +291,7 @@ class Semester < ApplicationRecord
     end
   end
 end
+
 
 
   # --------------------------------------------------------

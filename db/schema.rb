@@ -105,7 +105,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_04_023940) do
     t.string "timesheet_url"
     t.string "client_notes_url"
     t.bigint "semester_id"
+    t.string "full_name"
+    t.integer "team_id"
+    t.string "team_name"
     t.index ["semester_id"], name: "index_students_on_semester_id"
+    t.index ["team_id", "github_username"], name: "index_students_on_team_id_and_github_username", unique: true
   end
 
   create_table "teams", force: :cascade do |t|
