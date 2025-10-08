@@ -9,50 +9,58 @@ class StudentsController < ApplicationController
     @students = Student.all.order(:full_name)
     @student = Student.new
     @teams = Team.all
-    @semesters = Semester.all
+    render :index
   end
 
-  # GET /students/:id
-  def show; end
+  def show
+  render :show
+  end
 
-  # GET /students/new
   def new
     @student = Student.new
     @teams = Team.all
   end
 
-  # POST /students
   def create
     @student = Student.new(student_params)
+    @current_semester = Semester.order(created_at: :desc).first
+    authorize! :create, @student rescue nil
     if @student.save
-      if @student.respond_to?(:semester) && @student.semester.present?
-        redirect_to semester_classlist_path(@student.semester), notice: 'Student was successfully added.'
+      semester = @student.try(:team).try(:semester) || @current_semester
+      if semester
+        redirect_to semester_classlist_path(semester), notice: 'Student was successfully added.'
       else
         redirect_to students_path, notice: 'Student was successfully added.'
       end
     else
-      @teams = Team.all
-      @semesters = Semesters.all
-      render :new, status: :unprocessable_entity
+      @students =if @current_semester && Student.reflect_on_association(:team)
+          Student.includes(team: :semester).where(teams: { semester_id: @current_semester.id }).order(Arel.sql('LOWER(full_name)'))
+        else
+          Student.order(Arel.sql('LOWER(full_name)'))
+        end
+      @teams = if @current_semester
+          Team.where(semester_id: @current_semester.id).order(:name)
+        else
+          Team.order(:name)
+        end
+      render :index
     end
   end
 
-  # GET /students/:id/edit
   def edit
     @teams = Team.all
   end
 
-  # PATCH/PUT /students/:id
   def update
     if @student.update(student_params)
       redirect_to students_path, notice: 'Student was successfully updated.'
     else
-      @teams = Team.all
-      render :edit, status: :unprocessable_entity
+      @current_semester = Semester.order(created_at: :desc).first
+      @teams = @current_semester ? Team.where(semester: @current_semester).order(:name) : Team.order(:name)
+      render :edit
     end
   end
 
-  # DELETE /students/:id
   def destroy
     @student.destroy
     redirect_to students_path, notice: 'Student was successfully deleted.'
@@ -67,6 +75,6 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :full_name, :email, :github_username, :team_id, :semester_id)
+    params.require(:student).permit(:name, :full_name, :email, :github_username, :team_id, :team_name)
   end
 end
