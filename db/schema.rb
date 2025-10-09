@@ -100,14 +100,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_04_023940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email"
+    t.string "full_name"
     t.string "github_username"
+    t.integer "team_id"
+    t.string "team_name"
     t.string "project_board_url"
     t.string "timesheet_url"
     t.string "client_notes_url"
     t.bigint "semester_id"
-    t.string "full_name"
-    t.integer "team_id"
-    t.string "team_name"
     t.index ["semester_id"], name: "index_students_on_semester_id"
     t.index ["team_id", "github_username"], name: "index_students_on_team_id_and_github_username", unique: true
   end
