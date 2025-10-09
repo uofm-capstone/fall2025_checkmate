@@ -1,7 +1,7 @@
 <h1 class="h3 mb-3">Edit Student</h1>
 <div class="card">
   <div class="card-body">
-    <%= form_with model: @student, url: update_student_path(@student), method: :patch do |f| %>
+    <%= form_with model: @student, local: true do |f| %>
       <div class="mb-3">
         <%= f.label :full_name %>
         <%= f.text_field :full_name, class: "form-control", required: true %>

@@ -73,7 +73,7 @@
           <tr>
             <th>Full Name</th>
             <th>Email</th>
-            <th>GitHub</th>
+            <th>GitHub Username</th>
             <th>Team</th>
             <th>Links</th>
             <th>Actions</th>
@@ -83,7 +83,8 @@
         <tbody>
           <% @students.each do |student| %>
             <tr>
-              <td class="align-middle text-center"><%= student.full_name %></td>
+              <td class="align-middle text-center"><%= student.name.presence || "—" %></td>
+
 
               <td class="align-middle text-center">
                 <%= student.email.presence || "—" %>
@@ -94,12 +95,12 @@
               </td>
 
               <td class="align-middle text-center">
-                <%= student.team&.name || "Unassigned" %>
+                <%= student.teams.map(&:name).join(", ").presence || "Unassigned" %>
               </td>
-
-              <td class="align-middle text-center">
+              
+              <%# <%td class="align-middle text-center">
                 <%= student.semester&.name_for_select || "—" %>
-              </td>
+              </%td> 
 
               <td class="align-middle text-center" style="max-width=440px;">
                 <div class="d-flex justify-content-center gap-2">

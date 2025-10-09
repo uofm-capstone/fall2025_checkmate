@@ -215,6 +215,14 @@
             </div>
             <hr>
             <h5>Upload Survey CSVs <span class="optional">(optional)</span></h5>
+
+            <!-- ✅ CSV Format Instructions -->
+            <div class="border rounded bg-light text-dark p-3 small" style="line-height: 1.5;">
+              <strong>Student CSV must include the following column headers:</strong><br>
+              <code>Full Name, Email, Team, Github Username, Github Project Board Link, Timesheet Link, Client Meeting Notes Link</code><br>
+              <span class="text-muted">These headers are case-insensitive, but must exist. Rows without Full Name or Email will be skipped.</span>
+            </div>
+
             <div class="form-outline mb-4">
               <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
               

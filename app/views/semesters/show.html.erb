@@ -159,7 +159,7 @@
                 <table class="table table-bordered">
                   <thead class="text-center">
                     <tr>
-                      <th rowspan="3">Team</th>
+                      <th rowspan="3">Team Name</th>
                       <% @sprint_list.each do |sprint| %>
                         <th colspan="15"><%= sprint %></th>
                       <% end %>
@@ -184,7 +184,7 @@
                     <% @teams.each do |team| %>
                       <tr>
                         <td>
-                          <%= link_to team, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none" %>
+                          <%= link_to team.name, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none" %>
                         </td>
                         <% @sprint_list.each do |sprint| %>
                           <% indicators = @flags[sprint][team] || [] %>

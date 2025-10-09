@@ -1,6 +1,10 @@
 # app/models/semester.rb
 require 'csv'
+
 class Semester < ApplicationRecord
+  # --------------------------------------------------------
+  # ASSOCIATIONS
+  # --------------------------------------------------------
   has_one_attached :student_csv
   has_one_attached :git_csv
   has_one_attached :client_csv
@@ -8,106 +12,307 @@ class Semester < ApplicationRecord
   belongs_to :user
   has_many :sprints, inverse_of: :semester, dependent: :destroy
   has_many :teams, inverse_of: :semester, dependent: :destroy
+  has_many :students, dependent: :destroy
   has_many :repositories, dependent: :nullify
+
   accepts_nested_attributes_for :sprints, allow_destroy: true, reject_if: :all_blank
 
+  # --------------------------------------------------------
+  # VALIDATIONS
+  # --------------------------------------------------------
   validates :semester, presence: true, inclusion: { in: %w[Fall Spring Summer] }
   validates :semester, uniqueness: { scope: :year, message: "Semester and year combination already exists" }
   validates :year, presence: true
 
-  # To create default sprint when new semester is created.
+  # --------------------------------------------------------
+  # CALLBACKS
+  # --------------------------------------------------------
   after_create :create_default_sprints
 
-  # Existing method
+  # --------------------------------------------------------
+  # INSTANCE METHODS
+  # --------------------------------------------------------
+
+  # Display-friendly name (e.g. "Fall 2025")
   def name_for_select
     "#{semester} #{year}"
   end
 
-  # Find the current active semester based on the current date
+  # --------------------------------------------------------
+  # CLASS METHODS
+  # --------------------------------------------------------
+
+  # Determines the currently active semester based on date
   def self.current_active
     current_date = Date.current
     current_year = current_date.year
 
-    # Define semester date ranges
     spring_range = Date.new(current_year, 1, 1)..Date.new(current_year, 5, 31)
     summer_range = Date.new(current_year, 6, 1)..Date.new(current_year, 7, 31)
-    fall_range = Date.new(current_year, 8, 1)..Date.new(current_year, 12, 31)
+    fall_range   = Date.new(current_year, 8, 1)..Date.new(current_year, 12, 31)
 
-    # Determine current semester based on date
     current_semester = case current_date
-                      when spring_range then 'Spring'
-                      when summer_range then 'Summer'
-                      when fall_range then 'Fall'
-                      end
+                       when spring_range then 'Spring'
+                       when summer_range then 'Summer'
+                       when fall_range   then 'Fall'
+                       end
 
-    # Find the semester record
-    semester = where(semester: current_semester, year: current_year).first
-
-    # If no semester exists for the current period, return the most recent semester
-    semester || order(year: :desc, semester: :desc).first
+    where(semester: current_semester, year: current_year).first ||
+      order(year: :desc, semester: :desc).first
   end
 
-  # New class method to process static CSV file
+  # Debug helper for static CSVs (legacy testing)
   def self.debug_students
     filepath = Rails.root.join('lib', 'assets', 'Students_list.csv')
-    students = CSV.read(filepath, headers: true).map { |row| {name: row['Name'], role: row['Role']} }
+    students = CSV.read(filepath, headers: true).map { |row| { name: row['Name'], role: row['Role'] } }
     puts students.inspect
   end
 
-  def create_teams_from_csv
-    # It is possible for there to be same team names but different semester/year
-    # Do not need to check other semester's teams, so putting it in model instead of getTeams method (controller)
-    return unless student_csv.attached?
+  # --------------------------------------------------------
+  # ROBUST STUDENT CSV IMPORTER
+  # --------------------------------------------------------
+  # Handles import of student roster CSVs. Automatically:
+  # - Parses flexible headers (case-insensitive)
+  # - Creates teams if missing
+  # - Creates or updates students
+  # - Links students to teams
+#   def import_students_from_csv
+#   return true unless student_csv.attached?
 
-    # Extract existing semester's team names to avoid duplicates
-    existing_team_names = teams.pluck(:name)
+#   student_csv.open do |tempfile|
+#     begin
+#       csv = CSV.read(tempfile.path, headers: true)
+#       headers = csv.headers.map { |h| h.to_s.strip }
 
-    # Process the CSV
-    student_csv.open do |tempfile|
-      begin
-        data = SmarterCSV.process(tempfile.path)
+#       # Flexible header matching
+#       header_candidates = {
+#         name: ["full name", "fullname", "name"],
+#         email: ["email", "e-mail", "e mail"],
+#         team: ["team", "group"],
+#         github_username: ["github username", "github_username", "github"],
+#         project_board: ["github project board link", "project board", "project_board"],
+#         timesheet: ["timesheet link", "timesheet", "timesheet_url"],
+#         client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
+#       }
 
-        # Remove header rows
-        data.delete_at(0) if data[0]
-        data.delete_at(0) if data[0]
+#       header_map = {}
+#       header_candidates.each do |key, candidates|
+#         found = headers.find { |h| candidates.include?(h.downcase) }
+#         header_map[key] = found
+#       end
 
-        # Extract team names
-        team_names = data.map { |row| row[:q2] }.compact.uniq
+#       if header_map[:name].nil? || header_map[:email].nil?
+#         raise "CSV must include at least 'Full name' and 'Email' columns. Found: #{headers.join(', ')}"
+#       end
 
-        # Create teams that don't already exist
-        team_names.each do |team_name|
-          next if team_name.blank? || existing_team_names.include?(team_name)
-          teams.create!(name: team_name)
-        end
-      # In case it fails
-      rescue => e
-        Rails.logger.error("Error creating teams from CSV: #{e.message}")
-        false
+#       ActiveRecord::Base.transaction do
+#         csv.each_with_index do |row, i|
+#           name  = row[header_map[:name]]&.strip
+#           email = row[header_map[:email]]&.strip&.downcase
+#           team_name = row[header_map[:team]]&.strip
+#           github_username = row[header_map[:github_username]]&.strip
+#           project_board   = row[header_map[:project_board]]&.strip
+#           timesheet       = row[header_map[:timesheet]]&.strip
+#           client_notes    = row[header_map[:client_notes]]&.strip
+
+#           # ❌ Skip empty rows
+#           next if name.blank? && email.blank?
+
+#           # ❌ Validate required fields
+#           if name.blank?
+#             raise "Row #{i + 2}: Name is missing"
+#           end
+
+#           if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
+#             raise "Row #{i + 2}: Email is missing or invalid (#{email})"
+#           end
+
+#           # ❌ Optional URL validations
+#           url_fields = {
+#             "Project Board URL" => project_board,
+#             "Timesheet URL" => timesheet,
+#             "Client Notes URL" => client_notes
+#           }
+
+#           url_fields.each do |label, url|
+#             if url.present? && !(url =~ /\Ahttps?:\/\/[\S]+\z/)
+#               raise "Row #{i + 2}: #{label} is not a valid URL: #{url}"
+#             end
+#           end
+
+#           # ✅ Create/find team
+#           team = teams.find_or_create_by!(name: team_name) if team_name.present?
+
+#           # ✅ Assign team-level URLs (if not already present)
+#           if team
+#             team.repo_url           = project_board   if project_board.present?
+#             team.project_board_url  = project_board   if project_board.present?
+#             team.timesheet_url      = timesheet       if timesheet.present?
+#             team.client_notes_url   = client_notes    if client_notes.present?
+#             team.save!              if team.changed?
+#           end
+
+
+#           # ✅ Create or update student
+#           student = students.find_or_initialize_by(email: email)
+#           student.assign_attributes(
+#             name: name,
+#             email: email,
+#             github_username: github_username,
+#             project_board_url: project_board,
+#             timesheet_url: timesheet,
+#             client_notes_url: client_notes,
+#             semester: self
+#           )
+#           student.save!
+
+#           # ✅ Link to team (if not already linked)
+#           if team && !team.students.exists?(student.id)
+#             team.students << student
+#           end
+#         end
+#       end
+
+#       true
+#     rescue => e
+#       Rails.logger.error("CSV import failed: #{e.class} - #{e.message}")
+#       errors.add(:student_csv, "Import failed: #{e.message}")
+#       false
+#     end
+#   end
+# end
+
+def import_students_from_csv
+  return true unless student_csv.attached?
+
+  student_csv.open do |tempfile|
+    begin
+      csv = CSV.read(tempfile.path, headers: true)
+      headers = csv.headers.map { |h| h.to_s.strip }
+
+      # Flexible header matching
+      header_candidates = {
+        name: ["full name", "fullname", "name"],
+        email: ["email", "e-mail", "e mail"],
+        team: ["team", "group"],
+        github_username: ["github username", "github_username", "github"],
+        repo_url: ["repo url", "repository link", "repository", "repo"],
+        project_board: ["github project board link", "project board", "project_board"],
+        timesheet: ["timesheet link", "timesheet", "timesheet_url"],
+        client_notes: ["client meeting notes link", "client meeting notes", "client_notes"]
+      }
+
+      header_map = {}
+      header_candidates.each do |key, candidates|
+        found = headers.find { |h| candidates.include?(h.downcase) }
+        header_map[key] = found
       end
+
+      # ✅ Must include name + email columns
+      if header_map[:name].nil? || header_map[:email].nil?
+        raise "CSV must include at least 'Full Name' and 'Email' columns. Found: #{headers.join(', ')}"
+      end
+
+      ActiveRecord::Base.transaction do
+        csv.each_with_index do |row, i|
+          name             = row[header_map[:name]]&.strip
+          email            = row[header_map[:email]]&.strip&.downcase
+          team_name        = row[header_map[:team]]&.strip
+          github_username  = row[header_map[:github_username]]&.strip
+          repo_url         = row[header_map[:repo_url]]&.strip
+          project_board    = row[header_map[:project_board]]&.strip
+          timesheet        = row[header_map[:timesheet]]&.strip
+          client_notes     = row[header_map[:client_notes]]&.strip
+
+          # ❌ Skip empty rows
+          next if name.blank? && email.blank?
+
+          # ❌ Validate required fields
+          if name.blank?
+            raise "Row #{i + 2}: Name is missing"
+          end
+
+          if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
+            raise "Row #{i + 2}: Email is missing or invalid (#{email})"
+          end
+
+          # ❌ Optional URL validations
+          url_fields = {
+            "Repo URL" => repo_url,
+            "Project Board URL" => project_board,
+            "Timesheet URL" => timesheet,
+            "Client Notes URL" => client_notes
+          }
+
+          url_fields.each do |label, url|
+            if url.present? && !(url =~ /\Ahttps?:\/\/[\S]+\z/)
+              raise "Row #{i + 2}: #{label} is not a valid URL: #{url}"
+            end
+          end
+
+          # ✅ Create/find team
+          team = teams.find_or_create_by!(name: team_name) if team_name.present?
+
+          # ✅ Assign URLs to team (if provided)
+          if team
+            team.repo_url           = repo_url        if repo_url.present?
+            team.project_board_url  = project_board   if project_board.present?
+            team.timesheet_url      = timesheet       if timesheet.present?
+            team.client_notes_url   = client_notes    if client_notes.present?
+            team.save!              if team.changed?
+          end
+
+          # ✅ Create or update student
+          student = students.find_or_initialize_by(email: email)
+          student.assign_attributes(
+            name: name,
+            full_name: name,
+            email: email,
+            github_username: github_username,
+            project_board_url: project_board,
+            timesheet_url: timesheet,
+            client_notes_url: client_notes,
+            semester: self
+          )
+          student.save!
+
+          # ✅ Link student to team
+          if team && !team.students.exists?(student.id)
+            team.students << student
+          end
+        end
+      end
+
+      true
+    rescue => e
+      Rails.logger.error("CSV import failed: #{e.class} - #{e.message}")
+      errors.add(:student_csv, "Import failed: #{e.message}")
+      false
     end
-    true
   end
+end
 
 
+
+  # --------------------------------------------------------
+  # PRIVATE METHODS
+  # --------------------------------------------------------
   private
 
+  # Automatically create 4 default sprints after semester creation
   def create_default_sprints
-    # Create four default sprints with sequential names and dates
-    start_date = Date.new(self.year.to_i, 1, 30)  # Starting with Jan 30th of the year
+    start_date = Date.new(self.year.to_i, 1, 30)
 
     4.times do |i|
-      # Each sprint is roughly a month
       end_date = start_date + 28.days
 
       self.sprints.create!(
-        name: "Sprint #{i+1}",
+        name: "Sprint #{i + 1}",
         start_date: start_date,
         end_date: end_date
       )
 
-      # Set start date for next sprint
       start_date = end_date + 1.day
     end
   end
-
 end

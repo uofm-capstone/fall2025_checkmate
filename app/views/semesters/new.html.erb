@@ -36,26 +36,26 @@
 
                 <hr>
                 <h5 class="mb-3">Upload Survey CSVs <span class="text-muted small">(optional)</span></h5>
-                
+
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <%= f.label :student_csv, "Student CSV" %>
-                      <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control' %>
+                      <%= f.label :student_csv, "Student Roster CSV" %>
+                      <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                   
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <label for="client_csv">Client CSV</label>
-                      <%= f.file_field :client_csv, :accept => 'text/csv', class: 'form-control' %>
+                      <%= f.label :client_csv, "Client CSV" %>
+                      <%= f.file_field :client_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                   
                   <div class="col-md-4">
                     <div class="form-outline mb-4">
-                      <label for="git_csv">Git CSV</label>
-                      <%= f.file_field :git_csv, :accept => 'text/csv', class: 'form-control' %>
+                      <%= f.label :git_csv, "Git CSV" %>
+                      <%= f.file_field :git_csv, accept: 'text/csv', class: 'form-control' %>
                     </div>
                   </div>
                 </div>
