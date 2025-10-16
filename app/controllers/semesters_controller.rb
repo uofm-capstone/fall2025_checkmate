@@ -248,7 +248,7 @@ class SemestersController < ApplicationController
     @students_info = []
 
     CSV.foreach(filepath, headers: true) do |row|
-      @students_info << { name: row['Name'], role: row['Role'] }
+      @students_info << { full_name: row['Name'], role: row['Role'] }
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to semesters_path, alert: 'Semester not found.'

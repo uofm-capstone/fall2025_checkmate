@@ -96,11 +96,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_04_023940) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email"
     t.string "full_name"
+    t.string "email"
     t.string "github_username"
     t.integer "team_id"
     t.string "team_name"
