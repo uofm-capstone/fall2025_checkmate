@@ -40,22 +40,28 @@ User.find_or_create_by(email: "smith.jame@ta.edu") do |user|
 end
 
 # Students
-students = [
-  { email: "john.doe@student.edu" },
-  { email: "jane.smith@student.edu" },
-  { email: "naitik.kaythwal@student.edu" },
-  { email: "purav.patel@student.edu" },
-  { email: "hitham.rizeq@student.edu" },
-  { email: "mcneil.mccarley@student.edu" },
-  { email: "jonnie.nguyen@student.edu" },
-  { email: "tyler.howell@student.edu" },
-  { email: "lawrence.jones@student.edu" },
+emails = [
+  "john.doe@student.edu",
+  "jane.smith@student.edu",
+  "naitik.kaythwal@student.edu",
+  "purav.patel@student.edu",
+  "hitham.rizeq@student.edu",
+  "mcneil.mccarley@student.edu",
+  "jonnie.nguyen@student.edu",
+  "tyler.howell@student.edu",
+  "lawrence.jones@student.edu",
 ]
 
-students.each do |student_data|
-  Student.find_or_create_by(email: student_data[:email])
+emails.each do |raw|
+  email = raw.downcase.strip
+  Student.find_or_create_by!(email: email) do |s|
+    user = email.split("@").first
+    first, last = user.split(".", 2)
+    s.full_name = [first, last].compact.map { _1.capitalize }.join(" ")
+    # leave github_username/team_id nil to avoid unique(team_id, github_username)
+  end
 end
-
+  
 # Guest users
 guests = [
   { email: "client1@company.com", password: "GuestPass1!" },
