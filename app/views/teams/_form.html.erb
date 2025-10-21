@@ -40,5 +40,40 @@
     <%= form.text_field :github_token, class: "form-control" %>
   </div>
 
+  <% if !team.new_record? %>
+    <div class="mb-3">
+      <table>
+        <thead>
+          <tr>
+            <th>Current Members</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if !team.nil? %>
+            <% team.students.each do |member| %>
+              <tr>
+                <td><%= member.name %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mb-2 fw-semibold">Students</div>
+    <div class="border rounded p-2" style="max-height: 240px; overflow: auto;">
+      <%= form.collection_check_boxes :student_ids, @students, :id, :full_name do |b| %>
+        <div class="form-check">
+          <%= b.check_box(class: "form-check-input") %>
+          <%= b.label(class: "form-check-label") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-muted small mb-2">
+      Check/uncheck to stage changes. They’re saved only when you click “Update Team.”
+    </div>
+  <% end %>
+
   <%= form.submit team.new_record? ? "Create Team" : "Update Team", class: "btn btn-primary" %>
 <% end %>
