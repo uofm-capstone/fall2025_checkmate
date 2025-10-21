@@ -144,20 +144,6 @@
               </td>
             </tr>
 
-            <div class="modal fade" id="editTeamModal-<%= team.id %>" tabindex="-1" aria-labelledby="editTeamModalLabel-<%= team.id %>" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="editTeamModalLabel-<%= team.id %>">Edit <%= team.name %></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  </div>
-                  <div class="modal-body">
-                    <%= render "form", team: team, current_semester: @current_semester %>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <% if team.errors.any? %>
               <script>
                 document.addEventListener("DOMContentLoaded", function() {
@@ -170,6 +156,23 @@
           <% end %>
         </tbody>
       </table>
+
+      <% @teams.each do |team| %>
+        <div class="modal fade" id="editTeamModal-<%= team.id %>" tabindex="-1" aria-labelledby="editTeamModalLabel-<%= team.id %>" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editTeamModalLabel-<%= team.id %>">Edit <%= team.name %></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <%= render "form", team: team, current_semester: @current_semester %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
     </div>
   </div>
 </div>
