@@ -5,6 +5,7 @@ class TeamsController < ApplicationController
   load_and_authorize_resource class: Team
 
   def index
+    @students = Student.all.order(:full_name)
     @teams = Team.all
     @team = Team.new
     render :index
@@ -64,9 +65,9 @@ class TeamsController < ApplicationController
     student_team = StudentTeam.new(student: @student, team: @team)
 
     if student_team.save
-      redirect_to edit_team_path(@team), notice: 'Member was successfully added to the team.'
+      redirect_to teams_path, notice: 'Member was successfully added to the team.'
     else
-      redirect_to edit_team_path(@team), alert: 'Failed to add member to the team.'
+      redirect_to teams_path, alert: 'Failed to add member to the team.'
     end
   end
 
@@ -88,6 +89,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:name, :description, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url)
+    params.require(:team).permit(:name, :description, :github_token, :repo_url, :project_board_url, :timesheet_url, :client_notes_url, student_ids: [])
   end
 end
