@@ -26,6 +26,7 @@ User.find_or_create_by(email: "BrandonBooth@admin.com") do |user|
   user.role = :admin
 end
 
+# Admin for Derron Dowdy
 User.find_or_create_by(email: "Dmdowdy@memphis.edu") do |user|
   user.password = "Admin789!"
   user.admin = true
