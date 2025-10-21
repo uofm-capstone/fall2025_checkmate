@@ -26,6 +26,12 @@ User.find_or_create_by(email: "BrandonBooth@admin.com") do |user|
   user.role = :admin
 end
 
+User.find_or_create_by(email: "Dmdowdy@memphis.edu") do |user|
+  user.password = "Admin789!"
+  user.admin = true
+  user.role = :admin
+end
+
 # Adding more seed data
 
 # Teaching Assistants
