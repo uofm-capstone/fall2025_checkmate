@@ -3,6 +3,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
+      - '--no-cache'
       - '-t'
       - 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
       - '--build-arg'

@@ -30,7 +30,8 @@ COPY . .
 ARG RAILS_MASTER_KEY
 ARG SECRET_KEY_BASE
 ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY SECRET_KEY_BASE=$SECRET_KEY_BASE
-RUN if [ "$RAILS_ENV" = "production" ]; then bundle exec rake assets:precompile; fi
+RUN echo "Docker build RAILS_ENV=$RAILS_ENV NODE_ENV=$NODE_ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY SECRET_KEY_BASE=$SECRET_KEY_BASE"
+#RUN if [ "$RAILS_ENV" = "production" ]; then bundle exec rake assets:precompile; fi
 
 # Entrypoint
 COPY docker-entry.sh /usr/bin/docker-entry.sh
