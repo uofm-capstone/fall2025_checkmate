@@ -1,10 +1,14 @@
 steps:
-  # Build image
+  # Build image (development build => skips assets:precompile in Dockerfile)
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
       - '-t'
       - 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
+      - '--build-arg'
+      - 'RAILS_ENV=development'
+      - '--build-arg'
+      - 'NODE_ENV=development'
       - '.'
 
   # Push image
@@ -13,7 +17,7 @@ steps:
       - 'push'
       - 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
 
-  # Deploy to Cloud Run (correct service + region)
+  # Deploy to Cloud Run (runtime in production)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
@@ -23,9 +27,16 @@ steps:
         '--region','us-south1',
         '--platform','managed',
         '--allow-unauthenticated',
-        '--set-env-vars','RAILS_ENV=development,RAILS_LOG_TO_STDOUT=true,RAILS_SERVE_STATIC_FILES=true',
-        '--add-cloudsql-instances checkmate-475818:us-south1:checkmate-db'
-        # If you use secrets, add: --set-secrets SECRET_KEY_BASE=secret-key-base:latest
+        # *** RUNTIME ENVS ***
+        '--set-env-vars','RAILS_ENV=production,RAILS_LOG_TO_STDOUT=true,RAILS_SERVE_STATIC_FILES=true',
+        # If using Cloud SQL Auth proxy integration (Unix socket):
+        # pass DB URL that uses the socket path (adjust user/db/password)
+        '--set-env-vars','DATABASE_URL=postgres://postgres:Checkmate2025!@/checkmate-db?host=/cloudsql/checkmate-475818:us-south1:checkmate-db',
+        # Or if you prefer TCP/private IP, set a normal host-based DATABASE_URL instead.
+        # Attach the Cloud SQL instance to the service:
+        '--add-cloudsql-instances','checkmate-475818:us-south1:checkmate-db'
+        # Secrets at runtime (create these in Secret Manager first):
+        #'--set-secrets','RAILS_MASTER_KEY=rails-master-key:latest,SECRET_KEY_BASE=secret-key-base:latest'
       ]
 
 images:
