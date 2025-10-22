@@ -1,29 +1,35 @@
 steps:
-  # Step 1: Build Docker image
+  # Build image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app', '.']
+    args:
+      - 'build'
+      - '-t'
+      - 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
+      - '.'
 
-  # Step 2: Push image to Artifact Registry
+  # Push image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app']
+    args:
+      - 'push'
+      - 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
 
-  # Step 3: Deploy to Cloud Run
+  # Deploy to Cloud Run (correct service + region)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       [
-        'run', 'deploy', 'tag-app-service',
-        '--image', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app',
-        '--region', 'us-central1',
-        '--platform', 'managed',
-        '--add-cloudsql-instances', 'spring2025-tag:us-central1:tag-app-db',
-        '--set-env-vars', 'RAILS_ENV=production,RAILS_SERVE_STATIC_FILES=true',
-        '--set-secrets', 'SECRET_KEY_BASE=secret-key-base:latest,DB_PASSWORD=db-password:latest',
-        '--allow-unauthenticated'
+        'run','deploy','fall2025-checkmate',
+        '--image','us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app',
+        '--region','us-south1',
+        '--platform','managed',
+        '--allow-unauthenticated',
+        '--set-env-vars','RAILS_ENV=production,RAILS_LOG_TO_STDOUT=true,RAILS_SERVE_STATIC_FILES=true',
+        '--add-cloudsql-instances checkmate-475818:us-south1:checkmate-db'
+        # If you use secrets, add: --set-secrets SECRET_KEY_BASE=secret-key-base:latest
       ]
 
 images:
-- 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app'
+- 'us-south1-docker.pkg.dev/checkmate-475818/fall2025_checkmate/checkmate-app'
 
 options:
   logging: CLOUD_LOGGING_ONLY

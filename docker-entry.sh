@@ -1,9 +1,12 @@
 #!/bin/sh
 set -e
 
-if [ -f tmp/pids/server.pid ]; then
-  echo "Removing stale server PID file at tmp/pids/server.pid...."
-  rm tmp/pids/server.pid
-fi
+# Clean stale pid (Rails)
+[ -f tmp/pids/server.pid ] && rm tmp/pids/server.pid
 
-exec bundle exec "$@"
+# Default: run Rails server with proper bind/port
+if [ $# -eq 0 ]; then
+  exec bundle exec rails server -e "${RAILS_ENV:-production}" -b 0.0.0.0 -p "${PORT:-8080}"
+else
+  exec bundle exec "$@"
+fi

@@ -1,44 +1,41 @@
 # Use the correct Ruby version
-FROM --platform=linux/amd64 ruby:3.2.1-alpine
+FROM ruby:3.2.1-alpine
 
-# Install system dependencies
+# System deps
 RUN apk add --no-cache \
-    build-base \
-    nodejs \
-    npm \
-    postgresql-dev \
-    tzdata \
-    git \
-    imagemagick \
-    yarn \
-    libxml2-dev \
-    libxslt-dev \
-    zlib-dev  
+  build-base nodejs npm yarn postgresql-dev tzdata git imagemagick \
+  libxml2-dev libxslt-dev zlib-dev
 
-# Set working directory
 WORKDIR /app
 
-# Copy Gemfile first to leverage Docker cache
+# ===== Build-time env (overridable) =====
+ARG RAILS_ENV=production
+ARG NODE_ENV=production
+ENV RAILS_ENV=$RAILS_ENV NODE_ENV=$NODE_ENV
+
+# Gems
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set --local without 'development test' && \
+    bundle install --jobs 4 --retry 3
 
-# Fix Bundler issues and install gems
-RUN bundle config set --local without 'development test' && bundle install
-
-# Copy package.json and install frontend dependencies
+# JS deps (if you use yarn)
 COPY package.json yarn.lock ./
-RUN yarn install --production
+RUN yarn install --production || true
 
-# Copy the rest of the application
+# App code
 COPY . .
 
-# Precompile assets
-RUN bundle exec rake assets:precompile
+# Precompile ONLY for production builds (will need secrets at build time)
+# (No-op in development builds)
+ARG RAILS_MASTER_KEY
+ARG SECRET_KEY_BASE
+ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY SECRET_KEY_BASE=$SECRET_KEY_BASE
+RUN if [ "$RAILS_ENV" = "production" ]; then bundle exec rake assets:precompile; fi
 
-# Expose the required port
+# Entrypoint
+COPY docker-entry.sh /usr/bin/docker-entry.sh
+RUN chmod +x /usr/bin/docker-entry.sh
+
 EXPOSE 8080
-
-# Run the entry point file
-ENTRYPOINT ["./docker-entry.sh"]
-
-# Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
+ENTRYPOINT ["/usr/bin/docker-entry.sh"]
+# no CMD — entrypoint provides defaults

@@ -1,5 +1,3 @@
-#version: '3.8'
-
 services:
   db:
     image: postgres:15
@@ -14,7 +12,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   web:
-    build: .
+    build:
+      context: .
+      args:
+        RAILS_ENV: development
+        NODE_ENV: development
     env_file:
       - .env.development
     depends_on:
@@ -25,9 +27,9 @@ services:
       DATABASE_URL: "postgres://postgres:password@db:5432/mydatabase"
     volumes:
       - .:/app
-    stdin_open: true
-    tty: true
-    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 8080"
+    command: >
+      sh -lc "rm -f tmp/pids/server.pid &&
+              bundle exec rails s -b 0.0.0.0 -p 8080"
 
 volumes:
   postgres_data:
