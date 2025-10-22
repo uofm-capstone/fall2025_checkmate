@@ -35,9 +35,9 @@ steps:
         '--set-env-vars','DATABASE_URL=postgres://postgres:Checkmate2025!@/checkmate-db?host=/cloudsql/checkmate-475818:us-south1:checkmate-db',
         # Or if you prefer TCP/private IP, set a normal host-based DATABASE_URL instead.
         # Attach the Cloud SQL instance to the service:
-        '--add-cloudsql-instances','checkmate-475818:us-south1:checkmate-db'
+        '--add-cloudsql-instances','checkmate-475818:us-south1:checkmate-db',
         # Secrets at runtime (create these in Secret Manager first):
-        #'--set-secrets','RAILS_MASTER_KEY=rails-master-key:latest,SECRET_KEY_BASE=secret-key-base:latest'
+        '--set-secrets','RAILS_MASTER_KEY=rails-master-key:latest,SECRET_KEY_BASE=secret-key-base:latest'
       ]
 
 images:
