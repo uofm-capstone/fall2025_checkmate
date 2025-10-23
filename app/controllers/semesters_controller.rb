@@ -175,7 +175,9 @@ class SemestersController < ApplicationController
 
   # Displays semester progress status for all teams/sprints.
   def status
-    @semester = Semester.find(params[:id])
+    @semester = Semester.find_by(id: params[:id])
+    return redirect_to(semesters_path) unless @semester
+    
     session[:last_viewed_semester_id] = @semester.id
 
     @teams = @semester.teams
