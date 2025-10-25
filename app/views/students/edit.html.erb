@@ -17,9 +17,13 @@
         <%= f.text_field :github_username, class: "form-control", required: true %>
       </div>
 
+      <!-- Team dropdown -->
       <div class="mb-3">
-        <%= f.label :team_name, "Team Name" %>
-        <%= f.text_field :team_name, class: "form-control", required: true %>
+        <%= f.label :team_id, "Team" %>
+        <%= f.collection_select :team_id,
+              @teams, :id, :name,
+              { prompt: "Select a team" },
+              { class: "form-select" } %>
       </div>
 
       <div class="d-flex gap-2">
