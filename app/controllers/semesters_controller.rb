@@ -15,7 +15,7 @@ class SemestersController < ApplicationController
 
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
   before_action :check_ownership, only: [:destroy]
-  before_action :check_admin, only: [:new, :create]
+  before_action :check_admin
 
   # --------------------------------------------------------
   # SETUP & AUTHORIZATION HELPERS
@@ -33,10 +33,10 @@ class SemestersController < ApplicationController
     end
   end
 
-  # Restricts semester creation to admin users.
+  # Restricts accessing semesters to admin users.
   def check_admin
     unless current_user.admin?
-      redirect_to root_path(alert_message: "You are not authorized to perform this action.")
+      redirect_to root_path(flash[:alert] = "You are not authorized to access this page.")
     end
   end
 
