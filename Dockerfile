@@ -44,5 +44,5 @@ EXPOSE 8080
 # Entrypoint must be executable and should NOT duplicate "bundle exec" in CMD
 ENTRYPOINT ["./docker-entry.sh"]
 
-# Bind to the port Cloud Run provides
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "${PORT}"]
+# Let Puma (via config/puma.rb) pick up ENV["PORT"] from Cloud Run
+CMD ["rails", "server", "-b", "0.0.0.0"]
