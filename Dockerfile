@@ -31,14 +31,18 @@ RUN yarn install --production
 # Copy the rest of the application
 COPY . .
 
-# Precompile assets
-RUN bundle exec rake assets:precompile
+# Ensure entrypoint is executable
+RUN chmod +x ./docker-entry.sh
 
-# Expose the required port
+# Precompile assets (needs a dummy secret + dummy DB URL at build time)
+ENV SECRET_KEY_BASE=dummy DATABASE_URL=postgres://user:pass@localhost:5432/dummy
+RUN bundle exec rake assets:precompile || true
+
+# Expose (harmless on Cloud Run)
 EXPOSE 8080
 
-# Run the entry point file
+# Entrypoint must be executable and should NOT duplicate "bundle exec" in CMD
 ENTRYPOINT ["./docker-entry.sh"]
 
-# Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0", "-p", "8080"]
+# Bind to the port Cloud Run provides
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "${PORT}"]

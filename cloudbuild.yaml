@@ -1,29 +1,61 @@
+# Cloud Build config (parameterized)
+
+# ---- Substitutions you can override per build/trigger ----
+# Example values shown; change as needed when you run the build.
+substitutions:
+  _REGION: "us-south1"             # your Cloud Run URL is us-south1
+  _REPO: "checkmate-repo"          # your Artifact Registry repo name
+  _IMAGE: "checkmate-app"          # your image name
+  _SERVICE: "fall2025-checkmate"   # your Cloud Run service name
+  _SQL_REGION: "us-south1"         # set to your Cloud SQL instance’s region
+  _SQL_INSTANCE: "checkmate-db-2"  # your Cloud SQL instance name
+
 steps:
   # Step 1: Build Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app', '.']
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}"
+      - "."
 
   # Step 2: Push image to Artifact Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app']
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}"
 
   # Step 3: Deploy to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'gcloud'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
     args:
-      [
-        'run', 'deploy', 'tag-app-service',
-        '--image', 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app',
-        '--region', 'us-central1',
-        '--platform', 'managed',
-        '--add-cloudsql-instances', 'spring2025-tag:us-central1:tag-app-db',
-        '--set-env-vars', 'RAILS_ENV=production,RAILS_SERVE_STATIC_FILES=true',
-        '--set-secrets', 'SECRET_KEY_BASE=secret-key-base:latest,DB_PASSWORD=db-password:latest',
-        '--allow-unauthenticated'
-      ]
+      - "run"
+      - "deploy"
+      - "${_SERVICE}"
+      - "--image"
+      - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}"
+      - "--region"
+      - "${_REGION}"
+      - "--platform"
+      - "managed"
+
+      # Attach Cloud SQL instance (use the SQL instance's region)
+      - "--add-cloudsql-instances"
+      - "${PROJECT_ID}:${_SQL_REGION}:${_SQL_INSTANCE}"
+
+      # Rails env
+      - "--set-env-vars"
+      - "RAILS_ENV=production,RAILS_SERVE_STATIC_FILES=true"
+
+      # Secrets (must exist in this project)
+      - "--set-secrets"
+      - "SECRET_KEY_BASE=secret-key-base:latest,DB_PASSWORD=db-password:latest"
+
+      # Auth
+      - "--allow-unauthenticated"
 
 images:
-- 'us-central1-docker.pkg.dev/spring2025-tag/spring2025-tag-repo/tag-app'
+  - "${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/${_IMAGE}"
 
 options:
   logging: CLOUD_LOGGING_ONLY

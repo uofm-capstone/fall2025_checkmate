@@ -40,7 +40,7 @@
     <%= form.text_field :github_token, class: "form-control" %>
   </div>
 
-  <% if !team.new_record? %>
+  <% if !team.nil? %>
     <div class="mb-3">
       <table>
         <thead>
