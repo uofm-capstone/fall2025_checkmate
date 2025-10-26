@@ -1,3 +1,4 @@
+echo "tmp/pids/server.pid" >> .gitignore
 log/development.log
 storage/*
 .DS_Store
