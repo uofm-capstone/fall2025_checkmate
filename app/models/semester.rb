@@ -213,56 +213,73 @@ def import_students_from_csv
         raise "CSV must include at least 'Full Name' and 'Email' columns. Found: #{headers.join(', ')}"
       end
 
+      # ✅ Variables for remembering previous non-nil values
+      previous_team_name = nil
+      previous_repo_url = nil
+      previous_project_board = nil
+      previous_timesheet = nil
+      previous_client_notes = nil
+
       ActiveRecord::Base.transaction do
         csv.each_with_index do |row, i|
+          # --- Extract raw row data ---
           name             = row[header_map[:name]]&.strip
           email            = row[header_map[:email]]&.strip&.downcase
-          team_name        = row[header_map[:team]]&.strip
+          raw_team_name    = row[header_map[:team]]&.strip
+          raw_repo_url     = row[header_map[:repo_url]]&.strip
+          raw_project_board= row[header_map[:project_board]]&.strip
+          raw_timesheet    = row[header_map[:timesheet]]&.strip
+          raw_client_notes = row[header_map[:client_notes]]&.strip
           github_username  = row[header_map[:github_username]]&.strip
-          repo_url         = row[header_map[:repo_url]]&.strip
-          project_board    = row[header_map[:project_board]]&.strip
-          timesheet        = row[header_map[:timesheet]]&.strip
-          client_notes     = row[header_map[:client_notes]]&.strip
 
-          # ❌ Skip empty rows
-          next if name.blank? && email.blank?
+          # --- Apply "remember previous non-nil" logic ---
+          team_name     = raw_team_name.presence     || previous_team_name
+          repo_url      = raw_repo_url.presence      || previous_repo_url
+          project_board = raw_project_board.presence || previous_project_board
+          timesheet     = raw_timesheet.presence     || previous_timesheet
+          client_notes  = raw_client_notes.presence  || previous_client_notes
 
-          # ❌ Validate required fields
+          # --- Update remembered values for next row ---
+          previous_team_name     = raw_team_name     if raw_team_name.present?
+          previous_repo_url      = raw_repo_url      if raw_repo_url.present?
+          previous_project_board = raw_project_board if raw_project_board.present?
+          previous_timesheet     = raw_timesheet     if raw_timesheet.present?
+          previous_client_notes  = raw_client_notes  if raw_client_notes.present?
+
+          # --- Skip or validate row ---
+          next if name.blank? && email.blank? # skip empty rows
+
           if name.blank?
-            raise "Row #{i + 2}: Name is missing"
+            raise "Row #{i + 2}: Missing Full Name"
           end
-
           if email.blank? || !(email =~ URI::MailTo::EMAIL_REGEXP)
-            raise "Row #{i + 2}: Email is missing or invalid (#{email})"
+            raise "Row #{i + 2}: Missing or invalid Email (#{email})"
           end
 
-          # ❌ Optional URL validations
+          # --- Validate URL formats ---
           url_fields = {
             "Repo URL" => repo_url,
             "Project Board URL" => project_board,
             "Timesheet URL" => timesheet,
             "Client Notes URL" => client_notes
           }
-
           url_fields.each do |label, url|
             if url.present? && !(url =~ /\Ahttps?:\/\/[\S]+\z/)
-              raise "Row #{i + 2}: #{label} is not a valid URL: #{url}"
+              raise "Row #{i + 2}: #{label} is invalid: #{url}"
             end
           end
 
-          # ✅ Create/find team
+          # --- Create/find team and assign team-level links ---
           team = teams.find_or_create_by!(name: team_name) if team_name.present?
-
-          # ✅ Assign URLs to team (if provided)
           if team
-            team.repo_url           = repo_url        if repo_url.present?
-            team.project_board_url  = project_board   if project_board.present?
-            team.timesheet_url      = timesheet       if timesheet.present?
-            team.client_notes_url   = client_notes    if client_notes.present?
-            team.save!              if team.changed?
+            team.repo_url           ||= repo_url
+            team.project_board_url  ||= project_board
+            team.timesheet_url      ||= timesheet
+            team.client_notes_url   ||= client_notes
+            team.save! if team.changed?
           end
 
-          # ✅ Create or update student
+          # --- Create or update student record ---
           student = students.find_or_initialize_by(email: email)
           student.assign_attributes(
             name: name,
@@ -276,7 +293,7 @@ def import_students_from_csv
           )
           student.save!
 
-          # ✅ Link student to team
+          # --- Link student to team ---
           if team && !team.students.exists?(student.id)
             team.students << student
           end
@@ -291,6 +308,7 @@ def import_students_from_csv
     end
   end
 end
+
 
 
 
