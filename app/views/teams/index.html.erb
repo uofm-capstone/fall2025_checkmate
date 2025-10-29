@@ -131,15 +131,19 @@
               </td>
               <td class='align-middle text-center'>
                 <% if can? :modify, team %>
-                  <button type="button" class="icon-button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#editTeamModal-<%= team.id %>">
-                    <i class="bi bi-pen-fill"></i>
-                  </button>
-                  
-                  <%= button_to team_path(team), method: :delete, class: 'icon-button', title: 'Delete' do %>
-                    <i class='bi bi-trash-fill'></i>
-                  <% end %>
+                  <div class="d-flex flex-column align-items-center">
+                    <button type="button" class="icon-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editTeamModal-<%= team.id %>">
+                      <i class="bi bi-pen-fill"></i>
+                    </button>
+
+                    <button type="button" class="icon-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteTeamModal-<%= team.id %>">
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+                  </div>
                 <% end %>
               </td>
             </tr>
@@ -167,6 +171,27 @@
               </div>
               <div class="modal-body">
                 <%= render "form", team: team, current_semester: @current_semester %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="deleteTeamModal-<%= team.id %>" tabindex="-1" aria-labelledby="deleteTeamModalLabel-<%= team.id %>" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteTeamModalLabel-<%= team.id %>">
+                  Are you sure you want to delete this team?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>This action cannot be undone.</p>
+              </div>
+              <div class="modal-footer">
+                <%= button_to team_path(team), method: :delete, class: "btn btn-danger" do %>
+                  Delete Team
+                <% end %>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               </div>
             </div>
           </div>
