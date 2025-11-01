@@ -5,8 +5,8 @@ class TeamsController < ApplicationController
   load_and_authorize_resource class: Team
 
   def index
-    @students = Student.all.order(:full_name)
-    @teams = Team.all
+    @students = Student.where(semester_id: session[:last_viewed_semester_id]).order(:full_name)
+    @teams = Team.where(semester_id: session[:last_viewed_semester_id])
     @team = Team.new
     render :index
   end
@@ -22,15 +22,14 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
-    @current_semester = Semester.order(created_at: :desc).first
-    @team.semester = @current_semester
+    @team.semester = Semester.find(session[:last_viewed_semester_id])
     authorize! :create, @team
 
     if @team.save
       redirect_to teams_path, notice: 'Team was successfully created.'
     else
       @semesters = Semester.all
-      @teams = Team.all  # needed if your index lists teams
+      @teams = Team.all 
       render :index
     end
   end
@@ -44,7 +43,7 @@ class TeamsController < ApplicationController
     if @team.update(team_params)
       redirect_to teams_path, notice: 'Team was successfully updated.'
     else
-      @current_semester = Semester.order(created_at: :desc).first
+      @current_semester = session[:last_viewed_semester_id]
       @students = Student.where.not(id: @team.student_ids)
       # Re-render the whole index so the modal + errors appear like "new"
       @teams = Team.all

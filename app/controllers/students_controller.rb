@@ -22,14 +22,11 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
+    @student.semester = Semester.find(session[:last_viewed_semester_id])
     authorize! :create, @student rescue nil
     if @student.save
-      semester = @student&.team&.semester || @current_semester
-      if semester
-        redirect_to semester_classlist_path(semester), notice: "Student was successfully added."
-      else
-        redirect_to students_path, notice: "Student was successfully added."
-      end
+      semester = @current_semester
+      redirect_to students_path, notice: "Student was successfully added."
     else
       @students = load_students_for_index
       render :index, status: :unprocessable_entity
@@ -56,6 +53,7 @@ class StudentsController < ApplicationController
 
   private
 
+  
   def set_student
     @student = Student.find(params[:id])
   rescue ActiveRecord::RecordNotFound
@@ -63,7 +61,7 @@ class StudentsController < ApplicationController
   end
 
   def set_current_semester
-    @current_semester = Semester.order(created_at: :desc).first
+    @current_semester = Semester.find_by(id: session[:last_viewed_semester_id])
   end
 
   def load_teams
@@ -76,13 +74,8 @@ class StudentsController < ApplicationController
   end
 
   def load_students_for_index
-    if @current_semester && Student.reflect_on_association(:team)
-      Student.includes(team: :semester)
-             .where(teams: { semester_id: @current_semester.id })
-             .order(Arel.sql("LOWER(full_name)"))
-    else
-      Student.order(Arel.sql("LOWER(full_name)"))
-    end
+      Student.where(semester_id: session[:last_viewed_semester_id]).order(Arel.sql("LOWER(full_name)"))
+      Student.where(semester_id: session[:last_viewed_semester_id]).order(Arel.sql("LOWER(full_name)"))
   end
 
   def student_params

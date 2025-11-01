@@ -116,7 +116,7 @@ class SemestersController < ApplicationController
         end
       end
 
-      redirect_to @semester, notice: "Semester created successfully and students imported."
+      redirect_to semesters_path, notice: "Semester created successfully and students imported."
     else
       flash.now[:error] = "Semester creation failed."
       render :new, status: :unprocessable_entity

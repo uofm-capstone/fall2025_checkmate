@@ -49,12 +49,10 @@
           </tr>
         </thead>
         <tbody>
-          <% if !team.nil? %>
-            <% team.students.each do |member| %>
-              <tr>
-                <td><%= member.name %></td>
-              </tr>
-            <% end %>
+          <% team.students.each do |member| %>
+            <tr>
+              <td><%= member.name %></td>
+            </tr>
           <% end %>
         </tbody>
       </table>

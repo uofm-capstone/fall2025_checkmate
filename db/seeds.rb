@@ -46,6 +46,8 @@ User.find_or_create_by(email: "smith.jame@ta.edu") do |user|
   user.role = :ta
 end
 
+=begin
+
 # Students
 emails = [
   "john.doe@student.edu",
@@ -83,4 +85,5 @@ guests.each do |guest_data|
     user.password = guest_data[:password]
     user.role = :guest
   end
-end
+
+=end
