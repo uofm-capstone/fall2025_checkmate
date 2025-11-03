@@ -37,8 +37,8 @@ class User < ApplicationRecord
   dependent: :destroy
 
   # Joint table with Team
-  has_many :user_teams, dependent: :destroy
-  has_many :teams, through: :user_teams
+  # has_many :user_teams, dependent: :destroy
+  # has_many :teams, through: :user_teams
 
 
   # For backward compatibility with existing admin boolean
