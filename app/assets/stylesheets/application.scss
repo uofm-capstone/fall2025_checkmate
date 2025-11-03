@@ -185,3 +185,8 @@ html {
   width: 100%;
   text-align: center;
 }
+
+.fix-upload-btn {
+  position: relative;
+  z-index: 1100; /* higher than any nearby overlays */
+}
