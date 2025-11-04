@@ -8,6 +8,9 @@
 # Tool-Assisted Grading (TAG)
 TAG is a web-based application designed to assist professors and teaching assistants in evaluating and grading students. With this application, you can manage grading student an client survey survey's served by Qualtrics (and more features to come).
 
+# Google Cloud Link
+https://fall2025-checkmate-1021386482677.us-south1.run.app/semesters
+
 This application is built on Ruby on Rails web framework.
 
 ## Prerequisites
