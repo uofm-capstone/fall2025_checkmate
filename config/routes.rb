@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # resources :sprints
 
 
+  # Webhook for Commit Tracking
+  post '/github/webhook', to: 'github#webhook'
+  
   # Student List Add controller
   post '/import/home', to: 'student_list_add#import_home'
 
