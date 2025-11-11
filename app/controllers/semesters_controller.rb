@@ -264,11 +264,38 @@ class SemestersController < ApplicationController
     true
   end
 
+  def save_sprints
+    @semester = Semester.find(params[:id])
+
+    (1..4).each do |i|
+      sprint_params = params["sprint_#{i}"]
+      next unless sprint_params.present?
+
+      sprint = @semester.sprints.find_or_initialize_by(name: "Sprint #{i}")
+
+      sprint.assign_attributes(
+        planning_deadline: parse_date(sprint_params[:planning_deadline]),
+        progress_deadline: parse_date(sprint_params[:progress_deadline]),
+        demo_deadline: parse_date(sprint_params[:demo_deadline])
+      )
+
+      sprint.save!
+    end
+
+    redirect_to semester_path(@semester), notice: "Sprint deadlines saved successfully."
+  end
+
   # --------------------------------------------------------
   # PRIVATE METHODS
   # --------------------------------------------------------
 
   private
+
+  def parse_date(value)
+    value.present? ? Date.parse(value) : nil
+  rescue ArgumentError
+    nil
+  end
 
   # Permits only the allowed semester params for strong parameter safety.
   def semester_params
