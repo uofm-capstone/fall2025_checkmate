@@ -39,14 +39,28 @@
       }
     }
 
+    body {
+      overflow-x: hidden; /* Prevent page-wide horizontal scroll */
+    }
+
     .main-content {
-      margin-left: 250px; /* Width of the sidebar */
       flex: 1;
       border: 2px solid #ffffff;
       border-radius: 10px;
       padding: 20px;
-      min-width: 0; /* Allows the content to shrink below its minimum content size */
-      overflow-x: auto;
+      min-width: 0;
+      overflow-y: visible; /* Allow normal page scroll */
+      overflow-x: hidden;  /* Prevent horizontal scroll on the page itself */
+    }
+
+    .table-responsive {
+      display: block;
+      width: 100%;
+      overflow-x: auto;           /* Horizontal scroll only for wide tables */
+      overflow-y: hidden;         /* Prevent vertical scroll inside the table */
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 20px;
+      padding-right: 40px;
     }
 
     .top-warning {
@@ -68,19 +82,10 @@
     }
 
     .container {
-      padding-top: 70px;
       position: relative;
       z-index: 1;
       width: auto;
       margin-right: 20px;
-    }
-
-    /* Table styles */
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-bottom: 20px;
-      min-width: 100%;
     }
 
     /* Upload buttons container */
@@ -99,6 +104,22 @@
       width: 300px;
       margin-bottom: 20px;
     }
+
+    .tooltip-inner {
+      max-width: 250px;     /* prevent super-wide tooltips */
+      font-size: 0.85rem;   /* slightly smaller for readability */
+      line-height: 1.4;
+      text-align: left;     /* aligns multi-line text nicely */
+      padding: 8px 10px;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      position: relative;
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -127,22 +148,22 @@
                 <h5 class="">Legend:</h5>
                 <ul class="list-inline">
                   <li class="list-inline-item">
-                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %> All Good
+                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %> Good
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "question-circle-fill.svg", style: "height:16px" %> No Data Uploaded
+                    <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %> Acceptable
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %> No Client Survey
+                    <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %> Poor
                   </li>
                   <li class="list-inline-item">
-                    <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %> Poor Performance
+                    <%= image_tag "question-circle-fill.svg", style: "height:16px" %> No Data
                   </li>
                 </ul>
               </div>
-              <p>Note: Hover over warning symbol to see more details</p>
 
               <!-- Warning for No Client CSV Uploaded -->
+              <!--
               <% unless @semester.client_csv.attached? %>
                 <div class="d-flex justify-content-center mt-4 mb-4">
                   <div class="card w-100 border-danger">
@@ -154,55 +175,131 @@
                   </div>
                 </div>
               <% end %>
-
+              -->
+              
               <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead class="text-center">
+                <table class="table table-bordered align-middle text-center">
+                  <thead>
                     <tr>
                       <th rowspan="3">Team Name</th>
+                      <th rowspan="3">Member</th>
                       <% @sprint_list.each do |sprint| %>
                         <th colspan="15"><%= sprint %></th>
                       <% end %>
                     </tr>
+
                     <tr>
                       <% @sprint_list.each do |_sprint| %>
                         <th colspan="4">Planning</th>
                         <th colspan="4">PC</th>
-                        <th colspan="6">Demo</th>
-                        <th rowspan="2">CF</th>
+                        <th colspan="7">Demo</th>
                       <% end %>
                     </tr>
-                    <tr>
-                      <% @sprint_list.each do |_sprint| %>
-                        <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D"].each do |item| %>
-                          <th style="font-size: 0.75rem;"><%= item %></th>
-                        <% end %>
-                      <% end %>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% @teams.each do |team| %>
                       <tr>
-                        <td>
-                          <%= link_to team.name, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none" %>
-                        </td>
-                        <% @sprint_list.each do |sprint| %>
-                          <% indicators = @flags[sprint][team] || [] %>
-                          <% ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CC", "SR", "D", "CF"].each do |rubric_item| %>
-                            <td class="text-center">
-                              <% if indicators.include?("no data") %>
-                                <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
-                              <% elsif indicators.include?("no client score") && rubric_item == "CF" %>
-                                <%= image_tag "exclamation-circle-fill-yellow.svg", style: "height:16px" %>
-                              <% elsif indicators.include?("low score") || indicators.include?("low client score") %>
-                                <%= image_tag "exclamation-triangle-fill-red.svg", style: "height:16px" %>
-                              <% else %>
-                                <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-                              <% end %>
-                            </td>
+                        <% rubric_items = ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CBP", "CC", "SR", "D"] %>
+
+                        <% @sprint_list.each do |_sprint| %>
+                          <% rubric_items.each do |item| %>
+                            <% tooltip = case item
+                              when "FS&D"
+                                "<strong>Feature Selection and Decomposition</strong><br><b>Metric:</b> Number of cards per column."
+                              when "FA"
+                                "<strong>Feature Assignments</strong><br><b>Metric:</b> Number of cards assigned to each team member."
+                              when "TE"
+                                "<strong>Feature Time Estimates</strong><br><b>Metric:</b> Sum of estimated hours per team member."
+                              when "KU"
+                                "<strong>Kanban Updates</strong><br><b>Metric:</b> N/A."
+                              when "TS"
+                                "<strong>Time Spent</strong><br><b>Metric:</b> N/A."
+                              when "PP"
+                                "<strong>Product Progress</strong><br><b>Metric:</b> Count of cards moved through workflow (To-Do → In-Progress → Done) per team member."
+                              when "CC"
+                                "<strong>Client Communication</strong><br><b>Metric:</b> N/A."
+                              when "CBP"
+                                "<strong>Coding Best Practices</strong><br><b>Metric:</b> Count of commits and lines of code changed per team member."
+                              when "SR"
+                                "<strong>Status and Reflection</strong><br><b>Metric:</b> N/A."
+                              when "TSP"
+                                "<strong>Time Spent Since Progress Check</strong><br><b>Metric:</b> Sum of work hours or task updates since the last progress check."
+                              when "PF"
+                                "<strong>Product Feedback</strong><br><b>Metric:</b> N/A."
+                              when "D"
+                                "<strong>Demo</strong><br><b>Metric:</b> N/A."
+                              else
+                                "<strong>Metric</strong><br><b>Metric:</b> Description unavailable."
+                              end %>
+
+                            <th data-bs-toggle="tooltip"
+                                data-bs-html="true"
+                                data-bs-placement="top"
+                                title="<%= tooltip.html_safe %>"
+                                style="font-size: 0.75rem;">
+                              <%= item %>
+                            </th>
                           <% end %>
                         <% end %>
                       </tr>
+                  </thead>
+
+                  <tbody>
+                    <% @teams.each do |team| %>
+                      <% team.students.each_with_index do |student, i| %>
+                        <tr>
+                          <%# Only show team name in the first student row %>
+                          <% if i == 0 %>
+                            <td rowspan="<%= team.students.size %>">
+                              <%= link_to team.name, semester_team_path(@semester, team: team, sprint: @sprint_list.first), class: "text-decoration-none fw-semibold" %>
+                            </td>
+                          <% end %>
+
+                          <td style="white-space: nowrap;">
+                            <%= "#{student.name.split.first} #{student.name.split.last&.first}." %>
+                          </td>
+
+                          <% @sprint_list.each do |sprint| %>
+                            <% rubric_items.each do |item| %>
+                              <td class="text-center">
+                              <%=
+                                case item
+                                when "FS&D"
+                                  # Feature Selection and Decomposition — Metric: Number of cards per column
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "FA"
+                                  # Feature Assignments — Metric: Number of cards assigned to each team member
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "TE"
+                                  # Feature Time Estimates — Metric: Sum of estimated hours per team member
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "PP"
+                                  # Product Progress — Metric: Cards moved through workflow (To-Do → In-Progress → Done)
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "CBP"
+                                  # Coding Best Practices — Metric: Count of commits and lines of code changed per team member
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "TSP"
+                                  # Time Spent Since Progress Check — Metric: Sum of work hours or task updates since last progress check
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                when "KU", "TS", "CC", "SR", "PF", "D"
+                                  # N/A metrics — Metric: Not applicable (no direct data collected)
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+
+                                else
+                                  # Unknown rubric type — Metric: Description unavailable
+                                  image_tag "question-circle-fill.svg", style: "height:16px"
+                                end
+                              %>
+                            </td>
+                            <% end %>
+                          <% end %>
+
+                        </tr>
+                      <% end %>
                     <% end %>
                   </tbody>
                 </table>
@@ -215,7 +312,7 @@
   </div>
 
   <!-- Sprint-specific Upload CSV Forms -->
-  <div class="container">
+<!--  <div class="container">
     <div class="upload-buttons-container">
       <% @sprint_list.each_with_index do |sprint, i| %>
         <div class="card upload-card">
@@ -239,7 +336,7 @@
         </div>
       <% end %>
     </div>
-  </div>
+  </div> -->
 
   <!-- Upload CSV Modal -->
   <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
@@ -247,3 +344,10 @@
   <%= javascript_include_tag 'octokit', type: "module" %>
 </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+  });
+</script>
