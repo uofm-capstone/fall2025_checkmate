@@ -100,3 +100,6 @@ gem 'levenshtein'
 gem 'fuzzy-string-match'
 
 gem 'cancancan'
+
+gem 'octokit'
+gem 'jwt'
