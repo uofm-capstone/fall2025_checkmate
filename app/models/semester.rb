@@ -232,6 +232,14 @@ def import_students_from_csv
           raw_client_notes = row[header_map[:client_notes]]&.strip
           github_username  = row[header_map[:github_username]]&.strip
 
+          # --- Detect new team and reset remembered values (BEFORE using them) ---
+          if raw_team_name.present? && raw_team_name != previous_team_name
+            previous_repo_url = nil
+            previous_project_board = nil
+            previous_timesheet = nil
+            previous_client_notes = nil
+          end
+
           # --- Apply "remember previous non-nil" logic ---
           team_name     = raw_team_name.presence     || previous_team_name
           repo_url      = raw_repo_url.presence      || previous_repo_url
@@ -245,6 +253,7 @@ def import_students_from_csv
           previous_project_board = raw_project_board if raw_project_board.present?
           previous_timesheet     = raw_timesheet     if raw_timesheet.present?
           previous_client_notes  = raw_client_notes  if raw_client_notes.present?
+
 
           # --- Skip or validate row ---
           next if name.blank? && email.blank? # skip empty rows
