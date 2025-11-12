@@ -44,6 +44,10 @@ Rails.application.routes.draw do
   put 'semesters/:semester_id/sprints/:id', to: 'sprints#update'
   get 'semesters/:semester_id/sprints/:id/edit', to: 'sprints#edit', as: 'edit_semester_sprint'
 
+  resources :semesters do
+    post :save_sprints, on: :member
+  end
+
   # Team controller
   resources :teams do
     member do
