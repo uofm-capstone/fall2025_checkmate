@@ -145,6 +145,12 @@
       background: #f8f9fa;
       z-index: 6;
     }
+
+    /* Sprint buttons */
+    .sprint-toggle.active {
+      background-color: #0d6efd;
+      color: #ffffff;
+    }
   </style>
 </head>
 
@@ -189,6 +195,23 @@
                 </ul>
               </div>
 
+              <!-- 🔹 Sprint Filter Buttons (includes "All") -->
+              <div class="text-center mb-3">
+                <button
+                  class="btn btn-outline-primary m-1 sprint-toggle active"
+                  data-sprint="all">
+                  All
+                </button>
+
+                <% @sprint_list.each do |sprint| %>
+                  <button
+                    class="btn btn-outline-primary m-1 sprint-toggle"
+                    data-sprint="<%= sprint.parameterize %>">
+                    <%= sprint %>
+                  </button>
+                <% end %>
+              </div>
+
               <!-- TABLE -->
               <div class="table-responsive">
                 <table class="table table-bordered align-middle text-center">
@@ -197,21 +220,21 @@
                       <th class="sticky-col-1" rowspan="3">Team Name</th>
                       <th class="sticky-col-2" rowspan="3">Member</th>
                       <% @sprint_list.each do |sprint| %>
-                        <th colspan="15"><%= sprint %></th>
+                        <th colspan="15" class="sprint-group <%= sprint.parameterize %>"><%= sprint %></th>
                       <% end %>
                     </tr>
 
                     <tr>
-                      <% @sprint_list.each do |_sprint| %>
-                        <th colspan="4">Planning</th>
-                        <th colspan="4">PC</th>
-                        <th colspan="7">Demo</th>
+                      <% @sprint_list.each do |sprint| %>
+                        <th colspan="4" class="sprint-group <%= sprint.parameterize %>">Planning</th>
+                        <th colspan="4" class="sprint-group <%= sprint.parameterize %>">PC</th>
+                        <th colspan="7" class="sprint-group <%= sprint.parameterize %>">Demo</th>
                       <% end %>
                     </tr>
 
                     <tr>
                       <% rubric_items = ["FS&D", "FA", "TE", "KU", "TS", "PP", "CC", "SR", "TSP", "PP", "PF", "CBP", "CC", "SR", "D"] %>
-                      <% @sprint_list.each do |_sprint| %>
+                      <% @sprint_list.each do |sprint| %>
                         <% rubric_items.each do |item| %>
                           <% tooltip = case item
                             when "FS&D" then "<strong>Feature Selection and Decomposition</strong><br><b>Metric:</b> Number of cards per column."
@@ -229,11 +252,13 @@
                             else "<strong>Metric</strong><br><b>Metric:</b> Description unavailable."
                           end %>
 
-                          <th data-bs-toggle="tooltip"
-                              data-bs-html="true"
-                              data-bs-placement="top"
-                              title="<%= tooltip.html_safe %>"
-                              style="font-size: 0.75rem;">
+                          <th
+                            class="sprint-group <%= sprint.parameterize %>"
+                            data-bs-toggle="tooltip"
+                            data-bs-html="true"
+                            data-bs-placement="top"
+                            title="<%= tooltip.html_safe %>"
+                            style="font-size: 0.75rem;">
                             <%= item %>
                           </th>
                         <% end %>
@@ -247,7 +272,7 @@
                         <tr>
                           <% if i == 0 %>
                             <td class="sticky-col-1" rowspan="<%= team.students.size %>">
-                              <%= link_to team.name, teams_path(@semester),class: "text-decoration-none fw-semibold" %>
+                              <%= link_to team.name, teams_path(@semester), class: "text-decoration-none fw-semibold" %>
                             </td>
                           <% end %>
 
@@ -257,44 +282,16 @@
 
                           <% @sprint_list.each do |sprint| %>
                             <% rubric_items.each do |item| %>
-                              <td class="text-center">
+                              <td class="text-center sprint-group <%= sprint.parameterize %>">
                                 <% case item %>
-                                  <% when "FS&D" %>
-                                    <!-- Feature Selection and Decomposition — Metric: Number of cards per column -->
+                                  <% when "FS&D", "FA", "TE", "PP", "CBP", "TSP" %>
                                     <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "FA" %>
-                                    <!-- Feature Assignments — Metric: Number of cards assigned to each team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "TE" %>
-                                    <!-- Feature Time Estimates — Metric: Sum of estimated hours per team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "PP" %>
-                                    <!-- Product Progress — Metric: Cards moved through workflow (To-Do → In-Progress → Done) per team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "CBP" %>
-                                    <!-- Coding Best Practices — Metric: Count of commits and lines of code changed per team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "TSP" %>
-                                    <!-- Time Spent Since Progress Check — Metric: Sum of work hours or task updates since last progress check -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
-                                  <% when "KU", "TS", "CC", "SR", "PF", "D" %>
-                                    <!-- N/A metrics — Metric: Not applicable (no direct data collected) -->
-                                    <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
-
                                   <% else %>
-                                    <!-- Unknown rubric type — Metric: Description unavailable -->
                                     <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
                                 <% end %>
                               </td>
                             <% end %>
                           <% end %>
-                          
                         </tr>
                       <% end %>
                     <% end %>
@@ -351,10 +348,45 @@
   <%= javascript_include_tag 'octokit', type: "module" %>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    // Initialise tooltips + sprint filter (for both normal and Turbo loads)
+    function initTooltipsAndSprintFilter() {
+      // Tooltips
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
       tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
-    });
+
+      // Sprint filter
+      const buttons = document.querySelectorAll(".sprint-toggle");
+      const groups  = document.querySelectorAll(".sprint-group");
+
+      if (!buttons.length || !groups.length) return;
+
+      // Default: All visible
+      groups.forEach(g => g.style.display = "");
+
+      buttons.forEach(btn => {
+        // avoid double-binding
+        if (btn.dataset.sprintBound === "1") return;
+        btn.dataset.sprintBound = "1";
+
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          const key = btn.dataset.sprint;  // "all" or e.g. "sprint-1"
+
+          if (key === "all") {
+            groups.forEach(g => g.style.display = "");
+          } else {
+            groups.forEach(g => {
+              g.style.display = g.classList.contains(key) ? "" : "none";
+            });
+          }
+        });
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", initTooltipsAndSprintFilter);
+    document.addEventListener("turbo:load", initTooltipsAndSprintFilter);
   </script>
 </body>
 </html>

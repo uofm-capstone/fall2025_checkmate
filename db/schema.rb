@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  # Not used anymore
   create_table "classlists", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "semester_id", null: false
@@ -52,7 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.index ["student_id"], name: "index_classlists_on_student_id"
   end
 
-  # Not used anymore
   create_table "repositories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -72,15 +70,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.string "semester"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "description" # Not used anymore
+    t.string "description"
     t.bigint "user_id"
     t.index ["semester", "year"], name: "index_semesters_on_semester_and_year", unique: true
     t.index ["user_id"], name: "index_semesters_on_user_id"
   end
 
   create_table "sprints", force: :cascade do |t|
-    t.datetime "start_date", precision: nil # Not used anymore
-    t.datetime "end_date", precision: nil # Not used anymore
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "name"
@@ -107,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.string "email"
     t.string "github_username"
     t.integer "team_id"
-    t.string "team_name" # Not used anymore
+    t.string "team_name"
     t.string "project_board_url"
     t.string "timesheet_url"
     t.string "client_notes_url"
@@ -118,7 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
-    t.text "description" # Not used anymore
+    t.text "description"
     t.bigint "semester_id", null: false
     t.string "github_token"
     t.datetime "created_at", null: false
@@ -138,7 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.datetime "remember_created_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "github_token" # Not used anymore
+    t.string "github_token"
     t.boolean "admin", default: false
     t.integer "role", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
