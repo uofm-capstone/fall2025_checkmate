@@ -22,15 +22,15 @@
     }
 
     .card {
-    border-radius: 8px;
-    font-weight: 500;
-    width: 100%;
-    max-width: 600px; /* Wider cards */
-    margin: 20px auto; /* Center and space out */
-    padding: 20px;
-    animation-duration: 1s;
-    animation-name: fadeIn;
-  }
+      border-radius: 8px;
+      font-weight: 500;
+      width: 100%;
+      max-width: 600px; /* Wider cards */
+      margin: 20px auto; /* Center and space out */
+      padding: 20px;
+      animation-duration: 1s;
+      animation-name: fadeIn;
+    }
 
     .card:hover {
         transform: translateY(-5px);
@@ -85,22 +85,18 @@
     }
 
     @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
+        0% { opacity: 0; }
+        100% { opacity: 1; }
     }
 
     @keyframes slideInFromLeft {
         0% {
-            transform: translateX(-100%);
-            opacity: 0;
+          transform: translateX(-100%);
+          opacity: 0;
         }
         100% {
-            transform: translateX(0);
-            opacity: 1;
+          transform: translateX(0);
+          opacity: 1;
         }
     }
 
@@ -113,85 +109,126 @@
 
 <body>
   <div class="" style="width: 30%;">
-      <div class="row">
-        <div class="col-10 justify-content-center align-items-center text-center">
-          <!--Alert message for user if they create a semester-->
-          <% if params[:alert_message] %>
-            <div class="alert alert-warning">
-              <%= params[:alert_message] %>
-            </div>
-          <% end %>
-          <h3>Create Semester</h3>
-          <div class="d-flex justify-content-center mb-3 position-relative" style="isolation:isolate;">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSemesterModal">
-              Upload Survey CSVs
-            </button>
+    <div class="row">
+      <div class="col-10 justify-content-center align-items-center text-center">
+        <!--Alert message for user if they create a semester-->
+        <% if params[:alert_message] %>
+          <div class="alert alert-warning">
+            <%= params[:alert_message] %>
           </div>
-          <div class="row">
-            <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
-            <% if grouped_semesters.empty? %>
-              <div class="d-flex justify-content-center mt-4 mb-4">
-                <div class="card w-100 border-danger">
-                  <div class="card-body bg-danger text-white">
-                    <p class="card-text text-center">
-                      <strong>Attention:</strong> No semester created. Create a new semester to continue
-                    </p>
-                  </div>
+        <% end %>
+
+        <h3>Create Semester</h3>
+
+        <div class="d-flex justify-content-center mb-3 position-relative" style="isolation:isolate;">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSemesterModal">
+            Upload Survey CSVs
+          </button>
+        </div>
+
+        <div class="row">
+          <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
+          <% if grouped_semesters.empty? %>
+            <div class="d-flex justify-content-center mt-4 mb-4">
+              <div class="card w-100 border-danger">
+                <div class="card-body bg-danger text-white">
+                  <p class="card-text text-center">
+                    <strong>Attention:</strong> No semester created. Create a new semester to continue
+                  </p>
                 </div>
               </div>
-            <% else %>
-              <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
-              <% grouped_semesters.each_with_index do |(year, semesters), index| %>
-                <% sorted_semesters = semesters.sort_by { |s| s.semester == 'Fall' ? 0 : s.semester == 'Summer' ? 1 : 2 } %>
+            </div>
+          <% else %>
+            <% grouped_semesters = @semesters.group_by(&:year).sort.reverse %>
+            <% grouped_semesters.each_with_index do |(year, semesters), index| %>
+              <% sorted_semesters = semesters.sort_by { |s| s.semester == 'Fall' ? 0 : s.semester == 'Summer' ? 1 : 2 } %>
 
-                <% sorted_semesters.each_with_index do |s, semester_index| %>
-                  <% card_class = case s.semester
-                                  when 'Summer' then 'summer-card'
-                                  when 'Spring' then 'spring-card'
-                                  when 'Fall' then 'fall-card'
-                                  else ''
-                                  end %>
-                  <div class="col-md-12">
-                    <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
-                      <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
-                      <div class="card-body">
-                        <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
-                        <br>
-                        <div class='d-flex justify-content-center'>
-                          <!-- Edit Button -->
-                          <%if current_user == s.user || current_user.admin?%>
-                            <%= link_to '#', style: 'position: relative; bottom: 5px;', class: 'btn bg-transparent', data: { bs_toggle: "modal", bs_target: "#editSemesterModal" } do %>
-                              <i class='bi bi-pencil-fill'></i>
-                            <% end %>
+              <% sorted_semesters.each_with_index do |s, semester_index| %>
+                <% card_class = case s.semester
+                                when 'Summer' then 'summer-card'
+                                when 'Spring' then 'spring-card'
+                                when 'Fall'   then 'fall-card'
+                                else ''
+                                end %>
+
+                <div class="col-md-12">
+                  <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
+                    <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
+                    <div class="card-body">
+                      <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
+                      <br>
+                      <div class='d-flex justify-content-center'>
+                        <!-- Edit Button -->
+                        <% if current_user == s.user || current_user.admin? %>
+                          <%= link_to '#',
+                                      style: 'position: relative; bottom: 5px;',
+                                      class: 'btn bg-transparent',
+                                      data: { bs_toggle: "modal", bs_target: "#editSemesterModal" } do %>
+                            <i class='bi bi-pencil-fill'></i>
                           <% end %>
-                          <!-- Delete Button -->
-                          <%if current_user == s.user || current_user.admin?%>
-                            <%= button_to semester_path(s), method: :delete, data: { confirm: 'Are you sure?' }, form: { style: 'position: relative; bottom: 5px;]' }, class: 'btn bg-transparent' do %>
-                              <i class='bi bi-trash-fill'></i>
-                            <% end %>
+                        <% end %>
+
+                        <!-- Delete Button -> opens confirmation modal -->
+                        <% if current_user == s.user || current_user.admin? %>
+                          <%= link_to '#',
+                                      style: 'position: relative; bottom: 5px;',
+                                      class: 'btn bg-transparent',
+                                      data: { bs_toggle: "modal", bs_target: "#deleteSemesterModal-#{s.id}" } do %>
+                            <i class='bi bi-trash-fill'></i>
                           <% end %>
-                        </div>
+                        <% end %>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Add the line separator between years, except for the last year -->
-                  <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
-                    <div class="col-md-12">
-                      <hr class="hr-separator">
+                <!-- Delete Semester Confirmation Modal for this semester -->
+                <div class="modal fade" id="deleteSemesterModal-<%= s.id %>" tabindex="-1" aria-labelledby="deleteSemesterModalLabel-<%= s.id %>" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-danger" id="deleteSemesterModalLabel-<%= s.id %>">
+                          Are you sure you want to delete this semester?
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          Semester:
+                          <strong><%= s.semester %> <%= s.year %></strong>
+                        </p>
+                        <p class="mb-0 text-muted">
+                          This action cannot be undone.
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <%= button_to semester_path(s),
+                              method: :delete,
+                              form: { class: "d-inline" },
+                              class: "btn btn-danger" do %>
+                          Delete Semester
+                        <% end %>
+                      </div>
                     </div>
-                  <% end %>
-                <% end %>
+                  </div>
+                </div>
 
+                <!-- Add the line separator between years, except for the last year -->
+                <% if semester_index == sorted_semesters.size - 1 && index < grouped_semesters.size - 1 %>
+                  <div class="col-md-12">
+                    <hr class="hr-separator">
+                  </div>
+                <% end %>
               <% end %>
             <% end %>
-          </div>
+          <% end %>
         </div>
-
-
-
       </div>
+    </div>
   </div>
+
+  <!-- New Semester Modal -->
   <div class="modal fade" id="newSemesterModal" tabindex="-1" aria-labelledby="newSemesterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -211,12 +248,11 @@
               <div class="dropdown-container">
                 <%= select_tag :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), class: 'form-control form-control-lg', id: 'year' %>
               </div>
-
             </div>
             <hr>
             <h5>Upload Survey CSVs <span class="optional">(optional)</span></h5>
 
-            <!-- ✅ CSV Format Instructions -->
+            <!-- CSV Format Instructions -->
             <div class="border rounded bg-light text-dark p-3 small" style="line-height: 1.5;">
               <strong>Student CSV must include the following column headers:</strong><br>
               <code>Full Name, Email, Team, Github Username, Github Project Board Link, Timesheet Link, Client Meeting Notes Link</code><br>
@@ -224,8 +260,7 @@
             </div>
 
             <div class="form-outline mb-4">
-              <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
-              
+              <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
               <% if @semester && @semester.errors[:student_csv].any? %>
                 <div class="text-danger mt-2">
                   <%= @semester.errors[:student_csv].join(", ") %>
@@ -242,6 +277,7 @@
     </div>
   </div>
 
+  <!-- Edit Semester Modal -->
   <div class="modal fade" id="editSemesterModal" tabindex="-1" aria-labelledby="editSemesterModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -261,18 +297,17 @@
               <div class="dropdown-container">
                 <%= select_tag :year, options_for_select((Time.zone.now.year - 3)..(Time.zone.now.year + 3), Time.zone.now.year), class: 'form-control form-control-lg', id: 'year' %>
               </div>
-
             </div>
             <hr>
             <h5>Upload Survey CSV <span class="optional">(optional)</span></h5>
             <div class="form-outline mb-4">
-              <%= f.file_field :student_csv, :accept => 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
-              
+              <%= f.file_field :student_csv, accept: 'text/csv', class: 'form-control form-control', id: 'student_csv' %>
               <% if @semester && @semester.errors[:student_csv].any? %>
                 <div class="text-danger mt-2">
                   <%= @semester.errors[:student_csv].join(", ") %>
                 </div>
               <% end %>
+            </div>
             <hr>
             <div class="d-flex justify-content-center mb-5">
               <%= f.submit "Submit", class: "btn btn-success btn-block gradient-custom-4 text-white" %>
@@ -282,6 +317,7 @@
       </div>
     </div>
   </div>
+
   <script>
       $(document).ready(function() {
           $('#semester').change(function() {
@@ -293,3 +329,4 @@
           });
       });
   </script>
+</body>
