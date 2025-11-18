@@ -85,7 +85,6 @@
             <tr>
               <td class="align-middle text-center"><%= student.name.presence || "—" %></td>
 
-
               <td class="align-middle text-center">
                 <%= student.email.presence || "—" %>
               </td>
@@ -129,13 +128,56 @@
                   <%= link_to edit_student_path(student), class: "icon-button", title: "Edit" do %>
                     <i class="bi bi-pen-fill"></i>
                   <% end %>
-                  <%= button_to student_path(student), method: :delete, class: "icon-button", title: "Delete",
-                        form: { data: { turbo_confirm: "Delete #{student.full_name}?" } } do %>
+
+                  <!-- Delete icon now opens a confirmation modal -->
+                  <%= link_to '#',
+                        class: "icon-button",
+                        title: "Delete",
+                        data: { bs_toggle: "modal", bs_target: "#deleteStudentModal-#{student.id}" } do %>
                     <i class="bi bi-trash-fill"></i>
                   <% end %>
                 <% end %>
               </td>
             </tr>
+
+            <!-- Delete Student Confirmation Modal -->
+            <div class="modal fade" id="deleteStudentModal-<%= student.id %>"
+                 tabindex="-1"
+                 aria-labelledby="deleteStudentModalLabel-<%= student.id %>"
+                 aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="deleteStudentModalLabel-<%= student.id %>">
+                      Are you sure you want to delete this student?
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <p>
+                      Student:
+                      <strong><%= student.name.presence || student.email.presence || "Unknown" %></strong>
+                    </p>
+                    <p class="mb-0 text-muted">
+                      This action cannot be undone.
+                    </p>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                      Cancel
+                    </button>
+                    <%= button_to student_path(student),
+                          method: :delete,
+                          form: { class: "d-inline" },
+                          class: "btn btn-danger" do %>
+                      Delete Student
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
           <% end %>
         </tbody>
       </table>

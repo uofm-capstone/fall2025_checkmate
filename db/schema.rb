@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_11_201459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.index ["student_id"], name: "index_classlists_on_student_id"
   end
 
+  create_table "repos", force: :cascade do |t|
+    t.string "name"
+    t.integer "commit_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "repositories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -60,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_034519) do
     t.bigint "user_id", null: false
     t.bigint "semester_id"
     t.bigint "team_id"
+    t.integer "commit_count"
     t.index ["semester_id"], name: "index_repositories_on_semester_id"
     t.index ["team_id"], name: "index_repositories_on_team_id"
     t.index ["user_id"], name: "index_repositories_on_user_id"
