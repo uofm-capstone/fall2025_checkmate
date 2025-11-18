@@ -284,9 +284,36 @@
                             <% rubric_items.each do |item| %>
                               <td class="text-center sprint-group <%= sprint.parameterize %>">
                                 <% case item %>
-                                  <% when "FS&D", "FA", "TE", "PP", "CBP", "TSP" %>
+                                  <% when "FS&D" %>
+                                    <!-- Feature Selection and Decomposition — Metric: Number of cards per column -->
                                     <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "FA" %>
+                                    <!-- Feature Assignments — Metric: Number of cards assigned to each team member -->
+                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "TE" %>
+                                    <!-- Feature Time Estimates — Metric: Sum of estimated hours per team member -->
+                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "PP" %>
+                                    <!-- Product Progress — Metric: Cards moved through workflow (To-Do → In-Progress → Done) per team member -->
+                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "CBP" %>
+                                    <!-- Coding Best Practices — Metric: Count of commits and lines of code changed per team member -->
+                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "TSP" %>
+                                    <!-- Time Spent Since Progress Check — Metric: Sum of work hours or task updates since last progress check -->
+                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+
+                                  <% when "KU", "TS", "CC", "SR", "PF", "D" %>
+                                    <!-- N/A metrics — Metric: Not applicable (no direct data collected) -->
+                                    <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
+
                                   <% else %>
+                                    <!-- Unknown rubric type — Metric: Description unavailable -->
                                     <%= image_tag "question-circle-fill.svg", style: "height:16px" %>
                                 <% end %>
                               </td>

@@ -20,6 +20,7 @@ WORKDIR /app
 
 # Copy Gemfile first to leverage Docker cache
 COPY Gemfile Gemfile.lock ./
+RUN bundle install
 
 # Fix Bundler issues and install gems
 RUN bundle config set --local without 'development test' && bundle install
@@ -27,6 +28,7 @@ RUN bundle config set --local without 'development test' && bundle install
 # Copy package.json and install frontend dependencies
 COPY package.json yarn.lock ./
 RUN yarn install --production
+
 
 # Copy the rest of the application
 COPY . .
