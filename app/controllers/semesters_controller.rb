@@ -203,14 +203,14 @@ class SemestersController < ApplicationController
   start_date = 30.days.ago.iso8601
   end_date   = Time.now.iso8601
 
-  @commit_results = {}
+  @commit_counts = {}
 
   @teams.each do |team|
     next unless team.repo_url.present?
 
     # Normalize: "https://github.com/org/repo" → "org/repo"
-    repo = team.repo_url.split("github.com/").last
-
+    repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "")
+    
     @commit_counts[team.name] ||= {}
 
     team.students.each do |student|

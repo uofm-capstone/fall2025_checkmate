@@ -370,6 +370,41 @@
     </div>
   </div>
 
+  <h2>Commit Counts</h2>
+
+  <% @commit_counts.each do |team_name, members| %>
+  <h3><%= team_name %></h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>GitHub Username</th>
+        <th>Commits</th>
+        <th>Lines Added</th>
+        <th>Lines Removed</th>
+        <th>Total Changes</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% members.each do |username, data| %>
+        <tr>
+          <td><%= data[:student].full_name %></td>
+          <td><%= username %></td>
+          <td><%= data[:commits] %></td>
+          <td><%= data[:added] %></td>
+          <td><%= data[:removed] %></td>
+          <td><%= data[:changed] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr>
+<% end %>
+
+
   <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>
   <%= javascript_include_tag 'survey_page/survey_page_expanding_cols' %>
   <%= javascript_include_tag 'octokit', type: "module" %>
