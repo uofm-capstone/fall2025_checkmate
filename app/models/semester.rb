@@ -467,11 +467,20 @@ def import_students_from_csv
       end
     end
 
-    # ✅ Final summary message
+    # # ✅ Final summary message
+    # if row_errors.any?
+    #   errors.add(:student_csv, "Import completed with errors. #{successful_count} rows imported, #{skipped_count} skipped. Details: #{row_errors.join('; ')}")
+    # else
+    #   errors.add(:student_csv, "#{successful_count} students imported successfully.")
+    # end
+    # Final summary message
+
     if row_errors.any?
-      errors.add(:student_csv, "Import completed with errors. #{successful_count} rows imported, #{skipped_count} skipped. Details: #{row_errors.join('; ')}")
+      @import_summary = "Import completed with errors. #{successful_count} rows imported, #{skipped_count} skipped.<br>Details:<br>#{row_errors.join('<br>')}"
+      return false
     else
-      errors.add(:student_csv, "#{successful_count} students imported successfully.")
+      @import_summary = "Semester created successfully and students imported."
+      return true
     end
 
     true
