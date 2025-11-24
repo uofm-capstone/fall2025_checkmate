@@ -99,29 +99,115 @@ class SemestersController < ApplicationController
 
   # Handles form submission for creating a new semester.
   # Automatically imports students and teams from uploaded CSV.
-  def create
-    @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
+  # def create
+  #   @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
 
-    # Attach uploaded CSV files if present.
-    @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
-    @semester.client_csv.attach(params[:client_csv])   if params[:client_csv].present?
-    @semester.git_csv.attach(params[:git_csv])         if params[:git_csv].present?
+  #   # Attach uploaded CSV files if present.
+  #   @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
+  #   @semester.client_csv.attach(params[:client_csv])   if params[:client_csv].present?
+  #   @semester.git_csv.attach(params[:git_csv])         if params[:git_csv].present?
 
-    if @semester.save
-      # Import Student CSV (creates students + teams).
-      if @semester.student_csv.attached?
-        unless @semester.import_students_from_csv
-          flash.now[:alert] = @semester.errors.full_messages.join(", ")
-          render :new, status: :unprocessable_entity and return
-        end
+  #   if @semester.save
+  #     # Import Student CSV (creates students + teams).
+  #     if @semester.student_csv.attached?
+  #       unless @semester.import_students_from_csv
+  #         flash.now[:alert] = @semester.errors.full_messages.join(", ")
+  #         render :new, status: :unprocessable_entity and return
+  #       end
+  #     end
+
+  #     redirect_to semesters_path, notice: "Semester created successfully and students imported."
+  #   else
+  #     flash.now[:error] = "Semester creation failed."
+  #     render :new, status: :unprocessable_entity
+  #   end
+  # end
+# def create
+#   @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
+
+#   # Attach uploaded CSV files if present.
+#   @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
+#   @semester.client_csv.attach(params[:client_csv])   if params[:client_csv].present?
+#   @semester.git_csv.attach(params[:git_csv])         if params[:git_csv].present?
+
+#   if @semester.save
+#     # Import Student CSV (creates students + teams).
+#     if @semester.student_csv.attached?
+#       @semester.import_students_from_csv
+
+#       # 🔥 ALWAYS show import summary (success OR errors)
+#       flash[:notice] = @semester.errors.full_messages.join("<br>").html_safe
+#     end
+
+#     redirect_to semesters_path, notice: "Semester created successfully and students imported."
+#   else
+#     flash.now[:error] = "Semester creation failed."
+#     render :new, status: :unprocessable_entity
+#   end
+# end
+# def create
+#   @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
+
+#   # Attach uploaded CSV files
+#   @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
+#   @semester.client_csv.attach(params[:client_csv])   if params[:client_csv].present?
+#   @semester.git_csv.attach(params[:git_csv])         if params[:git_csv].present?
+
+#   if @semester.save
+#     # Import CSV if attached
+#     if @semester.student_csv.attached?
+#       @semester.import_students_from_csv
+
+#       if @semester.errors.any?
+#         flash[:alert] = @semester.errors.full_messages.join("<br>").html_safe
+#       else
+#         flash[:notice] = "Students imported successfully."
+#       end
+#     end
+
+#     flash[:success] = "Semester created successfully and students imported."
+#     redirect_to semesters_path
+
+#   else
+#     flash.now[:error] = "Semester creation failed."
+#     render :new, status: :unprocessable_entity
+#   end
+# end
+
+def create
+  @semester = current_user.semester.build(semester: params[:semester], year: params[:year])
+
+  # Attach uploaded CSVs
+  @semester.student_csv.attach(params[:student_csv]) if params[:student_csv].present?
+  @semester.client_csv.attach(params[:client_csv])   if params[:client_csv].present?
+  @semester.git_csv.attach(params[:git_csv])         if params[:git_csv].present?
+
+  if @semester.save
+    if @semester.student_csv.attached?
+      @semester.import_students_from_csv
+
+      if @semester.errors.any?
+        # 🔥 Show CSV error summary
+        flash[:alert] = @semester.errors.full_messages.join("<br>").html_safe
+      elsif @semester.instance_variable_get(:@import_summary).present?
+        # 🔥 Show CSV success summary (NO errors)
+        flash[:notice] = @semester.instance_variable_get(:@import_summary)
       end
-
-      redirect_to semesters_path, notice: "Semester created successfully and students imported."
-    else
-      flash.now[:error] = "Semester creation failed."
-      render :new, status: :unprocessable_entity
     end
+
+    # 🔥 Always show semester creation message
+    flash[:success] = "Semester created successfully and students imported."
+    redirect_to semesters_path
+
+  else
+    flash.now[:error] = "Semester creation failed."
+    render :new, status: :unprocessable_entity
   end
+end
+
+
+
+
 
   # --------------------------------------------------------
   # EDIT / UPDATE SEMESTER
@@ -136,26 +222,79 @@ class SemestersController < ApplicationController
 
   # Updates semester info (semester, year, and CSV uploads).
   # Re-imports student CSV if a new one is uploaded.
+  # def update
+  #   @semester = Semester.find(params[:id])
+  #   was_student_csv_attached = @semester.student_csv.attached?
+
+  #   if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
+  #     # Import new CSV if just uploaded.
+  #     if !was_student_csv_attached && @semester.student_csv.attached?
+  #       unless @semester.import_students_from_csv
+  #         flash.now[:alert] = @semester.errors.full_messages.join(", ")
+  #         render :edit, status: :unprocessable_entity and return
+  #       end
+  #     end
+
+  #     flash[:success] = "Semester was successfully updated!"
+  #     redirect_to semester_url(@semester)
+  #   else
+  #     flash.now[:error] = "Semester update failed!"
+  #     render :edit, status: :unprocessable_entity
+  #   end
+  # end
   def update
     @semester = Semester.find(params[:id])
     was_student_csv_attached = @semester.student_csv.attached?
 
     if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
-      # Import new CSV if just uploaded.
+
+      # Only import if new CSV uploaded
       if !was_student_csv_attached && @semester.student_csv.attached?
-        unless @semester.import_students_from_csv
-          flash.now[:alert] = @semester.errors.full_messages.join(", ")
-          render :edit, status: :unprocessable_entity and return
+        @semester.import_students_from_csv
+
+        if @semester.errors.any?
+          flash[:alert] = @semester.errors.full_messages.join("<br>").html_safe
+        else
+          flash[:notice] = "Students imported successfully."
         end
       end
 
       flash[:success] = "Semester was successfully updated!"
       redirect_to semester_url(@semester)
+
+
     else
       flash.now[:error] = "Semester update failed!"
       render :edit, status: :unprocessable_entity
     end
-  end
+end
+# def update
+#   @semester = Semester.find(params[:id])
+#   was_student_csv_attached = @semester.student_csv.attached?
+
+#   if @semester.update(params.require(:semester).permit(:semester, :year, :student_csv, :client_csv, :git_csv))
+
+#     # Only import if new CSV was uploaded
+#     if !was_student_csv_attached && @semester.student_csv.attached?
+#       @semester.import_students_from_csv
+
+#       if @semester.errors.any?
+#         flash[:alert] = @semester.errors.full_messages.join("<br>").html_safe
+#       else
+#         flash[:notice] = "Students imported successfully."
+#       end
+#     end
+
+#     flash[:success] = "Semester was successfully updated!"
+#     redirect_to semester_url(@semester)
+
+#   else
+#     flash.now[:error] = "Semester update failed!"
+#     render :edit, status: :unprocessable_entity
+#   end
+# end
+
+
 
   # --------------------------------------------------------
   # DESTROY SEMESTER
@@ -177,7 +316,7 @@ class SemestersController < ApplicationController
   def status
     @semester = Semester.find_by(id: params[:id])
     return redirect_to(semesters_path) unless @semester
-    
+
     session[:last_viewed_semester_id] = @semester.id
 
     @teams = @semester.teams
