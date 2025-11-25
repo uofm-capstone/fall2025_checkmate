@@ -80,6 +80,40 @@ class SemestersController < ApplicationController
     @sprints = @semester.sprints
     @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
 
+        # === COMMIT COUNT LOGIC ===
+     
+    service = GithubService.new
+
+    # pick the date range (adjust as needed)
+    start_date = 30.days.ago.iso8601
+    end_date   = Time.now.iso8601
+
+    @commit_counts = {}
+
+    @teams.each do |team|
+      next unless team.repo_url.present?
+
+      # Normalize: "https://github.com/org/repo" → "org/repo"
+      repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "")
+      
+      @commit_counts[team.name] ||= {}
+
+      team.students.each do |student|
+        username = student.github_username
+        next if username.blank?
+
+        info = service.get_commit_info(repo, username, start_date, end_date)
+
+        @commit_counts[team.name][username] = {
+          student: student,
+          commits: info.commit_count,
+          added:   info.lines_added,
+          removed: info.lines_removed,
+          changed: info.lines_changed
+        }
+      end
+    end
+    
     render :show
   end
 
@@ -197,37 +231,37 @@ class SemestersController < ApplicationController
 
      # === COMMIT COUNT LOGIC ===
      
-  service = GithubService.new
+    service = GithubService.new
 
-  # pick the date range (adjust as needed)
-  start_date = 30.days.ago.iso8601
-  end_date   = Time.now.iso8601
+    # pick the date range (adjust as needed)
+    start_date = 30.days.ago.iso8601
+    end_date   = Time.now.iso8601
 
-  @commit_counts = {}
+    @commit_counts = {}
 
-  @teams.each do |team|
-    next unless team.repo_url.present?
+    @teams.each do |team|
+      next unless team.repo_url.present?
 
-    # Normalize: "https://github.com/org/repo" → "org/repo"
-    repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "")
-    
-    @commit_counts[team.name] ||= {}
+      # Normalize: "https://github.com/org/repo" → "org/repo"
+      repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "")
+      
+      @commit_counts[team.name] ||= {}
 
-    team.students.each do |student|
-      username = student.github_username
-      next if username.blank?
+      team.students.each do |student|
+        username = student.github_username
+        next if username.blank?
 
-      info = service.get_commit_info(repo, username, start_date, end_date)
+        info = service.get_commit_info(repo, username, start_date, end_date)
 
-      @commit_counts[team.name][username] = {
-        student: student,
-        commits: info.commit_count,
-        added:   info.lines_added,
-        removed: info.lines_removed,
-        changed: info.lines_changed
-      }
+        @commit_counts[team.name][username] = {
+          student: student,
+          commits: info.commit_count,
+          added:   info.lines_added,
+          removed: info.lines_removed,
+          changed: info.lines_changed
+        }
+      end
     end
-  end
 
     render :show
   end
