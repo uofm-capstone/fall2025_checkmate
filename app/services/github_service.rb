@@ -250,7 +250,34 @@ class GithubService
 
   # CBP: Count of commits and line changes
   CBPResult = Struct.new(:commit_count, :lines_added, :lines_removed, :lines_changed)
-  def get_commit_info(repo, username, start_date, end_date)
+  def get_commit_info(repo, username, commits, start_date, end_date)
+    user_commits = commits_by_user(commits, username)
+
+    total_added = 0
+    total_removed = 0
+
+    user_commits.each do |c|
+      detailed = @client.commit(repo, c.sha)
+
+      # Safely handle commits without stats
+      added    = detailed.stats&.additions.to_i
+      removed  = detailed.stats&.deletions.to_i
+
+      total_added   += added
+      total_removed += removed
+    end
+
+    total_changed = total_added + total_removed
+
+    CBPResult.new(
+      user_commits.count,
+      total_added,
+      total_removed,
+      total_changed
+    )
+  end
+
+  def get_commit_info_old(repo, username, start_date, end_date)
     commits = commits_in_range(repo, start_date, end_date)
     user_commits = commits_by_user(commits, username)
 
