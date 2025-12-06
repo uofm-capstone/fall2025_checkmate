@@ -279,10 +279,15 @@
                           <td class="sticky-col-2" style="white-space: nowrap;">
                             <%= "#{student.name.split.first} #{student.name.split.last&.first}." %>
                           </td>
-
-                          <% @sprint_list.each do |sprint| %>
+                           
+                          
+                          <% @sprint_list2.each do |sprint| %>
+                            <% service = GithubService.new() %>
+                            <% repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "") %>
+                            <% result = service.get_commit_info(repo, student.github_username, sprint.progress_deadline, sprint.demo_deadline) %>
+                            
                             <% rubric_items.each do |item| %>
-                              <td class="text-center sprint-group <%= sprint.parameterize %>">
+                              <td class="text-center sprint-group <%#= sprint.parameterize %>">
                                 <% case item %>
                                   <% when "FS&D" %>
                                     <!-- Feature Selection and Decomposition — Metric: Number of cards per column -->
@@ -302,8 +307,10 @@
 
                                   <% when "CBP" %>
                                     <!-- Coding Best Practices — Metric: Count of commits and lines of code changed per team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
+                                      <%= result.commit_count  %><br>
+                                      <%= result.lines_changed %>
+                            
+                                    
                                   <% when "TSP" %>
                                     <!-- Time Spent Since Progress Check — Metric: Sum of work hours or task updates since last progress check -->
                                     <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
@@ -369,40 +376,6 @@
       </div>
     </div>
   </div>
-
-  <h2>Commit Counts</h2>
-
-  <% @commit_counts.each do |team_name, members| %>
-  <h3><%= team_name %></h3>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Student</th>
-        <th>GitHub Username</th>
-        <th>Commits</th>
-        <th>Lines Added</th>
-        <th>Lines Removed</th>
-        <th>Total Changes</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% members.each do |username, data| %>
-        <tr>
-          <td><%= data[:student].full_name %></td>
-          <td><%= username %></td>
-          <td><%= data[:commits] %></td>
-          <td><%= data[:added] %></td>
-          <td><%= data[:removed] %></td>
-          <td><%= data[:changed] %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <hr>
-<% end %>
 
 
   <%= javascript_include_tag 'survey_page/survey_scroll_navigation' %>

@@ -65,6 +65,7 @@ class SemestersController < ApplicationController
     # Load all teams and sprint info.
     @teams = @semester.teams
     @sprint_list = @semester.sprints.pluck(:name)
+    @sprint_list2 = @semester.sprints.order(:start_date)
     @flags = {}
 
     # Build flags data per sprint and team for status display.
