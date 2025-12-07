@@ -334,6 +334,15 @@ end
     @sprints = @semester.sprints
     @start_dates, @end_dates, @team_names, @repo_owners, @repo_names, @access_tokens, @sprint_numbers = get_git_info(@semester)
 
+    # Calculate metrics for display.
+    @service = GithubService.new
+
+    @team_project_data = {}
+    @teams.each do |team|
+      project_cards = @service.project_cards(team.project_board_url)
+      @team_project_data[team.name] = project_cards
+    end
+    
     render :show
   end
 

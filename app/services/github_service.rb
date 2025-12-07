@@ -48,14 +48,14 @@ class GithubService
   CardInfo = Struct.new(:title, :status, :assignees, :fields, :type)
   def project_cards(project_url)
     org    = project_url.split("/")[4]
-    number = project_url.split("/").last.to_i
-
+    number = project_url.split("/")[6].to_i
+    
     query = <<~GRAPHQL
       query($org: String!, $number: Int!) {
         organization(login: $org) {
           projectV2(number: $number) {
             title
-            items(first: 50) {
+            items(first: 100) {
               nodes {
                 id
 
@@ -247,6 +247,19 @@ class GithubService
   end
 
   # TE: Sum of estimated hours per team member
+  def get_total_hours_per_assignee(project_cards, usernames = [])
+    assignee_counts = Hash.new(0)
+
+    project_cards.each do |card|
+      card.assignees.each do |assignee|
+        if usernames.include?(assignee)
+          assignee_counts[assignee] += (card.fields["Time Estimate"] || 0)
+        end
+      end
+    end
+
+    return assignee_counts
+  end
 
   # CBP: Count of commits and line changes
   CBPResult = Struct.new(:commit_count, :lines_added, :lines_removed, :lines_changed)

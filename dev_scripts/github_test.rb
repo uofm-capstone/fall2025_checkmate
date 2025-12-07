@@ -23,7 +23,11 @@ if false
   puts "Total Lines Changed: #{result.lines_changed}"
 end
 
-if true
-  cards = service.project_cards("https://github.com/orgs/Checkmate-test/projects/1")
-  puts service.get_card_count_per_assignee(cards, ["JacobHensley"])
+if false
+  for i in 40..40 do
+    s = "https://github.com/orgs/uofm-capstone/projects/#{i}/views/1"
+    puts "Calling project_cards with: #{s.inspect}"
+    cards = service.project_cards(s)
+    puts cards
+  end
 end

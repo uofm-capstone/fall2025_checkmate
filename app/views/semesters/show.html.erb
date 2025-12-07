@@ -121,6 +121,7 @@
     .table {
       border-collapse: separate;
       border-spacing: 0;
+      white-space: nowrap;
     }
 
     .table thead th {
@@ -286,15 +287,17 @@
                                 <% case item %>
                                   <% when "FS&D" %>
                                     <!-- Feature Selection and Decomposition — Metric: Number of cards per column -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
-
+                                    <% column_count = @service.get_card_count_per_column(@team_project_data[team.name]) %>
+                                    <%= "#{column_count['Backlog']}, #{column_count['Todo']}, #{column_count['In Progress']}, #{column_count['Done']}" %>
                                   <% when "FA" %>
                                     <!-- Feature Assignments — Metric: Number of cards assigned to each team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                                    <% assigned_count = @service.get_card_count_per_assignee(@team_project_data[team.name], student.github_username)[student.github_username] %>
+                                    <%= assigned_count %>
 
                                   <% when "TE" %>
                                     <!-- Feature Time Estimates — Metric: Sum of estimated hours per team member -->
-                                    <%= image_tag "check-circle-fill.svg", style: "height:16px" %>
+                                    <% estimated_hours = @service.get_total_hours_per_assignee(@team_project_data[team.name], student.github_username)[student.github_username] %>
+                                    <%= estimated_hours %>
 
                                   <% when "PP" %>
                                     <!-- Product Progress — Metric: Cards moved through workflow (To-Do → In-Progress → Done) per team member -->
