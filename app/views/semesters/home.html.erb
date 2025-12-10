@@ -174,9 +174,10 @@
                   <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
                     <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
                     <div class="card-body">
-                      <%= link_to "Select", semester_path(s), class: "btn btn-primary" %>
-                      <br>
-                      <div class='d-flex justify-content-center'>
+                      <%= button_to "Select", select_semester_path(s),
+                        method: :post,
+                        class: "btn btn-primary"  %>
+                      <div class='d-flex justify-content-center' style='padding-top: 10px;'>
                         <!-- Edit Button -->
                         <% if current_user == s.user || current_user.admin? %>
                           <%= link_to '#',
@@ -190,7 +191,7 @@
                         <!-- Delete Button -> opens confirmation modal -->
                         <% if current_user == s.user || current_user.admin? %>
                           <%= link_to '#',
-                                      style: 'position: relative; bottom: 5px; right: 4px;',
+                                      style: 'position: relative; bottom: 5px; right: 4px; margin-top: 0px;',
                                       class: 'icon-button',
                                       data: { bs_toggle: "modal", bs_target: "#deleteSemesterModal-#{s.id}" } do %>
                             <i class='bi bi-trash-fill'></i>

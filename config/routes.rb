@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   delete 'students/:id', to: 'students#destroy', as: 'destroy_student'
 
 
-
+  resources :semesters do
+    post :select, on: :member
+  end
 
   # Sprint controller
   get 'semesters/:semester_id/sprints', to: 'sprints#index', as: 'semester_sprints'

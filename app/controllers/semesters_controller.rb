@@ -44,6 +44,12 @@ class SemestersController < ApplicationController
   # INDEX / HOME
   # --------------------------------------------------------
 
+  def select
+    @semester = Semester.find(params[:id])
+    session[:last_viewed_semester_id] = @semester.id
+    redirect_to semesters_path, notice: "Semester selected."
+  end
+
   # Displays all semesters on the main Semesters page.
   def home
     @semesters = Semester.order(:year)
