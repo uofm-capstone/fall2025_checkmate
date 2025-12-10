@@ -282,10 +282,7 @@
                            
                           
                           <% @sprint_list2.each do |sprint| %>
-                            <% service = GithubService.new() %>
-                            <% repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "") %>
-                            <% result = service.get_commit_info(repo, student.github_username, sprint.progress_deadline, sprint.demo_deadline) %>
-                            
+  
                             <% rubric_items.each do |item| %>
                               <td class="text-center sprint-group <%#= sprint.parameterize %>">
                                 <% case item %>
@@ -307,10 +304,9 @@
 
                                   <% when "CBP" %>
                                     <!-- Coding Best Practices — Metric: Count of commits and lines of code changed per team member -->
-                                      <%= result.commit_count  %><br>
-                                      <%= result.lines_changed %>
-                            
-                                    
+                                    <% if @commit_counts && @commit_counts[team.name] && @commit_counts[team.name][student.github_username] %>
+                                      <%= @commit_counts[team.name][student.github_username][:commits] %><br>
+                                    <% end %>
                                   <% when "TSP" %>
                                     <!-- Time Spent Since Progress Check — Metric: Sum of work hours or task updates since last progress check -->
                                     <%= image_tag "check-circle-fill.svg", style: "height:16px" %>

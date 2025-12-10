@@ -98,12 +98,12 @@ class SemestersController < ApplicationController
       repo = team.repo_url.split("github.com/").last.gsub(/\.git$/, "")
       
       @commit_counts[team.name] ||= {}
-
+      commits = service.commits_in_range(repo, start_date, end_date)
       team.students.each do |student|
         username = student.github_username
         next if username.blank?
 
-        info = service.get_commit_info(repo, username, start_date, end_date)
+        info = service.get_commit_info(repo, username, commits, start_date, end_date)
 
         @commit_counts[team.name][username] = {
           student: student,
@@ -249,11 +249,12 @@ class SemestersController < ApplicationController
       
       @commit_counts[team.name] ||= {}
 
+      commits = service.commits_in_range(repo, start_date, end_date)
       team.students.each do |student|
         username = student.github_username
         next if username.blank?
 
-        info = service.get_commit_info(repo, username, start_date, end_date)
+        info = service.get_commit_info(repo, username, commits, start_date, end_date)
 
         @commit_counts[team.name][username] = {
           student: student,
