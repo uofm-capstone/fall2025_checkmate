@@ -217,6 +217,7 @@ class SemestersController < ApplicationController
 
     @teams = @semester.teams
     @sprint_list = @semester.sprints.pluck(:name)
+    @sprint_list2 = @semester.sprints.order(:start_date)
     @flags = {}
 
     @sprint_list.each do |sprint|
