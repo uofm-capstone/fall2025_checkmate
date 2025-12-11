@@ -170,8 +170,10 @@
                                 else ''
                                 end %>
 
+                <% selected_semester = session[:last_viewed_semester_id] %>
+                <% is_selected = (s.id == selected_semester) %>
                 <div class="col-md-12">
-                  <div class="card mb-4 <%= card_class %>" style='position: relative; height: 10rem; width: 15rem;'>
+                  <div class="card mb-4 <%= card_class %> <%= 'border border-3 border-primary' if is_selected %>" style='position: relative; height: 10rem; width: 15rem;'>
                     <div class="card-header text-dark"><%= "#{s.semester} #{s.year}" %></div>
                     <div class="card-body">
                       <%= button_to "Select", select_semester_path(s),
