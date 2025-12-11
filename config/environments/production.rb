@@ -4,6 +4,12 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.hosts << /\.run\.app\z/
 
+  # Show full error reports even in production (for debugging only!)
+  config.consider_all_requests_local = true
+
+  # Make sure Rails actually renders exception pages rather than letting the web server swallow them
+  config.action_dispatch.show_exceptions = true
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
