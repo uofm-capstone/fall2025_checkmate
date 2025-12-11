@@ -6,9 +6,7 @@ if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
 fi
 
-if [ "${RUN_MIGRATIONS:-false}" = "true" ]; then
-  echo "Running migrations..."
-  bundle exec rails db:migrate
-fi
+echo "Running migrations..."
+bundle exec rails db:migrate
 
 exec bundle exec "$@"
